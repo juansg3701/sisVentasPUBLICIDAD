@@ -29,7 +29,7 @@ class ProductoSedeController extends Controller
 	 			->where('p.plu','LIKE', '%'.$query1.'%')
 	 			->where('p.ean','LIKE', '%'.$query2.'%')
 	 			->orderBy('p.id_producto', 'desc')
-	 			->paginate(10);
+	 			->paginate(3);
 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
