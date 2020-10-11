@@ -16,7 +16,7 @@
 			<div class="card" align="center">
 				<div class="row" align="center">
 					<div class="col-sm-12" align="center">
-						<br><h3>Registro de Productos de Sede</h3><br>
+						<br><h1 class="h3 mb-2 text-gray-800">REGISTRAR PRODUCTOS</h1><br>
 					</div>
 				</div>
 				<div class="row" align="center">	
