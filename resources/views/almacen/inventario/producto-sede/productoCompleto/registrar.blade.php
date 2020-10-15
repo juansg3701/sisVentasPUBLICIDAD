@@ -8,7 +8,7 @@
 
 <body>
 
-	{!!Form::open(array('url'=>'almacen/inventario/producto-sede/productoCompleto','method'=>'POST','autocomplete'=>'off'))!!}
+	{!!Form::open(array('url'=>'almacen/inventario/producto-sede/productoCompleto','method'=>'POST','autocomplete'=>'off', 'files'=>'true'))!!}
 	{{Form::token()}}
 		
 	<div class="row" align="center">	
@@ -45,7 +45,7 @@
 									</div>
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>EAN</div>
+											<div>EAN:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input type="text" class="form-control" name="ean">
@@ -53,7 +53,7 @@
 									</div>
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Categoría</div>
+											<div>Categoría:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<select name="categoria_id_categoria" class="form-control">
@@ -63,18 +63,10 @@
 											</select>	
 										</div>
 									</div>
+								
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Unidad de Medida</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input type="text" class="form-control" name="unidad_de_medida">
-										</div>
-									</div>
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Precio</div>
+											<div>Precio:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input type="text" class="form-control" name="precio">
@@ -83,7 +75,7 @@
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Impuesto</div>
+											<div>Impuesto:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<select name="impuestos_id_impuestos" class="form-control">
@@ -96,10 +88,19 @@
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Stock Mínimo</div>
+											<div>Stock Mínimo:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input type="text" class="form-control" name="stock_minimo">
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Imagen:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="file" name="imagen" class="form-control" placeholder="">
 										</div>
 									</div>
 

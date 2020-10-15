@@ -82,14 +82,6 @@
 											</select>	
 										</div>
 									</div>
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Unidad de Medida</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input type="text" class="form-control" name="unidad_de_medida" value="{{$productos->unidad_de_medida}}">
-										</div>
-									</div>
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
@@ -121,6 +113,29 @@
 											<input type="text" class="form-control" name="stock_minimo" value="{{$productos->stock_minimo}}">
 										</div>
 									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Imagen:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="file" name="imagen" class="form-control" placeholder="">
+										</div>
+
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-12">
+										@if($productos->imagen!="")
+											<img src="{{asset('imagenes/articulos/'.$productos->imagen)}}"  height="200px" width="200px" class="img-thumbnail">
+										@endif
+										</div>
+										
+										
+										
+									</div>
+
+
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">

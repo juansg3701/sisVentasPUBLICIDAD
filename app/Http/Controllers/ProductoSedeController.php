@@ -11,10 +11,9 @@ use DB;
 
 class ProductoSedeController extends Controller
 {
-	  public function __construct(){
-			$this->middleware('auth');	
-
-			 	} 
+	public function __construct(){
+		$this->middleware('auth');	
+	} 
 	 	public function index(Request $request){
 	 		if ($request) {
 	 			$query0=trim($request->get('searchText0'));
@@ -24,7 +23,7 @@ class ProductoSedeController extends Controller
 	 			$productos=DB::table('producto as p')
 	 			->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
 	 			->join('impuestos as i','p.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.unidad_de_medida','p.precio','i.nombre as impuestos_id_impuestos','p.stock_minimo')
+	 			->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','i.nombre as impuestos_id_impuestos','p.stock_minimo','p.imagen')
 	 			->where('p.nombre','LIKE', '%'.$query0.'%')
 	 			->where('p.plu','LIKE', '%'.$query1.'%')
 	 			->where('p.ean','LIKE', '%'.$query2.'%')
@@ -74,11 +73,16 @@ class ProductoSedeController extends Controller
 		 		$ps->plu=$pluR;
 		 		$ps->ean=$eanR;
 		 		$ps->nombre=$request->get('nombre');
-		 		$ps->unidad_de_medida=$request->get('unidad_de_medida');
+		 		//$ps->unidad_de_medida=$request->get('unidad_de_medida');
 		 		$ps->precio=$request->get('precio');
 		 		$ps->impuestos_id_impuestos=$request->get('impuestos_id_impuestos');
 		 		$ps->stock_minimo=$request->get('stock_minimo');
-		 		$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+				$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+				if($request->hasFile('imagen')){
+					$file=$request->file('imagen');
+					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
+					$ps->imagen=$file->getClientOriginalName();
+				}
 		 		$ps->save();
 
 			 	return back()->with('msj','Producto guardado');
@@ -132,7 +136,7 @@ class ProductoSedeController extends Controller
 		 		$ps->plu=$pluR;
 		 		$ps->ean=$eanR;
 		 		$ps->nombre=$request->get('nombre');
-		 		$ps->unidad_de_medida=$request->get('unidad_de_medida');
+		 		//$ps->unidad_de_medida=$request->get('unidad_de_medida');
 		 		$ps->precio=$request->get('precio');
 		 		$ps->impuestos_id_impuestos=$request->get('impuestos_id_impuestos');
 		 		$ps->stock_minimo=$request->get('stock_minimo');

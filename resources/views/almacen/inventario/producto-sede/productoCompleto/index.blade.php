@@ -64,28 +64,33 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
-							<th>ID</th>
+							<!--<th>ID</th>-->
 							<th>NOMBRE</th>
 							<th>PLU</th>
 							<th>EAN</th>
 							<th>CATEGORÍA</th>
-							<th>UNIDAD MEDIDA</th>
 							<th>PRECIO</th>
 							<th>IMPUESTO</th>
 							<th>STOCK MÍNIMO</th>
+							<th>IMAGEN</th>
 							<th>OPCIONES</th>
 						</thead>
 						@foreach($productos as $ps)
 						<tr>
-							<td>{{ $ps->id_producto}}</td>
+							<!--<td>{{ $ps->id_producto}}</td>-->
 							<td>{{ $ps->nombre}}</td>
 							<td>{{ $ps->plu}}</td>
 							<td>{{ $ps->ean}}</td>
 							<td>{{ $ps->categoria_id_categoria}}</td>
-							<td>{{ $ps->unidad_de_medida}}</td>
 							<td>{{ $ps->precio}}</td>
 							<td>{{ $ps->impuestos_id_impuestos}}</td>
 							<td>{{ $ps->stock_minimo}}</td>
+							<td>
+								<label>
+									<img src="{{asset('imagenes/articulos/'.$ps->imagen)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail">
+									<br>
+								</label>
+							</td>
 							<td>
 								<a href="{{URL::action('ProductoSedeController@edit',$ps->id_producto)}}"><button class="btn btn-info">Editar</button></a>
 								<a href="" data-target="#modal-delete-{{$ps->id_producto}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>

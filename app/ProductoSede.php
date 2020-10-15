@@ -11,7 +11,7 @@ class ProductoSede extends Model
     protected $primaryKey='id_producto';
     public $timestamps =false;
     
-    protected $fillable=[ 'plu','ean','nombre','unidad_de_medida','precio','impuestos_id_impuestos','stock_minimo','categoria_id_categoria'];
+    protected $fillable=[ 'plu','ean','nombre','precio','impuestos_id_impuestos','stock_minimo','categoria_id_categoria','imagen'];
     protected $guarded=[];
 }
 

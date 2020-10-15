@@ -28,11 +28,11 @@ class ProductoSedeFormRequest extends Request
             'plu'=>'required|max:45',
             'ean'=>'max:45',
             'nombre'=>'required|max:45',
-            'unidad_de_medida'=>'required|max:45',
             'precio'=>'required|max:45',
             'impuestos_id_impuestos'=>'required|max:45',
             'stock_minimo'=>'required|max:45',
             'categoria_id_categoria'=>'required|max:45',
+            'imagen'=>'required|max:2000',
         ];
     }
 }
