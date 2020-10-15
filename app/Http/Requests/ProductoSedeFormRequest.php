@@ -32,7 +32,7 @@ class ProductoSedeFormRequest extends Request
             'impuestos_id_impuestos'=>'required|max:45',
             'stock_minimo'=>'required|max:45',
             'categoria_id_categoria'=>'required|max:45',
-            'imagen'=>'required|max:2000',
+            'imagen'=>'|max:2000',
         ];
     }
 }

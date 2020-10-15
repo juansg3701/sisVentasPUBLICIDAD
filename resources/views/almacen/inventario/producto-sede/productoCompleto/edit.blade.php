@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-	{!!Form::model($productos,['method'=>'PATCH','route'=>['almacen.inventario.producto-sede.productoCompleto.update',$productos->id_producto]])!!}
+	{!!Form::model($productos,['method'=>'PATCH','route'=>['almacen.inventario.producto-sede.productoCompleto.update',$productos->id_producto], 'files'=>'true'])!!}
 	{{Form::token()}}
 	
 
@@ -130,17 +130,12 @@
 											<img src="{{asset('imagenes/articulos/'.$productos->imagen)}}"  height="200px" width="200px" class="img-thumbnail">
 										@endif
 										</div>
-										
-										
-										
 									</div>
-
-
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<button type="submit" class="btn btn-info">Guardar</button>
-											<a href="{{url('almacen/inventario/producto-sede/productoCompleto')}}" class="btn btn-danger">Volver</a>
+											<a href="{{url('almacen/inventario/producto-sede/productoCompleto')}}" class="btn btn-danger">Regresar</a>
 										</div>
 									</div>
 				               </div>

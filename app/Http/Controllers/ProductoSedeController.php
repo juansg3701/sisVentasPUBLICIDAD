@@ -140,7 +140,18 @@ class ProductoSedeController extends Controller
 		 		$ps->precio=$request->get('precio');
 		 		$ps->impuestos_id_impuestos=$request->get('impuestos_id_impuestos');
 		 		$ps->stock_minimo=$request->get('stock_minimo');
-		 		$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+				$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+				if($request->hasFile('imagen')){
+					$file=$request->file('imagen');
+					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
+					$ps->imagen=$file->getClientOriginalName();
+				}
+				
+				/*if(Input::hasFile('imagen')){
+					$file=Input::file('imagen');
+					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
+					$ps->imagen=$file->getClientOriginalName();
+				}*/
 		 		$ps->update();
 
 		 		return back()->with('msj','Producto actualizado');

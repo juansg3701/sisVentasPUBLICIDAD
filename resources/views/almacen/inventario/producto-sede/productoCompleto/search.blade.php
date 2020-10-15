@@ -27,7 +27,7 @@
 									</div>
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>EAN</div>
+											<div>EAN:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input id="tags" type="text" class="form-control" name="searchText2" placeholder="Buscar..." >
