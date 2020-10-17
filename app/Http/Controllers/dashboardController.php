@@ -34,8 +34,7 @@ class dashboardController extends Controller
 
 	 			$productos=DB::table('producto as p')
 	 			->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
-	 			->join('impuestos as i','p.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.unidad_de_medida','p.precio','i.nombre as impuestos_id_impuestos','p.stock_minimo')
+	 			->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.unidad_de_medida','p.precio','p.stock_minimo')
 	 			->where('p.fecha_registro','>=',"01/01/2019")
 	 			->where('p.fecha_registro','<=',"12/12/2020")
 	 			->orderBy('p.id_producto', 'desc')
