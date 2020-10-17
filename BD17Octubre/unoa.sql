@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2020 a las 22:06:40
+-- Tiempo de generación: 17-10-2020 a las 07:03:26
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -66,23 +66,80 @@ INSERT INTO `cargo_modulo` (`id_cargoModulo`, `id_cargo`, `id_modulo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria_producto`
+-- Estructura de tabla para la tabla `cartera`
 --
 
-CREATE TABLE `categoria_producto` (
-  `id_categoria` int(11) NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL
+CREATE TABLE `cartera` (
+  `id_cartera` int(11) NOT NULL,
+  `cuotas_totales` int(11) NOT NULL,
+  `cuotas_restantes` int(11) NOT NULL,
+  `cliente_id_cliente` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `total` double NOT NULL,
+  `fecha` date NOT NULL,
+  `atraso` tinyint(1) NOT NULL,
+  `factura_id_factura` int(11) DEFAULT NULL,
+  `sede_id_sede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `categoria_producto`
+-- Volcado de datos para la tabla `cartera`
 --
 
-INSERT INTO `categoria_producto` (`id_categoria`, `nombre`, `descripcion`) VALUES
-(1, 'alimentos', 'verduras'),
-(2, 'Ropa', 'Deportiva'),
-(3, 'accesorios', 'ropa');
+INSERT INTO `cartera` (`id_cartera`, `cuotas_totales`, `cuotas_restantes`, `cliente_id_cliente`, `empleado_id_empleado`, `total`, `fecha`, `atraso`, `factura_id_factura`, `sede_id_sede`) VALUES
+(12, 12, 0, 7, 2, 0, '2019-12-18', 0, 43, 0),
+(13, 12, 4, 5, 2, 10444, '2020-01-16', 0, 43, 0),
+(14, 5, -1, 7, 2, 0, '2020-01-19', 0, 43, 0),
+(15, 5, 4, 7, 2, 19766, '2019-12-19', 0, 43, 0),
+(16, 5, 3, 7, 2, 0, '2019-12-18', 0, 43, 0),
+(17, 3, 3, 5, 2, 22456, '2020-01-19', 0, 43, 0),
+(18, 5, 5, 5, 2, 22456, '2020-03-03', 0, 43, 0),
+(19, 5, 5, 5, 2, 11228, '2020-03-03', 0, 44, 0),
+(23, 5, 2, 7, 2, 0, '2020-03-03', 0, 43, 0),
+(31, 12, 12, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(32, 4, 4, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(33, 3, 3, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(34, 3, 3, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(35, 24, 24, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(36, 1234567890, 1234567890, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(37, 56, 56, 5, 2, 11228, '2020-03-05', 0, 44, 0),
+(38, 2, 1, 5, 2, 87456, '2020-03-07', 0, 56, 0),
+(40, 4, 2, 5, 2, 8, '2020-03-08', 0, 64, 0),
+(41, 2, 0, 5, 2, 0, '2020-03-13', 0, 82, 0),
+(42, 2, 0, 5, 2, 0, '2020-03-13', 0, 83, 0),
+(43, 2, 0, 5, 2, 0, '2020-03-13', 0, 84, 0),
+(44, 2, 0, 5, 2, 0, '2020-03-13', 0, 85, 0),
+(45, 2, 0, 5, 2, 0, '2020-03-13', 0, 86, 0),
+(46, 2, 0, 5, 2, 0, '2020-03-13', 0, 87, 0),
+(47, 2, 0, 5, 2, 0, '2020-03-13', 0, 88, 0),
+(48, 2, 0, 5, 2, 0, '2020-03-14', 0, 89, 0),
+(49, 2, 0, 5, 2, 0, '2020-03-14', 0, 90, 0),
+(50, 2, 1, 5, 2, 100, '2020-03-15', 1, 91, 0),
+(51, 2, 0, 5, 2, 0, '2020-03-15', 0, 94, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `id_categoria` int(11) NOT NULL,
+  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`id_categoria`, `nombre`, `descripcion`, `empleado_id_empleado`, `sede_id_sede`, `fecha`) VALUES
+(1, 'alimentos', 'verduras', 0, 0, '0000-00-00'),
+(2, 'Ropa', 'Deportiva', 0, 0, '0000-00-00'),
+(3, 'accesorios', 'ropa', 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -93,7 +150,10 @@ INSERT INTO `categoria_producto` (`id_categoria`, `nombre`, `descripcion`) VALUE
 CREATE TABLE `categoria_stock_especiales` (
   `id_categoriaStock` int(11) NOT NULL,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
-  `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL
+  `descripcion` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -112,24 +172,26 @@ CREATE TABLE `cliente` (
   `verificacion_nit` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `nombre_empresa` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `cartera_activa` char(1) COLLATE utf8_spanish_ci NOT NULL,
-  `user_id_user` int(11) NOT NULL
+  `user_id_user` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`id_cliente`, `nombre`, `direccion`, `telefono`, `correo`, `documento`, `verificacion_nit`, `nombre_empresa`, `cartera_activa`, `user_id_user`) VALUES
-(1, 'e', 'e', '4', 'e@gmail.com', '55', '22', 'a', '1', 0),
-(5, 'Andres', '', '312289734527', 'Andres@gmail.com', '3', '', '', '1', 0),
-(7, 'holman', 'calle 12', '12314', 'h@gmail.com', '2131234', '123', 'canasta', '1', 0),
-(23, 'Diana Torres', 'Avenida 24', '3223332212', 'dt@gmail.com', '487654321', '7', NULL, '0', 0),
-(24, 'Gabriel Suarez', 'Carrera 23', '1312321132', 'daniel@gmail.com', '1312312132', '7', NULL, '0', 0),
-(25, 'Holman Rincon', 'Carrera 45', '2331212132', 'holman@gmail.com', '3223223322', '8', NULL, '0', 0),
-(26, 'Carlos Camargo', 'Calle 11', '12131321', 'carlos@hotmail.com', '32233232', '8', NULL, '0', 0),
-(27, 'Juan Sanchez', 'calle 22', '13212321', 'h@gmail.com', '2132133123', '9', NULL, '0', 0),
-(28, 'b', 'b', '1', 'b@gmail.com', '22', '', NULL, '0', 0),
-(29, 'c', 'c', '1', 'c@gmail.com', '123', '6', NULL, '0', 0);
+INSERT INTO `cliente` (`id_cliente`, `nombre`, `direccion`, `telefono`, `correo`, `documento`, `verificacion_nit`, `nombre_empresa`, `cartera_activa`, `user_id_user`, `empleado_id_empleado`, `fecha`) VALUES
+(1, 'e', 'e', '4', 'e@gmail.com', '55', '22', 'a', '1', 0, 0, '0000-00-00'),
+(5, 'Andres', '', '312289734527', 'Andres@gmail.com', '3', '', '', '1', 0, 0, '0000-00-00'),
+(7, 'holman', 'calle 12', '12314', 'h@gmail.com', '2131234', '123', 'canasta', '1', 0, 0, '0000-00-00'),
+(23, 'Diana Torres', 'Avenida 24', '3223332212', 'dt@gmail.com', '487654321', '7', NULL, '0', 0, 0, '0000-00-00'),
+(24, 'Gabriel Suarez', 'Carrera 23', '1312321132', 'daniel@gmail.com', '1312312132', '7', NULL, '0', 0, 0, '0000-00-00'),
+(25, 'Holman Rincon', 'Carrera 45', '2331212132', 'holman@gmail.com', '3223223322', '8', NULL, '0', 0, 0, '0000-00-00'),
+(26, 'Carlos Camargo', 'Calle 11', '12131321', 'carlos@hotmail.com', '32233232', '8', NULL, '0', 0, 0, '0000-00-00'),
+(27, 'Juan Sanchez', 'calle 22', '13212321', 'h@gmail.com', '2132133123', '9', NULL, '0', 0, 0, '0000-00-00'),
+(28, 'b', 'b', '1', 'b@gmail.com', '22', '', NULL, '0', 0, 0, '0000-00-00'),
+(29, 'c', 'c', '1', 'c@gmail.com', '123', '6', NULL, '0', 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -143,58 +205,102 @@ CREATE TABLE `c_inventario` (
   `noproductos` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `valor_total` double DEFAULT NULL,
   `p_tiempo_id_tiempo` int(11) NOT NULL,
-  `sede_id_sede` int(11) NOT NULL
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `c_inventario`
 --
 
-INSERT INTO `c_inventario` (`id_corte`, `fecha`, `noproductos`, `valor_total`, `p_tiempo_id_tiempo`, `sede_id_sede`) VALUES
-(101, '2019-11-05 00:00:00', NULL, NULL, 1, 1),
-(102, '2019-11-05 00:00:00', NULL, NULL, 1, 1),
-(103, '2019-11-05 00:00:00', NULL, NULL, 1, 2),
-(104, '2019-11-05 00:00:00', NULL, NULL, 1, 1),
-(105, '2019-11-18 00:00:00', NULL, NULL, 1, 1),
-(106, '2019-11-18 00:00:00', NULL, NULL, 1, 1),
-(107, '2019-11-19 00:00:00', NULL, NULL, 1, 1),
-(108, '2019-11-19 00:00:00', NULL, NULL, 1, 1),
-(109, '2019-11-19 00:00:00', NULL, NULL, 1, 1),
-(110, '2019-11-19 00:00:00', NULL, NULL, 1, 1),
-(111, '2019-11-19 00:00:00', NULL, NULL, 1, 1),
-(112, '2019-11-19 00:00:00', NULL, NULL, 1, 1),
-(113, '2019-11-19 00:00:00', NULL, NULL, 1, 4),
-(114, '2019-11-20 00:00:00', NULL, NULL, 1, 1),
-(115, '2019-11-20 00:00:00', NULL, NULL, 1, 1),
-(116, '2019-11-20 00:00:00', NULL, NULL, 1, 1),
-(117, '2019-11-20 00:00:00', NULL, NULL, 1, 1),
-(118, '2019-11-20 00:00:00', NULL, NULL, 1, 1),
-(119, '2019-11-20 00:00:00', NULL, NULL, 1, 1),
-(120, '2020-07-05 21:43:21', NULL, NULL, 1, 1),
-(121, '2020-07-13 23:13:39', NULL, NULL, 1, 1);
+INSERT INTO `c_inventario` (`id_corte`, `fecha`, `noproductos`, `valor_total`, `p_tiempo_id_tiempo`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(101, '2019-11-05 00:00:00', NULL, NULL, 1, 1, 0),
+(102, '2019-11-05 00:00:00', NULL, NULL, 1, 1, 0),
+(103, '2019-11-05 00:00:00', NULL, NULL, 1, 2, 0),
+(104, '2019-11-05 00:00:00', NULL, NULL, 1, 1, 0),
+(105, '2019-11-18 00:00:00', NULL, NULL, 1, 1, 0),
+(106, '2019-11-18 00:00:00', NULL, NULL, 1, 1, 0),
+(107, '2019-11-19 00:00:00', NULL, NULL, 1, 1, 0),
+(108, '2019-11-19 00:00:00', NULL, NULL, 1, 1, 0),
+(109, '2019-11-19 00:00:00', NULL, NULL, 1, 1, 0),
+(110, '2019-11-19 00:00:00', NULL, NULL, 1, 1, 0),
+(111, '2019-11-19 00:00:00', NULL, NULL, 1, 1, 0),
+(112, '2019-11-19 00:00:00', NULL, NULL, 1, 1, 0),
+(113, '2019-11-19 00:00:00', NULL, NULL, 1, 4, 0),
+(114, '2019-11-20 00:00:00', NULL, NULL, 1, 1, 0),
+(115, '2019-11-20 00:00:00', NULL, NULL, 1, 1, 0),
+(116, '2019-11-20 00:00:00', NULL, NULL, 1, 1, 0),
+(117, '2019-11-20 00:00:00', NULL, NULL, 1, 1, 0),
+(118, '2019-11-20 00:00:00', NULL, NULL, 1, 1, 0),
+(119, '2019-11-20 00:00:00', NULL, NULL, 1, 1, 0),
+(120, '2020-07-05 21:43:21', NULL, NULL, 1, 1, 0),
+(121, '2020-07-13 23:13:39', NULL, NULL, 1, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `descuentos`
+-- Estructura de tabla para la tabla `detalle_cartera`
 --
 
-CREATE TABLE `descuentos` (
-  `id_descuento` int(11) NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `caracteristica` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `porcentaje` double NOT NULL,
+CREATE TABLE `detalle_cartera` (
+  `id_dCartera` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `valor_abono` double NOT NULL,
+  `valor_total` double NOT NULL,
+  `valor_restante` double NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `tipo_pago` int(11) NOT NULL,
+  `id_cartera` int(11) NOT NULL,
   `sede_id_sede` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `descuentos`
+-- Volcado de datos para la tabla `detalle_cartera`
 --
 
-INSERT INTO `descuentos` (`id_descuento`, `nombre`, `caracteristica`, `porcentaje`, `sede_id_sede`) VALUES
-(1, '50% ahorro', 'semestral', 50, 1),
-(2, '10% Ahorro', 'mensual', 10, 1),
-(3, 'Sin descuento', 'fijo', 0, 1);
+INSERT INTO `detalle_cartera` (`id_dCartera`, `fecha`, `valor_abono`, `valor_total`, `valor_restante`, `empleado_id_empleado`, `tipo_pago`, `id_cartera`, `sede_id_sede`) VALUES
+(56, '2019-12-18', 12, 0, 0, 2, 1, 12, 0),
+(57, '2019-12-19', 12, 0, 0, 2, 1, 12, 0),
+(58, '2020-01-19', 233, 11039, 10806, 2, 1, 13, 0),
+(59, '2020-01-19', 1223, 0, 0, 2, 1, 12, 0),
+(60, '2020-01-19', 23, 0, 0, 2, 1, 12, 0),
+(62, '2020-01-19', 5000, 20000, 15000, 2, 1, 16, 0),
+(63, '2020-03-03', 234, 20000, 19766, 2, 1, 15, 0),
+(64, '2020-03-03', 10000, 20000, 10000, 2, 1, 14, 0),
+(65, '2020-03-03', 10000, 20000, 0, 2, 1, 14, 0),
+(66, '2020-03-03', 1, 20000, 0, 2, 1, 14, 0),
+(67, '2020-03-03', 1, 20000, 0, 2, 1, 14, 0),
+(68, '2020-03-04', 15000, 20000, 0, 2, 1, 16, 0),
+(69, '2020-03-05', 1, 2, 1, 2, 1, 23, 0),
+(70, '2020-03-05', 123, 2, 0, 2, 1, 23, 0),
+(71, '2020-03-05', 123, 2, 0, 2, 1, 23, 0),
+(72, '2020-03-07', 12, 87468, 87456, 2, 1, 38, 0),
+(74, '2020-03-08', 5, 23, 18, 2, 1, 40, 0),
+(75, '2020-03-08', 10, 23, 8, 2, 1, 40, 0),
+(76, '2020-03-10', 123, 11039, 10683, 2, 1, 13, 0),
+(77, '2020-03-10', 98, 11039, 10585, 2, 1, 13, 0),
+(78, '2020-03-10', 76, 11039, 10509, 2, 2, 13, 0),
+(79, '2020-03-10', 65, 11039, 10444, 2, 3, 13, 0),
+(80, '2020-03-13', 100, 200, 100, 2, 1, 41, 0),
+(81, '2020-03-13', 100, 200, 0, 2, 1, 41, 0),
+(82, '2020-03-13', 100, 200, 100, 2, 1, 42, 0),
+(83, '2020-03-13', 100, 200, 0, 2, 1, 42, 0),
+(84, '2020-03-13', 100, 200, 0, 2, 1, 43, 0),
+(85, '2020-03-13', 100, 200, 100, 2, 1, 44, 0),
+(86, '2020-03-13', 100, 200, 0, 2, 1, 44, 0),
+(87, '2020-03-13', 100, 200, 100, 2, 1, 45, 0),
+(88, '2020-03-13', 100, 200, 0, 2, 1, 45, 0),
+(89, '2020-03-13', 100, 200, 100, 2, 1, 46, 0),
+(90, '2020-03-13', 100, 200, 0, 2, 1, 46, 0),
+(91, '2020-03-13', 100, 200, 100, 2, 1, 47, 0),
+(92, '2020-03-13', 100, 200, 0, 2, 1, 47, 0),
+(93, '2020-03-14', 100, 200, 100, 2, 1, 48, 0),
+(94, '2020-03-14', 100, 200, 0, 2, 1, 48, 0),
+(95, '2020-03-14', 100, 200, 100, 2, 1, 49, 0),
+(96, '2020-03-14', 100, 200, 0, 2, 1, 49, 0),
+(97, '2020-03-15', 500, 10000, 9500, 2, 1, 51, 0),
+(98, '2020-03-15', 9500, 10000, 0, 2, 2, 51, 0),
+(99, '2020-08-27', 100, 200, 100, 28, 1, 50, 0);
 
 -- --------------------------------------------------------
 
@@ -208,171 +314,134 @@ CREATE TABLE `detalle_factura` (
   `precio_venta` double NOT NULL,
   `factura_id_factura` int(11) NOT NULL,
   `producto_id_producto` int(11) NOT NULL,
-  `descuentos_id_descuento` int(11) NOT NULL,
-  `impuestos_id_impuestos` int(11) NOT NULL,
   `total` double DEFAULT NULL,
   `total_impuesto` double NOT NULL,
-  `total_descuento` double NOT NULL
+  `total_descuento` double NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `detalle_factura`
 --
 
-INSERT INTO `detalle_factura` (`id_detallef`, `cantidad`, `precio_venta`, `factura_id_factura`, `producto_id_producto`, `descuentos_id_descuento`, `impuestos_id_impuestos`, `total`, `total_impuesto`, `total_descuento`) VALUES
-(47, 3, 22456, 26, 12, 1, 1, 33684, 0, 0),
-(48, 1, 34987, 26, 11, 1, 1, 17494, 0, 0),
-(49, 1, 22456, 27, 12, 1, 1, 11228, 0, 0),
-(50, 1, 22456, 28, 12, 3, 1, 22456, 0, 0),
-(51, 1, 22456, 29, 12, 1, 1, 11228, 0, 0),
-(52, 1, 22456, 30, 12, 1, 1, 11228, 0, 0),
-(53, 2, 34987, 31, 11, 1, 1, 34987, 0, 0),
-(54, 5, 34987, 31, 11, 3, 1, 174935, 0, 0),
-(55, 1, 22456, 33, 12, 1, 1, 11228, 0, 0),
-(56, 2, 22456, 34, 12, 1, 1, 22456, 0, 0),
-(57, 1, 22456, 35, 12, 1, 1, 11228, 0, 0),
-(58, 1, 22456, 36, 12, 1, 1, 11228, 0, 0),
-(59, 2, 22456, 32, 12, 2, 2, 22456, 0, 0),
-(60, 2, 34987, 32, 11, 1, 1, 34987, 0, 0),
-(61, 1, 22456, 38, 12, 1, 1, 11228, 0, 0),
-(62, 1, 22456, 39, 12, 1, 1, 11228, 0, 0),
-(63, 1, 22456, 40, 12, 1, 1, 11228, 0, 0),
-(64, 1, 22456, 41, 12, 1, 1, 11228, 0, 0),
-(65, 2, 22456, 43, 12, 1, 1, 22456, 0, 0),
-(66, 1, 22456, 44, 12, 1, 1, 11228, 0, 0),
-(67, 1, 34987, 46, 11, 1, 1, 17494, 0, 0),
-(68, 1, 22456, 46, 12, 1, 1, 11228, 0, 0),
-(69, 1, 22456, 46, 12, 1, 1, 11228, 0, 0),
-(70, 1, 34987, 37, 11, 1, 1, 17494, 0, 0),
-(71, 1, 34987, 48, 11, 1, 1, 17494, 0, 0),
-(72, 1, 34987, 49, 11, 1, 1, 17494, 0, 0),
-(73, 1, 34987, 50, 11, 1, 1, 17494, 0, 0),
-(74, 1, 34987, 51, 11, 1, 1, 17494, 0, 0),
-(75, 1, 34987, 52, 11, 1, 1, 17494, 0, 0),
-(76, 1, 34987, 53, 11, 1, 1, 17494, 0, 0),
-(77, 1, 34987, 53, 11, 1, 1, 17494, 0, 0),
-(78, 1, 23, 54, 8, 1, 1, 12, 0, 0),
-(79, 1, 34987, 55, 11, 1, 1, 17494, 0, 0),
-(80, 5, 34987, 56, 11, 1, 1, 87468, 0, 0),
-(81, 5, 34987, 57, 11, 1, 1, 87468, 0, 0),
-(82, 4, 34987, 59, 11, 1, 1, 69974, 0, 0),
-(83, 1, 230000, 60, 8, 1, 1, 115000, 0, 0),
-(84, 1, 230000, 61, 8, 1, 1, 115000, 0, 0),
-(85, 1, 23, 62, 8, 1, 1, 12, 0, 0),
-(86, 1, 34987, 62, 11, 1, 1, 17494, 0, 0),
-(87, 1, 23, 62, 8, 1, 2, 16, 0, 0),
-(88, 1, 23, 63, 8, 3, 1, 23, 0, 0),
-(89, 1, 23, 64, 8, 3, 1, 23, 0, 0),
-(90, 1, 23, 65, 8, 1, 1, 12, 0, 0),
-(91, 1, 230000, 65, 8, 1, 1, 115000, 0, 0),
-(92, 1, 23, 69, 8, 1, 1, 12, 0, 0),
-(93, 1, 1, 70, 8, 1, 1, 1, 0, 0),
-(94, 1, 4, 70, 8, 3, 1, 4, 0, 0),
-(95, 1, 22456, 70, 12, 1, 1, 11228, 0, 0),
-(96, 1, 23, 70, 8, 1, 1, 12, 0, 0),
-(97, 2, 22456, 70, 12, 1, 1, 22456, 0, 0),
-(98, 2, 23, 70, 8, 1, 1, 23, 0, 0),
-(99, 23, 22456, 70, 12, 1, 1, 258244, 0, 0),
-(100, 20, 22456, 67, 12, 1, 1, 224560, 0, 0),
-(101, 24, 23, 67, 8, 1, 1, 276, 0, 0),
-(102, 1, 22456, 66, 12, 1, 1, 11228, 0, 0),
-(103, 1, 20000, 70, 10, 1, 1, 10000, 0, 0),
-(104, 10, 20000, 71, 10, 1, 1, 100000, 0, 0),
-(105, 1, 22456, 72, 12, 1, 1, 11228, 0, 0),
-(106, 5, 20000, 72, 10, 1, 1, 50000, 0, 0),
-(107, 5, 20000, 73, 10, 1, 1, 50000, 0, 0),
-(108, 1, 22456, 73, 12, 1, 1, 11228, 0, 0),
-(109, 1, 22456, 73, 12, 1, 1, 11228, 0, 0),
-(110, 1, 22456, 74, 12, 1, 1, 11228, 0, 0),
-(111, 1, 22456, 75, 12, 1, 1, 11228, 0, 0),
-(112, 1, 22456, 76, 12, 1, 1, 11228, 0, 0),
-(113, 1, 22456, 78, 12, 1, 1, 11228, 0, 0),
-(114, 1, 22456, 79, 12, 1, 1, 11228, 0, 0),
-(115, 1, 22456, 80, 12, 1, 1, 11228, 0, 0),
-(116, 1, 22456, 81, 12, 1, 1, 11228, 0, 0),
-(117, 1, 22456, 82, 12, 1, 1, 11228, 0, 0),
-(118, 1, 22456, 83, 12, 1, 1, 11228, 0, 0),
-(119, 1, 22456, 84, 12, 1, 1, 11228, 0, 0),
-(120, 1, 22456, 85, 12, 1, 1, 11228, 0, 0),
-(121, 1, 22456, 86, 12, 1, 1, 11228, 0, 0),
-(122, 1, 22456, 87, 12, 1, 1, 11228, 0, 0),
-(123, 1, 22456, 88, 12, 1, 1, 11228, 0, 0),
-(124, 1, 22456, 89, 12, 1, 1, 11228, 0, 0),
-(125, 1, 22456, 90, 12, 1, 1, 11228, 0, 0),
-(126, 1, 22456, 91, 12, 1, 1, 11228, 0, 0),
-(127, 1, 22456, 92, 12, 1, 1, 11228, 0, 0),
-(128, 1, 20000, 92, 10, 1, 1, 10000, 0, 0),
-(129, 1, 20000, 93, 10, 1, 1, 10000, 0, 0),
-(130, 1, 20000, 94, 10, 1, 1, 10000, 0, 0),
-(131, 1, 20000, 95, 10, 1, 1, 10000, 0, 0),
-(132, 1, 34987, 97, 11, 1, 1, 17494, 0, 0),
-(133, 1, 22456, 98, 12, 1, 1, 11228, 0, 0),
-(134, 1, 22456, 99, 12, 1, 1, 11228, 0, 0),
-(135, 8, 20000, 99, 10, 1, 1, 80000, 0, 0),
-(136, 1, 22456, 100, 12, 1, 1, 11228, 0, 0),
-(137, 8, 20000, 100, 10, 1, 1, 80000, 0, 0),
-(138, 1, 22456, 101, 12, 1, 1, 11228, 0, 0),
-(139, 8, 20000, 101, 10, 1, 1, 80000, 0, 0),
-(140, 1, 22456, 102, 12, 1, 1, 11228, 0, 0),
-(141, 8, 20000, 102, 10, 1, 1, 80000, 0, 0),
-(145, 1, 22456, 104, 12, 1, 1, 11228, 0, 0),
-(146, 8, 20000, 104, 10, 1, 1, 80000, 0, 0),
-(147, 1, 22456, 105, 12, 1, 1, 11228, 0, 0),
-(148, 1, 20000, 105, 10, 1, 1, 10000, 0, 0),
-(150, 7, 20000, 105, 10, 1, 1, 70000, 0, 0),
-(153, 1, 22456, 106, 12, 1, 1, 11228, 0, 0),
-(154, 1, 20000, 107, 10, 1, 1, 10000, 0, 0),
-(155, 1, 20000, 202, 10, 1, 1, 10000, 0, 0),
-(156, 1, 20000, 203, 10, 1, 1, 10000, 0, 0),
-(157, 1, 20000, 204, 10, 1, 1, 10000, 0, 0),
-(158, 1, 2000, 205, 12, 3, 1, 2000, 0, 0),
-(159, 1, 22456, 206, 13, 1, 1, 11228, 0, 0),
-(160, 1, 34987, 206, 11, 1, 1, 17494, 0, 0),
-(161, 1, 23, 206, 8, 1, 1, 12, 0, 0),
-(162, 1, 23, 206, 8, 1, 1, 12, 0, 0),
-(163, 1, 20000, 206, 14, 1, 1, 10000, 0, 0),
-(164, 1, 23, 206, 8, 1, 1, 12, 0, 0),
-(165, 1, 20000, 206, 10, 1, 1, 10000, 0, 0),
-(166, 1, 23, 207, 8, 1, 1, 12, 0, 0),
-(167, 1, 23, 209, 8, 1, 1, 12, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalle_pagos`
---
-
-CREATE TABLE `detalle_pagos` (
-  `id_dpagos` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `valor_abono` double NOT NULL,
-  `valor_total` double NOT NULL,
-  `valor_restante` double NOT NULL,
-  `empleado_id_empleado` int(11) NOT NULL,
-  `tipo_pago` int(11) NOT NULL,
-  `id_cuentas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `detalle_pagos`
---
-
-INSERT INTO `detalle_pagos` (`id_dpagos`, `fecha`, `valor_abono`, `valor_total`, `valor_restante`, `empleado_id_empleado`, `tipo_pago`, `id_cuentas`) VALUES
-(1, '2020-02-02 00:00:00', 6, 12, 6, 2, 1, 4),
-(2, '2020-02-02 00:00:00', 6, 12, 0, 2, 1, 4),
-(3, '2020-02-02 00:00:00', 100000, 500000, 400000, 2, 1, 6),
-(4, '2020-03-08 00:00:00', 12, 12, 0, 2, 1, 5),
-(5, '2020-03-08 00:00:00', 100000, 500000, 300000, 2, 1, 6),
-(6, '2020-03-08 00:00:00', 100000, 500000, 200000, 2, 1, 6),
-(7, '2020-03-08 00:00:00', 50000, 100000, 50000, 2, 1, 7),
-(8, '2020-03-10 00:00:00', 12, 100000, 49988, 2, 2, 7),
-(9, '2020-03-10 00:00:00', 123, 100000, 49865, 2, 1, 7),
-(10, '2020-03-10 00:00:00', 21, 1000000000, 999999979, 2, 1, 8),
-(11, '2020-03-10 00:00:00', 34, 1000000000, 999999945, 2, 2, 8),
-(12, '2020-03-10 00:00:00', 56, 1000000000, 999999889, 2, 3, 8),
-(13, '2020-03-15 00:00:00', 10, 1000000000, 999999879, 2, 1, 8),
-(14, '2020-03-15 00:00:00', 10, 1000000000, 999999869, 2, 2, 8),
-(15, '2020-07-05 21:44:00', 10, 100, 90, 2, 1, 11);
+INSERT INTO `detalle_factura` (`id_detallef`, `cantidad`, `precio_venta`, `factura_id_factura`, `producto_id_producto`, `total`, `total_impuesto`, `total_descuento`, `empleado_id_empleado`, `sede_id_sede`, `fecha`) VALUES
+(47, 3, 22456, 26, 12, 33684, 0, 0, 0, 0, '0000-00-00'),
+(48, 1, 34987, 26, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(49, 1, 22456, 27, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(50, 1, 22456, 28, 12, 22456, 0, 0, 0, 0, '0000-00-00'),
+(51, 1, 22456, 29, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(52, 1, 22456, 30, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(53, 2, 34987, 31, 11, 34987, 0, 0, 0, 0, '0000-00-00'),
+(54, 5, 34987, 31, 11, 174935, 0, 0, 0, 0, '0000-00-00'),
+(55, 1, 22456, 33, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(56, 2, 22456, 34, 12, 22456, 0, 0, 0, 0, '0000-00-00'),
+(57, 1, 22456, 35, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(58, 1, 22456, 36, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(59, 2, 22456, 32, 12, 22456, 0, 0, 0, 0, '0000-00-00'),
+(60, 2, 34987, 32, 11, 34987, 0, 0, 0, 0, '0000-00-00'),
+(61, 1, 22456, 38, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(62, 1, 22456, 39, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(63, 1, 22456, 40, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(64, 1, 22456, 41, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(65, 2, 22456, 43, 12, 22456, 0, 0, 0, 0, '0000-00-00'),
+(66, 1, 22456, 44, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(67, 1, 34987, 46, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(68, 1, 22456, 46, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(69, 1, 22456, 46, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(70, 1, 34987, 37, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(71, 1, 34987, 48, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(72, 1, 34987, 49, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(73, 1, 34987, 50, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(74, 1, 34987, 51, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(75, 1, 34987, 52, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(76, 1, 34987, 53, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(77, 1, 34987, 53, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(78, 1, 23, 54, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(79, 1, 34987, 55, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(80, 5, 34987, 56, 11, 87468, 0, 0, 0, 0, '0000-00-00'),
+(81, 5, 34987, 57, 11, 87468, 0, 0, 0, 0, '0000-00-00'),
+(82, 4, 34987, 59, 11, 69974, 0, 0, 0, 0, '0000-00-00'),
+(83, 1, 230000, 60, 8, 115000, 0, 0, 0, 0, '0000-00-00'),
+(84, 1, 230000, 61, 8, 115000, 0, 0, 0, 0, '0000-00-00'),
+(85, 1, 23, 62, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(86, 1, 34987, 62, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(87, 1, 23, 62, 8, 16, 0, 0, 0, 0, '0000-00-00'),
+(88, 1, 23, 63, 8, 23, 0, 0, 0, 0, '0000-00-00'),
+(89, 1, 23, 64, 8, 23, 0, 0, 0, 0, '0000-00-00'),
+(90, 1, 23, 65, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(91, 1, 230000, 65, 8, 115000, 0, 0, 0, 0, '0000-00-00'),
+(92, 1, 23, 69, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(93, 1, 1, 70, 8, 1, 0, 0, 0, 0, '0000-00-00'),
+(94, 1, 4, 70, 8, 4, 0, 0, 0, 0, '0000-00-00'),
+(95, 1, 22456, 70, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(96, 1, 23, 70, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(97, 2, 22456, 70, 12, 22456, 0, 0, 0, 0, '0000-00-00'),
+(98, 2, 23, 70, 8, 23, 0, 0, 0, 0, '0000-00-00'),
+(99, 23, 22456, 70, 12, 258244, 0, 0, 0, 0, '0000-00-00'),
+(100, 20, 22456, 67, 12, 224560, 0, 0, 0, 0, '0000-00-00'),
+(101, 24, 23, 67, 8, 276, 0, 0, 0, 0, '0000-00-00'),
+(102, 1, 22456, 66, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(103, 1, 20000, 70, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(104, 10, 20000, 71, 10, 100000, 0, 0, 0, 0, '0000-00-00'),
+(105, 1, 22456, 72, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(106, 5, 20000, 72, 10, 50000, 0, 0, 0, 0, '0000-00-00'),
+(107, 5, 20000, 73, 10, 50000, 0, 0, 0, 0, '0000-00-00'),
+(108, 1, 22456, 73, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(109, 1, 22456, 73, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(110, 1, 22456, 74, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(111, 1, 22456, 75, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(112, 1, 22456, 76, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(113, 1, 22456, 78, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(114, 1, 22456, 79, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(115, 1, 22456, 80, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(116, 1, 22456, 81, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(117, 1, 22456, 82, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(118, 1, 22456, 83, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(119, 1, 22456, 84, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(120, 1, 22456, 85, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(121, 1, 22456, 86, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(122, 1, 22456, 87, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(123, 1, 22456, 88, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(124, 1, 22456, 89, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(125, 1, 22456, 90, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(126, 1, 22456, 91, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(127, 1, 22456, 92, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(128, 1, 20000, 92, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(129, 1, 20000, 93, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(130, 1, 20000, 94, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(131, 1, 20000, 95, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(132, 1, 34987, 97, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(133, 1, 22456, 98, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(134, 1, 22456, 99, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(135, 8, 20000, 99, 10, 80000, 0, 0, 0, 0, '0000-00-00'),
+(136, 1, 22456, 100, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(137, 8, 20000, 100, 10, 80000, 0, 0, 0, 0, '0000-00-00'),
+(138, 1, 22456, 101, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(139, 8, 20000, 101, 10, 80000, 0, 0, 0, 0, '0000-00-00'),
+(140, 1, 22456, 102, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(141, 8, 20000, 102, 10, 80000, 0, 0, 0, 0, '0000-00-00'),
+(145, 1, 22456, 104, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(146, 8, 20000, 104, 10, 80000, 0, 0, 0, 0, '0000-00-00'),
+(147, 1, 22456, 105, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(148, 1, 20000, 105, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(150, 7, 20000, 105, 10, 70000, 0, 0, 0, 0, '0000-00-00'),
+(153, 1, 22456, 106, 12, 11228, 0, 0, 0, 0, '0000-00-00'),
+(154, 1, 20000, 107, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(155, 1, 20000, 202, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(156, 1, 20000, 203, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(157, 1, 20000, 204, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(158, 1, 2000, 205, 12, 2000, 0, 0, 0, 0, '0000-00-00'),
+(159, 1, 22456, 206, 13, 11228, 0, 0, 0, 0, '0000-00-00'),
+(160, 1, 34987, 206, 11, 17494, 0, 0, 0, 0, '0000-00-00'),
+(161, 1, 23, 206, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(162, 1, 23, 206, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(163, 1, 20000, 206, 14, 10000, 0, 0, 0, 0, '0000-00-00'),
+(164, 1, 23, 206, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(165, 1, 20000, 206, 10, 10000, 0, 0, 0, 0, '0000-00-00'),
+(166, 1, 23, 207, 8, 12, 0, 0, 0, 0, '0000-00-00'),
+(167, 1, 23, 209, 8, 12, 0, 0, 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -385,25 +454,27 @@ CREATE TABLE `d_corte` (
   `cantidad` int(11) NOT NULL,
   `c_inventario_id_corte` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
-  `producto_id_producto` int(11) DEFAULT NULL
+  `producto_id_producto` int(11) DEFAULT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `d_corte`
 --
 
-INSERT INTO `d_corte` (`id_dcorte`, `cantidad`, `c_inventario_id_corte`, `fecha`, `producto_id_producto`) VALUES
-(22, 1, 101, '2019-11-05 00:00:00', 5),
-(23, 1, 101, '2019-11-05 00:00:00', 3),
-(24, 5, 102, '2019-11-05 00:00:00', 2),
-(25, 1, 102, '2019-11-05 00:00:00', 5),
-(26, 4, 103, '2019-11-05 00:00:00', 2),
-(27, 1, 119, '2019-11-20 00:00:00', 3),
-(28, 1, 120, '2020-07-05 21:43:49', 2),
-(29, 1, 120, '2020-07-13 23:12:53', 2),
-(30, 1, 120, '2020-07-13 23:13:16', 5),
-(31, 1, 121, '2020-07-13 23:13:53', 3),
-(32, 4, 121, '2020-07-23 23:12:05', 3);
+INSERT INTO `d_corte` (`id_dcorte`, `cantidad`, `c_inventario_id_corte`, `fecha`, `producto_id_producto`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(22, 1, 101, '2019-11-05 00:00:00', 5, 0, 0),
+(23, 1, 101, '2019-11-05 00:00:00', 3, 0, 0),
+(24, 5, 102, '2019-11-05 00:00:00', 2, 0, 0),
+(25, 1, 102, '2019-11-05 00:00:00', 5, 0, 0),
+(26, 4, 103, '2019-11-05 00:00:00', 2, 0, 0),
+(27, 1, 119, '2019-11-20 00:00:00', 3, 0, 0),
+(28, 1, 120, '2020-07-05 21:43:49', 2, 0, 0),
+(29, 1, 120, '2020-07-13 23:12:53', 2, 0, 0),
+(30, 1, 120, '2020-07-13 23:13:16', 5, 0, 0),
+(31, 1, 121, '2020-07-13 23:13:53', 3, 0, 0),
+(32, 4, 121, '2020-07-23 23:12:05', 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -418,32 +489,33 @@ CREATE TABLE `d_p_cliente` (
   `total` double DEFAULT NULL,
   `t_p_cliente_id_remision` int(11) NOT NULL,
   `producto_id_producto` int(11) NOT NULL,
-  `descuentos_id_descuento` int(11) NOT NULL,
-  `impuestos_id_impuestos` int(11) NOT NULL
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `d_p_cliente`
 --
 
-INSERT INTO `d_p_cliente` (`id_dpcliente`, `cantidad`, `precio_venta`, `total`, `t_p_cliente_id_remision`, `producto_id_producto`, `descuentos_id_descuento`, `impuestos_id_impuestos`) VALUES
-(80, 1, 1000, 500, 75, 8, 1, 1),
-(81, 1, 500, 250, 76, 8, 1, 1),
-(82, 2, 500, 500, 77, 8, 1, 1),
-(83, 10, 1000, 10000, 78, 8, 3, 1),
-(85, 1, 22456, 11228, 81, 12, 1, 1),
-(86, 1, 34987, 17493.5, 81, 11, 1, 1),
-(87, 1, 23, 11.5, 81, 8, 1, 1),
-(88, 1, 23, 11.5, 82, 8, 1, 1),
-(89, 1, 20000, 10000, 82, 10, 1, 1),
-(90, 1, 23, 11.5, 82, 8, 1, 1),
-(91, 1, 23, 11.5, 82, 8, 1, 1),
-(92, 1, 20000, 10000, 82, 10, 1, 1),
-(93, 1, 23, 11.5, 83, 8, 1, 1),
-(94, 1, 22456, 11228, 83, 13, 1, 1),
-(95, 1, 23, 11.5, 83, 8, 1, 1),
-(96, 1, 23, 11.5, 83, 8, 1, 1),
-(97, 1, 20000, 10000, 83, 14, 1, 1);
+INSERT INTO `d_p_cliente` (`id_dpcliente`, `cantidad`, `precio_venta`, `total`, `t_p_cliente_id_remision`, `producto_id_producto`, `empleado_id_empleado`, `sede_id_sede`, `fecha`) VALUES
+(80, 1, 1000, 500, 75, 8, 0, 0, '0000-00-00'),
+(81, 1, 500, 250, 76, 8, 0, 0, '0000-00-00'),
+(82, 2, 500, 500, 77, 8, 0, 0, '0000-00-00'),
+(83, 10, 1000, 10000, 78, 8, 0, 0, '0000-00-00'),
+(85, 1, 22456, 11228, 81, 12, 0, 0, '0000-00-00'),
+(86, 1, 34987, 17493.5, 81, 11, 0, 0, '0000-00-00'),
+(87, 1, 23, 11.5, 81, 8, 0, 0, '0000-00-00'),
+(88, 1, 23, 11.5, 82, 8, 0, 0, '0000-00-00'),
+(89, 1, 20000, 10000, 82, 10, 0, 0, '0000-00-00'),
+(90, 1, 23, 11.5, 82, 8, 0, 0, '0000-00-00'),
+(91, 1, 23, 11.5, 82, 8, 0, 0, '0000-00-00'),
+(92, 1, 20000, 10000, 82, 10, 0, 0, '0000-00-00'),
+(93, 1, 23, 11.5, 83, 8, 0, 0, '0000-00-00'),
+(94, 1, 22456, 11228, 83, 13, 0, 0, '0000-00-00'),
+(95, 1, 23, 11.5, 83, 8, 0, 0, '0000-00-00'),
+(96, 1, 23, 11.5, 83, 8, 0, 0, '0000-00-00'),
+(97, 1, 20000, 10000, 83, 14, 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -456,21 +528,22 @@ CREATE TABLE `d_p_proveedor` (
   `cantidad` int(11) NOT NULL,
   `precio_venta` double NOT NULL,
   `total` double DEFAULT NULL,
-  `descuentos_id_descuento` int(11) NOT NULL,
   `producto_id_producto` int(11) NOT NULL,
-  `impuestos_id_impuestos` int(11) NOT NULL,
-  `tp_aproveedor_id_rproveedor` int(11) NOT NULL
+  `tp_aproveedor_id_rproveedor` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `fecha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `d_p_proveedor`
 --
 
-INSERT INTO `d_p_proveedor` (`id_dpproveedor`, `cantidad`, `precio_venta`, `total`, `descuentos_id_descuento`, `producto_id_producto`, `impuestos_id_impuestos`, `tp_aproveedor_id_rproveedor`) VALUES
-(1, 1, 1000, 500, 1, 12, 1, 37),
-(2, 1, 1000, 1190, 3, 11, 2, 37),
-(3, 1, 23, 11.5, 1, 8, 1, 37),
-(4, 1, 22456, 11228, 1, 13, 1, 37);
+INSERT INTO `d_p_proveedor` (`id_dpproveedor`, `cantidad`, `precio_venta`, `total`, `producto_id_producto`, `tp_aproveedor_id_rproveedor`, `empleado_id_empleado`, `sede_id_sede`, `fecha`) VALUES
+(1, 1, 1000, 500, 12, 37, 0, 0, 0),
+(2, 1, 1000, 1190, 11, 37, 0, 0, 0),
+(3, 1, 23, 11.5, 8, 37, 0, 0, 0),
+(4, 1, 22456, 11228, 13, 37, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -488,28 +561,29 @@ CREATE TABLE `empleado` (
   `direccion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `codigo` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `verificacion_nit` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `user_id_user` int(11) DEFAULT NULL
+  `user_id_user` int(11) DEFAULT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `tipo_cargo_id_cargo`, `sede_id_sede`, `telefono`, `direccion`, `codigo`, `verificacion_nit`, `user_id_user`) VALUES
-(2, 'juan', 'juan@gmail.com', 1, 1, '31289362', 'calle 12', '193648', '1', NULL),
-(3, 'fabian', '', 1, 1, '', '', '222', NULL, NULL),
-(10, 'David', '', 2, 2, '', '', '4565', NULL, NULL),
-(11, 'Rosa', 'rosa@gmail.com', 1, 1, '', '', '233', NULL, NULL),
-(12, 'Maria perez', '', 1, 1, '', '', '200000', NULL, NULL),
-(13, 'Lucia', 'david@gmail.com', 1, 1, '', '', '1234', NULL, NULL),
-(14, 'David Talero', 'david@gmail.com', 1, 1, '', '', '2332', NULL, NULL),
-(15, 'holman rincon', 'david@gmail.com', 1, 1, '', '', '1111', NULL, NULL),
-(18, 'marta alvarez', '', 1, 1, '', '', '111', NULL, NULL),
-(22, 'gabriel sanchez', 'juan@gmail.com', 1, 1, '', '', '1111', NULL, NULL),
-(23, 'carlos gomez', 'carlos@gmail.com', 2, 4, '', '', '122345', NULL, NULL),
-(25, 'david vargas', 'david@gmail.com', 1, 1, '', '', '12345', NULL, NULL),
-(26, 'a', '', 1, 1, '', '', '78', NULL, NULL),
-(27, 'walter', 'walter@gmail.com', 1, 1, '', '', '12190', NULL, 14);
+INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `tipo_cargo_id_cargo`, `sede_id_sede`, `telefono`, `direccion`, `codigo`, `verificacion_nit`, `user_id_user`, `fecha`) VALUES
+(1, 'juan', 'juan@gmail.com', 1, 1, '31289362', 'calle 12', '193648', '1', NULL, '0000-00-00'),
+(3, 'fabian', '', 1, 1, '', '', '222', NULL, NULL, '0000-00-00'),
+(10, 'David', '', 2, 2, '', '', '4565', NULL, NULL, '0000-00-00'),
+(11, 'Rosa', 'rosa@gmail.com', 1, 1, '', '', '233', NULL, NULL, '0000-00-00'),
+(12, 'Maria perez', '', 1, 1, '', '', '200000', NULL, NULL, '0000-00-00'),
+(13, 'Lucia', 'david@gmail.com', 1, 1, '', '', '1234', NULL, NULL, '0000-00-00'),
+(14, 'David Talero', 'david@gmail.com', 1, 1, '', '', '2332', NULL, NULL, '0000-00-00'),
+(15, 'holman rincon', 'david@gmail.com', 1, 1, '', '', '1111', NULL, NULL, '0000-00-00'),
+(18, 'marta alvarez', '', 1, 1, '', '', '111', NULL, NULL, '0000-00-00'),
+(22, 'gabriel sanchez', 'juan@gmail.com', 1, 1, '', '', '1111', NULL, NULL, '0000-00-00'),
+(23, 'carlos gomez', 'carlos@gmail.com', 2, 4, '', '', '122345', NULL, NULL, '0000-00-00'),
+(25, 'david vargas', 'david@gmail.com', 1, 1, '', '', '12345', NULL, NULL, '0000-00-00'),
+(26, 'a', '', 1, 1, '', '', '78', NULL, NULL, '0000-00-00'),
+(27, 'walter', 'walter@gmail.com', 1, 1, '', '', '12190', NULL, 14, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -641,26 +715,6 @@ INSERT INTO `factura` (`id_factura`, `pago_total`, `noproductos`, `tipo_pago_id_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `impuestos`
---
-
-CREATE TABLE `impuestos` (
-  `id_impuestos` int(11) NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `impuestos`
---
-
-INSERT INTO `impuestos` (`id_impuestos`, `nombre`, `valor`) VALUES
-(1, 'otros', 0),
-(2, 'iva', 19);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `migrations`
 --
 
@@ -775,20 +829,21 @@ CREATE TABLE `producto` (
   `fecha_registro` date DEFAULT NULL,
   `imagen` varchar(2000) COLLATE utf8_spanish_ci DEFAULT NULL,
   `categoria_id_categoria` int(11) NOT NULL,
-  `impuestos_id_impuestos` int(11) NOT NULL
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id_producto`, `plu`, `ean`, `nombre`, `precio`, `stock_minimo`, `fecha_registro`, `imagen`, `categoria_id_categoria`, `impuestos_id_impuestos`) VALUES
-(2, '1562', '271', 'Coliflor', 23, 4, '2020-01-01', '', 1, 1),
-(3, '234', '123', 'Manzana', 22456, 100, '2020-01-01', '', 1, 1),
-(4, '5674', '234', 'Pera', 34987, 2, '2020-01-01', '', 1, 1),
-(5, '1234', '124', 'maracuya', 20000, 3, '2020-01-01', '', 3, 1),
-(6, '12333', '1290', 'plato 1', 1000000, 11, '2020-02-01', '', 1, 1),
-(7, '1', '1', 'a', 1, 2, '2020-03-01', '', 1, 1);
+INSERT INTO `producto` (`id_producto`, `plu`, `ean`, `nombre`, `precio`, `stock_minimo`, `fecha_registro`, `imagen`, `categoria_id_categoria`, `empleado_id_empleado`, `sede_id_sede`) VALUES
+(2, '1562', '271', 'Coliflor', 23, 4, '2020-01-01', '', 1, 0, 0),
+(3, '234', '123', 'Manzana', 22456, 100, '2020-01-01', '', 1, 0, 0),
+(4, '5674', '234', 'Pera', 34987, 2, '2020-01-01', '', 1, 0, 0),
+(5, '1234', '124', 'maracuya', 20000, 3, '2020-01-01', '', 3, 0, 0),
+(6, '12333', '1290', 'plato 1', 1000000, 11, '2020-02-01', '', 1, 0, 0),
+(7, '1', '1', 'a', 1, 2, '2020-03-01', '', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -804,20 +859,22 @@ CREATE TABLE `proveedor` (
   `telefono` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `correo` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `documento` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `verificacion_nit` varchar(45) COLLATE utf8_spanish_ci NOT NULL
+  `verificacion_nit` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `proveedor`
 --
 
-INSERT INTO `proveedor` (`id_proveedor`, `nombre_empresa`, `nombre_proveedor`, `direccion`, `telefono`, `correo`, `documento`, `verificacion_nit`) VALUES
-(1, 'AA', 'Arturo Alarcón', 'Calle 33 #44', '432234234', 'aa@gmail.com', '33', '6'),
-(15, 'Paraiso', 'Daniel Rodriguez', 'carrera 24 ', '32211123', 'daniel@gmail.com', '3133131312', ''),
-(16, 'La canasta', 'David Cardozo', 'Carrera 23', '333222', 'david@gmail.com', '12345678965', '2'),
-(21, 'Mercados alksoto', 'Jaime Vargas', 'carrera 6', '311231332', 'jaime@gmail.com', '123456789', '2'),
-(22, 'Mercados JP', 'Juan Pérez', 'Carrera 16', '9999', 'jp@gmail.com', '144443', '2'),
-(25, 'Frutas.com', 'Holman Jair Rincón', 'Calle 22 #33-22 Medellín', '3224442242', 'holmanfr@gmail.com', '777778989', '7');
+INSERT INTO `proveedor` (`id_proveedor`, `nombre_empresa`, `nombre_proveedor`, `direccion`, `telefono`, `correo`, `documento`, `verificacion_nit`, `empleado_id_empleado`, `fecha`) VALUES
+(1, 'AA', 'Arturo Alarcón', 'Calle 33 #44', '432234234', 'aa@gmail.com', '33', '6', 0, '0000-00-00'),
+(15, 'Paraiso', 'Daniel Rodriguez', 'carrera 24 ', '32211123', 'daniel@gmail.com', '3133131312', '', 0, '0000-00-00'),
+(16, 'La canasta', 'David Cardozo', 'Carrera 23', '333222', 'david@gmail.com', '12345678965', '2', 0, '0000-00-00'),
+(21, 'Mercados alksoto', 'Jaime Vargas', 'carrera 6', '311231332', 'jaime@gmail.com', '123456789', '2', 0, '0000-00-00'),
+(22, 'Mercados JP', 'Juan Pérez', 'Carrera 16', '9999', 'jp@gmail.com', '144443', '2', 0, '0000-00-00'),
+(25, 'Frutas.com', 'Holman Jair Rincón', 'Calle 22 #33-22 Medellín', '3224442242', 'holmanfr@gmail.com', '777778989', '7', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -831,24 +888,26 @@ CREATE TABLE `reporteinventarios` (
   `fechaFinal` date NOT NULL,
   `fechaActual` date NOT NULL,
   `noProductos` double NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reporteinventarios`
 --
 
-INSERT INTO `reporteinventarios` (`id_rInventarios`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`) VALUES
-(45, '2020-07-05', '2020-07-15', '2020-07-26', 0, 0),
-(32, '2020-01-01', '2020-04-15', '2020-04-15', 0, 0),
-(30, '2020-01-01', '2020-04-09', '2020-04-08', 0, 0),
-(34, '2020-01-16', '2020-05-16', '2020-05-16', 0, 0),
-(35, '2020-01-01', '2020-05-17', '2020-05-16', 0, 0),
-(36, '2020-02-22', '2020-05-25', '2020-05-24', 0, 0),
-(37, '2020-01-01', '2020-05-25', '2020-05-24', 0, 0),
-(39, '2020-03-01', '2020-05-25', '2020-05-24', 0, 0),
-(41, '2020-01-27', '2020-05-27', '2020-05-27', 0, 0),
-(43, '2020-06-28', '2020-07-25', '2020-07-25', 0, 0);
+INSERT INTO `reporteinventarios` (`id_rInventarios`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(45, '2020-07-05', '2020-07-15', '2020-07-26', 0, 0, 0, 0),
+(32, '2020-01-01', '2020-04-15', '2020-04-15', 0, 0, 0, 0),
+(30, '2020-01-01', '2020-04-09', '2020-04-08', 0, 0, 0, 0),
+(34, '2020-01-16', '2020-05-16', '2020-05-16', 0, 0, 0, 0),
+(35, '2020-01-01', '2020-05-17', '2020-05-16', 0, 0, 0, 0),
+(36, '2020-02-22', '2020-05-25', '2020-05-24', 0, 0, 0, 0),
+(37, '2020-01-01', '2020-05-25', '2020-05-24', 0, 0, 0, 0),
+(39, '2020-03-01', '2020-05-25', '2020-05-24', 0, 0, 0, 0),
+(41, '2020-01-27', '2020-05-27', '2020-05-27', 0, 0, 0, 0),
+(43, '2020-06-28', '2020-07-25', '2020-07-25', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -862,18 +921,20 @@ CREATE TABLE `reporteinventarios2` (
   `fechaFinal` date NOT NULL,
   `fechaActual` date NOT NULL,
   `noProductos` double NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reporteinventarios2`
 --
 
-INSERT INTO `reporteinventarios2` (`id_rInventarios`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`) VALUES
-(4, '2020-03-17', '2020-05-17', '2020-05-17', 0, 0),
-(5, '2020-05-01', '2020-05-17', '2020-05-17', 0, 0),
-(6, '2020-01-01', '2020-05-17', '2020-05-17', 0, 0),
-(9, '2020-06-28', '2020-08-06', '2020-07-25', 0, 0);
+INSERT INTO `reporteinventarios2` (`id_rInventarios`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(4, '2020-03-17', '2020-05-17', '2020-05-17', 0, 0, 0, 0),
+(5, '2020-05-01', '2020-05-17', '2020-05-17', 0, 0, 0, 0),
+(6, '2020-01-01', '2020-05-17', '2020-05-17', 0, 0, 0, 0),
+(9, '2020-06-28', '2020-08-06', '2020-07-25', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -885,16 +946,18 @@ CREATE TABLE `reportepc` (
   `id_rpc` int(11) NOT NULL,
   `fechaInicial` date NOT NULL,
   `fechaFinal` date NOT NULL,
-  `fechaActual` date NOT NULL
+  `fechaActual` date NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reportepc`
 --
 
-INSERT INTO `reportepc` (`id_rpc`, `fechaInicial`, `fechaFinal`, `fechaActual`) VALUES
-(1, '2019-01-01', '2020-06-07', '2020-06-07'),
-(3, '2020-06-06', '2020-06-08', '2020-06-08');
+INSERT INTO `reportepc` (`id_rpc`, `fechaInicial`, `fechaFinal`, `fechaActual`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(1, '2019-01-01', '2020-06-07', '2020-06-07', 0, 0),
+(3, '2020-06-06', '2020-06-08', '2020-06-08', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -906,19 +969,21 @@ CREATE TABLE `reportepc2` (
   `id_rpc` int(11) NOT NULL,
   `fechaInicial` date NOT NULL,
   `fechaFinal` date NOT NULL,
-  `fechaActual` date NOT NULL
+  `fechaActual` date NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reportepc2`
 --
 
-INSERT INTO `reportepc2` (`id_rpc`, `fechaInicial`, `fechaFinal`, `fechaActual`) VALUES
-(1, '2020-01-01', '2020-06-07', '2020-06-06'),
-(2, '2020-02-20', '2020-06-13', '2020-06-13'),
-(5, '2020-06-12', '2020-06-13', '2020-06-13'),
-(7, '2020-06-28', '2020-08-01', '2020-07-26'),
-(8, '2020-06-28', '2020-07-25', '2020-07-26');
+INSERT INTO `reportepc2` (`id_rpc`, `fechaInicial`, `fechaFinal`, `fechaActual`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(1, '2020-01-01', '2020-06-07', '2020-06-06', 0, 0),
+(2, '2020-02-20', '2020-06-13', '2020-06-13', 0, 0),
+(5, '2020-06-12', '2020-06-13', '2020-06-13', 0, 0),
+(7, '2020-06-28', '2020-08-01', '2020-07-26', 0, 0),
+(8, '2020-06-28', '2020-07-25', '2020-07-26', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -932,19 +997,21 @@ CREATE TABLE `reportepedidos` (
   `fechaFinal` date NOT NULL,
   `fechaActual` date NOT NULL,
   `noProductos` double NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reportepedidos`
 --
 
-INSERT INTO `reportepedidos` (`id_rPedidos`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`) VALUES
-(4, '2020-01-01', '2020-05-23', '2020-05-23', 0, 0),
-(5, '2020-04-01', '2020-05-24', '2020-05-23', 0, 0),
-(7, '2020-01-28', '2020-05-28', '2020-05-28', 0, 0),
-(8, '2020-05-28', '2020-05-28', '2020-05-28', 0, 0),
-(12, '2020-07-05', '2020-07-10', '2020-07-26', 0, 0);
+INSERT INTO `reportepedidos` (`id_rPedidos`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(4, '2020-01-01', '2020-05-23', '2020-05-23', 0, 0, 0, 0),
+(5, '2020-04-01', '2020-05-24', '2020-05-23', 0, 0, 0, 0),
+(7, '2020-01-28', '2020-05-28', '2020-05-28', 0, 0, 0, 0),
+(8, '2020-05-28', '2020-05-28', '2020-05-28', 0, 0, 0, 0),
+(12, '2020-07-05', '2020-07-10', '2020-07-26', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -958,16 +1025,18 @@ CREATE TABLE `reportepedidos2` (
   `fechaFinal` date NOT NULL,
   `fechaActual` date NOT NULL,
   `noProductos` double NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reportepedidos2`
 --
 
-INSERT INTO `reportepedidos2` (`id_rPedidos`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`) VALUES
-(2, '2020-01-01', '2020-05-28', '2020-05-28', 0, 0),
-(3, '2020-05-01', '2020-05-28', '2020-05-28', 0, 0);
+INSERT INTO `reportepedidos2` (`id_rPedidos`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(2, '2020-01-01', '2020-05-28', '2020-05-28', 0, 0, 0, 0),
+(3, '2020-05-01', '2020-05-28', '2020-05-28', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -981,20 +1050,22 @@ CREATE TABLE `reporteventas` (
   `fechaFinal` date NOT NULL,
   `fechaActual` date NOT NULL,
   `noProductos` double NOT NULL,
-  `total` double NOT NULL
+  `total` double NOT NULL,
+  `sede_id_sede` int(11) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `reporteventas`
 --
 
-INSERT INTO `reporteventas` (`id_rVentas`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`) VALUES
-(15, '2019-01-01', '2019-12-31', '2020-02-09', 0, 0),
-(16, '2019-01-01', '2019-12-31', '2020-02-09', 0, 0),
-(19, '2019-01-01', '2020-04-01', '2020-04-02', 0, 0),
-(21, '2019-03-01', '2020-06-05', '2020-06-04', 0, 0),
-(22, '2020-06-20', '2020-06-21', '2020-06-21', 0, 0),
-(23, '2020-06-28', '2020-07-17', '2020-07-26', 0, 0);
+INSERT INTO `reporteventas` (`id_rVentas`, `fechaInicial`, `fechaFinal`, `fechaActual`, `noProductos`, `total`, `sede_id_sede`, `empleado_id_empleado`) VALUES
+(15, '2019-01-01', '2019-12-31', '2020-02-09', 0, 0, 0, 0),
+(16, '2019-01-01', '2019-12-31', '2020-02-09', 0, 0, 0, 0),
+(19, '2019-01-01', '2020-04-01', '2020-04-02', 0, 0, 0, 0),
+(21, '2019-03-01', '2020-06-05', '2020-06-04', 0, 0, 0, 0),
+(22, '2020-06-20', '2020-06-21', '2020-06-21', 0, 0, 0, 0),
+(23, '2020-06-28', '2020-07-17', '2020-07-26', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1008,20 +1079,22 @@ CREATE TABLE `sede` (
   `ciudad` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` bigint(15) NOT NULL
+  `telefono` bigint(15) NOT NULL,
+  `empleado_id_empleado` int(11) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sede`
 --
 
-INSERT INTO `sede` (`id_sede`, `nombre_sede`, `ciudad`, `descripcion`, `direccion`, `telefono`) VALUES
-(1, 'La canasta', 'Sogamoso', 'sede principal', '', 0),
-(2, 'Paraiso', 'Duitama', 'Central', '', 0),
-(3, 'Centro ara', 'Duitama', 'ara', '', 0),
-(4, 'Magdalena paraiso', 'Sogamoso', '5', '', 0),
-(5, 'Sogamoso Norte', 'Sogamoso', 'Central', 'Carrera 18', 3117788892),
-(6, 'Supermercado la 11', 'Tunja', 'Mayorista', 'Carrera 11 ', 3213121321);
+INSERT INTO `sede` (`id_sede`, `nombre_sede`, `ciudad`, `descripcion`, `direccion`, `telefono`, `empleado_id_empleado`, `fecha`) VALUES
+(1, 'La canasta', 'Sogamoso', 'sede principal', '', 0, 0, '0000-00-00'),
+(2, 'Paraiso', 'Duitama', 'Central', '', 0, 0, '0000-00-00'),
+(3, 'Centro ara', 'Duitama', 'ara', '', 0, 0, '0000-00-00'),
+(4, 'Magdalena paraiso', 'Sogamoso', '5', '', 0, 0, '0000-00-00'),
+(5, 'Sogamoso Norte', 'Sogamoso', 'Central', 'Carrera 18', 3117788892, 0, '0000-00-00'),
+(6, 'Supermercado la 11', 'Tunja', 'Mayorista', 'Carrera 11 ', 3213121321, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -1069,20 +1142,22 @@ CREATE TABLE `tipo_cargo` (
   `id_cargo` int(11) NOT NULL,
   `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL
+  `fecha` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `empleado_id_empleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_cargo`
 --
 
-INSERT INTO `tipo_cargo` (`id_cargo`, `nombre`, `descripcion`, `fecha`) VALUES
-(1, 'Gerente', 'gerencia', '2020/03/23'),
-(2, 'cajero', 'caja', '2020/03/23'),
-(3, 'Vendedor', 'vendedor', '2019/10/24'),
-(4, 'patinador', 'patinador', '2019/10/24'),
-(20, 'coordinador', 'ninguna', '2019/10/24'),
-(23, 'Servicios Generales', 'Servicios', '2020/03/23');
+INSERT INTO `tipo_cargo` (`id_cargo`, `nombre`, `descripcion`, `fecha`, `empleado_id_empleado`) VALUES
+(1, 'Gerente', 'gerencia', '2020/03/23', 1),
+(2, 'cajero', 'caja', '2020/03/23', 1),
+(3, 'Vendedor', 'vendedor', '2019/10/24', 1),
+(4, 'patinador', 'patinador', '2019/10/24', 1),
+(20, 'coordinador', 'ninguna', '2019/10/24', 1),
+(23, 'Servicios Generales', 'Servicios', '2020/03/23', 1),
+(24, 'prueba', 'prueba', '2020/10/16', 9);
 
 -- --------------------------------------------------------
 
@@ -1133,16 +1208,17 @@ CREATE TABLE `tp_aproveedor` (
   `pago_total` double NOT NULL,
   `proveedor_id_proveedor` int(11) NOT NULL,
   `tipo_pago_id_tpago` int(11) NOT NULL,
-  `empleado_id_empleado` int(11) NOT NULL
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tp_aproveedor`
 --
 
-INSERT INTO `tp_aproveedor` (`id_rproveedor`, `noproductos`, `fecha_solicitud`, `fecha_entrega`, `pago_inicial`, `porcentaje_venta`, `pago_total`, `proveedor_id_proveedor`, `tipo_pago_id_tpago`, `empleado_id_empleado`) VALUES
-(32, 8, '2020-04-04 00:00:00', '2020-04-04 00:00:00', 0, 0, 0, 16, 1, 2),
-(37, 4, '2020-05-25 00:00:00', '2020-05-29 00:00:00', 0, 0, 12929.5, 15, 1, 15);
+INSERT INTO `tp_aproveedor` (`id_rproveedor`, `noproductos`, `fecha_solicitud`, `fecha_entrega`, `pago_inicial`, `porcentaje_venta`, `pago_total`, `proveedor_id_proveedor`, `tipo_pago_id_tpago`, `empleado_id_empleado`, `sede_id_sede`) VALUES
+(32, 8, '2020-04-04 00:00:00', '2020-04-04 00:00:00', 0, 0, 0, 16, 1, 2, 0),
+(37, 4, '2020-05-25 00:00:00', '2020-05-29 00:00:00', 0, 0, 12929.5, 15, 1, 15, 0);
 
 -- --------------------------------------------------------
 
@@ -1179,22 +1255,23 @@ CREATE TABLE `t_p_cliente` (
   `pago_total` double NOT NULL,
   `cliente_id_cliente` int(11) NOT NULL,
   `empleado_id_empleado` int(11) NOT NULL,
-  `tipo_pago_id_tpago` int(11) NOT NULL
+  `tipo_pago_id_tpago` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `t_p_cliente`
 --
 
-INSERT INTO `t_p_cliente` (`id_remision`, `noproductos`, `fecha_solicitud`, `fecha_entrega`, `pago_inicial`, `porcentaje_venta`, `pago_total`, `cliente_id_cliente`, `empleado_id_empleado`, `tipo_pago_id_tpago`) VALUES
-(74, 1, '2020-01-01 00:00:00', '2020-04-04 00:00:00', 0, 0, 0, 7, 2, 1),
-(75, 1, '2020-02-08 00:00:00', '2020-04-04 00:00:00', 0, 0, 500, 7, 2, 1),
-(76, 1, '2020-03-15 00:00:00', '2020-04-04 00:00:00', 0, 0, 250, 5, 2, 1),
-(77, 2, '2020-04-07 00:00:00', '2020-04-08 00:00:00', 0, 0, 500, 5, 2, 1),
-(78, 10, '2020-05-02 00:00:00', '2020-04-09 00:00:00', 0, 0, 9000, 5, 2, 1),
-(81, 3, '2020-05-25 00:00:00', '2020-05-28 00:00:00', 0, 0, 28733, 7, 14, 1),
-(82, 5, '2020-07-05 21:42:00', '2020-07-04 00:00:00', 0, 0, 20024.5, 1, 2, 1),
-(83, 5, '2020-07-11 23:45:00', '2020-07-16 00:00:00', 0, 0, 21250.5, 1, 2, 1);
+INSERT INTO `t_p_cliente` (`id_remision`, `noproductos`, `fecha_solicitud`, `fecha_entrega`, `pago_inicial`, `porcentaje_venta`, `pago_total`, `cliente_id_cliente`, `empleado_id_empleado`, `tipo_pago_id_tpago`, `sede_id_sede`) VALUES
+(74, 1, '2020-01-01 00:00:00', '2020-04-04 00:00:00', 0, 0, 0, 7, 2, 1, 0),
+(75, 1, '2020-02-08 00:00:00', '2020-04-04 00:00:00', 0, 0, 500, 7, 2, 1, 0),
+(76, 1, '2020-03-15 00:00:00', '2020-04-04 00:00:00', 0, 0, 250, 5, 2, 1, 0),
+(77, 2, '2020-04-07 00:00:00', '2020-04-08 00:00:00', 0, 0, 500, 5, 2, 1, 0),
+(78, 10, '2020-05-02 00:00:00', '2020-04-09 00:00:00', 0, 0, 9000, 5, 2, 1, 0),
+(81, 3, '2020-05-25 00:00:00', '2020-05-28 00:00:00', 0, 0, 28733, 7, 14, 1, 0),
+(82, 5, '2020-07-05 21:42:00', '2020-07-04 00:00:00', 0, 0, 20024.5, 1, 2, 1, 0),
+(83, 5, '2020-07-11 23:45:00', '2020-07-16 00:00:00', 0, 0, 21250.5, 1, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1207,7 +1284,8 @@ CREATE TABLE `t_p_proveedor` (
   `noproductos` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `proveedor_id_proveedor` int(11) NOT NULL,
-  `empleado_id_empleado` int(11) NOT NULL
+  `empleado_id_empleado` int(11) NOT NULL,
+  `sede_id_sede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -1254,9 +1332,18 @@ ALTER TABLE `cargo_modulo`
   ADD KEY `id_cargo` (`id_cargo`);
 
 --
--- Indices de la tabla `categoria_producto`
+-- Indices de la tabla `cartera`
 --
-ALTER TABLE `categoria_producto`
+ALTER TABLE `cartera`
+  ADD PRIMARY KEY (`id_cartera`),
+  ADD KEY `empleado_id_empleado_fk` (`empleado_id_empleado`),
+  ADD KEY `cartera_cliente_fk` (`cliente_id_cliente`),
+  ADD KEY `cartera_factura_fk` (`factura_id_factura`);
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
@@ -1280,30 +1367,21 @@ ALTER TABLE `c_inventario`
   ADD KEY `c_inventario_sede_fk` (`sede_id_sede`);
 
 --
--- Indices de la tabla `descuentos`
+-- Indices de la tabla `detalle_cartera`
 --
-ALTER TABLE `descuentos`
-  ADD PRIMARY KEY (`id_descuento`),
-  ADD KEY `descuentos_sede_fk` (`sede_id_sede`);
+ALTER TABLE `detalle_cartera`
+  ADD PRIMARY KEY (`id_dCartera`),
+  ADD KEY `empleado_id_empleado_fk` (`empleado_id_empleado`),
+  ADD KEY `tipo_pago_fk` (`tipo_pago`),
+  ADD KEY `id_cartera_fk` (`id_cartera`);
 
 --
 -- Indices de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   ADD PRIMARY KEY (`id_detallef`),
-  ADD KEY `detalle_factura_descuentos_fk` (`descuentos_id_descuento`),
   ADD KEY `detalle_factura_factura_fk` (`factura_id_factura`),
-  ADD KEY `detalle_factura_impuestos_fk` (`impuestos_id_impuestos`),
   ADD KEY `detalle_factura_producto_fk` (`producto_id_producto`);
-
---
--- Indices de la tabla `detalle_pagos`
---
-ALTER TABLE `detalle_pagos`
-  ADD PRIMARY KEY (`id_dpagos`),
-  ADD KEY `empleado_id_empleado_fk` (`empleado_id_empleado`),
-  ADD KEY `tipo_pago_fk` (`tipo_pago`),
-  ADD KEY `id_cuentas_fk` (`id_cuentas`);
 
 --
 -- Indices de la tabla `d_corte`
@@ -1318,8 +1396,6 @@ ALTER TABLE `d_corte`
 --
 ALTER TABLE `d_p_cliente`
   ADD PRIMARY KEY (`id_dpcliente`),
-  ADD KEY `d_p_cliente_descuentos_fk` (`descuentos_id_descuento`),
-  ADD KEY `d_p_cliente_impuestos_fk` (`impuestos_id_impuestos`),
   ADD KEY `d_p_cliente_producto_fk` (`producto_id_producto`),
   ADD KEY `d_p_cliente_t_p_cliente_fk` (`t_p_cliente_id_remision`);
 
@@ -1328,8 +1404,6 @@ ALTER TABLE `d_p_cliente`
 --
 ALTER TABLE `d_p_proveedor`
   ADD PRIMARY KEY (`id_dpproveedor`),
-  ADD KEY `d_p_proveedor_descuentos_fk` (`descuentos_id_descuento`),
-  ADD KEY `d_p_proveedor_impuestos_fk` (`impuestos_id_impuestos`),
   ADD KEY `d_p_proveedor_producto_fk` (`producto_id_producto`),
   ADD KEY `d_p_proveedor_tp_aproveedor_fk` (`tp_aproveedor_id_rproveedor`);
 
@@ -1349,12 +1423,6 @@ ALTER TABLE `factura`
   ADD KEY `factura_cliente_fk` (`cliente_id_cliente`),
   ADD KEY `factura_empleado_fk` (`empleado_id_empleado`),
   ADD KEY `factura_tipo_pago_fk` (`tipo_pago_id_tpago`);
-
---
--- Indices de la tabla `impuestos`
---
-ALTER TABLE `impuestos`
-  ADD PRIMARY KEY (`id_impuestos`);
 
 --
 -- Indices de la tabla `modulos`
@@ -1385,8 +1453,7 @@ ALTER TABLE `password_resets`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `producto_categoria_fk` (`categoria_id_categoria`),
-  ADD KEY `producto_impuestos_fk` (`impuestos_id_impuestos`);
+  ADD KEY `producto_categoria_fk` (`categoria_id_categoria`);
 
 --
 -- Indices de la tabla `proveedor`
@@ -1521,9 +1588,15 @@ ALTER TABLE `cargo_modulo`
   MODIFY `id_cargoModulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT de la tabla `categoria_producto`
+-- AUTO_INCREMENT de la tabla `cartera`
 --
-ALTER TABLE `categoria_producto`
+ALTER TABLE `cartera`
+  MODIFY `id_cartera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -1545,22 +1618,16 @@ ALTER TABLE `c_inventario`
   MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
--- AUTO_INCREMENT de la tabla `descuentos`
+-- AUTO_INCREMENT de la tabla `detalle_cartera`
 --
-ALTER TABLE `descuentos`
-  MODIFY `id_descuento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `detalle_cartera`
+  MODIFY `id_dCartera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   MODIFY `id_detallef` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
-
---
--- AUTO_INCREMENT de la tabla `detalle_pagos`
---
-ALTER TABLE `detalle_pagos`
-  MODIFY `id_dpagos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `d_corte`
@@ -1591,12 +1658,6 @@ ALTER TABLE `empleado`
 --
 ALTER TABLE `factura`
   MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
-
---
--- AUTO_INCREMENT de la tabla `impuestos`
---
-ALTER TABLE `impuestos`
-  MODIFY `id_impuestos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `m_stock`
@@ -1674,7 +1735,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `tipo_cargo`
 --
 ALTER TABLE `tipo_cargo`
-  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_pago`

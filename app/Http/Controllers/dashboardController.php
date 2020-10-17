@@ -52,69 +52,7 @@ class dashboardController extends Controller
 				$fecha3=date("Y-m",strtotime($fecha_actual."- 3 month")); 
 
 
-	 			/*$tp=DB::table('detalle_banco')
-				->select(DB::raw('sum(ingreso_efectivo) as ief'),DB::raw('sum(egreso_efectivo) as Eef'),DB::raw('sum(ingreso_electronico) as iel'),DB::raw('sum(egreso_electronico) as Eel'))
-				->where('fecha','LIKE','%'.$fechaAño.'-'.$fechaMes.'%')
-	 			->orderBy('id_Dbanco', 'desc')->get();
-
-	 			$tpD=DB::table('detalle_banco')
-				->select(DB::raw('sum(ingreso_efectivo) as ief'),DB::raw('sum(egreso_efectivo) as Eef'),DB::raw('sum(ingreso_electronico) as iel'),DB::raw('sum(egreso_electronico) as Eel'))
-				->where('fecha','LIKE','%'.$fechaAño.'-'.$fechaMes.'-'.$fechaDia.'%')
-	 			->orderBy('id_Dbanco', 'desc')->get();
-
-	 			$tp1=DB::table('detalle_banco')
-				->select(DB::raw('sum(ingreso_efectivo+ingreso_electronico) as ief'))
-				->where('fecha','LIKE','%'.$fecha1.'%')
-	 			->orderBy('id_Dbanco', 'desc')->get();
-
-	 			$tp2=DB::table('detalle_banco')
-				->select(DB::raw('sum(ingreso_efectivo+ingreso_electronico) as ief'))
-				->where('fecha','LIKE','%'.$fecha2.'%')
-	 			->orderBy('id_Dbanco', 'desc')->get();
-
-	 			$tp3=DB::table('detalle_banco')
-				->select(DB::raw('sum(ingreso_efectivo+ingreso_electronico) as ief'))
-				->where('fecha','LIKE','%'.$fecha3.'%')
-	 			->orderBy('id_Dbanco', 'desc')->get();
-
-	 			$carteraPago=DB::table('cartera')
-	 			->select(DB::raw('sum(total) as total'))			
-	 			->where('atraso','=','0')
-	 			->where('fecha','LIKE','%'.$fecha1.'%')
-	 			->orderBy('id_cartera', 'desc')->get();
-
-	 			$carteraPago1=DB::table('cartera')
-	 			->select(DB::raw('sum(total) as total'))			
-	 			->where('atraso','=','0')
-	 			->where('fecha','LIKE','%'.$fecha2.'%')
-	 			->orderBy('id_cartera', 'desc')->get();
-
-	 			$carteraPago2=DB::table('cartera')
-	 			->select(DB::raw('sum(total) as total'))			
-	 			->where('atraso','=','0')
-	 			->where('fecha','LIKE','%'.$fecha3.'%')
-	 			->orderBy('id_cartera', 'desc')->get();
-
-	 			$carteraCobro=DB::table('cartera')
-	 			->select(DB::raw('sum(total) as total'))			
-	 			->where('atraso','=','1')
-	 			->where('fecha','LIKE','%'.$fecha1.'%')
-	 			->orderBy('id_cartera', 'desc')->get();
-
-	 			$carteraCobro1=DB::table('cartera')
-	 			->select(DB::raw('sum(total) as total'))			
-	 			->where('atraso','=','1')
-	 			->where('fecha','LIKE','%'.$fecha2.'%')
-	 			->orderBy('id_cartera', 'desc')->get();
-
-	 			$carteraCobro2=DB::table('cartera')
-	 			->select(DB::raw('sum(total) as total'))			
-	 			->where('atraso','=','1')
-	 			->where('fecha','LIKE','%'.$fecha3.'%')
-	 			->orderBy('id_cartera', 'desc')->get();*/
 	 			
-
-				//return view('almacen.dashboard.index2',["clientes"=>$clientes,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos, "productos"=>$productos,"tp"=>$tp,"tp2"=>$tp2,"tp1"=>$tp1,"tp3"=>$tp3,"tpD"=>$tpD, "carteraPago"=>$carteraPago,"carteraPago1"=>$carteraPago1,"carteraPago2"=>$carteraPago2,"carteraCobro"=>$carteraCobro, "carteraCobro1"=>$carteraCobro1, "carteraCobro2"=>$carteraCobro2]);
 				return view('almacen.dashboard.index2',["clientes"=>$clientes,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos, "productos"=>$productos]);
 	 		}
 	 	}
