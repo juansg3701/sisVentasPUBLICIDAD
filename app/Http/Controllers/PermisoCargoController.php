@@ -79,9 +79,7 @@ class PermisoCargoController extends Controller
 	 		
 	 		$cargo->nombre=$request->get('nombre');
 	 		$cargo->descripcion=$request->get('descripcion');
-	 			$cargo->horaordinaria=$request->get('horaordinaria');
-	 		$cargo->horadominical=$request->get('horadominical');
-	 		$cargo->horaextra=$request->get('horaextra');
+	 		$cargo->empleado_id_empleado=$request->get('empleado_id_empleado');
 	 		$cargo->fecha=$request->get('fecha');
 	 		$cargo->update();
 	 		return back()->with('msj','Cargo editado');

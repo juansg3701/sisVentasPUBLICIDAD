@@ -22,7 +22,6 @@
 			<br><br>
 			<div align="center">
 				<a href="{{URL::action('ProductoSedeController@create',0)}}"><button class="btn btn-info">Registrar producto</button></a>
-				<a href="{{URL::action('ImpuestoProducto@index',0)}}"><button class="btn btn-info">Registrar impuesto</button></a>
 				<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Registrar categoria</button></a>
 				<button class="btn btn-success">Cargar xls</button>
 				<button class="btn btn-success">Descargar xls</button>
@@ -62,7 +61,6 @@
 					<th>EAN</th>
 					<th>CATEGORÍA</th>
 					<th>PRECIO</th>
-					<th>IMPUESTO</th>
 					<th>STOCK MÍNIMO</th>
 					<th>IMAGEN</th>
 					<th>OPCIONES</th>
@@ -75,7 +73,6 @@
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->precio}}</td>
-					<td>{{ $ps->impuestos_id_impuestos}}</td>
 					<td>{{ $ps->stock_minimo}}</td>
 					<td>
 						<label>

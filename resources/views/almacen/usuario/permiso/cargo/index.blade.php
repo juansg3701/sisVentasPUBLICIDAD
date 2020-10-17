@@ -112,28 +112,29 @@
 @stop
 
 @section('tabla')
-	<div class="row" align="center">	
-		<div class="col-sm-12" align="center">
-			<div class="card" align="center">
+
+<!--Tabla de registros realizados-->
 
 
-<!--Tabla de registros realizados en la tabla de proveedor en la base de datos-->	
-<div class="row" align="center">
+
+<div class="container-fluid"><br>
 	<div class="col-sm-12" align="center">
-		<!--<h3><font font="Raleway, Garamond, Arial">SEDES REGISTRADAS</font></h3>
-		<span style=" font-style: italic;">Este texto tiene un estilo it&aacute;lico</span>-->
-		<br><h1 class="text-center title-1">Cargos registrados</h1>
-	</div>
+		<div class="col-sm-6" align="center">
+			<h1 class="h3 mb-2 text-gray-800">CARGOS REGISTRADOS</h1>
+		</div>
+	</div><br>
 </div>
-<div class="container">
-<div class="row m-t-30">
-    <div class="col-md-12">
-        <!-- DATA TABLE-->
-        <div class="table-responsive m-b-40">
-        	<h4 class="pb-2 display-5">Nombre del cargo:</h3>
-			@include('almacen.usuario.permiso.cargo.search')
-            <table class="table table-borderless table-striped table-earning">
-                <thead>
+
+<div class="card shadow mb-10">
+    <div class="card-header py-3" align="center">
+	    <h6 class="m-0 font-weight-bold">Lista de productos</h6>
+    </div>
+    <div class="card-body">
+    	<div class="table-responsive">
+    		<h4 class="pb-2 display-5">Nombre del cargo:</h3>
+						@include('almacen.usuario.permiso.cargo.search')
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
 					<th>NOMBRE</th>
 					<th>DESCRIPCIÓN</th>
 					<th>FECHA</th>
@@ -147,8 +148,8 @@
 					<td>{{ $car->fecha}}</td>
 					<td>{{ $car->empleado}}</td>
 					<td>
-						<a href="{{URL::action('PermisoCargoController@edit',$car->id_cargo)}}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
-						<a href="" data-target="#modal-delete-{{$car->id_cargo}}" data-toggle="modal"><button class="btn btn-outline-danger btn-sm">Eliminar</button></a>
+						<a href="{{URL::action('PermisoCargoController@edit',$car->id_cargo)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="" data-target="#modal-delete-{{$car->id_cargo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>	
 				</tr>
 				@include('almacen.usuario.permiso.cargo.modal')
@@ -156,13 +157,7 @@
 			</table>
 		</div>
 		{{$cargos->render()}}
-		<!-- END DATA TABLE-->
     </div>
-
 </div>
-</div>
-</div></div></div>
-
-
 
 @stop
