@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2020 a las 07:03:26
+-- Tiempo de generación: 18-10-2020 a las 20:42:06
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -47,11 +47,9 @@ INSERT INTO `cargo_modulo` (`id_cargoModulo`, `id_cargo`, `id_modulo`) VALUES
 (6, 3, 2),
 (7, 3, 1),
 (8, 3, 5),
-(9, 1, 1),
 (10, 1, 2),
 (11, 3, 6),
 (12, 4, 10),
-(13, 4, 5),
 (14, 3, 7),
 (15, 4, 6),
 (16, 3, 6),
@@ -560,7 +558,6 @@ CREATE TABLE `empleado` (
   `telefono` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `codigo` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `verificacion_nit` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `user_id_user` int(11) DEFAULT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -569,21 +566,21 @@ CREATE TABLE `empleado` (
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `tipo_cargo_id_cargo`, `sede_id_sede`, `telefono`, `direccion`, `codigo`, `verificacion_nit`, `user_id_user`, `fecha`) VALUES
-(1, 'juan', 'juan@gmail.com', 1, 1, '31289362', 'calle 12', '193648', '1', NULL, '0000-00-00'),
-(3, 'fabian', '', 1, 1, '', '', '222', NULL, NULL, '0000-00-00'),
-(10, 'David', '', 2, 2, '', '', '4565', NULL, NULL, '0000-00-00'),
-(11, 'Rosa', 'rosa@gmail.com', 1, 1, '', '', '233', NULL, NULL, '0000-00-00'),
-(12, 'Maria perez', '', 1, 1, '', '', '200000', NULL, NULL, '0000-00-00'),
-(13, 'Lucia', 'david@gmail.com', 1, 1, '', '', '1234', NULL, NULL, '0000-00-00'),
-(14, 'David Talero', 'david@gmail.com', 1, 1, '', '', '2332', NULL, NULL, '0000-00-00'),
-(15, 'holman rincon', 'david@gmail.com', 1, 1, '', '', '1111', NULL, NULL, '0000-00-00'),
-(18, 'marta alvarez', '', 1, 1, '', '', '111', NULL, NULL, '0000-00-00'),
-(22, 'gabriel sanchez', 'juan@gmail.com', 1, 1, '', '', '1111', NULL, NULL, '0000-00-00'),
-(23, 'carlos gomez', 'carlos@gmail.com', 2, 4, '', '', '122345', NULL, NULL, '0000-00-00'),
-(25, 'david vargas', 'david@gmail.com', 1, 1, '', '', '12345', NULL, NULL, '0000-00-00'),
-(26, 'a', '', 1, 1, '', '', '78', NULL, NULL, '0000-00-00'),
-(27, 'walter', 'walter@gmail.com', 1, 1, '', '', '12190', NULL, 14, '0000-00-00');
+INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `tipo_cargo_id_cargo`, `sede_id_sede`, `telefono`, `direccion`, `codigo`, `user_id_user`, `fecha`) VALUES
+(1, 'juan', 'juan@gmail.com', 1, 1, '31289362', 'calle 12', '193648', NULL, '0000-00-00'),
+(3, 'fabian', '', 1, 1, '', '', '222', NULL, '0000-00-00'),
+(10, 'David', '', 2, 2, '', '', '4565', NULL, '0000-00-00'),
+(11, 'Rosa', 'rosa@gmail.com', 1, 1, '', '', '233', NULL, '0000-00-00'),
+(12, 'Maria perez', '', 1, 1, '', '', '200000', NULL, '0000-00-00'),
+(13, 'Lucia', 'david@gmail.com', 1, 1, '', '', '1234', NULL, '0000-00-00'),
+(14, 'David Talero', 'david@gmail.com', 1, 1, '', '', '2332', NULL, '0000-00-00'),
+(15, 'holman rincon', 'david@gmail.com', 1, 1, '', '', '1111', NULL, '0000-00-00'),
+(18, 'marta alvarez', '', 1, 1, '', '', '111', NULL, '0000-00-00'),
+(22, 'gabriel sanchez', 'juan@gmail.com', 1, 1, '', '', '1111', NULL, '0000-00-00'),
+(23, 'carlos gomez', 'carlos@gmail.com', 2, 4, '', '', '122345', NULL, '0000-00-00'),
+(25, 'david vargas', 'david@gmail.com', 1, 1, '', '', '12345', NULL, '0000-00-00'),
+(26, 'a', '', 1, 1, '', '', '78', NULL, '0000-00-00'),
+(27, 'walter', 'walter@gmail.com', 1, 1, '', '', '12190', 14, '0000-00-00');
 
 -- --------------------------------------------------------
 
