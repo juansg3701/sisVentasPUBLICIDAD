@@ -58,15 +58,22 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
+          <span>Permisos admin</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <a class="collapse-item" href="{{url('almacen/usuario/permiso/cargo')}}">Cargos</a>
+            <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">Permiso de cuenta</a>
+            <a class="collapse-item" href="{{url('almacen/usuario/permiso/cuenta')}}">Cuentas</a>
           </div>
         </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url('almacen/sede')}}">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Registrar cuenta</span></a>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
@@ -87,6 +94,11 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="{{url('/logout')}}">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>SALIR</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -230,7 +242,25 @@
 
       </div>
       <!-- End of Main Content -->
-       <div class="content">
+       <div class="content" align="center">
+          <div class="col-md-4" align="center" >
+
+                
+                      @if(session()->has('msj'))
+                      <div class="alert alert-info" role="alert">
+                         <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{session('msj')}}
+                    </div>
+                      @endif
+
+                       @if(session()->has('errormsj'))
+                        <div class="alert alert-danger" role="alert">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{session('errormsj')}}
+                      </div>
+                        @endif
+
+                  </div>
           <div>
                         
                     @yield('contenido')

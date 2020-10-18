@@ -92,18 +92,7 @@
 										</div>
 									</div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Impuesto</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<select name="impuestos_id_impuestos" class="form-control" value="{{$productos->impuestos_id_impuestos}}">
-												@foreach($impuestos as $im)
-												<option value="{{$im->id_impuestos}}">{{$im->nombre}}</option>
-												@endforeach
-											</select>
-										</div>
-									</div>
+									
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">

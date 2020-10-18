@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductoSede extends Model
 {
-	 protected $connection = 'general';
     protected $table = 'producto';
     protected $primaryKey='id_producto';
     public $timestamps =false;
