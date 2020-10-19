@@ -20,6 +20,30 @@
 		</div>
 	</div>
 
+	<!--Panel superior-->
+	<div class="breadcrumbs">
+		<div class="breadcrumbs-inner">
+			<div class="row m-0">
+				<div class="col-sm-4">
+					<div class="page-header float-left">
+						<div class="page-title">
+							<h1>Cuentas</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<div class="page-header float-right">
+						<div class="page-title">
+							<ol class="breadcrumb text-right">
+								<li><a href="#">Permisos de administrador</a></li>
+								<li class="active"><a href="#">Editar cuenta</a></li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	{!!Form::model($usuario,['method'=>'PATCH','route'=>['almacen.nomina.empleado.update',$usuario->id_empleado]])!!}
     {{Form::token()}}
@@ -43,15 +67,7 @@
 			                     <strong>Formulario de edición</strong>
 			                </div>
 			                <div class="card-body card-block" align="center">
-			                	<div align="center">
-								@if($usuario->correo=="")
-								<input type="radio" name="rad" value="M" onclick="deshabilitar()" checked> Registro Normal &nbsp&nbsp&nbsp
-								<input type="radio" name="rad" value="F" onclick="habilitar()"> Registrar Como Cuenta
-								@else
-								<input type="hidden" name="rad" value="M" onclick="deshabilitar()" > &nbsp&nbsp&nbsp
-								<input type="hidden" name="rad" value="F" onclick="habilitar()" checked>
-								@endif
-								</div>
+			            
 
 
 								<div class="form-row">
@@ -102,34 +118,8 @@
 										<input type="number" class="form-control" name="codigo" value="{{$usuario->codigo}}">
 									</div>
 								</div>
-								<script type="text/javascript">
-										function habilitar() {
-							            $("#id_correo").prop("disabled", false);
-							            $("#id_contrasena").prop("disabled", false);
-							        	} 
-							        	function deshabilitar() {
-							            $("#id_correo").prop("disabled", true);
-							            $("#id_contrasena").prop("disabled", true);
-							        	}
-								</script>
-								@if($usuario->contrasena=="")
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Correo:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<input id="id_correo" type="text" class="form-control" name="correo" value="{{$usuario->correo}}" disabled required>
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Contraseña:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<input id="id_contrasena" type="password" class="form-control" name="contrasena" value="{{$usuario->contrasena}}" disabled required>
-									</div>
-								</div>
-								@else
+								
+								
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Correo:</div>
@@ -139,7 +129,6 @@
 										<input id="id_contrasena" type="hidden" class="form-control" name="contrasena" value="{{$usuario->contrasena}}"  required>
 									</div>
 								</div>
-								@endif
 
 								<div class="form-row">
 									<div class="form-group col-sm-12">
