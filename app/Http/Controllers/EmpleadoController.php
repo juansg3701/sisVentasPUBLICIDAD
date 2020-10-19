@@ -46,32 +46,56 @@ class EmpleadoController extends Controller
 	 		
 	 	
 
-	 	public function store(NominaUsuFormRequest $request){
+	 	public function store(Request $request){
+
+	 		$nombreR=$request->get('name');
+	 		$correoR=$request->get('email');
+	 		$contrasenaR=bcrypt($request->get('password'));
+	 		$cargoR=$request->get('tipo_cargo_id_cargo');
+	 		$sedeR=$request->get('sede_id_sede');
 	 		$codigoR=$request->get('codigo');
+
+	 		$CorreoRegis=DB::table('empleado')
+	 		->where('correo','=',$correoR)
+	 		->orderBy('id_empleado','desc')->get();
 
 	 		$CodigoRegis=DB::table('empleado')
 	 		->where('codigo','=',$codigoR)
 	 		->orderBy('id_empleado','desc')->get();
 
-	 		
+	 		if(count($CorreoRegis)==0){
 	 			if(count($CodigoRegis)==0){
-	 				$usuario = new Usuario;
-			 		$usuario->nombre=$request->get('nombre');
-			 		$usuario->correo=$request->get('correo');
-			 		$usuario->contrasena=$request->get('contrasena');	
-			 		$usuario->tipo_cargo_id_cargo=$request->get('tipo_cargo_id_cargo');
-			 		$usuario->sede_id_sede=$request->get('sede_id_sede');
-			 		$usuario->codigo=$codigoR;
-			 		$usuario->contrasena2=$request->get('contrasena2');
+	 				$usuario = new User;
+			 		$usuario->name=$nombreR;
+			 		$usuario->email=$correoR;
+			 		$usuario->password=$contrasenaR;
+			 		$usuario->tipo_cargo_id_cargo=$cargoR;
+			 		$usuario->sede_id_sede=$sedeR;
+			 		$usuario->superusuario=$request->get('superusuario');
 			 		$usuario->save();
 
-	 			return back()->with('msj','Empleado guardado');
+			 		$empleadoU= new Usuario;
+			 		$empleadoU->nombre=$nombreR;
+			 		$empleadoU->users_id=$usuario->id;
+			 		$empleadoU->correo=$correoR;	
+			 		$empleadoU->tipo_cargo_id_cargo=$cargoR;
+			 		$empleadoU->sede_id_sede=$sedeR;
+			 		$empleadoU->codigo=$codigoR;
+			 		$empleadoU->direccion=$request->get('direccion');
+			 		$empleadoU->telefono=$request->get('telefono');
+			 		$empleadoU->documento=$request->get('documento');
+			 		$empleadoU->fecha=$request->get('fecha');
+			 		$empleadoU->save();
+   	
+					return back()->with('msj','Usuario guardado');
 	 			}else{
 	 				return back()->with('errormsj','¡Código ya registrado!');
 	 			}
-
+	 		}else{
+	 				return back()->with('errormsj','¡Correo ya registrado!');
+	 		}
 	 		
-
+	 		
 	 	}
 
 	 	public function edit($id){
@@ -86,6 +110,7 @@ class EmpleadoController extends Controller
 	 		return view("almacen/nomina/empleado.edit",["cargos"=>$cargos,"sedes"=>$sedes,"usuario"=>Usuario::findOrFail($id), "modulos"=>$modulos]);
 	 	}
 	 	
+	 	//Actualizacion de datos en las cuentas
 	 	public function update(NominaUsuFormRequest $request, $id){
 	 		$id=$id;
 	 		$correoR=$request->get('correo');
@@ -114,11 +139,9 @@ class EmpleadoController extends Controller
 				 		$usuario = Usuario::findOrFail($id);
 				 		$usuario->nombre=$nombreR;
 				 		$usuario->correo=$correoR;
-				 		$usuario->contrasena=$contrasenaR;
 				 		$usuario->tipo_cargo_id_cargo=$cargoR;
 				 		$usuario->sede_id_sede=$sedeR;
 				 		$usuario->codigo=$codigoR;
-				 		$usuario->contrasena2=$request->get('contrasena2');
 				 		$usuario->update();
 
 				 		return back()->with('msj','Empleado actualizado');
@@ -129,9 +152,10 @@ class EmpleadoController extends Controller
 					 		->where('id_empleado','=',$id)
 					 		->orderBy('id_empleado','desc')->get();
 
-				 			$usuarioR=DB::table('users')
-					 		->where('id','=',$empleadoR[0]->user_id)
-					 		->orderBy('id','desc')->get();
+				 		
+
+					 		$usuarioR=User::where('id','=',$empleadoR[0]->user_id)
+			    			->paginate(10);
 
 				 			if(count($usuarioR)==0){
 				 			$us = new User;
@@ -145,11 +169,9 @@ class EmpleadoController extends Controller
 							$usuario = Usuario::findOrFail($id);
 					 		$usuario->nombre=$nombreR;
 					 		$usuario->correo=$correoR;
-					 		$usuario->contrasena=bcrypt($contrasenaR);
 					 		$usuario->tipo_cargo_id_cargo=$cargoR;
 					 		$usuario->sede_id_sede=$sedeR;
 					 		$usuario->codigo=$codigoR;
-					 		$usuario->contrasena2=$request->get('contrasena2');
 					 		$usuario->user_id_user=$us->id;
 					 		$usuario->update();
 				 			}else{
@@ -158,11 +180,9 @@ class EmpleadoController extends Controller
 							$usuario = Usuario::findOrFail($id);
 					 		$usuario->nombre=$nombreR;
 					 		$usuario->correo=$correoR;
-					 		$usuario->contrasena=$contrasenaR;
 					 		$usuario->tipo_cargo_id_cargo=$cargoR;
 					 		$usuario->sede_id_sede=$sedeR;
 					 		$usuario->codigo=$codigoR;
-					 		$usuario->contrasena2=$request->get('contrasena2');
 					 		
 
 					 		$us = User::findOrFail($usuario->user_id_user);
@@ -187,10 +207,8 @@ class EmpleadoController extends Controller
 	 				return back()->with('errormsj','¡Correo ya registrado!');
 	 			}	
 
-
-	 		
-	 		
 	 	}
+
 
 	 	public function destroy($id){
 	 		$usuario=Usuario::findOrFail($id);

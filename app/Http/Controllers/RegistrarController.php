@@ -16,6 +16,7 @@ class RegistrarController extends Controller
 			$this->middleware('auth');	
 
 			 	}
+	//Redirige para registrar los usuarios
 	 	public function index(Request $request){
 	 		if ($request) {
 	 			$query=trim($request->get('searchText'));
@@ -24,7 +25,7 @@ class RegistrarController extends Controller
 	 			$usuarios=DB::table('empleado as u')
 	 			->join('tipo_cargo as c','u.tipo_cargo_id_cargo','=','c.id_cargo')
 	 			->join('sede as s','u.sede_id_sede','=','s.id_sede')
-	 			->select('u.id_empleado','u.nombre','u.correo','u.contrasena','c.nombre as tipo_cargo','s.nombre_sede as sede','u.codigo')
+	 			->select('u.id_empleado','u.nombre','u.correo','c.nombre as tipo_cargo','s.nombre_sede as sede','u.codigo')
 	 			->where('u.nombre','LIKE', '%'.$query.'%')
 	 			->orderBy('u.id_empleado', 'desc')
 	 			->paginate(10);
@@ -49,7 +50,7 @@ class RegistrarController extends Controller
 	 		return view("almacen.usuario.iniciar.sesionIniciada", ["modulos"=>$modulos]);	
 	 	}
 
-	 	public function store(UsersFormRequest $request){
+	 	public function store(Request $request){
 
 	 		$nombreR=$request->get('name');
 	 		$correoR=$request->get('email');
@@ -74,17 +75,20 @@ class RegistrarController extends Controller
 			 		$usuario->password=$contrasenaR;
 			 		$usuario->tipo_cargo_id_cargo=$cargoR;
 			 		$usuario->sede_id_sede=$sedeR;
+			 		$usuario->superusuario=$request->get('superusuario');
 			 		$usuario->save();
 
 			 		$empleadoU= new Usuario;
 			 		$empleadoU->nombre=$nombreR;
 			 		$empleadoU->user_id_user=$usuario->id;
-			 		$empleadoU->correo=$correoR;
-			 		$empleadoU->contrasena=$contrasenaR;	
+			 		$empleadoU->correo=$correoR;	
 			 		$empleadoU->tipo_cargo_id_cargo=$cargoR;
 			 		$empleadoU->sede_id_sede=$sedeR;
 			 		$empleadoU->codigo=$codigoR;
-			 		$empleadoU->contrasena2=$contrasenaR;
+			 		$empleadoU->direccion=$request->get('direccion');
+			 		$empleadoU->telefono=$request->get('telefono');
+			 		$empleadoU->documento=$request->get('documento');
+			 		$empleadoU->fecha=$request->get('fecha');
 			 		$empleadoU->save();
    	
 					return back()->with('msj','Usuario guardado');

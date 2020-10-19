@@ -71,7 +71,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="{{url('almacen/sede')}}">
+        <a class="nav-link" href="{{url('almacen/usuario/registrar')}}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Registrar cuenta</span></a>
       </li>
