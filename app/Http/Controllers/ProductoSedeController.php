@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\ProductoSedeFormRequest;
 use DB;
 
-
 class ProductoSedeController extends Controller
 {
 	public function __construct(){
@@ -43,17 +42,14 @@ class ProductoSedeController extends Controller
 					->paginate(10);
 				}
 
-				
-	 			
-
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			
 	 			$eanP=DB::table('producto')
-	 			->orderBy('id_producto', 'desc')->get();
-	 			
+				 ->orderBy('id_producto', 'desc')->get();
+				 
 	 			return view('almacen.inventario.producto-sede.productoCompleto.index',["productos"=>$productos,"categoria"=>$categoria,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3,"modulos"=>$modulos,"eanP"=>$eanP]);
 	 		}
 	 	}

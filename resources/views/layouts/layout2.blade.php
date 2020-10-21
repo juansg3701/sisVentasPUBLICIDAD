@@ -87,7 +87,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item"  href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">Productos</a>
-            <a class="collapse-item" href="utilities-border.html">Stock</a>
+            <a class="collapse-item" href="{{url('almacen/inventario/proveedor-sede')}}">Stock</a>
             <a class="collapse-item" href="utilities-animation.html">Movimientos sede</a>
             <a class="collapse-item" href="utilities-other.html">Cortes</a>
           </div>
