@@ -5,7 +5,7 @@
 			<div class="col-sm-6" align="center">
 				<div class="card" align="center">
 				    <div class="card-header" align="center">
-				        <strong></strong>
+				        <strong>Filtros de búsqueda</strong>
 			        </div>
 				    <div class="card-body card-block" align="center">
 						

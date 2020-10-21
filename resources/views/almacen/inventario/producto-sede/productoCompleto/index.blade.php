@@ -71,7 +71,7 @@
 </div>
 <!--Formulario de búsqueda-->
 <div class="form-group">
-	<div class="form-group">
+	<div class="form-group col-sm-7">
 		<button id="btn_search" class="btn btn-outline-secondary btn-lg btn-block" style="display:hidden">Establecer filtros de búsqueda</button>
 		<button id="btn_search2" class="btn btn-outline-secondary btn-lg btn-block" style="display:none">Ocultar filtros de búsqueda</button>
 	</div>
