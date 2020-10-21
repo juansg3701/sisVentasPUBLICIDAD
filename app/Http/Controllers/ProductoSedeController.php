@@ -18,16 +18,33 @@ class ProductoSedeController extends Controller
 	 		if ($request) {
 	 			$query0=trim($request->get('searchText0'));
 	 			$query1=trim($request->get('searchText1'));
-	 			$query2=trim($request->get('searchText2'));
+				$query2=trim($request->get('searchText2'));
+				$query3=trim($request->get('searchText3'));
+				$categoria=DB::table('categoria')->get();
+				 
+				if($query3=="Todas las categorías") {
+					$productos=DB::table('producto as p')
+					->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
+					->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen')
+					->where('p.nombre','LIKE', '%'.$query0.'%')
+					->where('p.plu','LIKE', '%'.$query1.'%')
+					->where('p.ean','LIKE', '%'.$query2.'%')
+					->orderBy('p.id_producto', 'desc')
+					->paginate(10);
+				}else {
+					$productos=DB::table('producto as p')
+					->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
+					->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen')
+					->where('p.nombre','LIKE', '%'.$query0.'%')
+					->where('p.plu','LIKE', '%'.$query1.'%')
+					->where('p.ean','LIKE', '%'.$query2.'%')
+					->where('c.nombre','LIKE', '%'.$query3.'%')
+					->orderBy('p.id_producto', 'desc')
+					->paginate(10);
+				}
+
+				
 	 			
-	 			$productos=DB::table('producto as p')
-	 			->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
-	 			->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen')
-	 			->where('p.nombre','LIKE', '%'.$query0.'%')
-	 			->where('p.plu','LIKE', '%'.$query1.'%')
-	 			->where('p.ean','LIKE', '%'.$query2.'%')
-	 			->orderBy('p.id_producto', 'desc')
-	 			->paginate(5);
 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
@@ -37,7 +54,7 @@ class ProductoSedeController extends Controller
 	 			$eanP=DB::table('producto')
 	 			->orderBy('id_producto', 'desc')->get();
 	 			
-	 			return view('almacen.inventario.producto-sede.productoCompleto.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"modulos"=>$modulos,"eanP"=>$eanP]);
+	 			return view('almacen.inventario.producto-sede.productoCompleto.index',["productos"=>$productos,"categoria"=>$categoria,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3,"modulos"=>$modulos,"eanP"=>$eanP]);
 	 		}
 	 	}
 

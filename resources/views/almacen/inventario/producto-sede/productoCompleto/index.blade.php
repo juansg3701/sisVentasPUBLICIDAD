@@ -3,6 +3,8 @@
 	
 <head>
 	<title>Inventario - Productos sede</title>
+	<!--importar jquery para el manejo de algunos campos del formulario-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -12,28 +14,49 @@
 		</div>
 	</div>
 
+	<!--Código de JQuery para mostrar/esconder los campos de búsqueda-->
+	<script type="text/javascript">
+		$(function() {
+    		$("#btn_search").on("click", function() {
+    			$("#divBuscar").prop("style", "display:hidden");
+    			$("#btn_search").prop("style", "display:none");
+    			$("#btn_search2").prop("style", "display:hidden");
+    		});
+    		$("#btn_search2").on("click", function() {
+    			$("#divBuscar").prop("style", "display:none");
+    			$("#btn_search2").prop("style", "display:none");
+    			$("#btn_search").prop("style", "display:hidden");
+    		});
+		});
+	</script>
+
+	<!--Formulario de opciones-->
 	<div class="row" align="center">	
 		<div class="col-sm-12" align="center">
 			<div class="card" align="center"><br>
-
-		<div id=formulario>
-			<div class="form-group">
-				@include('almacen.inventario.producto-sede.productoCompleto.search')
-			<br><br>
-			<div align="center">
-				<a href="{{URL::action('ProductoSedeController@create',0)}}"><button class="btn btn-info">Registrar producto</button></a>
-				<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Registrar categoria</button></a>
-				<button class="btn btn-success">Cargar xls</button>
-				<button class="btn btn-success">Descargar xls</button>
-				<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
-				<br><br>
-			</div>
+				<div class="row" align="center">	
+					<div class="col-sm-3" align="center"></div>
+						<div class="col-sm-6" align="center">
+							<div class="card" align="center">
+								<div class="card-header" align="center">
+									<strong></strong>
+								</div>
+								<div class="card-body card-block" align="center">
+									<a href="{{URL::action('ProductoSedeController@create',0)}}"><button class="btn btn-info">Registrar producto</button></a>
+									<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Categoría producto</button></a>
+									<button class="btn btn-success" disabled="true">Cargar xls</button>
+									<button class="btn btn-success" disabled="true">Descargar xls</button>
+									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
+									<br><br>			
+								</div>
+							</div>
+						</div>
+					<div class="col-sm-3" align="center"></div>
+				</div><br>
 			</div>
 		</div>
+	</div>
 
-	</div>
-		</div>
-	</div>
 </body>
 
 @stop
@@ -46,7 +69,19 @@
 		</div>
 	</div><br>
 </div>
+<!--Formulario de búsqueda-->
+<div class="form-group">
+	<div class="form-group">
+		<button id="btn_search" class="btn btn-outline-secondary btn-lg btn-block" style="display:hidden">Establecer filtros de búsqueda</button>
+		<button id="btn_search2" class="btn btn-outline-secondary btn-lg btn-block" style="display:none">Ocultar filtros de búsqueda</button>
+	</div>
+	<div id="divBuscar" class="form-group" style="display:none">
+		<!--Incluir la ventana modal de búsqueda-->	
+		@include('almacen.inventario.producto-sede.productoCompleto.search')	
+	</div>	
+</div>
 
+<!--Tabla de registros realizados-->
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
 	    <h6 class="m-0 font-weight-bold">Lista de productos</h6>
@@ -61,7 +96,7 @@
 					<th>EAN</th>
 					<th>CATEGORÍA</th>
 					<th>PRECIO</th>
-					<th>STOCK MÍNIMO</th>
+					<th>STOCK MÍN.</th>
 					<th>IMAGEN</th>
 					<th>OPCIONES</th>
 				</thead>

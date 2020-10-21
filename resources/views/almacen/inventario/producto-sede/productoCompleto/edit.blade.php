@@ -2,14 +2,13 @@
 @section ('contenido')
 	
 <head>
-	<title>Productos</title>
+	<title>Editar producto</title>
     <!--<link rel="stylesheet" href="{{ asset('css/Almacen/usuario/styles-iniciar.css') }}" />-->
-
 </head>
+
 <body>
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-			<h3>Editar Datos Producto: {{$productos->nombre}}</h3>
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
 				<ul>
@@ -25,8 +24,6 @@
 	{!!Form::model($productos,['method'=>'PATCH','route'=>['almacen.inventario.producto-sede.productoCompleto.update',$productos->id_producto], 'files'=>'true'])!!}
 	{{Form::token()}}
 	
-
-
 	<div class="row" align="center">	
 		<div class="col-sm-12" align="center">
 			<div class="card" align="center">
@@ -92,8 +89,6 @@
 										</div>
 									</div>
 
-									
-
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Stock Mínimo</div>
@@ -135,11 +130,7 @@
         	</div>
 		</div>
 	</div>
-
-
-
-	
-{!!Form::close()!!}		
+	{!!Form::close()!!}		
 </body>
 
 @stop
