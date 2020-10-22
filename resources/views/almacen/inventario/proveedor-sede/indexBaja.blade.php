@@ -2,7 +2,7 @@
 @section ('contenido')
 	
 <head>
-	<title>Inventario - Stock</title>
+	<title>Inventario - Stock - Bajas</title>
     <!--importar jquery para el manejo de algunos campos del formulario-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -11,7 +11,7 @@
 <body>
 	<div class="row">
 		<div class="col-sm" align="center">
-			<h2>PRODUCTOS STOCK</h2>
+			<h2>PRODUCTOS DADOS DE BAJA</h2>
 		</div>
 	</div>
 
@@ -44,10 +44,9 @@
 								</div>
 								<div class="card-body card-block" align="center">
 									<a href="{{url('almacen/inventario/ean')}}"><button class="btn btn-info">Registrar Productos</button></a>
-									<a href="{{URL::action('ProveedorSedeController@indexBaja',0)}}"><button class="btn btn-info">Dados de baja</button></a>
 									<button class="btn btn-success" disabled="true">Cargar xls</button>
 									<button class="btn btn-success" disabled="true">Descargar xls</button>
-									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
+									<a href="{{url('almacen/inventario/proveedor-sede')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
 								</div>
 							</div>
@@ -98,8 +97,8 @@
 					<th>PROVEEDOR</th>
 					<th>CANTIDAD</th>
 					<th>DISPONIBILIDAD</th>
-					<th>BAJA</th>
-					<th>VENCE</th>
+                    <th>BAJA</th>
+                    <th>VENCE</th>
 					<th>OPCIONES</th>
 				</thead>
 				@foreach($productos as $ps)
@@ -118,9 +117,10 @@
 					@if($ps->disponibilidad=='0')
 					<td>No disponible</td>
 					@endif
-					<td>{{ $ps->producto_dados_baja}}</td>
-					<td>{{ $ps->fecha_vencimiento}}</td>
+                    <td>{{ $ps->producto_dados_baja}}</td>
+                    <td>{{ $ps->fecha_vencimiento}}</td>
 					<td>
+                    
 						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
@@ -142,9 +142,9 @@
 					@if($ps->disponibilidad=='0')
 					<td>No disponible</td>
 					@endif
-					<td>{{ $ps->producto_dados_baja}}</td>
-					<td>{{ $ps->fecha_vencimiento}}</td>
-					<td>
+                    <td>{{ $ps->producto_dados_baja}}</td>
+                    <td>{{ $ps->fecha_vencimiento}}</td>
+					<td>						
 						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>

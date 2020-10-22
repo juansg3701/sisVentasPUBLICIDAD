@@ -11,10 +11,9 @@ use DB;
 
 class ProveedorSedeController extends Controller
 {
-	  public function __construct(){
+	  	public function __construct(){
 			$this->middleware('auth');	
-
-			 	} 
+		} 
 	 	public function index(Request $request){
 	 	if ($request) {
 
@@ -23,16 +22,16 @@ class ProveedorSedeController extends Controller
 	 			$query2=trim($request->get('searchText2'));
 	 			$query3=trim($request->get('searchText3'));
 
-
 	 			$productos=DB::table('stock as s')
 	 			->join('producto as p','s.producto_id_producto','=','p.id_producto')
 	 			->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
 	 			->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
-	 			->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede')
+	 			->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento')
 	 			->where('p.nombre','LIKE', '%'.$query0.'%')
 	 			->where('p.plu','LIKE', '%'.$query1.'%')
 	 			->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
-	 			->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+				->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+				->where('s.producto_dados_baja','=', 0)
 	 			->orderBy('s.id_stock', 'desc')
 	 			->paginate(10);
 
@@ -47,7 +46,6 @@ class ProveedorSedeController extends Controller
 	 			$sedesP=DB::table('sede')->get();
 	 			$proveedoresP=DB::table('proveedor')->get();
 
-
 	 			return view('almacen.inventario.proveedor-sede.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP]);
 	 		}
 	 	}
@@ -55,8 +53,8 @@ class ProveedorSedeController extends Controller
 
 
 	 	public function create(Request $request){
-	 			 		if ($request) {
-	 				$query=trim($request->get('searchText'));
+	 		if ($request) {
+	 		$query=trim($request->get('searchText'));
 
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
@@ -71,10 +69,8 @@ class ProveedorSedeController extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			
-	 			
-
 	 		return view("almacen.inventario.proveedor-sede.registrar",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto, "modulos"=>$modulos,  "pEAN"=>$pEAN,"searchText"=>$query]);
-	 	}
+	 		}
 	 	}
 
 	 	public function store(ProveedorSedeFormRequest $request){
@@ -83,7 +79,14 @@ class ProveedorSedeController extends Controller
 	 		$ps->sede_id_sede=$request->get('sede_id_sede');
 	 		$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
 	 		$ps->disponibilidad=$request->get('disponibilidad');
-	 		$ps->cantidad=$request->get('cantidad');
+			$ps->cantidad=$request->get('cantidad');
+			$ps->fecha_vencimiento=$request->get('fecha_vencimiento');
+			if($request->get('producto_dados_baja')==1){
+				$ps->producto_dados_baja=0;
+			}	
+			else{
+				$ps->producto_dados_baja=1;
+			}
 	 		$ps->save();
 
 	 		return back()->with('msj','Producto guardado');
@@ -104,8 +107,6 @@ class ProveedorSedeController extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			
-	 			
-
 	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto, "modulos"=>$modulos,  "pEAN"=>$pEAN,"searchText"=>$query]);
 	 	}
 
@@ -129,7 +130,14 @@ class ProveedorSedeController extends Controller
 	 		$ps->sede_id_sede=$request->get('sede_id_sede');
 	 		$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
 	 		$ps->disponibilidad=$request->get('disponibilidad');
-	 		$ps->cantidad=$request->get('cantidad');
+			$ps->cantidad=$request->get('cantidad');
+			$ps->fecha_vencimiento=$request->get('fecha_vencimiento');
+			if($request->get('producto_dados_baja')==1){
+				$ps->producto_dados_baja=0;
+			}	
+			else{
+				$ps->producto_dados_baja=1;
+			}
 	 		$ps->update();
 
 	 		return back()->with('msj','Producto actualizado');
@@ -166,9 +174,56 @@ class ProveedorSedeController extends Controller
 
 	 		}
 
+		 }
+		 
 
-	 		
-	 	}
+
+	 	public function bajar(ProveedorSedeFormRequest $request, $id){
+
+			$ps = ProveedorSede::findOrFail($id);
+			$ps->producto_dados_baja=1;
+			$ps->update();
+
+			return back()->with('msj','Estado actualizado');
+			
+		}
+
+		public function indexBaja(Request $request){
+			if ($request) {
+   
+					$query0=trim($request->get('searchText0'));
+					$query1=trim($request->get('searchText1'));
+					$query2=trim($request->get('searchText2'));
+					$query3=trim($request->get('searchText3'));
+   
+					$productos=DB::table('stock as s')
+					->join('producto as p','s.producto_id_producto','=','p.id_producto')
+					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+					->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
+					->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento')
+					->where('p.nombre','LIKE', '%'.$query0.'%')
+					->where('p.plu','LIKE', '%'.$query1.'%')
+					->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
+					->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+					->where('s.producto_dados_baja','=', 1)
+					->orderBy('s.id_stock', 'desc')
+					->paginate(10);
+   
+				    $cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+					$modulos=DB::table('cargo_modulo')
+					->where('id_cargo','=',$cargoUsuario)
+					->orderBy('id_cargo', 'desc')->get();
+   
+					$eanP=DB::table('producto')
+					->orderBy('id_producto', 'desc')->get();
+   
+					$sedesP=DB::table('sede')->get();
+					$proveedoresP=DB::table('proveedor')->get();
+   
+   
+					return view('almacen.inventario.proveedor-sede.indexBaja',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP]);
+				}
+			}
 
 
 

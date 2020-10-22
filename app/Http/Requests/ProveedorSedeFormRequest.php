@@ -29,7 +29,11 @@ class ProveedorSedeFormRequest extends Request
             'proveedor_id_proveedor'=>'required|max:45',
             'disponibilidad'=>'required|max:45',
             'cantidad'=>'required|max:45',
-
+            'producto_dados_baja'=>'|max:45', 
+            'fecha_vencimiento'=>'required|max:45', 
+            'empleado_id_empleado'=>'|max:45', 
+            'sede_id_sede'=>'|max:45',
+            'fecha_registro'=>'|max:45',
         ];
     }
 }

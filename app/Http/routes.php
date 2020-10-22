@@ -133,3 +133,8 @@ Route::resource('almacen/facturacion/pagoElectronico', 'pagoElectronico');
 Route::resource('almacen/facturacion/TicketFactura', 'facturacionTListaVentas');
 Route::resource('almacen/facturacion/FacturaVenta', 'facturacionFListaVentas');
 Route::resource('almacen/facturacion/descuentos', 'DescuentoProducto');
+
+
+
+Route::get('bajar', 'ProveedorSedeController@bajar');
+Route::get('indexBaja', 'ProveedorSedeController@indexBaja');
