@@ -20,20 +20,24 @@ class ProductoSedeController extends Controller
 				$query2=trim($request->get('searchText2'));
 				$query3=trim($request->get('searchText3'));
 				$categoria=DB::table('categoria')->get();
-				 
-				if($query3=="Todas las categorías") {
+				
+				if($query3=="Todas las categorías"){
 					$productos=DB::table('producto as p')
 					->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
-					->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen')
+					->join('empleado as e','p.empleado_id_empleado','=','e.id_empleado')
+					->join('sede as s','p.sede_id_sede','=','s.id_sede')
+					->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen','p.fecha_registro','e.nombre as empleado_id_empleado','s.nombre_sede as sede_id_sede')
 					->where('p.nombre','LIKE', '%'.$query0.'%')
 					->where('p.plu','LIKE', '%'.$query1.'%')
 					->where('p.ean','LIKE', '%'.$query2.'%')
 					->orderBy('p.id_producto', 'desc')
 					->paginate(10);
-				}else {
+				}else{
 					$productos=DB::table('producto as p')
 					->join('categoria as c','p.categoria_id_categoria','=','c.id_categoria')
-					->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen')
+					->join('empleado as e','p.empleado_id_empleado','=','e.id_empleado')
+					->join('sede as s','p.sede_id_sede','=','s.id_sede')
+					->select('p.id_producto','p.nombre','p.plu','p.ean','c.nombre as categoria_id_categoria','p.precio','p.stock_minimo','p.imagen','p.fecha_registro','e.nombre as empleado_id_empleado','s.nombre_sede as sede_id_sede')
 					->where('p.nombre','LIKE', '%'.$query0.'%')
 					->where('p.plu','LIKE', '%'.$query1.'%')
 					->where('p.ean','LIKE', '%'.$query2.'%')
@@ -57,13 +61,14 @@ class ProductoSedeController extends Controller
 
 	 	public function create(){
 	 		$categorias=DB::table('categoria')->get();
-
+			$usuarios=DB::table('empleado')->get();
+	 		$sedes=DB::table('sede')->get();
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			
-	 		return view("almacen.inventario.producto-sede.productoCompleto.registrar",["categorias"=>$categorias,"modulos"=>$modulos]);
+	 		return view("almacen.inventario.producto-sede.productoCompleto.registrar",["categorias"=>$categorias,"modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 	}
 
 	 	public function store(ProductoSedeFormRequest $request){
@@ -88,6 +93,10 @@ class ProductoSedeController extends Controller
 		 		$ps->precio=$request->get('precio');
 		 		$ps->stock_minimo=$request->get('stock_minimo');
 				$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+				$ps->fecha_registro=$request->get('fecha_registro');	
+				$ps->empleado_id_empleado=$request->get('empleado_id_empleado');
+				$ps->sede_id_sede=$request->get('sede_id_sede');
+				
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
 					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
@@ -113,14 +122,16 @@ class ProductoSedeController extends Controller
 	 	}
 
 	 	public function edit($id){
-	 		$categorias=DB::table('categoria')->get();
+			$categorias=DB::table('categoria')->get();
+			$usuarios=DB::table('empleado')->get();
+	 		$sedes=DB::table('sede')->get();
 
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			
-	 		return view("almacen.inventario.producto-sede.productoCompleto.edit",["productos"=>ProductoSede::findOrFail($id),"categorias"=>$categorias, "modulos"=>$modulos]);
+	 		return view("almacen.inventario.producto-sede.productoCompleto.edit",["productos"=>ProductoSede::findOrFail($id),"categorias"=>$categorias, "modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 
 	 	}
 
@@ -149,6 +160,9 @@ class ProductoSedeController extends Controller
 		 		$ps->precio=$request->get('precio');
 		 		$ps->stock_minimo=$request->get('stock_minimo');
 				$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+				$ps->fecha_registro=$request->get('fecha_registro');	
+				$ps->empleado_id_empleado=$request->get('empleado_id_empleado');
+				$ps->sede_id_sede=$request->get('sede_id_sede');
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
 					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
@@ -169,8 +183,7 @@ class ProductoSedeController extends Controller
 	 		}else{
 	 				return back()->with('errormsj','¡PLU ya registrado!');
 	 		}
-
-	 		
+	
 	 	}
 
 	 	public function destroy($id){

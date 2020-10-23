@@ -22,6 +22,10 @@ class ProveedorSedeController extends Controller
 	 			$query2=trim($request->get('searchText2'));
 	 			$query3=trim($request->get('searchText3'));
 
+				$usuarios=DB::table('empleado')->get();
+				$sedes=DB::table('sede')->get();
+				 
+
 	 			$productos=DB::table('stock as s')
 	 			->join('producto as p','s.producto_id_producto','=','p.id_producto')
 	 			->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
@@ -46,7 +50,7 @@ class ProveedorSedeController extends Controller
 	 			$sedesP=DB::table('sede')->get();
 	 			$proveedoresP=DB::table('proveedor')->get();
 
-	 			return view('almacen.inventario.proveedor-sede.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP]);
+	 			return view('almacen.inventario.proveedor-sede.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios, "sedes"=>$sedes]);
 	 		}
 	 	}
 	 	
@@ -55,7 +59,7 @@ class ProveedorSedeController extends Controller
 	 	public function create(Request $request){
 	 		if ($request) {
 	 		$query=trim($request->get('searchText'));
-
+			$usuarios=DB::table('empleado')->get();
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
 	 		$producto=DB::table('producto')->get();
@@ -69,7 +73,7 @@ class ProveedorSedeController extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			
-	 		return view("almacen.inventario.proveedor-sede.registrar",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto, "modulos"=>$modulos,  "pEAN"=>$pEAN,"searchText"=>$query]);
+	 		return view("almacen.inventario.proveedor-sede.registrar",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto, "modulos"=>$modulos,  "pEAN"=>$pEAN,"searchText"=>$query, "usuarios"=>$usuarios]);
 	 		}
 	 	}
 
