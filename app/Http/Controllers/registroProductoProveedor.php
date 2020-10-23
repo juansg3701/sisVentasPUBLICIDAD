@@ -17,9 +17,10 @@ class registroProductoProveedor extends Controller
 			 	}
 			 	
 	 	public function index(Request $request){
-	 				if ($request) {
-	 				$query=trim($request->get('searchText'));
-
+	 		if ($request) {
+	 		$query=trim($request->get('searchText'));
+			$usuarios=DB::table('empleado')->get();
+	 		$sedes=DB::table('sede')->get();
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
 	 		$producto=DB::table('producto')->get();
@@ -33,7 +34,7 @@ class registroProductoProveedor extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
-	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto, "modulos"=>$modulos,  "pEAN"=>$pEAN,"searchText"=>$query]);
+	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"modulos"=>$modulos,"pEAN"=>$pEAN,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 	}
 	 	}
 

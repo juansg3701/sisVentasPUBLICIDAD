@@ -122,7 +122,7 @@
 											<div>Fecha:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control">
+											<input type="datetime" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control">
 										</div>
 									</div>
 

@@ -58,6 +58,64 @@
 									</div>
 
 									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Fecha:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control">
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Empleado:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="hidden" name="empleado_id_empleado" value="{{Auth::user()->id}}">
+
+											<select name="" class="form-control" disabled="true">
+												@foreach($usuarios as $usu)
+												@if(Auth::user()->id==$usu->user_id_user)
+												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												@endif
+												@endforeach
+
+												@foreach($usuarios as $usu)
+												@if(Auth::user()->id!=$usu->user_id_user)
+												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												@endif
+												@endforeach	
+											</select>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Sede:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="hidden" name="sede_id_sede" value="{{Auth::user()->id}}">
+
+											<select name="sede_id_sede" class="form-control" disabled="true">
+												@foreach($sedes as $s)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
+												aa
+												@endif
+												@endforeach
+
+												@foreach($sedes as $s)
+												@if( Auth::user()->sede_id_sede!=$s->id_sede)
+												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
+												aa
+												@endif
+												@endforeach
+											</select><br>
+										</div>
+									</div>
+
+
+									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<a href="{{URL::action('CategoriaProducto@create',0)}}"><button href="" class="btn btn-info" type="submit">Registrar</button></a>
 											<a href="{{url('almacen/inventario/producto-sede/productoCompleto')}}" class="btn btn-danger">Regresar</a>
@@ -98,12 +156,18 @@
 				<thead>
 					<th>NOMBRE</th>
 					<th>DESCRIPCIÓN</th>
+					<th>EMPLEADO</th>
+					<th>SEDE</th>
+					<th>FECHA REG.</th>
 					<th>OPCIONES</th>
 				</thead>
 				@foreach($categorias as $cat)
 				<tr>
 					<td>{{ $cat->nombre}}</td>
 					<td>{{ $cat->descripcion}}</td>
+					<td>{{ $cat->empleado_id_empleado}}</td>
+					<td>{{ $cat->sede_id_sede}}</td>
+					<td>{{ $cat->fecha}}</td>
 					<td>
 						<a href="{{URL::action('CategoriaProducto@edit',$cat->id_categoria)}}"><button class="btn btn-info">Editar</button></a>
 						<a href="" data-target="#modal-delete-{{$cat->id_categoria}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
@@ -116,8 +180,4 @@
 		{{$categorias->render()}}
     </div>
 </div>
-
-
-
-
 @stop

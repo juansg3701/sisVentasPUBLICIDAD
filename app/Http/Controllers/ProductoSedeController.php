@@ -111,10 +111,6 @@ class ProductoSedeController extends Controller
 	 		}else{
 	 				return back()->with('errormsj','¡PLU ya registrado!');
 	 		}
-
-
-
-	 		
 	 	}
 
 	 	public function show($id){

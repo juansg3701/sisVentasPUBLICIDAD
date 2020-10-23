@@ -153,25 +153,12 @@
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Disponible:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<select name="disponibilidad" class="form-control">	
-												<option value="1">Disponible</option>
-												<option value="0">No disponible</option>
-											</select>
-										</div>
-									</div>
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
 											<div>Cantidad:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input type="text" class="form-control" name="cantidad">
 										</div>
 									</div>
-
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
@@ -188,11 +175,45 @@
 										</div>
 										<div class="form-group col-sm-8">
 											<select name="producto_dados_baja" class="form-control">
-												<option value="1">A la venta</option>
+												<option value="1">Disponible</option>
 												<option value="0">Dado de baja</option>
 											</select>
 										</div>
 									</div>
+
+									
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Fecha:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="datetime" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control">
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Empleado:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="hidden" name="empleado_id_empleado" value="{{Auth::user()->id}}">
+
+											<select name="" class="form-control" disabled="true">
+												@foreach($usuarios as $usu)
+												@if(Auth::user()->id==$usu->user_id_user)
+												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												@endif
+												@endforeach
+
+												@foreach($usuarios as $usu)
+												@if(Auth::user()->id!=$usu->user_id_user)
+												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												@endif
+												@endforeach	
+											</select>
+										</div>
+									</div>
+
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">

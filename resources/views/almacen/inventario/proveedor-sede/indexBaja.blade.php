@@ -43,9 +43,6 @@
 									<strong></strong>
 								</div>
 								<div class="card-body card-block" align="center">
-									<a href="{{url('almacen/inventario/ean')}}"><button class="btn btn-info">Registrar Productos</button></a>
-									<button class="btn btn-success" disabled="true">Cargar xls</button>
-									<button class="btn btn-success" disabled="true">Descargar xls</button>
 									<a href="{{url('almacen/inventario/proveedor-sede')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
 								</div>
@@ -96,9 +93,10 @@
 					<th>SEDE</th>
 					<th>PROVEEDOR</th>
 					<th>CANTIDAD</th>
-					<th>DISPONIBILIDAD</th>
-                    <th>BAJA</th>
-                    <th>VENCE</th>
+					<th>VENCE</th>
+					<th>FECHA REG.</th>
+					<th>EMPLEADO</th>
+					<th>ESTADO</th>
 					<th>OPCIONES</th>
 				</thead>
 				@foreach($productos as $ps)
@@ -111,16 +109,16 @@
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 					<td>{{ $ps->cantidad}}</td>
-					@if($ps->disponibilidad=='1')
-					<td>Disponible</td>
+					<td>{{ $ps->fecha_vencimiento}}</td>
+					<td>{{ $ps->fecha_registro}}</td>
+					<td>{{ $ps->empleado_id_empleado}}</td>
+					@if($ps->producto_dados_baja=='1')
+						<td>Dado de baja</td>
 					@endif
-					@if($ps->disponibilidad=='0')
-					<td>No disponible</td>
+					@if($ps->producto_dados_baja=='0')
+						<td>Disponible</td>
 					@endif
-                    <td>{{ $ps->producto_dados_baja}}</td>
-                    <td>{{ $ps->fecha_vencimiento}}</td>
 					<td>
-                    
 						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
@@ -136,15 +134,16 @@
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 					<td>{{ $ps->cantidad}}</td>
-					@if($ps->disponibilidad=='1')
-					<td>Disponible</td>
+					<td>{{ $ps->fecha_vencimiento}}</td>
+					<td>{{ $ps->fecha_registro}}</td>
+					<td>{{ $ps->empleado_id_empleado}}</td>
+					@if($ps->producto_dados_baja=='1')
+						<td>Dado de baja</td>
 					@endif
-					@if($ps->disponibilidad=='0')
-					<td>No disponible</td>
+					@if($ps->producto_dados_baja=='0')
+						<td>Disponible</td>
 					@endif
-                    <td>{{ $ps->producto_dados_baja}}</td>
-                    <td>{{ $ps->fecha_vencimiento}}</td>
-					<td>						
+					<td>
 						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>

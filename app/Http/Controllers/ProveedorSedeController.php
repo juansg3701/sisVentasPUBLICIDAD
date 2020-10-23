@@ -28,9 +28,10 @@ class ProveedorSedeController extends Controller
 
 	 			$productos=DB::table('stock as s')
 	 			->join('producto as p','s.producto_id_producto','=','p.id_producto')
-	 			->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+				->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+				->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
 	 			->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
-	 			->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento')
+	 			->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
 	 			->where('p.nombre','LIKE', '%'.$query0.'%')
 	 			->where('p.plu','LIKE', '%'.$query1.'%')
 	 			->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
@@ -50,7 +51,7 @@ class ProveedorSedeController extends Controller
 	 			$sedesP=DB::table('sede')->get();
 	 			$proveedoresP=DB::table('proveedor')->get();
 
-	 			return view('almacen.inventario.proveedor-sede.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios, "sedes"=>$sedes]);
+	 			return view('almacen.inventario.proveedor-sede.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 		}
 	 	}
 	 	
@@ -85,6 +86,8 @@ class ProveedorSedeController extends Controller
 	 		$ps->disponibilidad=$request->get('disponibilidad');
 			$ps->cantidad=$request->get('cantidad');
 			$ps->fecha_vencimiento=$request->get('fecha_vencimiento');
+			$ps->fecha_registro=$request->get('fecha_registro');
+			$ps->empleado_id_empleado=$request->get('empleado_id_empleado');
 			if($request->get('producto_dados_baja')==1){
 				$ps->producto_dados_baja=0;
 			}	
@@ -117,15 +120,17 @@ class ProveedorSedeController extends Controller
 	 	public function edit($id){
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
-	 		$producto=DB::table('producto')->get();
+			$producto=DB::table('producto')->get();
+			$usuarios=DB::table('empleado')->get();
+			$sedes=DB::table('sede')->get();
 
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
-	 			$modulos=DB::table('cargo_modulo')
-	 			->where('id_cargo','=',$cargoUsuario)
-	 			->orderBy('id_cargo', 'desc')->get();
+	 		$modulos=DB::table('cargo_modulo')
+	 		->where('id_cargo','=',$cargoUsuario)
+	 		->orderBy('id_cargo', 'desc')->get();
 	 			
 
-	 		return view("almacen.inventario.proveedor-sede.edit",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"stock"=>ProveedorSede::findOrFail($id), "modulos"=>$modulos]);
+	 		return view("almacen.inventario.proveedor-sede.edit",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"stock"=>ProveedorSede::findOrFail($id),"modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 	}
 
 	 	public function update(ProveedorSedeFormRequest $request, $id){
@@ -135,6 +140,8 @@ class ProveedorSedeController extends Controller
 	 		$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
 	 		$ps->disponibilidad=$request->get('disponibilidad');
 			$ps->cantidad=$request->get('cantidad');
+			$ps->fecha_registro=$request->get('fecha_registro');
+			$ps->empleado_id_empleado=$request->get('empleado_id_empleado');
 			$ps->fecha_vencimiento=$request->get('fecha_vencimiento');
 			if($request->get('producto_dados_baja')==1){
 				$ps->producto_dados_baja=0;
@@ -192,6 +199,11 @@ class ProveedorSedeController extends Controller
 			
 		}
 
+
+
+
+
+
 		public function indexBaja(Request $request){
 			if ($request) {
    
@@ -199,12 +211,15 @@ class ProveedorSedeController extends Controller
 					$query1=trim($request->get('searchText1'));
 					$query2=trim($request->get('searchText2'));
 					$query3=trim($request->get('searchText3'));
+					$usuarios=DB::table('empleado')->get();
+					$sedes=DB::table('sede')->get();
    
 					$productos=DB::table('stock as s')
 					->join('producto as p','s.producto_id_producto','=','p.id_producto')
 					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+					->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
 					->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
-					->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento')
+					->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento','s.fecha_registro','e.nombre as empleado_id_empleado')
 					->where('p.nombre','LIKE', '%'.$query0.'%')
 					->where('p.plu','LIKE', '%'.$query1.'%')
 					->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
@@ -225,7 +240,7 @@ class ProveedorSedeController extends Controller
 					$proveedoresP=DB::table('proveedor')->get();
    
    
-					return view('almacen.inventario.proveedor-sede.indexBaja',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP]);
+					return view('almacen.inventario.proveedor-sede.indexBaja',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 				}
 			}
 
