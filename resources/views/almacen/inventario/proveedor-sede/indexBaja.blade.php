@@ -81,12 +81,15 @@
 </div>
 
 
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-condensed table-hover">
+<!--Tabla de registros realizados-->
+<div class="card shadow mb-10">
+    <div class="card-header py-3" align="center">
+	    <h6 class="m-0 font-weight-bold">Lista de productos</h6>
+    </div>
+    <div class="card-body">
+    	<div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
-					<th>ID</th>
 					<th>NOMBRE</th>
 					<th>PLU</th>
 					<th>EAN</th>
@@ -102,7 +105,6 @@
 				@foreach($productos as $ps)
 				@if($ps->sede_id_sede==auth()->user()->sede_id_sede && auth()->user()->superusuario==0)
 				<tr>
-					<td>{{ $ps->id_stock}}</td>
 					<td>{{ $ps->nombre}}</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
@@ -127,7 +129,6 @@
 				@endif
 				@if(auth()->user()->superusuario==1)
 				<tr>
-					<td>{{ $ps->id_stock}}</td>
 					<td>{{ $ps->nombre}}</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
@@ -151,9 +152,9 @@
 				@endif
 				@include('almacen.inventario.proveedor-sede.modal')
 				@endforeach
-			</table>
+            </table>
 		</div>
 		{{$productos->render()}}
-	</div>
-</div><br>
+    </div>
+</div>
 @stop

@@ -44,8 +44,8 @@
 								<div class="card-body card-block" align="center">
 									<a href="{{URL::action('ProductoSedeController@create',0)}}"><button class="btn btn-info">Registrar producto</button></a>
 									<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Categoría producto</button></a>
-									<button class="btn btn-success" disabled="true">Cargar xls</button>
-									<button class="btn btn-success" disabled="true">Descargar xls</button>
+									<!--<button class="btn btn-success" disabled="true">Cargar xls</button>
+									<button class="btn btn-success" disabled="true">Descargar xls</button>-->
 									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
 								</div>

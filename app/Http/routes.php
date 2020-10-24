@@ -47,6 +47,7 @@ Route::resource('almacen/inventario/producto-sede/productoCompleto', 'ProductoSe
 Route::resource('almacen/inventario/proveedor-sede', 'ProveedorSedeController');
 Route::resource('almacen/inventario/ean', 'registroProductoProveedor');
 Route::resource('almacen/inventario/producto-sede/categoriaProducto', 'CategoriaProducto');
+Route::resource('almacen/inventario/producto-sede/categoriaStock', 'CategoriaStockController');
 Route::resource('almacen/inventario/producto-sede/impuestoProducto', 'ImpuestoProducto');
 Route::resource('almacen/inventario/movimiento-sede', 'MovimientoSedeController');
 Route::resource('almacen/inventario/corte-sede/cortes', 'CorteSedeController');

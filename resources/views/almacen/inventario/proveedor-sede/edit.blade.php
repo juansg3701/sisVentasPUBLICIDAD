@@ -163,12 +163,13 @@
 									</div>
 
 
+
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Fecha:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="datetime" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control">
+											<input type="datetime" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
 										</div>
 									</div>
 
@@ -177,23 +178,17 @@
 											<div>Empleado:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="hidden" name="empleado_id_empleado" value="{{Auth::user()->id}}">
-
 											<select name="" class="form-control" disabled="true">
 												@foreach($usuarios as $usu)
 												@if(Auth::user()->id==$usu->user_id_user)
 												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
 												@endif
 												@endforeach
-
-												@foreach($usuarios as $usu)
-												@if(Auth::user()->id!=$usu->user_id_user)
-												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
-												@endif
-												@endforeach	
 											</select>
 										</div>
 									</div>
+
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">
