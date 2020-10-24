@@ -1,8 +1,8 @@
 <!--Este es el archivo de la ventana modal para la eliminación de registros-->
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-delete-{{$cat->id_categoria}}">
+role="dialog" tabindex="-1" id="modal-delete-{{$cat->id_categoriaStock}}">
 	<!--Llamado a la función de eliminación en el controlador-->
-	{{Form::Open(array('action'=>array('CategoriaStockController@destroy',$cat->id_categoria), 'method'=>'delete'))}}
+	{{Form::Open(array('action'=>array('CategoriaStockController@destroy',$cat->id_categoriaStock), 'method'=>'delete'))}}
 	<!--Información de la ventana emergente-->
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -23,5 +23,4 @@ role="dialog" tabindex="-1" id="modal-delete-{{$cat->id_categoria}}">
 		</div>
 	</div>
 	{{Form::Close()}}
-
 </div>

@@ -27,7 +27,7 @@ class CategoriaStockController extends Controller
 				->join('sede as s','c.sede_id_sede','=','s.id_sede')
 				->select('c.id_categoriaStock','c.nombre','c.descripcion','c.fecha','e.nombre as empleado_id_empleado','s.nombre_sede as sede_id_sede')
 	 			->where('c.nombre','LIKE', '%'.$query.'%')
-	 			->orderBy('c.id_categoria', 'desc')
+	 			->orderBy('c.id_categoriaStock', 'desc')
 				->paginate(10);
 				 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
@@ -63,7 +63,7 @@ class CategoriaStockController extends Controller
 	 	}
 
 	 	public function show($id){
-	 		return view("almacen.inventario.proveedor-sede.categoriaStock.show",["categoria"=>Categoria::findOrFail($id)]);
+	 		return view("almacen.inventario.proveedor-sede.categoriaStock.show",["categoria"=>CategoriaStock::findOrFail($id)]);
 	 	}
 
 	 	public function edit($id){
@@ -75,7 +75,7 @@ class CategoriaStockController extends Controller
 	 		->where('id_cargo','=',$cargoUsuario)
 			->orderBy('id_cargo', 'desc')->get();
 				 		
-	 		return view("almacen.inventario.proveedor-sede.categoriaStock.edit",["categoria"=>Categoria::findOrFail($id), "modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
+	 		return view("almacen.inventario.proveedor-sede.categoriaStock.edit",["categoria"=>CategoriaStock::findOrFail($id), "modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 	}
 
 	 	public function update(CategoriaStockFormRequest $request, $id){

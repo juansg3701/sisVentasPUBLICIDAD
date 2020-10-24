@@ -2,7 +2,7 @@
 @section ('contenido')
 	
 <head>
-	<title>Categoria producto</title>
+	<title>Categoria stock - Días especiales</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	{!!Form::open(array('url'=>'almacen/inventario/producto-sede/categoriaStock','method'=>'POST','autocomplete'=>'off'))!!}
+	{!!Form::open(array('url'=>'almacen/inventario/proveedor-sede/categoriaStock','method'=>'POST','autocomplete'=>'off'))!!}
 	{{Form::token()}}
 	
 	<div class="row" align="center">	
@@ -63,7 +63,8 @@
 											<div>Fecha:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
+											<input type="datetime" name="" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
+											<input type="hidden" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control">
 										</div>
 									</div>
 
@@ -128,7 +129,7 @@
 	</div><br>
 </div>
 <div class="form-group col-sm">
-	@include('almacen.inventario.producto-sede.categoriaProducto.search')	
+	@include('almacen.inventario.proveedor-sede.categoriaStock.search')	
 </div>
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
@@ -153,11 +154,11 @@
 					<td>{{ $cat->sede_id_sede}}</td>
 					<td>{{ $cat->fecha}}</td>
 					<td>
-						<a href="{{URL::action('CategoriaProducto@edit',$cat->id_categoria)}}"><button class="btn btn-info">Editar</button></a>
-						<a href="" data-target="#modal-delete-{{$cat->id_categoria}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<a href="{{URL::action('CategoriaStockController@edit',$cat->id_categoriaStock)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="" data-target="#modal-delete-{{$cat->id_categoriaStock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>
-				@include('almacen.inventario.producto-sede.categoriaProducto.modal')
+				@include('almacen.inventario.proveedor-sede.categoriaStock.modal')
 				@endforeach
             </table>
 		</div>
