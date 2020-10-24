@@ -61,20 +61,15 @@
 										<div>Empleado:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<input type="hidden" name="empleado_id_empleado" value="{{Auth::user()->id}}">
+										
 
 										<select name="empleado_id_empleado" class="form-control" disabled="">
 											@foreach($usuarios as $usu)
 											@if(Auth::user()->id==$usu->user_id_user)
 											<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+											<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
 											@endif
 											@endforeach
-
-											@foreach($usuarios as $usu)
-											@if(Auth::user()->id!=$usu->user_id_user)
-											<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
-											@endif
-											@endforeach	
 										</select><br>
 									</div>
 								</div>
