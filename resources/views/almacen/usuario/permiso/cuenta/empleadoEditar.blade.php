@@ -43,7 +43,15 @@
 			                     <strong>Formulario de edición</strong>
 			                </div>
 			                <div class="card-body card-block" align="center">
-			            
+			                	<div align="center">
+								@if($usuario->correo=="")
+								<input type="radio" name="rad" value="M" onclick="deshabilitar()" checked> Registro Normal &nbsp&nbsp&nbsp
+								<input type="radio" name="rad" value="F" onclick="habilitar()"> Registrar Como Cuenta
+								@else
+								<input type="hidden" name="rad" value="M" onclick="deshabilitar()" > &nbsp&nbsp&nbsp
+								<input type="hidden" name="rad" value="F" onclick="habilitar()" checked>
+								@endif
+								</div>
 
 
 								<div class="form-row">
@@ -91,25 +99,52 @@
 										<div>Código:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<input type="number" class="form-control" name="codigo" value="{{$usuario->codigo}}">
+										<input type="text" class="form-control" name="codigo" value="{{$usuario->codigo}}">
 									</div>
 								</div>
-								
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Dirección:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<input type="text" class="form-control" name="direccion" value="{{$usuario->direccion}}">
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Telefono:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<input type="number" class="form-control" name="telefono" value="{{$usuario->telefono}}">
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Documento:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<input type="number" class="form-control" name="documento" value="{{$usuario->documento}}">
+									</div>
+								</div>
 								
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Correo:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<input id="id_correo" type="text" class="form-control" name="correo" value="{{$usuario->correo}}"  required>
-										<input id="id_contrasena" type="hidden" class="form-control" name="contrasena" value="{{$usuario->contrasena}}"  required>
+										<input id="id_correo" type="text" class="form-control" name="correo" value="{{$usuario->correo}}"  disabled="true">
+
+										<input id="id_correo" type="hidden" class="form-control" name="correo" value="{{$usuario->correo}}" >
+									
 									</div>
 								</div>
-
 								<div class="form-row">
 									<div class="form-group col-sm-12">
 										<button class="btn btn-info" type="submit">Guardar</button>
-										<a href="{{url('almacen/usuario/permiso/cuenta')}}" class="btn btn-danger">Volver</a>
+										<a href="{{url('almacen/nomina/empleado')}}" class="btn btn-danger">Volver</a>
 									</div>
 								</div>
 			               </div>

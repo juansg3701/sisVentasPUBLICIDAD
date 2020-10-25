@@ -12,7 +12,7 @@
   <title>1A</title>
 
   <!-- Custom fonts for this template-->
-  <link href="{{asset('vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css')}}">
+  <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}" rel="stylesheet">
 
   <!-- Custom styles for this template-->
@@ -26,123 +26,151 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
+          <div class="sidebar-brand-icon rotate-n-15">
+          <img src="{{asset('img/logo1.jpeg')}}" width="35" height="35">
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3"> 1A</div>
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
+      @foreach($modulos as $m)
+              @if($m->id_modulo==1)
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Permisos admin</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="{{url('almacen/usuario/permiso/cargo')}}">Cargos</a>
-            <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">Permiso de cuenta</a>
-            <a class="collapse-item" href="{{url('almacen/usuario/permiso/cuenta')}}">Cuentas</a>
-          </div>
-        </div>
-      </li>
+                <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Permisos admin</span>
+                </a>
+                <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/cargo')}}">Cargos</a>
+                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">Módulos</a>
+                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/cuenta')}}">Cuentas</a>
+                  </div>
+                </div>
+              </li>
+              @endif
+              @endforeach
 
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('almacen/usuario/registrar')}}">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Registrar cuenta</span></a>
-      </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Inventario</span>
-        </a>
+              @foreach($modulos as $m)
+                @if($m->id_modulo==2)
+                    <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Cuentas</span>
+                </a>
+                <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{url('almacen/usuario/registrar')}}">Registrarse</a>
+                    <a class="collapse-item" href="{{url('almacen/nomina/empleado')}}">Empleados</a>
+                    <!--
+                    <a class="collapse-item" href="{{url('almacen/usuario/registrar')}}">Clientes</a>-->
+                  </div>
+                </div>
+              </li>
+                 @endif
+              @endforeach
 
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Seleccione:</h6>
-            <a class="collapse-item"  href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">Productos</a>
-            <a class="collapse-item" href="{{url('almacen/inventario/proveedor-sede')}}">Stock</a>
-            <!--<a class="collapse-item" href="utilities-animation.html">Movimientos sede</a>
-            <a class="collapse-item" href="utilities-other.html">Cortes</a>-->
-          </div>
-        </div>
-      </li>
+              @foreach($modulos as $m)
+                @if($m->id_modulo==3)
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url('almacen/proveedor')}}">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>Proveedores</span></a>
+                  </li>
+                  @endif
+              @endforeach
 
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('/logout')}}">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>SALIR</span></a>
-      </li>
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+              @foreach($modulos as $m)
+                @if($m->id_modulo==4)
+                 <li class="nav-item">
+                    <a class="nav-link" href="">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>Devoluciones</span></a>
+                  </li>
+                  @endif
+              @endforeach
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
+              @foreach($modulos as $m)
+                @if($m->id_modulo==5)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('almacen/sede')}}">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>Sedes</span></a>
+                  </li>
+                  @endif
+              @endforeach
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
+              @foreach($modulos as $m)
+                @if($m->id_modulo==6)
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Inventario</span>
+                </a>
+                <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">Productos</a>
+                    <a class="collapse-item" href="{{url('almacen/inventario/proveedor-sede')}}">Stock</a>
+                   <!-- <a class="collapse-item" href="">Movimiento entre sedes</a>
+                    <a class="collapse-item" href="">Corte de inventario</a>-->
+                  </div>
+                </div>
+              </li>
+                  @endif
+              @endforeach
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('almacen/sede')}}">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Sedes</span></a>
-      </li>
+              @foreach($modulos as $m)
+                @if($m->id_modulo==7)
+               <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Pedidos</span>
+                </a>
+                <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="">Pedido cliente</a>
+                    <a class="collapse-item" href="">Pedido proveedor</a>
+                  </div>
+                </div>
+              </li>
+              @endif
+              @endforeach
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+              @foreach($modulos as $m)
+                @if($m->id_modulo==8)
+                <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Reportes</span>
+                </a>
+                <div id="collapse6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="">Pedidos</a>
+                    <a class="collapse-item" href="">Productos</a>
+                  </div>
+                </div>
+              </li>
+                  @endif
+              @endforeach
+
+
+            
+                  <li class="nav-item">
+                  <a class="nav-link" href="{{url('/logout')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Cerrar sesión</span></a>
+                </li>
+  
+
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
@@ -201,36 +229,6 @@
               </div>
             </li>
 
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
 
           </ul>
 
