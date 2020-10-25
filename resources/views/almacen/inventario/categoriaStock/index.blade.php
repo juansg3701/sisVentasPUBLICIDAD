@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	{!!Form::open(array('url'=>'almacen/inventario/proveedor-sede/categoriaStock','method'=>'POST','autocomplete'=>'off'))!!}
+	{!!Form::open(array('url'=>'almacen/inventario/categoriaStock','method'=>'POST','autocomplete'=>'off'))!!}
 	{{Form::token()}}
 	
 	<div class="row" align="center">	
@@ -129,7 +129,7 @@
 	</div><br>
 </div>
 <div class="form-group col-sm">
-	@include('almacen.inventario.proveedor-sede.categoriaStock.search')	
+	@include('almacen.inventario.categoriaStock.search')	
 </div>
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
@@ -158,7 +158,7 @@
 						<a href="" data-target="#modal-delete-{{$cat->id_categoriaStock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>
-				@include('almacen.inventario.proveedor-sede.categoriaStock.modal')
+				@include('almacen.inventario.categoriaStock.modal')
 				@endforeach
             </table>
 		</div>

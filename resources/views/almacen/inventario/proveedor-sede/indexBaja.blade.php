@@ -76,7 +76,7 @@
 	</div>
 	<div id="divBuscar" class="form-group" style="display:none">
 		<!--Incluir la ventana modal de búsqueda-->	
-		@include('almacen.inventario.proveedor-sede.search')
+		@include('almacen.inventario.proveedor-sede.searchBaja')
 	</div>	
 </div>
 

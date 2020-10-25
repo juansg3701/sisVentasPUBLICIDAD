@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-	{!!Form::model($categoria,['method'=>'PATCH','route'=>['almacen.inventario.proveedor-sede.categoriaStock.update',$categoria->id_categoria]])!!}
+	{!!Form::model($categoria,['method'=>'PATCH','route'=>['almacen.inventario.categoriaStock.update',$categoria->id_categoriaStock]])!!}
 	{{Form::token()}}
 	
 	<div class="row" align="center">	
@@ -106,7 +106,7 @@
 									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<button class="btn btn-info" type="submit">Registrar</button>
-											<a href="{{url('almacen/inventario/producto-sede/categoriaProducto')}}" class="btn btn-danger">Regresar</a>
+											<a href="{{url('almacen/inventario/categoriaStock')}}" class="btn btn-danger">Regresar</a>
 										</div>
 									</div>
 				               </div>

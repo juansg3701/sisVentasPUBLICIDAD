@@ -1,5 +1,5 @@
 <!--Este es el archivo para la búsqueda de registros-->
-{!! Form::open(array('url'=>'almacen/inventario/proveedor-sede/categoriaStock','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+{!! Form::open(array('url'=>'almacen/inventario/categoriaStock','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
 <!--Formulario para establecer los filtros de búsqueda-->
 <div class="form-group">
 	<div class="container">

@@ -22,7 +22,6 @@ Route::resource('almacen/usuario/permiso/usuario', 'PermisoUsuarioController');
 Route::resource('almacen/usuario/permiso/cargo', 'PermisoCargoController');
 Route::resource('almacen/usuario/permiso/cuenta', 'UsersController');
 
-
 Route::resource('almacen/proveedor', 'ProveedorController');
 
 Route::resource('almacen/cliente', 'ClienteController');
@@ -47,7 +46,7 @@ Route::resource('almacen/inventario/producto-sede/productoCompleto', 'ProductoSe
 Route::resource('almacen/inventario/proveedor-sede', 'ProveedorSedeController');
 Route::resource('almacen/inventario/ean', 'registroProductoProveedor');
 Route::resource('almacen/inventario/producto-sede/categoriaProducto', 'CategoriaProducto');
-Route::resource('almacen/inventario/proveedor-sede/categoriaStock', 'CategoriaStockController');
+Route::resource('almacen/inventario/categoriaStock', 'CategoriaStockController');
 Route::resource('almacen/inventario/producto-sede/impuestoProducto', 'ImpuestoProducto');
 Route::resource('almacen/inventario/movimiento-sede', 'MovimientoSedeController');
 Route::resource('almacen/inventario/corte-sede/cortes', 'CorteSedeController');
