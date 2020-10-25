@@ -23,8 +23,10 @@ class registroProductoProveedor extends Controller
 	 		$sedes=DB::table('sede')->get();
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
-	 		$producto=DB::table('producto')->get();
-	 			$query=trim($request->get('searchText'));
+			$producto=DB::table('producto')->get();
+			$categoria=DB::table('categoria_stock_especiales')->get();
+			
+	 		$query=trim($request->get('searchText'));
 			$pEAN=DB::table('producto')
 			->where('ean','=',$query)
 			->get();
@@ -34,12 +36,12 @@ class registroProductoProveedor extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
-	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"modulos"=>$modulos,"pEAN"=>$pEAN,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes]);
+	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"modulos"=>$modulos,"pEAN"=>$pEAN,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes,"categoria"=>$categoria]);
 	 	}
 	 	}
 
 	 	public function create(Request $request){
-	 			 		if ($request) {
+	 		if ($request) {
 	 				$query=trim($request->get('searchText'));
 
 	 		$sede=DB::table('sede')->get();
@@ -61,7 +63,7 @@ class registroProductoProveedor extends Controller
 	 	}
 	 	}
 
-	 	public function store(ProveedorSedeFormRequest $request){
+	 	/*public function store(ProveedorSedeFormRequest $request){
 	 		$ps = new ProveedorSede;
 	 		$ps->producto_id_producto=$request->get('producto_id_producto');
 	 		$ps->sede_id_sede=$request->get('sede_id_sede');
@@ -71,7 +73,33 @@ class registroProductoProveedor extends Controller
 	 		$ps->save();
 
 	 		return back()->with('msj','Producto guardado');
-	 	}
+		 }*/
+		 
+
+		 
+	 	public function store(ProveedorSedeFormRequest $request){
+			$ps = new ProveedorSede;
+			$ps->producto_id_producto=$request->get('producto_id_producto');
+			$ps->sede_id_sede=$request->get('sede_id_sede');
+		    $ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
+		    $ps->categoria_id_categoria=$request->get('categoria_id_categoria');
+			$ps->disponibilidad=$request->get('disponibilidad');
+		    $ps->cantidad=$request->get('cantidad');
+		    $ps->fecha_vencimiento=$request->get('fecha_vencimiento');
+		    $ps->fecha_registro=$request->get('fecha_registro');
+		    $ps->empleado_id_empleado=$request->get('empleado_id_empleado');
+		    if($request->get('producto_dados_baja')==1){
+			   $ps->producto_dados_baja=0;
+		    }	
+		    else{
+			   $ps->producto_dados_baja=1;
+		    }
+			$ps->save();
+
+			return back()->with('msj','Producto guardado');
+		}
+
+
 
 	 	public function show($id){
 	 		

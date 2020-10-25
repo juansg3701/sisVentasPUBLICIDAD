@@ -126,6 +126,20 @@
 										</div>
 									</div>
 
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Categoría:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="categoria_id_categoria" class="form-control">
+												@foreach($categoria as $ct)
+												<option value="{{$ct->id_categoriaStock}}">{{$ct->nombre}}</option>
+												@endforeach
+											</select>	
+										</div>
+									</div>
+
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Cantidad:</div>
@@ -161,10 +175,7 @@
 											</select>
 										</div>
 									</div>
-
-
-
-
+									
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Fecha:</div>

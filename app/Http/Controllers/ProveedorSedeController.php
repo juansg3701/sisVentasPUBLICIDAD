@@ -20,25 +20,63 @@ class ProveedorSedeController extends Controller
 	 			$query0=trim($request->get('searchText0'));
 	 			$query1=trim($request->get('searchText1'));
 	 			$query2=trim($request->get('searchText2'));
-	 			$query3=trim($request->get('searchText3'));
+				$query3=trim($request->get('searchText3'));
+				$query4=trim($request->get('searchText4'));
 
 				$usuarios=DB::table('empleado')->get();
 				$sedes=DB::table('sede')->get();
+				$categoria=DB::table('categoria_stock_especiales')->get();
 				 
-
-	 			$productos=DB::table('stock as s')
+	 			/*$productos=DB::table('stock as s')
 	 			->join('producto as p','s.producto_id_producto','=','p.id_producto')
 				->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
 				->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+				->join('categoria_stock_especiales as c','s.categoria_id_categoria','=','c.id_categoriaStock')
 	 			->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
-	 			->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
+	 			->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','c.nombre as categoria_id_categoria','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
 	 			->where('p.nombre','LIKE', '%'.$query0.'%')
 	 			->where('p.plu','LIKE', '%'.$query1.'%')
 	 			->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
 				->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
 				->where('s.producto_dados_baja','=', 0)
 	 			->orderBy('s.id_stock', 'desc')
-	 			->paginate(10);
+				 ->paginate(10);*/
+				 
+
+				 if($query4=="Todas las categorías"){
+					$productos=DB::table('stock as s')
+					->join('producto as p','s.producto_id_producto','=','p.id_producto')
+					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+					->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+					->join('categoria_stock_especiales as c','s.categoria_id_categoria','=','c.id_categoriaStock')
+					->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
+					->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','c.nombre as categoria_id_categoria','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
+					->where('p.nombre','LIKE', '%'.$query0.'%')
+					->where('p.plu','LIKE', '%'.$query1.'%')
+					->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
+					->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+					->where('s.producto_dados_baja','=', 0)
+					->orderBy('s.id_stock', 'desc')
+					->paginate(10);
+				}else{
+
+					$productos=DB::table('stock as s')
+					->join('producto as p','s.producto_id_producto','=','p.id_producto')
+					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+					->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+					->join('categoria_stock_especiales as c','s.categoria_id_categoria','=','c.id_categoriaStock')
+					->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
+					->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','c.nombre as categoria_id_categoria','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
+					->where('p.nombre','LIKE', '%'.$query0.'%')
+					->where('p.plu','LIKE', '%'.$query1.'%')
+					->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
+					->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+					->where('c.nombre','LIKE', '%'.$query4.'%')
+					->where('s.producto_dados_baja','=', 0)
+					->orderBy('s.id_stock', 'desc')
+					->paginate(10);
+				}
+				
 
 				$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
@@ -51,7 +89,7 @@ class ProveedorSedeController extends Controller
 	 			$sedesP=DB::table('sede')->get();
 	 			$proveedoresP=DB::table('proveedor')->get();
 
-	 			return view('almacen.inventario.proveedor-sede.index',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);
+	 			return view('almacen.inventario.proveedor-sede.index',["categoria"=>$categoria,"productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3,"searchText4"=>$query4,"modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 		}
 	 	}
 	 	
@@ -82,7 +120,8 @@ class ProveedorSedeController extends Controller
 	 		$ps = new ProveedorSede;
 	 		$ps->producto_id_producto=$request->get('producto_id_producto');
 	 		$ps->sede_id_sede=$request->get('sede_id_sede');
-	 		$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
+			$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
+			$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
 	 		$ps->disponibilidad=$request->get('disponibilidad');
 			$ps->cantidad=$request->get('cantidad');
 			$ps->fecha_vencimiento=$request->get('fecha_vencimiento');
@@ -123,21 +162,22 @@ class ProveedorSedeController extends Controller
 			$producto=DB::table('producto')->get();
 			$usuarios=DB::table('empleado')->get();
 			$sedes=DB::table('sede')->get();
-
+			$categoria=DB::table('categoria_stock_especiales')->get();
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 		$modulos=DB::table('cargo_modulo')
 	 		->where('id_cargo','=',$cargoUsuario)
 	 		->orderBy('id_cargo', 'desc')->get();
 	 			
 
-	 		return view("almacen.inventario.proveedor-sede.edit",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"stock"=>ProveedorSede::findOrFail($id),"modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
+	 		return view("almacen.inventario.proveedor-sede.edit",["categoria"=>$categoria, "sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"stock"=>ProveedorSede::findOrFail($id),"modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 	}
 
 	 	public function update(ProveedorSedeFormRequest $request, $id){
 	 		$ps = ProveedorSede::findOrFail($id);
 	 		$ps->producto_id_producto=$request->get('producto_id_producto');
 	 		$ps->sede_id_sede=$request->get('sede_id_sede');
-	 		$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
+			$ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');
+			$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
 	 		$ps->disponibilidad=$request->get('disponibilidad');
 			$ps->cantidad=$request->get('cantidad');
 			$ps->fecha_registro=$request->get('fecha_registro');
@@ -211,22 +251,45 @@ class ProveedorSedeController extends Controller
 					$query1=trim($request->get('searchText1'));
 					$query2=trim($request->get('searchText2'));
 					$query3=trim($request->get('searchText3'));
+					$query4=trim($request->get('searchText4'));
 					$usuarios=DB::table('empleado')->get();
 					$sedes=DB::table('sede')->get();
+					$categoria=DB::table('categoria_stock_especiales')->get();
    
-					$productos=DB::table('stock as s')
-					->join('producto as p','s.producto_id_producto','=','p.id_producto')
-					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
-					->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
-					->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
-					->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento','s.fecha_registro','e.nombre as empleado_id_empleado')
-					->where('p.nombre','LIKE', '%'.$query0.'%')
-					->where('p.plu','LIKE', '%'.$query1.'%')
-					->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
-					->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
-					->where('s.producto_dados_baja','=', 1)
-					->orderBy('s.id_stock', 'desc')
-					->paginate(10);
+
+					if($query4=="Todas las categorías"){
+						$productos=DB::table('stock as s')
+						->join('producto as p','s.producto_id_producto','=','p.id_producto')
+						->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+						->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+						->join('categoria_stock_especiales as c','s.categoria_id_categoria','=','c.id_categoriaStock')
+						->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
+						->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','c.nombre as categoria_id_categoria','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
+						->where('p.nombre','LIKE', '%'.$query0.'%')
+						->where('p.plu','LIKE', '%'.$query1.'%')
+						->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
+						->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+						->where('s.producto_dados_baja','=', 1)
+						->orderBy('s.id_stock', 'desc')
+						->paginate(10);
+					}else{
+	
+						$productos=DB::table('stock as s')
+						->join('producto as p','s.producto_id_producto','=','p.id_producto')
+						->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+						->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+						->join('categoria_stock_especiales as c','s.categoria_id_categoria','=','c.id_categoriaStock')
+						->join('proveedor as pd','s.proveedor_id_proveedor','=','pd.id_proveedor')
+						->select('s.id_stock','p.nombre','p.plu','p.ean','sed.nombre_sede','pd.nombre_proveedor','c.nombre as categoria_id_categoria','s.cantidad','s.disponibilidad','s.sede_id_sede as sede_id_sede','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro', 'e.nombre as empleado_id_empleado')
+						->where('p.nombre','LIKE', '%'.$query0.'%')
+						->where('p.plu','LIKE', '%'.$query1.'%')
+						->where('sed.nombre_sede','LIKE', '%'.$query2.'%')
+						->where('pd.nombre_proveedor','LIKE', '%'.$query3.'%')
+						->where('c.nombre','LIKE', '%'.$query4.'%')
+						->where('s.producto_dados_baja','=', 1)
+						->orderBy('s.id_stock', 'desc')
+						->paginate(10);
+					}
    
 				    $cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 					$modulos=DB::table('cargo_modulo')
@@ -240,7 +303,7 @@ class ProveedorSedeController extends Controller
 					$proveedoresP=DB::table('proveedor')->get();
    
    
-					return view('almacen.inventario.proveedor-sede.indexBaja',["productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);
+					return view('almacen.inventario.proveedor-sede.indexBaja',["categoria"=>$categoria,"productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3,"searchText4"=>$query4,"modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 				}
 			}
 

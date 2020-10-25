@@ -10,6 +10,20 @@
 				        <strong>Filtros de búsqueda</strong>
 			        </div>
 				    <div class="card-body card-block" align="center">
+
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<div>Categoría:</div>
+							</div>
+							<div class="form-group col-sm-8">
+								<select name="searchText4" value="{{$searchText4}}" class="form-control">
+									<option>Todas las categorías</option>	
+									@foreach($categoria as $cat)
+									<option>{{$cat->nombre}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 						
 						<div class="form-row">
 							<div class="form-group col-sm-4">

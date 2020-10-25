@@ -101,12 +101,13 @@
 					<th>EAN</th>
 					<th>SEDE</th>
 					<th>PROVEEDOR</th>
+					<th>CATEGORÍA</th>
 					<th>CANTIDAD</th>
 					<th>VENCE</th>
 					<th>FECHA REG.</th>
 					<th>EMPLEADO</th>
 					<th>ESTADO</th>
-					<th>OPCIONES</th>
+					<th colspan="2">OPCIONES</th>
 				</thead>
 				@foreach($productos as $ps)
 				@if($ps->sede_id_sede==auth()->user()->sede_id_sede && auth()->user()->superusuario==0)
@@ -116,6 +117,7 @@
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
+					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
 					<td>{{ $ps->fecha_registro}}</td>
@@ -128,6 +130,8 @@
 					@endif
 					<td>
 						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
+					</td>
+					<td>	
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>
@@ -140,6 +144,7 @@
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
+					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
 					<td>{{ $ps->fecha_registro}}</td>
@@ -152,6 +157,8 @@
 					@endif
 					<td>
 						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
+					</td>
+					<td>	
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>
