@@ -81,6 +81,9 @@
 					<th>DESCRIPCIÓN</th>
 					<th>DIRECCIÓN</th>
 					<th>TELÉFONO</th>
+					<th>EMPLEADO</th>
+					<th>FECHA</th>
+					<th>TIPO</th>
 					<th>OPCIONES</th>
 				</thead>
 				@foreach($sedes as $sed)
@@ -91,13 +94,27 @@
 					<td>{{ $sed->descripcion}}</td>
 					<td>{{ $sed->direccion}}</td>
 					<td>{{ $sed->telefono}}</td>
+					@foreach($empleados as $e)
+						@if($e->id_empleado==$sed->empleado_id_empleado)
+						
+					<td>{{ $e->nombre}}</td>
+						@endif
+					@endforeach
+
+					<td>{{ $sed->fecha}}</td>
+
+					@foreach($tipos as $t)
+						@if($t->id_tipo_sede==$sed->tipo_sede_id_tipo_sede)
+					<td>{{ $t->nombre}}</td>
+						@endif
+					@endforeach
 					<td>		
 	                    <div class="table-data-feature">
-							<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}"><button class="item" data-toggle="tooltip" data-placement="top" title="Edit"><i class="zmdi zmdi-edit"></i></button></a>
+							<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}"><button class="btn btn-info">Editar</button></a>
 							
 							@if(isset($sed->id_sede))
 							@include('almacen.sede.modal')
-							<a href="" data-target="#modal-delete-{{$sed->id_sede}}" data-toggle="modal"><button class="item" ><i class="zmdi zmdi-delete"></i></button></a>
+							<a href="" data-target="#modal-delete-{{$sed->id_sede}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 			
 							@endif
 							
