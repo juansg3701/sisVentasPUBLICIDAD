@@ -30,6 +30,9 @@ class SedeFormRequest extends Request
             'descripcion'=>'required|max:45',
             'direccion'=>'required|max:45',
             'telefono'=>'required|max:45',
+            'empleado_id_empleado'=>'required|max:45',
+            'fecha'=>'required|max:45',
+            'tipo_sede_id_tipo_sede'=>'required|max:45',
         ];
     }
 }

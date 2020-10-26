@@ -28,8 +28,15 @@ class SedeController extends Controller
 	 			->orderBy('id_cargo', 'desc')->get();
 
 	 			$sedesP=DB::table('sede')->get();
+
+	 			$tipos=DB::table('tipo_sede')
+	 			->orderBy('id_tipo_sede', 'desc')->get();
+
+	 			$empleados=DB::table('empleado')
+	 			->orderBy('id_empleado', 'desc')->get();
+
 	 			
-	 			return view('almacen.sede.index',["sedes"=>$sedes,"searchText"=>$query, "modulos"=>$modulos,"sedesP"=>$sedesP]);
+	 			return view('almacen.sede.index',["sedes"=>$sedes,"searchText"=>$query, "modulos"=>$modulos,"sedesP"=>$sedesP,"tipos"=>$tipos,"empleados"=>$empleados]);
 	 		}
 	 	}
 
@@ -38,8 +45,15 @@ class SedeController extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+
+	 			$tipos=DB::table('tipo_sede')
+	 			->orderBy('id_tipo_sede', 'desc')->get();
+
+	 			$empleados=DB::table('empleado')
+	 			->orderBy('id_empleado', 'desc')->get();
+
 	 			
-	 		return view("almacen.sede.registrar", ["modulos"=>$modulos]);
+	 		return view("almacen.sede.registrar", ["modulos"=>$modulos,"tipos"=>$tipos,"empleados"=>$empleados]);
 	 	}
 
 	 	public function store(SedeFormRequest $request){
@@ -50,6 +64,9 @@ class SedeController extends Controller
 	 		$sede->descripcion=$request->get('descripcion');
 	 		$sede->direccion=$request->get('direccion');
 	 		$sede->telefono=$request->get('telefono');
+	 		$sede->empleado_id_empleado=$request->get('empleado_id_empleado');
+	 		$sede->fecha=$request->get('fecha');
+	 		$sede->tipo_sede_id_tipo_sede=$request->get('tipo_sede_id_tipo_sede');
 	 		$sede->save();
 
 	 		return back()->with('msj','Sede guardada');
@@ -65,8 +82,15 @@ class SedeController extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+
+	 			$tipos=DB::table('tipo_sede')
+	 			->orderBy('id_tipo_sede', 'desc')->get();
+
+	 			$empleados=DB::table('empleado')
+	 			->orderBy('id_empleado', 'desc')->get();
+
 	 			
-	 		return view("almacen.sede.edit",["sede"=>Sede::findOrFail($id), "modulos"=>$modulos]);
+	 		return view("almacen.sede.edit",["sede"=>Sede::findOrFail($id), "modulos"=>$modulos,"tipos"=>$tipos,"empleados"=>$empleados]);
 	 	}
 
 	 	public function update(SedeFormRequest $request, $id){
@@ -77,6 +101,9 @@ class SedeController extends Controller
 	 		$sede->descripcion=$request->get('descripcion');
 	 		$sede->direccion=$request->get('direccion');
 	 		$sede->telefono=$request->get('telefono');
+	 		$sede->empleado_id_empleado=$request->get('empleado_id_empleado');
+	 		$sede->fecha=$request->get('fecha');
+	 		$sede->tipo_sede_id_tipo_sede=$request->get('tipo_sede_id_tipo_sede');
 	 		$sede->update();
 
 	 		return back()->with('msj','Sede actualizada');

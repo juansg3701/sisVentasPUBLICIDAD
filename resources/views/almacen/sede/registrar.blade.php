@@ -80,6 +80,43 @@
 										</div>
 									</div>
 									<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Tipos:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="tipo_sede_id_tipo_sede" class="form-control">
+											@foreach($tipos as $t)
+											<option value="{{$t->id_tipo_sede}}">{{$t->nombre}}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Fecha:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+										</div>
+									</div>
+
+									<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Empleado:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empleado_id_empleado" class="form-control" disabled="">
+											@foreach($empleados as $usu)
+											@if(Auth::user()->id==$usu->user_id_user)
+											<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+											<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
+											@endif
+											@endforeach
+										</select><br>
+									</div>
+								</div>
+									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<button class="btn btn-info" type="submit">Registrar</button>
 											<a href="{{url('almacen/sede')}}" class="btn btn-danger">Regresar</a>
