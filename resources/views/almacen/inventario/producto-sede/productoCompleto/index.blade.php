@@ -96,11 +96,8 @@
 					<th>CATEGORÍA</th>
 					<th>PRECIO</th>
 					<th>STOCK MÍN.</th>
-					<th>EMPLEADO</th>
-					<th>SEDE</th>
-					<th>FECHA REG.</th>
 					<th>IMAGEN</th>
-					<th colspan="2">OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($productos as $ps)
 				<tr>
@@ -111,13 +108,13 @@
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->precio}}</td>
 					<td>{{ $ps->stock_minimo}}</td>
-					<td>{{ $ps->empleado_id_empleado}}</td>
-					<td>{{ $ps->sede_id_sede}}</td>
-					<td>{{ $ps->fecha_registro}}</td>
 					<td>
 						<label>
 							<img src="{{asset('imagenes/articulos/'.$ps->imagen)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail">
 						</label>
+					</td>
+					<td>
+						<a href="" data-target="#modal-infoProducto-{{$ps->id_producto}}" data-toggle="modal"><button class="btn btn-warning">Info</button></a>
 					</td>
 					<td>
 						<a href="{{URL::action('ProductoSedeController@edit',$ps->id_producto)}}"><button class="btn btn-info">Editar</button></a>
@@ -127,6 +124,7 @@
 					</td>
 				</tr>
 				@include('almacen.inventario.producto-sede.productoCompleto.modal')
+				@include('almacen.inventario.producto-sede.productoCompleto.modalInfoProducto')
 				@endforeach
             </table>
 		</div>
