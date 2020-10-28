@@ -29,7 +29,7 @@ role="dialog" tabindex="-1" id="modal-infoStock-{{$ps->id_stock}}">
 					<div>Sede:</div>
 				</div>
 				<div class="form-group col-sm-6">
-                    {{ $ps->sede_id_sede}}
+                    {{ $ps->nombre_sede}}
 				</div>
             </div>
 
