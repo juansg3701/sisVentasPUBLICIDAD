@@ -1,6 +1,6 @@
 <!--Este es el archivo de la ventana modal para mostrar información del LOG-->
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-infoProducto-{{$ps->id_producto}}">
+role="dialog" tabindex="-1" id="modal-infoStock-{{$ps->id_stock}}">
 	<!--Información de la ventana emergente-->
 	<div class="modal-dialog">
 		<div class="modal-content">

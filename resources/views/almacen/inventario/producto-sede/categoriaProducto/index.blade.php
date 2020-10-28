@@ -141,24 +141,24 @@
 				<thead>
 					<th>NOMBRE</th>
 					<th>DESCRIPCIÓN</th>
-					<th>EMPLEADO</th>
-					<th>SEDE</th>
-					<th>FECHA REG.</th>
-					<th>OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($categorias as $cat)
 				<tr>
 					<td>{{ $cat->nombre}}</td>
 					<td>{{ $cat->descripcion}}</td>
-					<td>{{ $cat->empleado_id_empleado}}</td>
-					<td>{{ $cat->sede_id_sede}}</td>
-					<td>{{ $cat->fecha}}</td>
 					<td>
-						<a href="{{URL::action('CategoriaProducto@edit',$cat->id_categoria)}}"><button class="btn btn-info">Editar</button></a>
-						<a href="" data-target="#modal-delete-{{$cat->id_categoria}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<a href="{{URL::action('CategoriaProducto@edit',$cat->id_categoria)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>	
+					</td>
+					<td>
+						<a href="" data-target="#modal-delete-{{$cat->id_categoria}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+					</td>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoCategoria-{{$cat->id_categoria}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>
 				</tr>
 				@include('almacen.inventario.producto-sede.categoriaProducto.modal')
+				@include('almacen.inventario.producto-sede.categoriaProducto.modalInfoCategoria')
 				@endforeach
             </table>
 		</div>

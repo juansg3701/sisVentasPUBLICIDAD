@@ -1,6 +1,6 @@
 <!--Este es el archivo de la ventana modal para mostrar información del LOG-->
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-infoProducto-{{$ps->id_producto}}">
+role="dialog" tabindex="-1" id="modal-infoCategoria-{{$cat->id_categoriaStock}}">
 	<!--Información de la ventana emergente-->
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -20,7 +20,7 @@ role="dialog" tabindex="-1" id="modal-infoProducto-{{$ps->id_producto}}">
 					<div>Empleado:</div>
 				</div>
 				<div class="form-group col-sm-6">
-                    {{ $ps->empleado_id_empleado}}
+                    {{ $cat->empleado_id_empleado}}
 				</div>
             </div>
 
@@ -29,7 +29,7 @@ role="dialog" tabindex="-1" id="modal-infoProducto-{{$ps->id_producto}}">
 					<div>Sede:</div>
 				</div>
 				<div class="form-group col-sm-6">
-                    {{ $ps->sede_id_sede}}
+                    {{ $cat->sede_id_sede}}
 				</div>
             </div>
 
@@ -38,7 +38,7 @@ role="dialog" tabindex="-1" id="modal-infoProducto-{{$ps->id_producto}}">
 					<div>Fecha:</div>
 				</div>
 				<div class="form-group col-sm-6">
-                    {{ $ps->fecha_registro}}
+                    {{ $cat->fecha}}
 				</div>
             </div>
                                     

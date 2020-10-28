@@ -114,13 +114,13 @@
 						</label>
 					</td>
 					<td>
-						<a href="" data-target="#modal-infoProducto-{{$ps->id_producto}}" data-toggle="modal"><button class="btn btn-warning">Info</button></a>
+						<a href="{{URL::action('ProductoSedeController@edit',$ps->id_producto)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
-						<a href="{{URL::action('ProductoSedeController@edit',$ps->id_producto)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="" data-target="#modal-delete-{{$ps->id_producto}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 					</td>
-					<td>
-						<a href="" data-target="#modal-delete-{{$ps->id_producto}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoProducto-{{$ps->id_producto}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>
 				</tr>
 				@include('almacen.inventario.producto-sede.productoCompleto.modal')

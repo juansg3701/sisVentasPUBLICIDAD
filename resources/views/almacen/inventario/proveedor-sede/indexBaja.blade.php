@@ -57,9 +57,9 @@
 </body>
 
 @stop
+
+
 @section('tabla')
-
-
 <div class="container-fluid"><br>
 	<div class="col-sm-12" align="center">
 		<div class="col-sm-6" align="center">
@@ -81,6 +81,7 @@
 </div>
 
 
+
 <!--Tabla de registros realizados-->
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
@@ -98,10 +99,8 @@
 					<th>CATEGORÍA</th>
 					<th>CANTIDAD</th>
 					<th>VENCE</th>
-					<th>FECHA REG.</th>
-					<th>EMPLEADO</th>
 					<th>ESTADO</th>
-					<th colspan="2">OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($productos as $ps)
 				@if($ps->sede_id_sede==auth()->user()->sede_id_sede && auth()->user()->superusuario==0)
@@ -114,8 +113,7 @@
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
-					<td>{{ $ps->fecha_registro}}</td>
-					<td>{{ $ps->empleado_id_empleado}}</td>
+
 					@if($ps->producto_dados_baja=='1')
 						<td>Dado de baja</td>
 					@endif
@@ -123,13 +121,17 @@
 						<td>Disponible</td>
 					@endif
 					<td>
-						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
-					<td>	
-						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+					<td>
+						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>	
+					</td>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoStock-{{$ps->id_stock}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>
 				</tr>
 				@include('almacen.inventario.proveedor-sede.modal')
+				@include('almacen.inventario.proveedor-sede.modalInfoStock')
 				@endif
 				@if(auth()->user()->superusuario==1)
 				<tr>
@@ -141,8 +143,8 @@
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
-					<td>{{ $ps->fecha_registro}}</td>
-					<td>{{ $ps->empleado_id_empleado}}</td>
+				
+					
 					@if($ps->producto_dados_baja=='1')
 						<td>Dado de baja</td>
 					@endif
@@ -150,18 +152,23 @@
 						<td>Disponible</td>
 					@endif
 					<td>
-						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
-					<td>	
-						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+					<td>
+						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>	
+					</td>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoStock-{{$ps->id_stock}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>
 				</tr>
 				@endif
 				@include('almacen.inventario.proveedor-sede.modal')
+				@include('almacen.inventario.proveedor-sede.modalInfoStock')
 				@endforeach
             </table>
 		</div>
 		{{$productos->render()}}
     </div>
 </div>
+
 @stop

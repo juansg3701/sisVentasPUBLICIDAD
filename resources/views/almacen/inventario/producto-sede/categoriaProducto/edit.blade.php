@@ -28,7 +28,7 @@
 			<div class="card" align="center">
 				<div class="row" align="center">
 					<div class="col-sm-12" align="center">
-						<br><h1 class="h3 mb-2 text-gray-800">EDITAR PRODUCTOS</h1>
+						<br><h1 class="h3 mb-2 text-gray-800">EDITAR CATEGORÍA PRODUCTO</h1>
 					</div>
 					<div class="col-sm-12" align="center">
 						Editar datos de: {{$categoria->nombre}}<br>
