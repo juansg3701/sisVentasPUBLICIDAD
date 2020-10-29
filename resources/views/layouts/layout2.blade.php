@@ -9,8 +9,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>1A</title>
-
+  <title>unoa</title>
+    <link rel="apple-touch-icon" href="{{asset('img/Logo12.jpeg')}}">
+    <link rel="shortcut icon" href="{{asset('img/Logo12.jpeg')}}">
   <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}" rel="stylesheet">
@@ -30,10 +31,9 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
-          <div class="sidebar-brand-icon rotate-n-15">
-          <img src="{{asset('img/logo1.jpeg')}}" width="35" height="35">
+          <div >
+          <img src="{{asset('img/logo1.jpeg')}}" width="100" height="40">
         </div>
-        <div class="sidebar-brand-text mx-3"> 1A</div>
       </a>
 
       <!-- Divider -->

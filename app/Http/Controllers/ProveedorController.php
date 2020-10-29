@@ -34,6 +34,8 @@ class ProveedorController extends Controller
 	 			$proveedoresP=DB::table('proveedor')
 	 			->orderBy('id_proveedor', 'desc')->get();
 
+	 			
+
 	 			return view('almacen.proveedor.index',["proveedores"=>$proveedores,"searchText0"=>$query0,"searchText1"=>$query1, "modulos"=>$modulos,"proveedoresP"=>$proveedoresP]);
 	 		}
 	 	}
@@ -44,8 +46,11 @@ class ProveedorController extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+
+	 			$empleados=DB::table('empleado')
+	 			->orderBy('id_empleado', 'desc')->get();
 	 		
-	 		return view('almacen.proveedor.registrar', ["modulos"=>$modulos]);
+	 		return view('almacen.proveedor.registrar', ["modulos"=>$modulos,"empleados"=>$empleados]);
 	 	}
 
 	 	public function store(ProveedorFormRequest $request){
@@ -71,6 +76,8 @@ class ProveedorController extends Controller
 				 		$proveedor->correo=$correoR;
 				 		$proveedor->documento=$documentoR;
 				 		$proveedor->verificacion_nit=$request->get('verificacion_nit');
+				 		$proveedor->fecha=$request->get('fecha');
+				 		$proveedor->verificacion_nit=$request->get('empleado_id_empleado');
 				 		$proveedor->save();
 				 		return back()->with('msj','Proveedor guardado');
 	 			}else{
@@ -92,8 +99,9 @@ class ProveedorController extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+	 			$usuarios=DB::table('empleado')->get();
 	 			
-	 		return view("almacen.proveedor.edit",["proveedor"=>Proveedor::findOrFail($id), "modulos"=>$modulos]);
+	 		return view("almacen.proveedor.edit",["proveedor"=>Proveedor::findOrFail($id), "modulos"=>$modulos,"usuarios"=>$usuarios]);
 	 	}
 
 	 	public function update(ProveedorFormRequest $request, $id){
@@ -122,6 +130,8 @@ class ProveedorController extends Controller
 				 		$proveedor->correo=$correoR;
 				 		$proveedor->documento=$documentoR;
 				 		$proveedor->verificacion_nit=$request->get('verificacion_nit');
+				 		$proveedor->fecha=$request->get('fecha');
+				 		$proveedor->verificacion_nit=$request->get('empleado_id_empleado');
 				 		$proveedor->update();
 				 		return back()->with('msj','Proveedor actualizado');
 	 			}else{
