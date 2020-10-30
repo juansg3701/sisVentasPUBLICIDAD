@@ -110,7 +110,8 @@
 					<td>{{ $ps->stock_minimo}}</td>
 					<td>
 						<label>
-							<img src="{{asset('imagenes/articulos/'.$ps->imagen)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail">
+							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_producto}}" data-toggle="modal">
+							<img src="{{asset('imagenes/articulos/'.$ps->imagen)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
 						</label>
 					</td>
 					<td>
@@ -125,6 +126,7 @@
 				</tr>
 				@include('almacen.inventario.producto-sede.productoCompleto.modal')
 				@include('almacen.inventario.producto-sede.productoCompleto.modalInfoProducto')
+				@include('almacen.inventario.producto-sede.productoCompleto.modalImagen')
 				@endforeach
             </table>
 		</div>
