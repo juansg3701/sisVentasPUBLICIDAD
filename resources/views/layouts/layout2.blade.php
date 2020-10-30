@@ -30,9 +30,9 @@
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">
           <div >
-          <img src="{{asset('img/logo1.jpeg')}}" width="100" height="40">
+          <img src="{{asset('img/Logo1.jpeg')}}" width="100" height="40">
         </div>
       </a>
 
@@ -50,7 +50,7 @@
                 <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{url('almacen/usuario/permiso/cargo')}}">Cargos</a>
-                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">Módulos</a>
+                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">M贸dulos</a>
                     <a class="collapse-item" href="{{url('almacen/usuario/permiso/cuenta')}}">Cuentas</a>
                   </div>
                 </div>
@@ -167,7 +167,7 @@
                   <li class="nav-item">
                   <a class="nav-link" href="{{url('/logout')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Cerrar sesión</span></a>
+                    <span>Cerrar sesi贸n</span></a>
                 </li>
   
 
@@ -197,7 +197,7 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
@@ -272,7 +272,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+            <span>Controler &copy; 2020</span>
           </div>
         </div>
       </footer>
@@ -296,7 +296,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">脳</span>
           </button>
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
