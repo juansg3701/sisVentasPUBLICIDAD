@@ -8,13 +8,6 @@
 </head>
 
 <body>
-	
-	
-
-
-	<div class="row" align="center">	
-		<div class="col-sm-12" align="center">
-			<div class="card" align="center">
 
 	<div class="row" align="center">
 		<div class="col-sm-12" align="center">
@@ -47,35 +40,24 @@
 			</div>
 		<div class="col-sm-3" align="center"></div>
 	</div>
-</div></div></div>
 
 
 
 </body>
 @endsection
 @section('tabla')
-
-	<div class="row" align="center">	
-		<div class="col-sm-12" align="center">
-			<div class="card" align="center">
-
+<hr>
 
 <!--Tabla de registros realizados en la tabla de proveedor en la base de datos-->	
-<div class="row" align="center">
-	<div class="col-sm-12" align="center">
-		<!--<h3><font font="Raleway, Garamond, Arial">SEDES REGISTRADAS</font></h3>
-		<span style=" font-style: italic;">Este texto tiene un estilo it&aacute;lico</span>-->
-		<br><h1 class="text-center title-1">Sedes Registradas</h1>
-	</div>
-</div>
-<div class="container">
-<div class="row m-t-30">
-    <div class="col-md-12">
-        <!-- DATA TABLE-->
-        <div class="table-responsive m-b-40">
-            <table class="table table-borderless table-striped table-earning">
-                <thead>
-					<th>ID</th>
+<div class="card shadow mb-10">
+    <div class="card-header py-3" align="center">
+	    <h6 class="m-0 font-weight-bold">Sedes registradas</h6>
+    </div>
+    <div class="card-body">
+    	<div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+
 					<th>NOMBRE</th>
 					<th>CIUDAD</th>
 					<th>DESCRIPCIÓN</th>
@@ -84,11 +66,10 @@
 					<th>EMPLEADO</th>
 					<th>FECHA</th>
 					<th>TIPO</th>
-					<th>OPCIONES</th>
+					<th colspan="2">OPCIONES</th>
 				</thead>
 				@foreach($sedes as $sed)
 				<tr>
-					<td>{{ $sed->id_sede}}</td>
 					<td>{{ $sed->nombre_sede}}</td>
 					<td>{{ $sed->ciudad}}</td>
 					<td>{{ $sed->descripcion}}</td>
@@ -108,17 +89,16 @@
 					<td>{{ $t->nombre}}</td>
 						@endif
 					@endforeach
-					<td>		
-	                    <div class="table-data-feature">
-							<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}"><button class="btn btn-info">Editar</button></a>
-							
+					<td>	
+							<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+					</td>
+					<td>
 							@if(isset($sed->id_sede))
 							@include('almacen.sede.modal')
-							<a href="" data-target="#modal-delete-{{$sed->id_sede}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+							<a href="" data-target="#modal-delete-{{$sed->id_sede}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 			
 							@endif
-							
-	                    </div>
+						
                 	</td>
 				</tr>
 				
@@ -127,12 +107,9 @@
             </table>
         </div>
         {{$sedes->render()}}
-		<!-- END DATA TABLE-->
     </div>
+</div>
 
-</div>
-</div>
-</div></div></div>
 @endsection
 
 @include('almacen.sede.mod')

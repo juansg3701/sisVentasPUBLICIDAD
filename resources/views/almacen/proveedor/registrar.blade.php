@@ -9,7 +9,6 @@
 <body>
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-			<h3>Registrar Proveedor</h3>
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
 				<ul>
@@ -24,55 +23,120 @@
 	{!!Form::open(array('url'=>'almacen/proveedor','method'=>'POST','autocomplete'=>'off'))!!}
     {{Form::token()}}
 
-	<div id=formulario>
-		<div class="form-group">
-			Nombre Empresa<input type="text" class="form-control" name="nombre_empresa">
-			Contacto Empresa<input type="text" class="form-control" name="nombre_proveedor">
-			Dirección<input type="text" class="form-control" name="direccion">
-			Correo<input type="email" class="form-control" name="correo">
-			Teléfono<input type="number" class="form-control" name="telefono">
-			
-			<div>
-				<script type="text/javascript">
-				$( function() {
-	    		$("#id_tipo_documento").change( function() {
-	       	 	if ($(this).val() === "1") {
-	            $("#id_cedula").prop("disabled", false);
-	             $("#id_falso").prop("disabled", false);
-	        	} else {
-	            $("#id_cedula").prop("disabled", true);
-	            $("#id_falso").prop("disabled", true);
-	        	}
-	        	if ($(this).val() === "2") {
-	            $("#id_nit").prop("disabled", false);
-	            $("#id_digito").prop("disabled", false);
-	        	} else {
-	            $("#id_nit").prop("disabled", true);
-	            $("#id_digito").prop("disabled", true);
-	        	}
-	    		});
-				});
-				</script>
-				Documento<br>
-				<select id='id_tipo_documento' name="tipo_documento" class="form-control">
-					<option value="1" selected>Cédula</option>
-					<option value="2">NIT</option>
-				</select><br>
-				<div align="center">
-				Cédula:
-				<input id='id_cedula' type="number" class="" style="width:150px; heigth : 1px" name="documento" placeholder="- - - - - - - - -" size="30" maxlength="30" enabled>
-				<input id='id_falso' type="number" name="verificacion_nit" placeholder="---------"  size="11" maxlength="11" style="display:none">
-				NIT:
-				<input id='id_nit' type="number" class="" style="width:150px; heigth : 1px" name="documento" placeholder="- - - - - - - - -" size="30" maxlength="30" required pattern=""  disabled>-<input id='id_digito' type="number"class=""style="width:40px; heigth:1px" name="verificacion_nit" placeholder="y" size="1" maxlength="1" required disabled><br><br>
+    		<div class="row" align="center">	
+		<div class="col-sm-12" align="center">
+			<div class="card" align="center">
+				<div class="row" align="center">
+					<div class="col-sm-12" align="center">
+						<br><h1 class="text-center title-1">Registrar Sede</h1><br>
+					</div>
 				</div>
-			</div>
-		</div>
+				<div class="row" align="center">	
+					<div class="col-sm-3" align="center"></div>
+					 	<div class="col-sm-6" align="center">
+							<div class="card" align="center">
+				                <div class="card-header" align="center">
+				                     <strong>Formulario de registro</strong>
+				                </div>
+				                <div class="card-body card-block" align="center">
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Nombre empresa:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="text" class="form-control" name="nombre_empresa">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Contacto empresa:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="text" class="form-control" name="nombre_proveedor">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Dirección:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="text" class="form-control" name="direccion">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Correo:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="email" class="form-control" name="correo">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Teléfono:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="number" class="form-control" name="telefono">
+										</div>
+									</div>
 
+									<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Documento:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<input type="text" class="form-control" name="documento">
+									</div>
+								</div>
 
-			<div align="center">
-				<button class="btn btn-info">Registrar Proveedor</button>
-			<a href="{{url('almacen/proveedor')}}" class="btn btn-danger">Volver</a>
-			</div>
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>NIT:</div>
+									</div>
+									<div class="form-group col-sm-6">
+										<input type="number" class="form-control" name="nit" placeholder="- - - - - - -" min="0">
+									</div>
+									<div class="form-group col-sm-2">		
+										<input type="number"  class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9">
+									</div>
+								</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Fecha:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+										</div>
+									</div>
+
+									<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Empleado:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empleado_id_empleado" class="form-control" disabled="">
+											@foreach($empleados as $usu)
+											@if(Auth::user()->id==$usu->user_id_user)
+											<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+											<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
+											@endif
+											@endforeach
+										</select><br>
+									</div>
+								</div>
+									<div class="form-row">
+										<div class="form-group col-sm-12">
+											<button class="btn btn-info" type="submit">Registrar</button>
+											<a href="{{url('almacen/proveedor')}}" class="btn btn-danger">Regresar</a>
+										</div>
+									</div>
+				               </div>
+				        	</div>
+						</div>
+					<div class="col-sm-3" align="center"></div>
+				</div>
+        	</div>
 		</div>
 	</div>
 {!!Form::close()!!}	

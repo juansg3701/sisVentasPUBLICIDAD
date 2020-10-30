@@ -99,7 +99,6 @@
 					<th>NOMBRE</th>
 					<th>PLU</th>
 					<th>EAN</th>
-					<th>SEDE</th>
 					<th>PROVEEDOR</th>
 					<th>CATEGORÍA</th>
 					<th>CANTIDAD</th>
@@ -113,7 +112,6 @@
 					<td>{{ $ps->nombre}}</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
-					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
@@ -143,7 +141,6 @@
 					<td>{{ $ps->nombre}}</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
-					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>

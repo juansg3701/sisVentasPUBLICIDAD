@@ -9,8 +9,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>1A</title>
-
+  <title>unoa</title>
+    <link rel="apple-touch-icon" href="{{asset('img/Logo12.jpeg')}}">
+    <link rel="shortcut icon" href="{{asset('img/Logo12.jpeg')}}">
   <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}" rel="stylesheet">
@@ -29,11 +30,10 @@
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
-          <div class="sidebar-brand-icon rotate-n-15">
-          <img src="{{asset('img/logo1.jpeg')}}" width="35" height="35">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">
+          <div >
+          <img src="{{asset('img/Logo1.jpeg')}}" width="100" height="40">
         </div>
-        <div class="sidebar-brand-text mx-3"> 1A</div>
       </a>
 
       <!-- Divider -->
@@ -50,7 +50,7 @@
                 <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{url('almacen/usuario/permiso/cargo')}}">Cargos</a>
-                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">Módulos</a>
+                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">M贸dulos</a>
                     <a class="collapse-item" href="{{url('almacen/usuario/permiso/cuenta')}}">Cuentas</a>
                   </div>
                 </div>
@@ -167,7 +167,7 @@
                   <li class="nav-item">
                   <a class="nav-link" href="{{url('/logout')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Cerrar sesión</span></a>
+                    <span>Cerrar sesi贸n</span></a>
                 </li>
   
 
@@ -197,7 +197,7 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
@@ -272,7 +272,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+            <span>Controler &copy; 2020</span>
           </div>
         </div>
       </footer>
@@ -296,7 +296,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">脳</span>
           </button>
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
