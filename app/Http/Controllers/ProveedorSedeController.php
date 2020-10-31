@@ -166,7 +166,10 @@ class ProveedorSedeController extends Controller
 	 		if($query!=""){
 	 		$pEAN=DB::table('producto')
 			->where('ean','=',$query)
-			->get();	
+			->get();
+
+
+			
 	 		}else{
 	 			$pEAN=[];
 	 		}

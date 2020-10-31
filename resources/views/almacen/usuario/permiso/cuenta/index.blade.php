@@ -77,7 +77,6 @@
 					<div class="card-body">
 						<table id="bootstrap-data-table" class="table table-striped table-bordered">
 							<thead>
-								<th>Id</th>
 								<th>Nombre</th>
 								<th>Correo</th>
 								
@@ -89,7 +88,6 @@
 							@foreach($usuarios as $usu)
 							@if($usu->sede_id_sede==auth()->user()->sede_id_sede && auth()->user()->superusuario==0)
 							<tr>
-								<td>{{ $usu->id}}</td>
 								<td>{{ $usu->name}}</td>
 								<td>{{ $usu->email}}</td>
 								@foreach($cargos as $mp)
@@ -113,7 +111,6 @@
 
 							@if(auth()->user()->superusuario==1)
 							<tr>
-								<td>{{ $usu->id}}</td>
 								<td>{{ $usu->name}}</td>
 								<td>{{ $usu->email}}</td>
 								@foreach($cargos as $mp)
