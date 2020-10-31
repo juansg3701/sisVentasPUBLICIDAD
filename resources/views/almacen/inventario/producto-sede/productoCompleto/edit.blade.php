@@ -85,7 +85,7 @@
 											<div>Precio</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="text" class="form-control" name="precio" value="{{$productos->precio}}">
+											<input type="number" class="form-control" name="precio" value="{{$productos->precio}}">
 										</div>
 									</div>
 
@@ -94,7 +94,7 @@
 											<div>Stock Mínimo</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="text" class="form-control" name="stock_minimo" value="{{$productos->stock_minimo}}">
+											<input type="number" class="form-control" name="stock_minimo" value="{{$productos->stock_minimo}}">
 										</div>
 									</div>
 

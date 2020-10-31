@@ -96,13 +96,15 @@ class ProductoSedeController extends Controller
 				$ps->fecha_registro=$request->get('fecha_registro');	
 				$ps->empleado_id_empleado=$request->get('empleado_id_empleado');
 				$ps->sede_id_sede=$request->get('sede_id_sede');
-				
+				$ps->save();
+
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
-					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
-					$ps->imagen=$file->getClientOriginalName();
+					$nombre=$ps->id_producto."_".$ps->nombre."_".$file->getClientOriginalName();
+					$file->move(public_path().'/imagenes/articulos/', $nombre);
+					$ps->imagen=$nombre;
 				}
-		 		$ps->save();
+		 		$ps->update();
 
 			 	return back()->with('msj','Producto guardado');
 	 			}else{
@@ -161,8 +163,9 @@ class ProductoSedeController extends Controller
 				$ps->sede_id_sede=$request->get('sede_id_sede');
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
-					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
-					$ps->imagen=$file->getClientOriginalName();
+					$nombre=$ps->id_producto."_".$ps->nombre."_".$file->getClientOriginalName();
+					$file->move(public_path().'/imagenes/articulos/', $nombre);
+					$ps->imagen=$nombre;
 				}
 				
 				/*if(Input::hasFile('imagen')){
