@@ -63,9 +63,18 @@
 
 
 									@foreach($pEAN as $pE)
-										Producto automático:
+
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Producto automático:</div>
+										</div>
+										<div class="form-group col-sm-8">
 										<input type="hidden" class="form-control" name="producto_id_producto" value="{{$pE->id_producto}}">
 										<input type="text" class="form-control" name="producto" value="{{$pE->nombre}}">
+										</div>
+									</div>
+
 									@endforeach
 
 

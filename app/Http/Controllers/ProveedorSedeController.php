@@ -90,16 +90,19 @@ class ProveedorSedeController extends Controller
 	 			$proveedoresP=DB::table('proveedor')->get();
 
 	 			foreach ($productos as $p) {
+
+	 				$stock=ProveedorSede::findOrFail($p->id_stock);
 	 			$fecha=$p->fecha_vencimiento;
 				$b=strtotime($fecha);
 
 				if(date("y",$b)==date("y") && date("m",$b)<=date("m")){
 							
 							if(date("d",$b)<date("d")){
-								$p->producto_dados_baja=1;
+								$stock->producto_dados_baja=1;
 							}
 
-						}	
+						}
+						$stock->update();	
 	 			}
 
 	 			return view('almacen.inventario.proveedor-sede.index',["categoria"=>$categoria,"productos"=>$productos,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3,"searchText4"=>$query4,"modulos"=>$modulos,"eanP"=>$eanP,"sedesP"=>$sedesP,"proveedoresP"=>$proveedoresP,"usuarios"=>$usuarios,"sedes"=>$sedes]);

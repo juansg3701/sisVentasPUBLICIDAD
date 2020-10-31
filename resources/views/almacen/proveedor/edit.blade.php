@@ -52,7 +52,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header" align="center">
-				<h3 class="pb-2 display-5">EDITAR CLIENTE</h3>
+				<h3 class="pb-2 display-5">EDITAR PROVEEDOR</h3>
 			</div><br>
 			<div class="row" align="center">	
 				<div class="col-sm-3" align="center"></div>

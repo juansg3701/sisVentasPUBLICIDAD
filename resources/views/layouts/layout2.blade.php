@@ -50,7 +50,7 @@
                 <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{url('almacen/usuario/permiso/cargo')}}">Cargos</a>
-                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">M贸dulos</a>
+                    <a class="collapse-item" href="{{url('almacen/usuario/permiso/usuario')}}">Módulos</a>
                     <a class="collapse-item" href="{{url('almacen/usuario/permiso/cuenta')}}">Cuentas</a>
                   </div>
                 </div>
@@ -167,7 +167,7 @@
                   <li class="nav-item">
                   <a class="nav-link" href="{{url('/logout')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Cerrar sesi贸n</span></a>
+                    <span>Cerrar sesión</span></a>
                 </li>
   
 
@@ -296,7 +296,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">脳</span>
+            <span aria-hidden="true"></span>
           </button>
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
