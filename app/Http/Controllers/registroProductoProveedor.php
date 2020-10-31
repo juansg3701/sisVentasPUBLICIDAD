@@ -27,9 +27,15 @@ class registroProductoProveedor extends Controller
 			$categoria=DB::table('categoria_stock_especiales')->get();
 			
 	 		$query=trim($request->get('searchText'));
-			$pEAN=DB::table('producto')
+
+	 		if($query!=""){
+	 		$pEAN=DB::table('producto')
 			->where('ean','=',$query)
-			->get();
+			->get();	
+	 		}else{
+	 			$pEAN=[];
+	 		}
+			
 	 			
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')

@@ -118,10 +118,12 @@ class ProveedorSedeController extends Controller
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
 	 		$producto=DB::table('producto')->get();
-	 			$query=trim($request->get('searchText'));
-			$pEAN=DB::table('producto')
-			->where('ean','=',$query)
-			->get();
+
+
+	 			$pEAN=DB::table('producto')
+				->where('ean','=',$query)
+				->get();
+	 	
 	 			
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
@@ -160,9 +162,15 @@ class ProveedorSedeController extends Controller
 	 		$sede=DB::table('sede')->get();
 	 		$proveedor=DB::table('proveedor')->get();
 	 		$producto=DB::table('producto')->get();
-			$pEAN=DB::table('producto')
+
+	 		if($query!=""){
+	 		$pEAN=DB::table('producto')
 			->where('ean','=',$query)
-			->get();
+			->get();	
+	 		}else{
+	 			$pEAN=[];
+	 		}
+			
 	 			
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
