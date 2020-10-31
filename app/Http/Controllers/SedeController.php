@@ -110,8 +110,12 @@ class SedeController extends Controller
 	 	}
 
 	 	public function destroy($id){
-	 		$id=$id;
+			$id=$id;
+			$sede=Sede::findOrFail($id);
+	 		$sede->delete();
+	 		return back()->with('msj','Sede eliminada');
 
+	 		/*$id=$id;
 	 		$existeC=DB::table('caja')
 	 		->where('sede_id_sede','=',$id)
 	 		->orderBy('id_caja', 'desc')->get();
@@ -151,12 +155,8 @@ class SedeController extends Controller
 	 		return back()->with('msj','Sede eliminada');
 
 	 		}else{
-				
-
-	 		return back()->with('errormsj','¡Sede relacionada!');	 			
-	 		}
-
-	 		
+	 			return back()->with('errormsj','¡Sede relacionada!');	 			
+	 		}*/
 	 	}
 
 	 	
