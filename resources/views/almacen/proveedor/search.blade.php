@@ -2,12 +2,12 @@
 <div class="form-group">
 		Nombre:
 		<br>
-			<input id="pro1" type="text" class="form-control" name="searchText0" placeholder="Buscar..." >
+			<input id="pro1" type="text" class="form-control" name="searchText0" placeholder="Buscar..." value="{{$searchText0}}">
 	
 		</br>
 		Documento:
 		<br>
-			<input id="pro2"  type="text" class="form-control" name="searchText1" placeholder="Buscar..." >
+			<input id="pro2"  type="text" class="form-control" name="searchText1" placeholder="Buscar..." value="{{$searchText1}}">
 		</br>
 
 		<span class="input-group-btn">

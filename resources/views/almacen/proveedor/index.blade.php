@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 	<div class="row" align="center">
 		<div class="col-sm-12" align="center">
 			<!--<h1 class="pb-2 display-4">SEDES</h1>-->
@@ -24,12 +25,10 @@
 						<div id=formulario>
 							<div class="form-group">
 								@include('almacen.proveedor.search')<br>
-			<div  align="center">
-			<a href="{{URL::action('ProveedorController@create',0)}}"><button class="btn btn-info">Registrar Proveedor</button></a>	
-			
-			<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
-			
-			</div>
+								<div  align="center">
+									<a href="{{URL::action('ProveedorController@create',0)}}"><button class="btn btn-info">Registrar Proveedor</button></a>	
+									<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
+								</div>
 							</div>
 						</div>
 				    </div>
@@ -63,7 +62,7 @@
 					<th>Correo</th>
 					<th>Teléfono</th>
 					<th>No. Documento</th>
-					<th>No. NIT</th>
+					<th colspan="2">NIT</th>
 					<th colspan="2">OPCIONES</th>
 				</thead>
 				@foreach($proveedores as $pro)
@@ -74,19 +73,14 @@
 					<td>{{ $pro->correo}}</td>
 					<td>{{ $pro->telefono}}</td>
 					<td>{{ $pro->documento}}</td>
+					<td>{{ $pro->nit}}</td>
 					<td>{{ $pro->verificacion_nit}}</td>
 					<td>	
-							<a href="{{URL::action('ProveedorController@edit',$pro->id_proveedor)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
-
-							
+						<a href="{{URL::action('ProveedorController@edit',$pro->id_proveedor)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
-					<td>
-							
-							<a href="" data-target="#modal-delete-{{$pro->id_proveedor}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
-			
-						
+					<td>	
+						<a href="" data-target="#modal-delete-{{$pro->id_proveedor}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
                 	</td>
-				
 				</tr>
 				@include('almacen.proveedor.modal')
 				@endforeach
