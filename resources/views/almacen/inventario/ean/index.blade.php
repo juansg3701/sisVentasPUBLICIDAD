@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<div class="row">
+	<div class="row" alig>
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
@@ -206,9 +206,6 @@
 										</div>
 									</div>
 
-									
-
-
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Fecha:</div>
@@ -234,7 +231,6 @@
 											</select>
 										</div>
 									</div>
-
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">

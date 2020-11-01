@@ -85,8 +85,6 @@
 	</div>	
 </div>
 
-
-
 <!--Tabla de registros realizados-->
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
@@ -100,6 +98,7 @@
 					<th>IMAGEN</th>
 					<th>PLU</th>
 					<th>EAN</th>
+					<th>SEDE</th>
 					<th>PROVEEDOR</th>
 					<th>CATEGORÍA</th>
 					<th>CANTIDAD</th>
@@ -119,6 +118,7 @@
 					</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
+					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
@@ -155,6 +155,7 @@
 					</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
+					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>

@@ -92,6 +92,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<th>NOMBRE</th>
+					<th>IMAGEN</th>
 					<th>PLU</th>
 					<th>EAN</th>
 					<th>SEDE</th>
@@ -106,6 +107,12 @@
 				@if($ps->sede_id_sede==auth()->user()->sede_id_sede && auth()->user()->superusuario==0)
 				<tr>
 					<td>{{ $ps->nombre}}</td>
+					<td>
+						<label>
+							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_stock}}" data-toggle="modal">
+							<img src="{{asset('imagenes/articulos/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
+						</label>
+					</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
@@ -132,10 +139,17 @@
 				</tr>
 				@include('almacen.inventario.proveedor-sede.modal')
 				@include('almacen.inventario.proveedor-sede.modalInfoStock')
+				@include('almacen.inventario.proveedor-sede.modalImagen')
 				@endif
 				@if(auth()->user()->superusuario==1)
 				<tr>
 					<td>{{ $ps->nombre}}</td>
+					<td>
+						<label>
+							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_stock}}" data-toggle="modal">
+							<img src="{{asset('imagenes/articulos/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
+						</label>
+					</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
@@ -144,7 +158,6 @@
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
 				
-					
 					@if($ps->producto_dados_baja=='1')
 						<td>Dado de baja</td>
 					@endif
@@ -164,6 +177,7 @@
 				@endif
 				@include('almacen.inventario.proveedor-sede.modal')
 				@include('almacen.inventario.proveedor-sede.modalInfoStock')
+				@include('almacen.inventario.proveedor-sede.modalImagen')
 				@endforeach
             </table>
 		</div>
