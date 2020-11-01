@@ -120,6 +120,9 @@
 	</div><br>
 </div>
 
+
+
+
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
 	    <h6 class="m-0 font-weight-bold">Lista de productos</h6>
@@ -134,7 +137,7 @@
 					<th>DESCRIPCIÓN</th>
 					<th>FECHA</th>
 					<th>EMPLEADO</th>
-					<th>OPCIONES</th>
+					<th colspan="2">OPCIONES</th>
 				</thead>
 				@foreach($cargos as $car)
 				<tr>
@@ -143,8 +146,11 @@
 					<td>{{ $car->fecha}}</td>
 					<td>{{ $car->empleado}}</td>
 					<td>
-						<a href="{{URL::action('PermisoCargoController@edit',$car->id_cargo)}}"><button class="btn btn-info">Editar</button></a>
-						<a href="" data-target="#modal-delete-{{$car->id_cargo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						
+						<a href="{{URL::action('PermisoCargoController@edit',$car->id_cargo)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+					</td>
+					<td>
+						<a href="" data-target="#modal-delete-{{$car->id_cargo}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 					</td>	
 				</tr>
 				@include('almacen.usuario.permiso.cargo.modal')

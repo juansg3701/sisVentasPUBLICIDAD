@@ -40,9 +40,9 @@
 									<div class="card" align="center">
 										<div class="card-header" align="center">
 											<strong></strong>
-											<a href="" data-target="#modal-registrar" data-toggle="modal"><button class="btn btn-info">Registrar</button></a>
+											<a href="" data-target="#modal-registrar" data-toggle="modal"><button class="btn btn-info">Registrar permiso</button></a>
 
-						<a href="" data-target="#modal-borrar" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<a href="" data-target="#modal-borrar" data-toggle="modal"><button class="btn btn-danger">Eliminar permiso</button></a>
 										</div>
 										<div class="card-body card-block" align="center">
 											<div id=formulario>
