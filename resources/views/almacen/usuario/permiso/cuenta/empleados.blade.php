@@ -73,18 +73,14 @@
 
 @section('tabla')
 <!--Tabla de registros realizados-->
-<div class="content">
-	<div class="animated fadeIn">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-header" align="center">
-						<h3 class="pb-2 display-5">LISTA DE CUENTAS</h3>
-					</div>
-					<div class="card-body">
-						<table id="bootstrap-data-table" class="table table-striped table-bordered">
-							<thead>
-								<th>Id</th>
+<div class="card shadow mb-10">
+    <div class="card-header py-3" align="center">
+	    <h6 class="m-0 font-weight-bold">Lista de cuentas</h6>
+    </div>
+    <div class="card-body">
+    	<div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
 								<th>Nombre</th>
 								<th>Correo</th>
 								<th>Cargo</th>
@@ -99,7 +95,6 @@
 							@foreach($usuarios as $usu)
 							@if($usu->sede_id_sede==auth()->user()->sede_id_sede && auth()->user()->superusuario==0)
 							<tr>
-								<td>{{ $usu->id_empleado}}</td>
 								<td>{{ $usu->nombre}}</td>
 								<td>{{ $usu->correo}}</td>
 								@foreach($cargos as $mp)
@@ -118,16 +113,14 @@
 								<td>{{ $usu->direccion}}</td>
 								<td>{{ $usu->telefono}}</td>
 								<td>
-									<a href="{{URL::action('UsersController@edit',$usu->id)}}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
+									<a href="{{URL::action('EmpleadoController@edit',$usu->user_id_user)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 								</td>	
 							</tr>
-							@include('almacen.usuario.permiso.cuenta.modal')
 							@endif
 
 							@if(auth()->user()->superusuario==1)
 							<tr>
-								<td>{{ $usu->id_empleado}}</td>
 								<td>{{ $usu->nombre}}</td>
 								<td>{{ $usu->correo}}</td>
 								@foreach($cargos as $mp)
@@ -146,19 +139,15 @@
 								<td>{{ $usu->direccion}}</td>
 								<td>{{ $usu->telefono}}</td>
 								<td>
-									<a href="{{URL::action('EmpleadoController@edit',$usu->user_id_user)}}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
+									<a href="{{URL::action('EmpleadoController@edit',$usu->user_id_user)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 								</td>	
 							</tr>
 							@endif
 							@endforeach
 						</table>
-					</div>
-					{{$usuarios->render()}}
+						</div>
+						{{$usuarios->render()}}
+				    </div>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 @stop

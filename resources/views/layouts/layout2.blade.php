@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>unoa</title>
+  <title>Unoa</title>
     <link rel="apple-touch-icon" href="{{asset('img/Logo12.jpeg')}}">
     <link rel="shortcut icon" href="{{asset('img/Logo12.jpeg')}}">
   <!-- Custom fonts for this template-->
@@ -194,6 +194,12 @@
             <i class="fa fa-bars"></i>
           </button>
 
+            <div class="input-group" align="right">
+              <label>Usuario: {{auth()->user()->name}}</label>
+              <div class="input-group-append">
+                
+              </div>
+            </div>
           <!-- Topbar Search 
 
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">

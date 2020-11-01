@@ -26,7 +26,7 @@ class CargoFormRequest extends Request
         return [
             //'id_sede'=>'required|max:45',
             'nombre'=>'required|max:45',
-            'descripcion'=>'required|max:45',
+            'descripcion'=>'required|max:200',
             'empleado_id_empleado'=>'|max:45',
             'fecha'=>'|max:45',
         ];

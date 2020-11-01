@@ -111,26 +111,12 @@ class SedeController extends Controller
 
 	 	public function destroy($id){
 			$id=$id;
-			$sede=Sede::findOrFail($id);
-	 		$sede->delete();
-	 		return back()->with('msj','Sede eliminada');
 
-	 		/*$id=$id;
-	 		$existeC=DB::table('caja')
-	 		->where('sede_id_sede','=',$id)
-	 		->orderBy('id_caja', 'desc')->get();
 
 	 		$existeCI=DB::table('c_inventario')
 	 		->where('sede_id_sede','=',$id)
 	 		->orderBy('id_corte', 'desc')->get();
 
-	 		$existeD=DB::table('descuentos')
-	 		->where('sede_id_sede','=',$id)
-	 		->orderBy('id_descuento', 'desc')->get();
-
-	 		$existeDB=DB::table('detalle_banco')
-	 		->where('sede_id_sede','=',$id)
-	 		->orderBy('id_Dbanco', 'desc')->get();
 
 	 		$existeE=DB::table('empleado')
 	 		->where('sede_id_sede','=',$id)
@@ -148,7 +134,7 @@ class SedeController extends Controller
 	 		->where('sede_id_sede','=',$id)
 	 		->orderBy('id', 'desc')->get();
 
-	 		if(count($existeC)==0 && count($existeCI)==0 && count($existeD)==0 && count($existeDB)==0 && count($existeE)==0 && count($existeM)==0 && count($existeS)==0 && count($existeU)==0){
+	 		if(count($existeCI)==0 && count($existeE)==0 && count($existeM)==0 && count($existeS)==0 && count($existeU)==0){
 	 		$sede=Sede::findOrFail($id);
 	 		$sede->delete();
 
@@ -156,7 +142,7 @@ class SedeController extends Controller
 
 	 		}else{
 	 			return back()->with('errormsj','¡Sede relacionada!');	 			
-	 		}*/
+	 		}
 	 	}
 
 	 	
