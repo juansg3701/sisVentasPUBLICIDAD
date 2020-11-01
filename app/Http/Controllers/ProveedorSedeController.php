@@ -224,9 +224,6 @@ class ProveedorSedeController extends Controller
 	 	public function destroy($id){
 	 		$id=$id;
 
-	 		$existeDF=DB::table('detalle_factura')
-	 		->where('producto_id_producto','=',$id)
-	 		->orderBy('id_detallef', 'desc')->get();
 
 	 		$existe=DB::table('m_stock')
 	 		->where('stock_id_stock','=',$id)
@@ -240,7 +237,7 @@ class ProveedorSedeController extends Controller
 	 		->where('producto_id_producto','=',$id)
 	 		->orderBy('id_dpproveedor', 'desc')->get();
 
-	 		if(count($existeDF)==0 && count($existe)==0 && count($existeDPC)==0 && count($existeDPP)==0){
+	 		if(count($existe)==0 && count($existeDPC)==0 && count($existeDPP)==0){
 	 			$ps=ProveedorSede::findOrFail($id);
 	 			$ps->delete();
 
