@@ -14,7 +14,7 @@ class ProveedorController extends Controller
 	    public function __construct(){
 			$this->middleware('auth');	
 
-			 	} 
+		} 
 
 	 	public function index(Request $request){
 	 		if ($request) {
@@ -74,10 +74,11 @@ class ProveedorController extends Controller
 				 		$proveedor->direccion=$request->get('direccion');
 				 		$proveedor->telefono=$request->get('telefono');
 				 		$proveedor->correo=$correoR;
-				 		$proveedor->documento=$documentoR;
+						$proveedor->documento=$documentoR;
+						$proveedor->nit=$request->get('nit');
 				 		$proveedor->verificacion_nit=$request->get('verificacion_nit');
 				 		$proveedor->fecha=$request->get('fecha');
-				 		$proveedor->verificacion_nit=$request->get('empleado_id_empleado');
+				 		$proveedor->empleado_id_empleado=$request->get('empleado_id_empleado');
 				 		$proveedor->save();
 				 		return back()->with('msj','Proveedor guardado');
 	 			}else{
@@ -128,10 +129,11 @@ class ProveedorController extends Controller
 				 		$proveedor->direccion=$request->get('direccion');
 				 		$proveedor->telefono=$request->get('telefono');
 				 		$proveedor->correo=$correoR;
-				 		$proveedor->documento=$documentoR;
+						$proveedor->documento=$documentoR;
+						$proveedor->nit=$request->get('nit');
 				 		$proveedor->verificacion_nit=$request->get('verificacion_nit');
 				 		$proveedor->fecha=$request->get('fecha');
-				 		$proveedor->verificacion_nit=$request->get('empleado_id_empleado');
+				 		$proveedor->empleado_id_empleado=$request->get('empleado_id_empleado');
 				 		$proveedor->update();
 				 		return back()->with('msj','Proveedor actualizado');
 	 			}else{
