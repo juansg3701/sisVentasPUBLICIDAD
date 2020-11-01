@@ -8,9 +8,25 @@
 
 <body>
 
+	<!--Control de errores en los campos del formulario-->	
+	<div class="container col-sm-12" align="center">
+		<div class="row" align="center">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+				@if (count($errors)>0)
+				<div class="alert alert-danger" align="center">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{$error}}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
+			</div>
+		</div>
+	</div>
+	
 	{!!Form::open(array('url'=>'almacen/inventario/producto-sede/productoCompleto','method'=>'POST','autocomplete'=>'off', 'files'=>'true'))!!}
-	{{Form::token()}}
-		
+	{{Form::token()}}	
 	<div class="row" align="center">	
 		<div class="col-sm-12" align="center">
 			<div class="card" align="center">
