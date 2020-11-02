@@ -68,7 +68,7 @@
 								
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Precio:</div>
+											<div>Precio unitario:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input type="number" class="form-control" name="precio">

@@ -73,7 +73,7 @@
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Sede:</div>
+											<div>Sede de ingreso:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											@if(auth()->user()->superusuario==0)
@@ -166,7 +166,7 @@
 											<div>Estado:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<select name="producto_dados_baja" class="form-control" value="{{$stock->producto_dados_baja}}">
+											<select name="producto_dados_baja" class="form-control" value="{{$stock->producto_dados_baja}}" disabled="true">
 												@if($stock->producto_dados_baja=='1')
 												<option value="0">Dado de baja</option>
 												<option value="1">Disponible</option>

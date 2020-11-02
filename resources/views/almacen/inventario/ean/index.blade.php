@@ -80,18 +80,15 @@
 										<input type="text" class="form-control" name="producto" value="{{$pEAN[0]->nombre}}">
 										</div>
 									</div>
-
 									@endif
 
-							
-									
 									@if($valor==0)
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Producto:</div>
 										</div>
 										<div class="form-group col-sm-8">
-										<select name="producto_id_producto" class="form-control">
+											<select name="producto_id_producto" class="form-control">
 											@foreach($producto as $p)
 											<option value="{{$p->id_producto}}">{{$p->nombre}}</option>
 											@endforeach
@@ -128,7 +125,7 @@
 									@else
 									<div class="form-row">
 										<div class="form-group col-sm-4">
-											<div>Sede:</div>
+											<div>Sede de ingreso:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<select name="sede_id_sede" class="form-control">
@@ -148,7 +145,6 @@
 										</div>
 									</div>
 									@endif
-
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
@@ -176,9 +172,6 @@
 										</div>
 									</div>
 
-
-
-
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Cantidad:</div>
@@ -202,7 +195,7 @@
 											<div>Estado:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<select name="producto_dados_baja" class="form-control">
+											<select name="producto_dados_baja" class="form-control" disabled="true">
 												<option value="1">Disponible</option>
 												<option value="0">Dado de baja</option>
 											</select>
@@ -237,7 +230,7 @@
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">
-										<button type="submit" class="btn btn-info">Registrar</button>
+											<button type="submit" class="btn btn-info">Registrar</button>
 											<a href="{{url('almacen/inventario/proveedor-sede')}}" class="btn btn-danger">Regresar</a>
 										</div>
 									</div>
