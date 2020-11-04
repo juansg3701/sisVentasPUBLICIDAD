@@ -76,7 +76,7 @@
 											@endforeach
 
 											@foreach($cargos as $car)
-												@if($car->id_cargo=!$usuario->tipo_cargo_id_cargo)
+												@if($car->id_cargo!=$usuario->tipo_cargo_id_cargo)
 												<option value="{{$car->id_cargo}}" selected>{{$car->nombre}}</option>
 												
 												@endif
@@ -98,7 +98,7 @@
 											@endforeach
 
 											@foreach($sedes as $sed)
-											@if($sed->id_sede=!$usuario->sede_id_sede)
+											@if($sed->id_sede!=$usuario->sede_id_sede)
 											<option value="{{$sed->id_sede}}" selected>{{$sed->nombre_sede}}</option>
 											
 											@endif
