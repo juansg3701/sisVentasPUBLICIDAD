@@ -116,7 +116,6 @@ Route::resource('almacen/pedidosDevoluciones/pagoEfectivoCliente', 'pagoEfectivo
 Route::resource('almacen/pedidosDevoluciones/pagoEfectivoC', 'pagoAClienteController');
 Route::resource('almacen/pedidosDevoluciones/pagoEfectivoP', 'pagoPClienteController');
 
-
 Route::resource('layouts/admin', 'admin');
 
 Route::resource('almacen/facturacion/ventasProductos', 'productoVentas');
@@ -132,8 +131,6 @@ Route::resource('almacen/facturacion/pagoElectronico', 'pagoElectronico');
 Route::resource('almacen/facturacion/TicketFactura', 'facturacionTListaVentas');
 Route::resource('almacen/facturacion/FacturaVenta', 'facturacionFListaVentas');
 Route::resource('almacen/facturacion/descuentos', 'DescuentoProducto');
-
-
 
 Route::get('bajar', 'ProveedorSedeController@bajar');
 Route::get('indexBaja', 'ProveedorSedeController@indexBaja');
