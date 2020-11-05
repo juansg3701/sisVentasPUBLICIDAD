@@ -64,17 +64,48 @@
                     <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
                   <i class="fas fa-fw fa-cog"></i>
-                  <span>Cuentas</span>
+                  <span>Empleados</span>
                 </a>
                 <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{url('almacen/usuario/registrar')}}">Registrarse</a>
-                    <a class="collapse-item" href="{{url('almacen/nomina/empleado')}}">Empleados</a>
+                    <a class="collapse-item" href="{{url('almacen/usuario/registrar')}}">Registro</a>
+                    <a class="collapse-item" href="{{url('almacen/nomina/empleado')}}">Lista empleados</a>
+                    
                     <!--
                     <a class="collapse-item" href="{{url('almacen/usuario/registrar')}}">Clientes</a>-->
                   </div>
                 </div>
               </li>
+                 @endif
+              @endforeach
+
+               @foreach($modulos as $m)
+                @if($m->id_modulo==9)
+                    <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Clientes</span>
+                </a>
+                <div id="collapse9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{url('almacen/clienteRegistro')}}">Registro</a>
+                    <a class="collapse-item" href="{{url('almacen/cliente/cliente')}}">Lista clientes</a>
+                    <a class="collapse-item" href="{{url('almacen/cliente/empresa')}}">Empresas</a>
+                    <!--
+                    <a class="collapse-item" href="{{url('almacen/usuario/registrar')}}">Clientes</a>-->
+                  </div>
+                </div>
+              </li>
+                 @endif
+              @endforeach
+
+              @foreach($modulos as $m)
+                @if($m->id_modulo==10)
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{url('almacen/inventario/clientes')}}">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>Inventario clientes</span></a>
+                  </li>
                  @endif
               @endforeach
 

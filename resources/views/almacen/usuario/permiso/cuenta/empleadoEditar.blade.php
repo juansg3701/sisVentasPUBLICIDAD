@@ -142,7 +142,7 @@
 										<input type="number" class="form-control" name="documento" value="{{$usuario->documento}}">
 									</div>
 								</div>
-								
+								<input type="hidden" name="tipo_cuenta" value="0">
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Correo:</div>

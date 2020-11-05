@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use sisVentas\Http\Requests;
 use sisVentas\Usuario;
 use sisVentas\User;
+use sisVentas\Cliente;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\NominaUsuFormRequest;
 use DB;
@@ -156,6 +157,7 @@ class EmpleadoController extends Controller
 	 		$nombreR=$request->get('nombre');
 	 		$cargoR=$request->get('tipo_cargo_id_cargo');
 	 		$sedeR=$request->get('sede_id_sede');
+	 		$tipo_cuentaR=$request->get('tipo_cuenta');
 
 	 		$CorreoRegis=DB::table('empleado')
 	 		->where('correo','=',$correoR)
@@ -169,6 +171,9 @@ class EmpleadoController extends Controller
 
 	 		if(count($CorreoRegis)==0){
 	 			if(count($CodigoRegis)==0){
+	 				if($tipo_cuentaR==0){
+
+	 				
 
 	 					if($correoR=="" && $contrasenaR==""){
 
@@ -217,6 +222,7 @@ class EmpleadoController extends Controller
 					 		$usuario->documento=$request->get('documento');
 					 		$usuario->fecha=$request->get('fecha');
 					 		$usuario->update();
+					 		return back()->with('msj', 'Cuenta actualizada');
 				 			}else{
 				 			
 
@@ -241,11 +247,75 @@ class EmpleadoController extends Controller
 
 							$usuario->user_id_user=$us->id;
 					 		$usuario->update();
+					 		return back()->with('msj', 'Cuenta actualizada');
 				 			}
 
 				 			
 				 		return back()->with('msj', 'Cuenta actualizada');
 				 		}
+				 	}else{
+				 		$clienteR=DB::table('cliente')
+				 			->select("user_id_user as user_id")
+					 		->where('id_cliente','=',$id)
+					 		->orderBy('id_cliente','desc')->get();
+
+				 		
+
+					 		$usuarioR2=User::where('id','=',$clienteR[0]->user_id)
+			    			->paginate(10);
+
+				 			if(count($usuarioR2)==0){
+				 			$us = new User;
+							$us->name=$nombreR;
+							$us->email=$correoR;
+							$us->tipo_cargo_id_cargo=$cargoR;
+							$us->sede_id_sede=$sedeR;
+							$us->save();
+
+
+
+					 		$cliente = Cliente::findOrFail($id);
+					 		$cliente->nombre=$nombreR;
+					 		$cliente->user_id_user=$us->id;
+					 		$cliente->tipo_cargo_id_cargo=$cargoR;
+					 		$cliente->sede_id_sede=$sedeR;
+					 		$cliente->direccion=$request->get('direccion');
+					 		$cliente->telefono=$request->get('telefono');
+					 		$cliente->documento=$request->get('documento');
+					 		$cliente->verificacion_nit=$request->get('verificacion_nit');
+					 		$cliente->empresa_id_empresa=$request->get('empresa_id_empresa');
+					 		$cliente->fecha=$request->get('fecha');
+					 		$cliente->update();
+					 		return back()->with('msj', 'Cuenta actualizada');
+					 		
+				 			}else{
+				 			
+
+							$cliente = Cliente::findOrFail($id);
+					 		$cliente->nombre=$nombreR;
+					 		$cliente->tipo_cargo_id_cargo=$cargoR;
+					 		$cliente->sede_id_sede=$sedeR;
+					 		$cliente->direccion=$request->get('direccion');
+					 		$cliente->telefono=$request->get('telefono');
+					 		$cliente->documento=$request->get('documento');
+					 		$cliente->verificacion_nit=$request->get('verificacion_nit');
+					 		$cliente->empresa_id_empresa=$request->get('empresa_id_empresa');
+					 		$cliente->fecha=$request->get('fecha');
+					 		
+					 		
+
+					 		$us = User::findOrFail($cliente->user_id_user);
+							$us->name=$nombreR;
+							$us->email=$correoR;
+							$us->tipo_cargo_id_cargo=$cargoR;
+							$us->sede_id_sede=$sedeR;
+							$us->update();
+
+							$cliente->user_id_user=$us->id;
+					 		$cliente->update();
+					 		return back()->with('msj', 'Cuenta actualizada');
+				 			}
+	 				}
 
 	 			}else{
 	 				return back()->with('errormsj','¡Código ya registrado!');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use sisVentas\Http\Requests;
 use sisVentas\User;
 use sisVentas\Usuario;
+use sisVentas\Cliente;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\UsersFormRequest;
 use DB;
@@ -50,6 +51,7 @@ class RegistrarController extends Controller
 	 		return view("almacen.usuario.iniciar.sesionIniciada", ["modulos"=>$modulos]);	
 	 	}
 
+	 	//Registrar usuarios sean empleados o clientes
 	 	public function store(Request $request){
 
 	 		$nombreR=$request->get('name');
@@ -58,6 +60,8 @@ class RegistrarController extends Controller
 	 		$cargoR=$request->get('tipo_cargo_id_cargo');
 	 		$sedeR=$request->get('sede_id_sede');
 	 		$codigoR=$request->get('codigo');
+	 		$tipo_cuentaR=$request->get('tipo_cuenta');
+	 		$documentoR=$request->get('documento');
 
 	 		$CorreoRegis=DB::table('empleado')
 	 		->where('correo','=',$correoR)
@@ -67,8 +71,14 @@ class RegistrarController extends Controller
 	 		->where('codigo','=',$codigoR)
 	 		->orderBy('id_empleado','desc')->get();
 
+	 		$documentoE=DB::table('cliente')
+	 		->where('documento','=',$documentoR)
+	 		->orderBy('id_cliente','desc')->get();
+
 	 		if(count($CorreoRegis)==0){
 	 			if(count($CodigoRegis)==0){
+	 				if(count($documentoE)==0){
+
 	 				$usuario = new User;
 			 		$usuario->name=$nombreR;
 			 		$usuario->email=$correoR;
@@ -76,7 +86,11 @@ class RegistrarController extends Controller
 			 		$usuario->tipo_cargo_id_cargo=$cargoR;
 			 		$usuario->sede_id_sede=$sedeR;
 			 		$usuario->superusuario=$request->get('superusuario');
+			 		$usuario->tipo_cuenta=$tipo_cuentaR;
 			 		$usuario->save();
+
+	 				if($tipo_cuentaR==0){
+
 
 			 		$empleadoU= new Usuario;
 			 		$empleadoU->nombre=$nombreR;
@@ -90,8 +104,27 @@ class RegistrarController extends Controller
 			 		$empleadoU->documento=$request->get('documento');
 			 		$empleadoU->fecha=$request->get('fecha');
 			 		$empleadoU->save();
+	 				}else{
+
+	 				$cliente = new Cliente;
+			 		$cliente->nombre=$nombreR;
+			 		$cliente->user_id_user=$usuario->id;
+			 		$cliente->tipo_cargo_id_cargo=$cargoR;
+			 		$cliente->sede_id_sede=$sedeR;
+			 		$cliente->direccion=$request->get('direccion');
+			 		$cliente->telefono=$request->get('telefono');
+			 		$cliente->documento=$request->get('documento');
+			 		$cliente->verificacion_nit=$request->get('verificacion_nit');
+			 		$cliente->empresa_id_empresa=$request->get('empresa_id_empresa');
+			 		$cliente->fecha=$request->get('fecha');
+			 		$cliente->save();	
+	 				}
+	 				
    	
 					return back()->with('msj','Usuario guardado');
+					}else{
+	 					return back()->with('errormsj','¡NIT ya registrado!');	
+	 				}
 	 			}else{
 	 				return back()->with('errormsj','¡Código ya registrado!');
 	 			}

@@ -100,6 +100,7 @@
 					<th>EAN</th>
 					<th>SEDE</th>
 					<th>PROVEEDOR</th>
+					<th>CLIENTE</th>
 					<th>CATEGORÍA</th>
 					<th>CANTIDAD</th>
 					<th>VENCE</th>
@@ -120,6 +121,17 @@
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
+
+					@if($ps->cliente_id_cliente==0)
+					<td>Sin cliente</td>
+					@else
+					@foreach($clientes as $c)
+							@if($c->id_cliente==$ps->cliente_id_cliente)
+					<td>{{$c->nombre}}</td>
+					@endif
+					@endforeach
+					@endif
+
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
@@ -157,6 +169,16 @@
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
+					@if($ps->cliente_id_cliente==0)
+					<td>Sin cliente</td>
+					@else
+					@foreach($clientes as $c)
+							@if($c->id_cliente==$ps->cliente_id_cliente)
+						<td>{{$c->nombre}}</td>
+						@endif
+					@endforeach
+					@endif
+
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>

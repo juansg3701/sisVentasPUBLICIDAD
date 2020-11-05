@@ -21,7 +21,7 @@
 	</div>
 
 
-	{!!Form::model($usuario,['method'=>'PATCH','route'=>['almacen.nomina.empleado.update',$usuario->id_empleado]])!!}
+	{!!Form::model($usuario,['method'=>'PATCH','route'=>['almacen.nomina.empleado.update',$usuario->id_cliente]])!!}
     {{Form::token()}}
 
      <!--Formulario de edición-->	
@@ -43,7 +43,7 @@
 			                     <strong>Formulario de edición</strong>
 			                </div>
 			                <div class="card-body card-block" align="center">
-			            
+			                
 
 
 								<div class="form-row">
@@ -60,6 +60,7 @@
 									</div>
 									<div class="form-group col-sm-8">
 										<select name="tipo_cargo_id_cargo" class="form-control">
+
 											@foreach($cargos as $car)
 												@if($car->id_cargo==$usuario->tipo_cargo_id_cargo)
 												<option value="{{$car->id_cargo}}">{{$car->nombre}}</option>
@@ -69,7 +70,7 @@
 
 											@foreach($cargos as $car)
 												@if($car->id_cargo!=$usuario->tipo_cargo_id_cargo)
-												<option value="{{$car->id_cargo}}">{{$car->nombre}}</option>
+												<option value="{{$car->id_cargo}}" >{{$car->nombre}}</option>
 												
 												@endif
 											@endforeach
@@ -83,29 +84,46 @@
 									<div class="form-group col-sm-8">
 										<select name="sede_id_sede" class="form-control">
 											@foreach($sedes as $sed)
+											@if($sed->tipo_sede_id_tipo_sede==1)
 											@if($sed->id_sede==$usuario->sede_id_sede)
 											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}</option>
 											
 											@endif
+											@endif
+
+											
 											@endforeach
 
 											@foreach($sedes as $sed)
+											@if($sed->tipo_sede_id_tipo_sede==1)
 											@if($sed->id_sede!=$usuario->sede_id_sede)
 											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}</option>
-											
+											@endif
 											@endif
 											@endforeach
-
-
 										</select>
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Código:</div>
+										<div>Empresa:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<input type="number" class="form-control" name="codigo" value="{{$usuario->codigo}}">
+										<select name="empresa_id_empresa" class="form-control">
+											@foreach($empresas as $e)
+											@if($e->id_empresa==$usuario->empresa_id_empresa)
+											<option value="{{$e->id_empresa}}">{{$e->nombre}}</option>
+											
+											@endif
+											@endforeach
+
+											@foreach($empresas as $e)
+											@if($e->id_empresa!=$usuario->empresa_id_empresa)
+											<option value="{{$e->id_empresa}}">{{$e->nombre}}</option>
+											
+											@endif
+											@endforeach
+										</select>
 									</div>
 								</div>
 
@@ -117,7 +135,7 @@
 										<input type="text" class="form-control" name="direccion" value="{{$usuario->direccion}}">
 									</div>
 								</div>
-
+								<input type="hidden" name="tipo_cuenta" value="1">
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Telefono:</div>
@@ -129,28 +147,38 @@
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Documento:</div>
+										<div>NIT:</div>
 									</div>
-									<div class="form-group col-sm-8">
-										<input type="number" class="form-control" name="documento" value="{{$usuario->documento}}">
+									<div class="form-group col-sm-6">
+										<input type="number" class="form-control" name="documento" placeholder="- - - - - - -" min="0" value="{{$usuario->documento}}">
+									</div>
+									<div class="form-group col-sm-2">		
+										<input type="number"  class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9" value="{{$usuario->verificacion_nit}}">
 									</div>
 								</div>
 								
-								<input type="hidden" name="tipo_cuenta" value="0">
+		
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Correo:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<input id="id_correo" type="text" class="form-control" name="correo" value="{{$usuario->correo}}"  required>
-										<input id="id_contrasena" type="hidden" class="form-control" name="contrasena" value="{{$usuario->contrasena}}"  required>
+										@foreach($users as $u)
+											@if($u->id==$usuario->user_id_user)
+												<input type="hidden" class="form-control" value="{{$u->email}}"name="correo">
+								
+											<input class="form-control" value="{{$u->email}}" disabled="true" name="correo">
+											
+											@endif
+										
+											@endforeach
+								
 									</div>
 								</div>
-
 								<div class="form-row">
 									<div class="form-group col-sm-12">
 										<button class="btn btn-info" type="submit">Guardar</button>
-										<a href="{{url('almacen/usuario/permiso/cuenta')}}" class="btn btn-danger">Volver</a>
+										<a href="{{url('almacen/cliente/cliente')}}" class="btn btn-danger">Volver</a>
 									</div>
 								</div>
 			               </div>

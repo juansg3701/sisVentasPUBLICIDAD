@@ -78,6 +78,7 @@
 								<th>Correo</th>
 								<th>Cargo</th>
 								<th>Sede</th>
+								<th>Tipo</th>
 								<th>OPCIONES</th>
 							</thead>
 
@@ -97,8 +98,22 @@
 								<td>{{ $sp->nombre_sede}}</td>
 								@endif
 								@endforeach
+							
+									@if($usu->tipo_cuenta==0)
+									<td>Empleado</td>
+									@else
+									<td>Cliente</td>
+									@endif
+								
 								<td>
-									<a href="{{URL::action('UsersController@edit',$usu->id)}}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
+									@if($usu->tipo_cuenta==0)
+									<a href="{{URL::action('UsersController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+									
+									@else
+									<a href="{{URL::action('ClienteController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+									
+									@endif
+									
 									
 								</td>	
 							</tr>
@@ -121,10 +136,21 @@
 								@endif
 								@endforeach
 								
+								@if($usu->tipo_cuenta==0)
+									<td>Empleado</td>
+									@else
+									<td>Cliente</td>
+									@endif
 								<td>
 						
 
+								@if($usu->tipo_cuenta==0)
 									<a href="{{URL::action('UsersController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+									
+									@else
+									<a href="{{URL::action('ClienteController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+									
+									@endif
 									
 								</td>	
 							</tr>

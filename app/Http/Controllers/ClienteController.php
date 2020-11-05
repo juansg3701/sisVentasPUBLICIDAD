@@ -20,11 +20,13 @@ class ClienteController extends Controller
 	 			$query0=trim($request->get('searchText0'));
 	 			$query1=trim($request->get('searchText1'));
 	 			$query2=trim($request->get('searchText2'));
-	 			$clientes=DB::table('cliente')
-	 			->where('nombre','LIKE', '%'.$query0.'%')
-	 			->where('documento','LIKE', '%'.$query1.'%')
-	 			->where('telefono','LIKE', '%'.$query2.'%')
-	 			->orderBy('nombre', 'desc')
+	 			$usuarios=DB::table('cliente as c')
+	 			->join('tipo_cargo as tp','c.tipo_cargo_id_cargo','=','tp.id_cargo')
+	 			->join('empresa as e','c.empresa_id_empresa','=','e.id_empresa')
+	 			->join('users as u','c.user_id_user','=','u.id')
+	 			->join('sede as s','c.sede_id_sede','=','s.id_sede')
+	 			->select('c.id_cliente','c.nombre','c.direccion','c.telefono','c.documento','c.verificacion_nit','u.email as correo','tp.nombre as cargo','s.nombre_sede as sede','e.nombre as empresa','s.id_sede as sede_id_sede','u.id as user_id_user')
+	 			->orderBy('c.id_cliente', 'desc')
 	 			->paginate(10);
 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
@@ -32,10 +34,9 @@ class ClienteController extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
-	 			$clientesP=DB::table('cliente')
-	 			->orderBy('id_cliente', 'desc')->get();
 
-	 			return view('almacen.cliente.index',["clientes"=>$clientes,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos,"clientesP"=>$clientesP]);
+
+	 			return view('almacen.cliente.cliente.index',["usuarios"=>$usuarios,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos]);
 	 		}
 	 	}
 	 	public function create(){
@@ -43,8 +44,11 @@ class ClienteController extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+	 			$cargos=DB::table('tipo_cargo')->get();
+	 			$sedes=DB::table('sede')->get();
+	 			$empresas=DB::table('empresa')->get();
 	 			
-	 			return view("almacen.cliente.registrar",["modulos"=>$modulos]);
+	 			return view("almacen.cliente.cliente.registrar",["modulos"=>$modulos,"cargos"=>$cargos,"sedes"=>$sedes,"empresas"=>$empresas]);
 	 		
 	 	}
 
@@ -87,13 +91,23 @@ class ClienteController extends Controller
 	 	}
 
 	 	public function edit($id){
+	 		$id=$id;
+	 		$cargos=DB::table('tipo_cargo')->get();
+	 		$sedes=DB::table('sede')->get();
+	 		$empresas=DB::table('empresa')->get();
+	 		$users=DB::table('users')->get();
+
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
+	 			$idCliente=DB::table('cliente')
+	 			->select('id_cliente as id')
+	 			->where('user_id_user','=',$id)
+	 			->orderBy('id_cliente', 'desc')->get();
 	 			
-	 		return view("almacen.cliente.edit",["cliente"=>Cliente::findOrFail($id), "modulos"=>$modulos]);
+	 		return view("almacen/cliente/cliente.edit",["users"=>$users,"cargos"=>$cargos,"sedes"=>$sedes,"usuario"=>Cliente::findOrFail($idCliente[0]->id), "modulos"=>$modulos,"empresas"=>$empresas]);
 	 	}
 	 		public function show($id){
 	 		return view("almacen.cliente.show",["cliente"=>Cliente::findOrFail($id)]);

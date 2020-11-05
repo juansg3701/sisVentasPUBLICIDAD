@@ -75,7 +75,9 @@
 																$chek5="";
 																$chek6="";
 																$chek7="";
-																$chek8="";?>
+																$chek8="";
+																$chek9="";
+																$chek10="";?>
 
 														@foreach($ModulosGenerales as $mg)
 														
@@ -111,11 +113,24 @@
 														@if($mg->id_modulo==8)
 														<?php $chek8="checked";	?>
 														@endif
+
+														@if($mg->id_modulo==9)
+														<?php $chek9="checked";	?>
+														@endif
+
+														@if($mg->id_modulo==10)
+														<?php $chek10="checked";	?>
+														@endif
 														@endforeach
 
 											    		<div class="checkbox" >
 											    		<label><input type="checkbox" id="cbox1" value="first_checkbox" disabled="true" <?php echo $chek1?>> Permisos</label><br>	
-														<label><input type="checkbox" id="cbox1" value="first_checkbox" disabled="true" <?php echo $chek2?>> Cuentas</label><br>
+														<label><input type="checkbox" id="cbox1" value="first_checkbox" disabled="true" <?php echo $chek2?>> Empleados</label><br>
+
+														<label><input type="checkbox" id="cbox9" value="first_checkbox" disabled="true" <?php echo $chek9?>> Clientes</label><br>
+
+														<label><input type="checkbox" id="cbox10" value="first_checkbox" disabled="true" <?php echo $chek10?>> Inventario clientes</label><br>
+
 														<label><input type="checkbox" id="cbox2" value="first_checkbox" disabled="true" <?php echo $chek3?>> Proveedores</label><br>
 														<label><input type="checkbox" id="cbox1" value="first_checkbox" disabled="true" <?php echo $chek4?>> Devoluciones</label><br>
 														<label><input type="checkbox" id="cbox1" value="first_checkbox" disabled="true" <?php echo $chek5?>> Sedes</label><br>

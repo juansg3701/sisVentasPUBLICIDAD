@@ -74,21 +74,22 @@ class ProductoSedeController extends Controller
 	 	public function store(ProductoSedeFormRequest $request){
 	 		$pluR=$request->get('plu');
 	 		$eanR=$request->get('ean');
+	 		$nombreR=$request->get('nombre');
 
 	 		$pluE=DB::table('producto')
 	 		->where('plu','=',$pluR)
 	 		->orderBy('id_producto', 'desc')->get();
 
-	 		$eanE=DB::table('producto')
-	 		->where('ean','=',$eanR)
+	 		$nombreE=DB::table('producto')
+	 		->where('nombre','=',$nombreR)
 	 		->orderBy('id_producto', 'desc')->get();
 
 	 		if(count($pluE)==0){
-	 			if(count($eanE)==0){
+	 			if(count($nombreE)==0){
 	 			$ps = new ProductoSede;
 		 		$ps->plu=$pluR;
 		 		$ps->ean=$eanR;
-		 		$ps->nombre=$request->get('nombre');
+		 		$ps->nombre=$nombreR;
 		 		//$ps->unidad_de_medida=$request->get('unidad_de_medida');
 		 		$ps->precio=$request->get('precio');
 		 		$ps->stock_minimo=$request->get('stock_minimo');
@@ -108,7 +109,7 @@ class ProductoSedeController extends Controller
 
 			 	return back()->with('msj','Producto guardado');
 	 			}else{
-	 				return back()->with('errormsj','¡EAN ya registrado!');
+	 				return back()->with('errormsj','¡Nombre ya registrado!');
 	 			}
 	 		}else{
 	 				return back()->with('errormsj','¡PLU ya registrado!');
@@ -137,23 +138,24 @@ class ProductoSedeController extends Controller
 	 		$id=$id;
 	 		$pluR=$request->get('plu');
 	 		$eanR=$request->get('ean');
+	 		$nombreR=$request->get('nombre');
 
 	 		$pluE=DB::table('producto')
 	 		->where('id_producto','!=',$id)
 	 		->where('plu','=',$pluR)
 	 		->orderBy('id_producto', 'desc')->get();
 
-	 		$eanE=DB::table('producto')
+	 		$nombreE=DB::table('producto')
 	 		->where('id_producto','!=',$id)
-	 		->where('ean','=',$eanR)
+	 		->where('nombre','=',$nombreR)
 	 		->orderBy('id_producto', 'desc')->get();
 
 	 		if(count($pluE)==0){
-	 			if(count($eanE)==0){
+	 			if(count($nombreE)==0){
 	 			$ps = ProductoSede::findOrFail($id);
 		 		$ps->plu=$pluR;
 		 		$ps->ean=$eanR;
-		 		$ps->nombre=$request->get('nombre');
+		 		$ps->nombre=$nombreR;
 		 		//$ps->unidad_de_medida=$request->get('unidad_de_medida');
 		 		$ps->precio=$request->get('precio');
 		 		$ps->stock_minimo=$request->get('stock_minimo');
@@ -177,7 +179,7 @@ class ProductoSedeController extends Controller
 
 		 		return back()->with('msj','Producto actualizado');
 	 			}else{
-	 				return back()->with('errormsj','¡EAN ya registrado!');
+	 				return back()->with('errormsj','¡Nombre ya registrado!');
 	 			}
 	 		}else{
 	 				return back()->with('errormsj','¡PLU ya registrado!');

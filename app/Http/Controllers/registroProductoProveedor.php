@@ -41,8 +41,9 @@ class registroProductoProveedor extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+	 			$clientes=DB::table('cliente')->get();
 
-	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"modulos"=>$modulos,"pEAN"=>$pEAN,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes,"categoria"=>$categoria]);
+	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"modulos"=>$modulos,"pEAN"=>$pEAN,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes,"categoria"=>$categoria,"clientes"=>$clientes]);
 	 	}
 	 	}
 
@@ -94,6 +95,7 @@ class registroProductoProveedor extends Controller
 		    $ps->fecha_vencimiento=$request->get('fecha_vencimiento');
 		    $ps->fecha_registro=$request->get('fecha_registro');
 		    $ps->empleado_id_empleado=$request->get('empleado_id_empleado');
+		    $ps->cliente_id_cliente=$request->get('cliente_id_cliente');
 		    if($request->get('producto_dados_baja')==1){
 			   $ps->producto_dados_baja=0;
 		    }	

@@ -129,6 +129,27 @@
 										</div>
 									</div>
 
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Cliente:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="cliente_id_cliente" class="form-control" value="{{$stock->cliente_id_cliente}}">
+												@foreach($clientes as $c)
+												@if($stock->cliente_id_cliente==$c->id_cliente)
+												<option value="{{$c->id_cliente}}">{{$c->nombre}}</option>
+												@endif
+												@endforeach
+
+												@foreach($clientes as $c)
+												@if($stock->cliente_id_cliente!=$c->id_cliente)
+												<option value="{{$c->id_cliente}}">{{$c->nombre}}</option>
+												@endif
+												@endforeach
+											</select>
+										</div>
+									</div>
+
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
@@ -166,7 +187,7 @@
 											<div>Estado:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<select name="producto_dados_baja" class="form-control" value="{{$stock->producto_dados_baja}}" disabled="true">
+											<select name="producto_dados_baja" class="form-control" value="{{$stock->producto_dados_baja}}" >
 												@if($stock->producto_dados_baja=='1')
 												<option value="0">Dado de baja</option>
 												<option value="1">Disponible</option>

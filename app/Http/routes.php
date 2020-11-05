@@ -24,8 +24,9 @@ Route::resource('almacen/usuario/permiso/cuenta', 'UsersController');
 
 Route::resource('almacen/proveedor', 'ProveedorController');
 
-Route::resource('almacen/cliente', 'ClienteController');
-Route::resource('almacen/cliente2', 'ClienteController2');
+Route::resource('almacen/cliente/cliente', 'ClienteController');
+Route::get('almacen/clienteRegistro', 'ClienteController@create');
+Route::resource('almacen/cliente/empresa', 'EmpresaController');
 
 Route::resource('almacen/caja', 'CajaController');
 Route::resource('almacen/caja/arqueo', 'CajaController');
@@ -43,6 +44,7 @@ Route::resource('almacen/pagosFactura', 'pagoFacturasController');
 
 Route::resource('almacen/inventario/producto-sede/productoCompleto', 'ProductoSedeController');
 Route::resource('almacen/inventario/proveedor-sede', 'ProveedorSedeController');
+Route::get('almacen/inventario/clientes', 'ProveedorSedeController@clientes');
 Route::resource('almacen/inventario/ean', 'registroProductoProveedor');
 Route::resource('almacen/inventario/producto-sede/categoriaProducto', 'CategoriaProducto');
 Route::resource('almacen/inventario/categoriaStock', 'CategoriaStockController');
@@ -50,6 +52,7 @@ Route::resource('almacen/inventario/producto-sede/impuestoProducto', 'ImpuestoPr
 Route::resource('almacen/inventario/movimiento-sede', 'MovimientoSedeController');
 Route::resource('almacen/inventario/corte-sede/cortes', 'CorteSedeController');
 Route::resource('almacen/inventario/corte-sede/productosCorte', 'ProductosCorteController');
+
 
 Route::resource('almacen/reportes/inventario', 'reportesInventario');
 Route::resource('almacen/reportes/inventario2', 'reportesInventario2');

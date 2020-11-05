@@ -174,6 +174,20 @@
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
+											<div>Cliente:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="cliente_id_cliente" class="form-control">
+												<option value="0">Ninguno</option>
+												@foreach($clientes as $c)
+												<option value="{{$c->id_cliente}}">{{$c->nombre}}</option>
+												@endforeach
+											</select>	
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
 											<div>Cantidad:</div>
 										</div>
 										<div class="form-group col-sm-8">
@@ -195,7 +209,7 @@
 											<div>Estado:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<select name="producto_dados_baja" class="form-control" disabled="true">
+											<select name="producto_dados_baja" class="form-control">
 												<option value="1">Disponible</option>
 												<option value="0">Dado de baja</option>
 											</select>

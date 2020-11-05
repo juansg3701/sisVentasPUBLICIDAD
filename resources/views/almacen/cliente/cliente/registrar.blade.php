@@ -110,14 +110,18 @@
 								</div>
                         </div>
 								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Código:</div>
+										<div class="form-group col-sm-4">
+											<div>NIT:</div>
+										</div>
+										<div class="form-group col-sm-6">
+											<input type="number" class="form-control" name="documento" placeholder="- - - - - - -" min="0">
+										</div>
+										<div class="form-group col-sm-2">		
+											<input type="number" class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9">
+										</div>
 									</div>
-									<div class="form-group col-sm-8">
-										
-										<input id="codigo" type="text" class="form-control" name="codigo">
-									</div>
-								</div>
+
+		
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Dirección:</div>
@@ -136,15 +140,7 @@
 										<input id="codigo" type="text" class="form-control" name="telefono">
 									</div>
 								</div>
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Documento:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										
-										<input id="codigo" type="text" class="form-control" name="documento">
-									</div>
-								</div>
+		
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Cargo:</div>
@@ -157,6 +153,19 @@
 										</select>
 									</div>
 								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Empresa:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empresa_id_empresa" class="form-control">
+											@foreach($empresas as $em)
+											<option value="{{$em->id_empresa}}">{{$em->nombre}}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Sede:</div>
@@ -164,7 +173,7 @@
 									<div class="form-group col-sm-8">
 										<select name="sede_id_sede" class="form-control">
 											@foreach($sedes as $sed)
-											@if($sed->tipo_sede_id_tipo_sede==2)
+											@if($sed->tipo_sede_id_tipo_sede==1)
 											<option value="{{$sed->id_sede}}">
 											@endif
 											{{$sed->nombre_sede}}</option>
@@ -172,29 +181,15 @@
 										</select>
 									</div>
 								</div>
-								<input id="codigo" type="hidden" class="form-control" name="tipo_cuenta" value="0">
-								@if(Auth::user()->superusuario==1)
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Superusuario:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<select name="superusuario" class="form-control">
-											
-											<option value="0">Normal</option>
-											<option value="1">Superusuario</option>
-											
-										</select>
-									</div>
-								</div>
-								@else
+								<input id="codigo" type="hidden" class="form-control" name="tipo_cuenta" value="1">
+							
 								<input id="codigo" type="hidden" class="form-control" name="superusuario" value="0">
-								@endif
+							
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Fecha:</div>
-										<input type="hidden" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
 									</div>
+									<input type="hidden" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
 									<div class="form-group col-sm-8">
 										<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
 									</div>
