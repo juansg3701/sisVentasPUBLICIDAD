@@ -55,10 +55,13 @@ class ProveedorController extends Controller
 
 	 	public function store(ProveedorFormRequest $request){
 	 		$documentoR=$request->get('documento');
-	 		$correoR=$request->get('correo');
+			$correoR=$request->get('correo');
+			 
+			$digitoR=$request->get('verificacion_nit');
 
 	 		$DocumenRegis=DB::table('proveedor')
-	 		->where('documento','=',$documentoR)
+			->where('documento','=',$documentoR)
+			->where('verificacion_nit','=',$digitoR) 
 	 		->orderBy('id_proveedor','desc')->get();
 
 	 		$CorreoRegis=DB::table('proveedor')
@@ -75,8 +78,8 @@ class ProveedorController extends Controller
 				 		$proveedor->telefono=$request->get('telefono');
 				 		$proveedor->correo=$correoR;
 						$proveedor->documento=$documentoR;
-						$proveedor->nit=$request->get('nit');
-				 		$proveedor->verificacion_nit=$request->get('verificacion_nit');
+						
+				 		$proveedor->verificacion_nit=$digitoR;
 				 		$proveedor->fecha=$request->get('fecha');
 				 		$proveedor->empleado_id_empleado=$request->get('empleado_id_empleado');
 				 		$proveedor->save();
@@ -106,20 +109,28 @@ class ProveedorController extends Controller
 	 	}
 
 	 	public function update(ProveedorFormRequest $request, $id){
+
 	 		$id=$id;
 	 		$documentoR=$request->get('documento');
 	 		$correoR=$request->get('correo');
 
-	 		$DocumenRegis=DB::table('proveedor')
+			$digitoR=$request->get('verificacion_nit');
+
+	 		/*$DocumenRegis=DB::table('proveedor')
 	 		->where('id_proveedor','!=',$id)
 	 		->where('documento','=',$documentoR)
+			->orderBy('id_proveedor','desc')->get();*/
+			 
+			$DocumenRegis=DB::table('proveedor')
+	 		->where('id_proveedor','!=',$id)
+			->where('documento','=',$documentoR)
+			->where('verificacion_nit','=',$digitoR)
 	 		->orderBy('id_proveedor','desc')->get();
 
 	 		$CorreoRegis=DB::table('proveedor')
 	 		->where('id_proveedor','!=',$id)
 	 		->where('correo','=',$correoR)
 	 		->orderBy('id_proveedor','desc')->get();
-
 
 	 		if(count($DocumenRegis)==0){
 	 			if(count($CorreoRegis)==0){
@@ -130,8 +141,8 @@ class ProveedorController extends Controller
 				 		$proveedor->telefono=$request->get('telefono');
 				 		$proveedor->correo=$correoR;
 						$proveedor->documento=$documentoR;
-						$proveedor->nit=$request->get('nit');
-				 		$proveedor->verificacion_nit=$request->get('verificacion_nit');
+				
+				 		$proveedor->verificacion_nit=$digitoR;
 				 		$proveedor->fecha=$request->get('fecha');
 				 		$proveedor->empleado_id_empleado=$request->get('empleado_id_empleado');
 				 		$proveedor->update();
@@ -144,7 +155,6 @@ class ProveedorController extends Controller
 	 			return back()->with('errormsj','¡Documento ya registrado!');
 	 		}
 
-	 		
 	 	}
 
 	 	public function destroy($id){

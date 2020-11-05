@@ -30,7 +30,7 @@ class ProveedorFormRequest extends Request
             'telefono'=>'required|max:45',
             'correo'=>'required|max:45',
             'documento'=>'required|max:45',
-            'nit'=>'max:45',
+            'verificacion_nit'=>'required|max:45',
             'fecha'=>'required|max:45',
             'empleado_id_empleado'=>'required|max:45',
         ];

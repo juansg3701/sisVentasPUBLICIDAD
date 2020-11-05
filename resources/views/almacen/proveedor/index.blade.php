@@ -61,7 +61,7 @@
 					<th>Dirección</th>
 					<th>Correo</th>
 					<th>Teléfono</th>
-					<th>No. Documento</th>
+					
 					<th colspan="2">NIT</th>
 					<th colspan="2">OPCIONES</th>
 				</thead>
@@ -72,8 +72,8 @@
 					<td>{{ $pro->direccion}}</td>
 					<td>{{ $pro->correo}}</td>
 					<td>{{ $pro->telefono}}</td>
+					
 					<td>{{ $pro->documento}}</td>
-					<td>{{ $pro->nit}}</td>
 					<td>{{ $pro->verificacion_nit}}</td>
 					<td>	
 						<a href="{{URL::action('ProveedorController@edit',$pro->id_proveedor)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>

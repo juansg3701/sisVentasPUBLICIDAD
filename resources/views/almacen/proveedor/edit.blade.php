@@ -105,29 +105,18 @@
 										<input type="number" class="form-control" name="telefono" value="{{$proveedor->telefono}}">
 									</div>
 								</div>
-								
-								
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Documento:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<input type="text" class="form-control" name="documento" value="{{$proveedor->documento}}">
-									</div>
-								</div>
-
+						
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>NIT:</div>
 									</div>
 									<div class="form-group col-sm-6">
-										<input type="number" class="form-control" name="nit" placeholder="- - - - - - -" min="0" value="{{$proveedor->nit}}">
+										<input type="number" class="form-control" name="documento" placeholder="- - - - - - -" min="0" value="{{$proveedor->documento}}">
 									</div>
 									<div class="form-group col-sm-2">		
 										<input type="number"  class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9" value="{{$proveedor->verificacion_nit}}">
 									</div>
 								</div>
-
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">

@@ -79,28 +79,17 @@
 											<input type="number" class="form-control" name="telefono">
 										</div>
 									</div>
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Documento:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input type="text" class="form-control" name="documento">
-										</div>
-									</div>
-
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>NIT:</div>
 										</div>
 										<div class="form-group col-sm-6">
-											<input type="number" class="form-control" name="nit" placeholder="- - - - - - -" min="0">
+											<input type="number" class="form-control" name="documento" placeholder="- - - - - - -" min="0">
 										</div>
 										<div class="form-group col-sm-2">		
 											<input type="number" class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9">
 										</div>
 									</div>
-
 
 									<div class="form-row">
 										<div class="form-group col-sm-4">
