@@ -108,12 +108,7 @@
 					@if($ps->producto_dados_baja=='0')
 						<td>Disponible</td>
 					@endif
-					<td>
-						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
-					</td>
-					<td>
-						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>	
-					</td>
+				
 					<td>					
 						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoStock-{{$ps->id_stock}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>

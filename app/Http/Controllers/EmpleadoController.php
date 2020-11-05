@@ -173,8 +173,6 @@ class EmpleadoController extends Controller
 	 			if(count($CodigoRegis)==0){
 	 				if($tipo_cuentaR==0){
 
-	 				
-
 	 					if($correoR=="" && $contrasenaR==""){
 
 				 		$usuario = Usuario::findOrFail($id);
@@ -258,8 +256,6 @@ class EmpleadoController extends Controller
 				 			->select("user_id_user as user_id")
 					 		->where('id_cliente','=',$id)
 					 		->orderBy('id_cliente','desc')->get();
-
-				 		
 
 					 		$usuarioR2=User::where('id','=',$clienteR[0]->user_id)
 			    			->paginate(10);

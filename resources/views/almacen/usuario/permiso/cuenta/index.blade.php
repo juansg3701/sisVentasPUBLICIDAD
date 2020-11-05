@@ -110,7 +110,7 @@
 									<a href="{{URL::action('UsersController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 									@else
-									<a href="{{URL::action('ClienteController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+									<a href="{{url('almacen/clienteEditar',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 									@endif
 									
@@ -148,7 +148,7 @@
 									<a href="{{URL::action('UsersController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 									@else
-									<a href="{{URL::action('ClienteController@edit',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+									<a href="{{url('almacen/clienteEditar',$usu->id)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 									@endif
 									

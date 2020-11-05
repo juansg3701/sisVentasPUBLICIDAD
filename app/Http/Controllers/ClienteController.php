@@ -113,6 +113,29 @@ class ClienteController extends Controller
 	 		return view("almacen.cliente.show",["cliente"=>Cliente::findOrFail($id)]);
 	 	}
 
+	 	public function edit2($id){
+	 		$id=$id;
+	 		$cargos=DB::table('tipo_cargo')->get();
+	 		$sedes=DB::table('sede')->get();
+	 		$empresas=DB::table('empresa')->get();
+	 		$users=DB::table('users')->get();
+
+	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+	 			$modulos=DB::table('cargo_modulo')
+	 			->where('id_cargo','=',$cargoUsuario)
+	 			->orderBy('id_cargo', 'desc')->get();
+
+	 			$idCliente=DB::table('cliente')
+	 			->select('id_cliente as id')
+	 			->where('user_id_user','=',$id)
+	 			->orderBy('id_cliente', 'desc')->get();
+	 			
+	 		return view("almacen/cliente/cliente.editAdmin",["users"=>$users,"cargos"=>$cargos,"sedes"=>$sedes,"usuario"=>Cliente::findOrFail($idCliente[0]->id), "modulos"=>$modulos,"empresas"=>$empresas]);
+	 	}
+
+
+
+
 	 	public function update(ClienteFormRequest $request, $id){
 	 		$id=$id;
 	 		$documentoR=$request->get('documento');
