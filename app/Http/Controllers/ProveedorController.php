@@ -89,7 +89,7 @@ class ProveedorController extends Controller
 	 			}
 	 		
 	 		}else{
-	 			return back()->with('errormsj','¡Documento ya registrado!');
+	 			return back()->with('errormsj','¡NIT ya registrado!');
 	 		}
 	 		
 	 	}
@@ -152,7 +152,7 @@ class ProveedorController extends Controller
 	 			}
 	 		
 	 		}else{
-	 			return back()->with('errormsj','¡Documento ya registrado!');
+	 			return back()->with('errormsj','¡NIT ya registrado!');
 	 		}
 
 	 	}
