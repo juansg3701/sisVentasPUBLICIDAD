@@ -109,14 +109,14 @@
 												@foreach($sede as $s)
 												@if( Auth::user()->sede_id_sede ==$s->id_sede)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
-												aa
+												
 												@endif
 												@endforeach
 
 												@foreach($sede as $s)
 												@if( Auth::user()->sede_id_sede !=$s->id_sede)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
-												aa
+												
 												@endif
 												@endforeach
 											</select>
@@ -132,13 +132,13 @@
 												@foreach($sede as $s)
 												@if( Auth::user()->sede_id_sede ==$s->id_sede)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
-												aa
+												
 												@endif
 												@endforeach
 												@foreach($sede as $s)
 												@if( Auth::user()->sede_id_sede !=$s->id_sede)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
-												aa
+												
 												@endif
 												@endforeach
 											</select>	
@@ -178,7 +178,7 @@
 										</div>
 										<div class="form-group col-sm-8">
 											<select name="cliente_id_cliente" class="form-control">
-												<option value="0">Ninguno</option>
+												<option value="0">Uno A</option>
 												@foreach($clientes as $c)
 												<option value="{{$c->id_cliente}}">{{$c->nombre}}</option>
 												@endforeach

@@ -56,9 +56,26 @@
 															<div class="input-group">
 																	
 															<select name="searchText" value="{{$searchText}}" class="form-control">
-															<option value="0">Cargos</option>	
+															
+															@if(count($ModulosGenerales)!=0)
 															@foreach($cargos as $c)
+																@if($ModulosGenerales[0]->id_cargo==$c->id_cargo)
+																<option value="{{$c->id_cargo}}">{{$c->nombre}}</option>
+																@endif
+															@endforeach	
+															@else
+															<option value="0">No tiene permisos</option>
+															@endif
+
+															@foreach($cargos as $c)
+															@if(count($ModulosGenerales)!=0)
+																@if($ModulosGenerales[0]->id_cargo!=$c->id_cargo)
+																<option value="{{$c->id_cargo}}">{{$c->nombre}}</option>
+																@endif
+															@else
 															<option value="{{$c->id_cargo}}">{{$c->nombre}}</option>
+															@endif
+
 															@endforeach
 														</select>	
 														<br>
