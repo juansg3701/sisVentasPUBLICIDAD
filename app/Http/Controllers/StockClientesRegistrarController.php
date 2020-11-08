@@ -4,12 +4,12 @@ namespace sisVentas\Http\Controllers;
 
 use Illuminate\Http\Request;
 use sisVentas\Http\Requests;
-use sisVentas\Stock;
+use sisVentas\StockClientes;
 use Illuminate\Support\Facades\Redirect;
-use sisVentas\Http\Requests\StockFormRequest;
+use sisVentas\Http\Requests\StockClientesFormRequest;
 use DB;
 
-class registroProductoProveedor extends Controller
+class StockClientesRegistrarController extends Controller
 {
 	   public function __construct(){
 			$this->middleware('auth');	
@@ -22,27 +22,20 @@ class registroProductoProveedor extends Controller
 			$usuarios=DB::table('empleado')->get();
 	 		$sedes=DB::table('sede')->get();
 	 		$sede=DB::table('sede')->get();
-	 		$proveedor=DB::table('proveedor')->get();
-			$producto=DB::table('producto')->get();
+			$empresas=DB::table('empresa')->get();
+			$subempresas=DB::table('empresa_categoria')->get();
 			$categoria=DB::table('categoria_stock_especiales')->get();
 			
 	 		$query=trim($request->get('searchText'));
 
-	 		if($query!=""){
-	 		$pEAN=DB::table('producto')
-			->where('ean','=',$query)
-			->get();	
-	 		}else{
-	 			$pEAN=[];
-	 		}
-	 			
+	
 	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			$clientes=DB::table('cliente')->get();
 
-	 		return view("almacen.inventario.ean.index",["sede"=>$sede,"proveedor"=>$proveedor,"producto"=>$producto,"modulos"=>$modulos,"pEAN"=>$pEAN,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes,"categoria"=>$categoria,"clientes"=>$clientes]);
+	 		return view("almacen.inventario.eanClientes.index",["sede"=>$sede,"modulos"=>$modulos,"searchText"=>$query,"usuarios"=>$usuarios,"sedes"=>$sedes,"categoria"=>$categoria,"clientes"=>$clientes,"empresas"=>$empresas,"subempresas"=>$subempresas]);
 	 	}
 	 	}
 
@@ -70,8 +63,8 @@ class registroProductoProveedor extends Controller
 	 	}
 
 		 
-	 	public function store(StockFormRequest $request){
-			$ps = new Stock;
+	 	public function store(StockClientesFormRequest $request){
+			$ps = new StockClientes;
 			$ps->producto_id_producto=$request->get('producto_id_producto');
 			$ps->sede_id_sede=$request->get('sede_id_sede');
 		    $ps->proveedor_id_proveedor=$request->get('proveedor_id_proveedor');

@@ -44,59 +44,26 @@
 				                </div>
 				                <div class="card-body card-block" align="center">
 
-									<div class="form-row">
-										<div class="form-group col-sm-3" align="right">
-											<div>EAN:</div>
-										</div>
-										<div class="form-group col-sm-6">
-											{!! Form::open(array('url'=>'almacen/inventario/ean','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
-												<div class="input-group">
-													<input type="text" class="form-control" name="searchText" placeholder="Buscar..." value="{{$searchText}}">
-													<span class="input-group-btn">
-														<button type="submit" class="btn btn-primary">Buscar</button>
-													</span>
-												</div>
-											{{Form::close()}}
-										</div>
-										<div class="form-group col-sm-3">
-										</div>
-									</div>
 
-
-									{!!Form::open(array('url'=>'almacen/inventario/ean','method'=>'POST','autocomplete'=>'off'))!!}
+									{!!Form::open(array('url'=>'almacen/inventario/eanClientes','method'=>'POST','autocomplete'=>'off'))!!}
 									{{Form::token()}}
 
-									<?php
-									$valor=count($pEAN);
-									?>
+								
 									<div class="form-row">
 			                		<div class="form group col-sm-12" align="center">
 			                			<div class="form-row">
-									@if($valor!=0)
+								
 									
 										<div class="form-group col-sm-2">
-											<div>Producto autom&aacutetico:</div>
+											<div>Producto:</div>
 										</div>
 										<div class="form-group col-sm-3">
-										<input type="hidden" class="form-control" name="producto_id_producto" value="{{$pEAN[0]->id_producto}}">
-										<input type="text" class="form-control" name="producto" value="{{$pEAN[0]->nombre}}" disabled="true">
+										
+										<input type="text" class="form-control" name="producto" >
 										</div>
 									
-									@endif
-
-									@if($valor==0)
-										<div class="form-group col-sm-2">
-											<div>Producto manual:</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<select name="producto_id_producto" class="form-control">
-											@foreach($producto as $p)
-											<option value="{{$p->id_producto}}">{{$p->nombre}}</option>
-											@endforeach
-										</select>
-										</div>
-									@endif
-
+									
+									
 									<div class="form-group col-sm-1"></div>
 
 									@if(auth()->user()->superusuario==0)
@@ -126,23 +93,26 @@
 									@else
 						
 			                			<div class="form-group col-sm-2">
-											<div>Sede de ingreso:</div>
+											<div>Sede:</div>
 										</div>
+
 										<div class="form-group col-sm-3">
-											<select name="sede_id_sede" class="form-control">
+											
+											<select name="sede_id_sede" class="form-control" >
 												@foreach($sede as $s)
 												@if( Auth::user()->sede_id_sede ==$s->id_sede)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
+
 												@foreach($sede as $s)
 												@if( Auth::user()->sede_id_sede !=$s->id_sede)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
-											</select>	
+											</select>
 										</div>
 					                
 									
@@ -193,12 +163,12 @@
 									<div class="form-group col-sm-1"></div>
 
 									<div class="form-group col-sm-2">
-											<div>Proveedor:</div>
+											<div>Empresa:</div>
 										</div>
 									<div class="form-group col-sm-3">
 											<select name="proveedor_id_proveedor" class="form-control">
-												@foreach($proveedor as $pr)
-													<option value="{{$pr->id_proveedor}}">{{$pr->nombre_proveedor}}</option>
+												@foreach($empresas as $e)
+													<option value="{{$e->id_empresa}}">{{$e->nombre}}</option>
 												@endforeach
 											</select>
 										</div>
@@ -223,19 +193,35 @@
 									<div class="form-group col-sm-1"></div>
 
 									<div class="form-group col-sm-2">
-											<div>Tipo:</div>
+											<div>Subempresa:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<select name="tipo_stock_id" class="form-control">
-												<option value="1">Materia prima</option>
-												<option value="2">Oficina</option>
+											<select name="proveedor_id_proveedor" class="form-control">
+												@foreach($subempresas as $e)
+													<option value="{{$e->id_empresa_categoria}}">{{$e->nombre}}</option>
+												@endforeach
 											</select>
 										</div>
 								</div>
 
 			                	</div>
 			                </div>
-
+			                ---
+			                <div class="form-group col-sm-2">
+											<div>Sede cliente:</div>
+										</div>
+										<div class="form-group col-sm-3">
+											<select name="sede_id_sede" class="form-control">
+												@foreach($sede as $s)
+												@if( $s->tipo_sede_id_tipo_sede==1)
+												
+													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
+												
+												@endif
+												@endforeach
+											</select>	
+										</div>
+			                --
 									<div class="form-row">
 			                	<div class="form group col-sm-12" align="center">
 			                	<div class="form-row">

@@ -25,7 +25,7 @@
 		</div>
 	</div>
 
-	{!!Form::model($stock,['method'=>'PATCH','route'=>['almacen.inventario.proveedor-sede.update',$stock->id_stock]])!!}
+	{!!Form::model($stock,['method'=>'PATCH','route'=>['almacen.inventario.stock.update',$stock->id_stock]])!!}
 	{{Form::token()}}
 	
 	<div class="row" align="center">	
@@ -40,19 +40,21 @@
 					</div>
 				</div><br>
 				<div class="row" align="center">	
-					<div class="col-sm-3" align="center"></div>
-					 	<div class="col-sm-6" align="center">
+					<div class="" align="center"></div>
+					 	<div class="col-sm-12" align="center">
 							<div class="card" align="center">
 				                <div class="card-header" align="center">
 				                     <strong>Formulario de edición</strong>
 				                </div>
 				                <div class="card-body card-block" align="center">
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+				                	<div class="form-row">
+			                	<div class="form group col-sm-12" align="center">
+			                	<div class="form-row">
+									<div class="form-group col-sm-2">
 											<div>Producto:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											<select name="producto_id_producto" class="form-control" value="{{$stock->producto_id_producto}}">
 												@foreach($producto as $p)
 												@if($stock->producto_id_producto==$p->id_producto)
@@ -67,15 +69,13 @@
 												@endforeach
 											</select>	
 										</div>
-									</div>
+								
+									<div class="form-group col-sm-1"></div>
 
-
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+									<div class="form-group col-sm-2">
 											<div>Sede de ingreso:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											@if(auth()->user()->superusuario==0)
 											<input type="hidden" name="sede_id_sede" value="{{$stock->sede_id_sede}}">
 											<select name="sede_id_sede" class="form-control" value="{{$stock->sede_id_sede}}" disabled="">
@@ -105,14 +105,19 @@
 											</select>
 											@endif
 										</div>
-									</div>
+								</div>
+
+			                	</div>
+			                </div>
 
 
 									<div class="form-row">
-										<div class="form-group col-sm-4">
+			                	<div class="form group col-sm-12" align="center">
+			                	<div class="form-row">
+									<div class="form-group col-sm-2">
 											<div>Proveedor:</div>
-										</div>
-										<div class="form-group col-sm-8">
+									</div>
+									<div class="form-group col-sm-3">
 											<select name="proveedor_id_proveedor" class="form-control" value="{{$stock->proveedor_id_proveedor}}">
 												@foreach($proveedor as $pr)
 												@if($stock->proveedor_id_proveedor==$pr->id_proveedor)
@@ -127,66 +132,75 @@
 												@endforeach
 											</select>
 										</div>
-									</div>
+								
+									<div class="form-group col-sm-1"></div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Cliente:</div>
+									<div class="form-group col-sm-2">
+											<div>Tipo:</div>
 										</div>
-										<div class="form-group col-sm-8">
-											<select name="cliente_id_cliente" class="form-control" value="{{$stock->cliente_id_cliente}}">
-												@foreach($clientes as $c)
-												@if($stock->cliente_id_cliente==$c->id_cliente)
-												<option value="{{$c->id_cliente}}">{{$c->nombre}}</option>
+									<div class="form-group col-sm-3">
+											<select name="tipos_stock_id" class="form-control" value="{{$stock->tipo_stock_unoa}}">
+												@foreach($tipos as $t)
+												@if($stock->tipo_stock_unoa==$t->id_stock_unoa)
+												<option value="{{$t->id_stock_unoa}}">{{$t->nombre}}</option>
 												@endif
 												@endforeach
 
-												@foreach($clientes as $c)
-												@if($stock->cliente_id_cliente!=$c->id_cliente)
-												<option value="{{$c->id_cliente}}">{{$c->nombre}}</option>
+												@foreach($tipos as $t)
+												@if($stock->tipo_stock_unoa!=$t->id_stock_unoa)
+												<option value="{{$t->id_stock_unoa}}">{{$t->nombre}}</option>
 												@endif
 												@endforeach
 											</select>
 										</div>
-									</div>
+								</div>
 
+			                	</div>
+			                </div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+			                <div class="form-row">
+			                	<div class="form group col-sm-12" align="center">
+			                	<div class="form-row">
+									<div class="form-group col-sm-2">
 											<div>Categoría:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											<select name="categoria_id_categoria" class="form-control">
 												@foreach($categoria as $ct)
 												<option value="{{$ct->id_categoriaStock}}">{{$ct->nombre}}</option>
 												@endforeach
 											</select>	
 										</div>
-									</div>
+								
+									<div class="form-group col-sm-1"></div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+									<div class="form-group col-sm-2">
 											<div>Cantidad:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											<input type="text" class="form-control" name="cantidad" value="{{$stock->cantidad}}">
-										</div>
 									</div>
+								</div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+			                	</div>
+			                </div>
+
+			                <div class="form-row">
+			                	<div class="form group col-sm-12" align="center">
+			                	<div class="form-row">
+									<div class="form-group col-sm-2">
 											<div>Fecha vencimiento:</div>
-										</div>
-										<div class="form-group col-sm-8">
+									</div>
+									<div class="form-group col-sm-3">
 											<input type="date" class="form-control" name="fecha_vencimiento" value="{{$stock->fecha_vencimiento}}">
 										</div>
-									</div>
+								
+									<div class="form-group col-sm-1"></div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+									<div class="form-group col-sm-2">
 											<div>Estado:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											<select name="producto_dados_baja" class="form-control" value="{{$stock->producto_dados_baja}}" >
 												@if($stock->producto_dados_baja=='1')
 												<option value="0">Dado de baja</option>
@@ -198,23 +212,28 @@
 												@endif
 											</select>
 										</div>
-									</div>
-									
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+								</div>
+
+			                	</div>
+			                </div>
+
+			                <div class="form-row">
+			                	<div class="form group col-sm-12" align="center">
+			                	<div class="form-row">
+									<div class="form-group col-sm-2">
 											<div>Fecha:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											<input type="datetime" name="" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
 											<input type="hidden" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control">
 										</div>
-									</div>
+								
+									<div class="form-group col-sm-1"></div>
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
+									<div class="form-group col-sm-2">
 											<div>Empleado:</div>
 										</div>
-										<div class="form-group col-sm-8">
+									<div class="form-group col-sm-3">
 											<select name="" class="form-control" disabled="true">
 												@foreach($usuarios as $usu)
 												@if(Auth::user()->id==$usu->user_id_user)
@@ -224,13 +243,17 @@
 												@endforeach
 											</select>
 										</div>
-									</div>
+								</div>
 
+			                	</div>
+			                </div>
+
+					
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<button type="submit" class="btn btn-info">Registrar</button>
-											<a href="{{url('almacen/inventario/proveedor-sede')}}" class="btn btn-danger">Regresar</a>									
+											<a href="{{url('almacen/inventario/stock')}}" class="btn btn-danger">Regresar</a>									
 										</div>
 									</div>
 				               </div>

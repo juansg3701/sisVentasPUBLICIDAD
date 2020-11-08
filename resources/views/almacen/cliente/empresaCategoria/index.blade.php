@@ -2,7 +2,7 @@
 @section ('contenido')
 	
 <head>
-	<title>Cliente-Empresa</title>
+	<title>Cliente-Subempresa</title>
 </head>
 
 <body>
@@ -23,12 +23,12 @@
 	<br>
 
 
-	{!!Form::open(array('url'=>'almacen/cliente/empresa','method'=>'POST','autocomplete'=>'off'))!!}
+	{!!Form::open(array('url'=>'almacen/cliente/empresaCategoria','method'=>'POST','autocomplete'=>'off'))!!}
     {{Form::token()}}
     <div class="col-md-12">
 		<div class="card">
 			<div class="card-header" align="center">
-				<h3 class="pb-2 display-5">REGISTRAR EMPRESA</h3>
+				<h3 class="pb-2 display-5">REGISTRAR SUBEMPRESA</h3>
 			</div><br>
 			<div class="row" align="center">	
 				<div class="col-sm-3" align="center"></div>
@@ -56,14 +56,25 @@
 									</div>
 								</div>
 								
+								<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Empresa:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="empresa_id_empresa" class="form-control">
+												@foreach($empresas as $e)
+													<option value="{{$e->id_empresa}}">{{$e->nombre}}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
 
 								<div class="form-row">
 									<div class="form-group col-sm-12">
 										
 										
-										<button type="submit" href="" class="btn btn-info">Registrar empresa</button>
-										<a href="{{url('almacen/cliente/empresaCategoria')}}" class="btn btn-info">M&oacutedulo subempresa</a>
-										<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
+										<button type="submit" href="" class="btn btn-info">Registrar subempresa</button>
+										<a href="{{url('almacen/cliente/empresa')}}" class="btn btn-danger">Volver</a>
 									
 									</div>
 								</div>
@@ -109,25 +120,27 @@
 				<thead>
 					<th>NOMBRE</th>
 					<th>DESCRIPCIÓN</th>
+					<th>EMPRESA</th>
 					<th colspan="2">OPCIONES</th>
 				</thead>
-				@foreach($empresas as $em)
+				@foreach($empresaCategoria as $em)
 				<tr>
 					<td>{{ $em->nombre}}</td>
 					<td>{{ $em->descripcion}}</td>
+					<td>{{ $em->nombreEmpresa}}</td>
 					<td>
 						
-						<a href="{{URL::action('EmpresaController@edit',$em->id_empresa)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+						<a href="{{URL::action('EmpresaCategoriaController@edit',$em->id_empresa_categoria)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
-						<a href="" data-target="#modal-delete-{{$em->id_empresa}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+						<a href="" data-target="#modal-delete-{{$em->id_empresa_categoria}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 					</td>	
 				</tr>
-				@include('almacen.cliente.empresa.modal')
+				@include('almacen.cliente.empresaCategoria.modal')
 				@endforeach
 			</table>
 		</div>
-		{{$empresas->render()}}
+		{{$empresaCategoria->render()}}
     </div>
 </div>
 

@@ -43,7 +43,7 @@
 									<strong></strong>
 								</div>
 								<div class="card-body card-block" align="center">
-									<a href="{{url('almacen/inventario/proveedor-sede')}}" class="btn btn-danger">Regresar</a>
+									<a href="{{url('almacen/inventario/stock')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
 								</div>
 							</div>
@@ -76,7 +76,7 @@
 	</div>
 	<div id="divBuscar" class="form-group" style="display:none">
 		<!--Incluir la ventana modal de búsqueda-->	
-		@include('almacen.inventario.proveedor-sede.searchBaja')
+		@include('almacen.inventario.stock.searchBaja')
 	</div>	
 </div>
 
@@ -97,11 +97,11 @@
 					<th>EAN</th>
 					<th>SEDE</th>
 					<th>PROVEEDOR</th>
-					<th>CLIENTE</th>
 					<th>CATEGORÍA</th>
 					<th>CANTIDAD</th>
 					<th>VENCE</th>
 					<th>ESTADO</th>
+					<th>TIPO</th>
 					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($productos as $ps)
@@ -118,15 +118,7 @@
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
-					@if($ps->cliente_id_cliente==0)
-					<td>Sin cliente</td>
-					@else
-					@foreach($clientes as $c)
-						@if($c->id_cliente==$ps->cliente_id_cliente)
-						<td>{{$c->nombre}}</td>
-						@endif
-					@endforeach
-					@endif
+					
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
@@ -137,8 +129,9 @@
 					@if($ps->producto_dados_baja=='0')
 						<td>Disponible</td>
 					@endif
+					<td>{{ $ps->tipo_stock_id}}</td>
 					<td>
-						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+						<a href="{{URL::action('StockController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>	
@@ -147,9 +140,9 @@
 						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoStock-{{$ps->id_stock}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>
 				</tr>
-				@include('almacen.inventario.proveedor-sede.modal')
-				@include('almacen.inventario.proveedor-sede.modalInfoStock')
-				@include('almacen.inventario.proveedor-sede.modalImagen')
+				@include('almacen.inventario.stock.modal')
+				@include('almacen.inventario.stock.modalInfoStock')
+				@include('almacen.inventario.stock.modalImagen')
 				@endif
 				@if(auth()->user()->superusuario==1)
 				<tr>
@@ -165,15 +158,6 @@
 					<td>{{ $ps->nombre_sede}}</td>
 					<td>{{ $ps->nombre_proveedor}}</td>
 
-					@if($ps->cliente_id_cliente==0)
-					<td>Sin cliente</td>
-					@else
-					@foreach($clientes as $c)
-					@if($c->id_cliente==$ps->cliente_id_cliente)
-					<td>{{$c->nombre}}</td>
-					@endif
-					@endforeach
-					@endif
 
 					<td>{{ $ps->categoria_id_categoria}}</td>
 					<td>{{ $ps->cantidad}}</td>
@@ -185,8 +169,9 @@
 					@if($ps->producto_dados_baja=='0')
 						<td>Disponible</td>
 					@endif
+					<td>{{ $ps->tipo_stock_id}}</td>
 					<td>
-						<a href="{{URL::action('ProveedorSedeController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+						<a href="{{URL::action('StockController@edit',$ps->id_stock)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
 						<a href="" data-target="#modal-delete-{{$ps->id_stock}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>	
@@ -196,9 +181,9 @@
 					</td>
 				</tr>
 				@endif
-				@include('almacen.inventario.proveedor-sede.modal')
-				@include('almacen.inventario.proveedor-sede.modalInfoStock')
-				@include('almacen.inventario.proveedor-sede.modalImagen')
+				@include('almacen.inventario.stock.modal')
+				@include('almacen.inventario.stock.modalInfoStock')
+				@include('almacen.inventario.stock.modalImagen')
 				@endforeach
             </table>
 		</div>

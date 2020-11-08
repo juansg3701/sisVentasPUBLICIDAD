@@ -28,7 +28,8 @@ Route::resource('almacen/cliente/cliente', 'ClienteController');
 Route::get('almacen/clienteEditar/{id}', 'ClienteController@edit2');
 Route::get('almacen/clienteRegistro', 'ClienteController@create');
 Route::resource('almacen/cliente/empresa', 'EmpresaController');
-
+Route::resource('almacen/cliente/empresaCategoria', 'EmpresaCategoriaController');
+/*
 Route::resource('almacen/caja', 'CajaController');
 Route::resource('almacen/caja/arqueo', 'CajaController');
 
@@ -38,15 +39,16 @@ Route::resource('almacen/nomina/lista_horarios', 'HorarioNominaController2');
 Route::resource('almacen/nomina/modal', 'HorarioNominaController3');
 Route::resource('almacen/nomina/datos', 'HorarioNominaController4');
 Route::resource('almacen/nomina/valores', 'ValoresNominaController');
-
+*/
 Route::resource('almacen/sede', 'SedeController');
 
 Route::resource('almacen/pagosFactura', 'pagoFacturasController');
 
 Route::resource('almacen/inventario/producto-sede/productoCompleto', 'ProductoSedeController');
-Route::resource('almacen/inventario/proveedor-sede', 'ProveedorSedeController');
-Route::get('almacen/inventario/clientes', 'ProveedorSedeController@clientes');
+Route::resource('almacen/inventario/stock', 'StockController');
+Route::resource('almacen/inventario/stockClientes', 'StockClienteController');
 Route::resource('almacen/inventario/ean', 'registroProductoProveedor');
+Route::resource('almacen/inventario/eanClientes', 'StockClientesRegistrarController');
 Route::resource('almacen/inventario/producto-sede/categoriaProducto', 'CategoriaProducto');
 Route::resource('almacen/inventario/categoriaStock', 'CategoriaStockController');
 Route::resource('almacen/inventario/producto-sede/impuestoProducto', 'ImpuestoProducto');
@@ -54,7 +56,7 @@ Route::resource('almacen/inventario/movimiento-sede', 'MovimientoSedeController'
 Route::resource('almacen/inventario/corte-sede/cortes', 'CorteSedeController');
 Route::resource('almacen/inventario/corte-sede/productosCorte', 'ProductosCorteController');
 
-
+/*
 Route::resource('almacen/reportes/inventario', 'reportesInventario');
 Route::resource('almacen/reportes/inventario2', 'reportesInventario2');
 Route::resource('almacen/reportes/inventario/descargas', 'reportesInventarioEX');
@@ -135,6 +137,6 @@ Route::resource('almacen/facturacion/pagoElectronico', 'pagoElectronico');
 Route::resource('almacen/facturacion/TicketFactura', 'facturacionTListaVentas');
 Route::resource('almacen/facturacion/FacturaVenta', 'facturacionFListaVentas');
 Route::resource('almacen/facturacion/descuentos', 'DescuentoProducto');
-
-Route::get('bajar', 'ProveedorSedeController@bajar');
-Route::get('indexBaja', 'ProveedorSedeController@indexBaja');
+*/
+Route::get('bajar', 'StockController@bajar');
+Route::get('indexBaja', 'StockController@indexBaja');

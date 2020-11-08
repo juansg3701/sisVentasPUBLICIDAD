@@ -144,14 +144,13 @@
               <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
                   <i class="fas fa-fw fa-cog"></i>
-                  <span>Inventario</span>
+                  <span>Inventario admin</span>
                 </a>
                 <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">Productos</a>
-                    <a class="collapse-item" href="{{url('almacen/inventario/proveedor-sede')}}">Stock</a>
-                   <!-- <a class="collapse-item" href="">Movimiento entre sedes</a>
-                    <a class="collapse-item" href="">Corte de inventario</a>-->
+                    <a class="collapse-item" href="{{url('almacen/inventario/producto-sede/productoCompleto')}}">Productos unoa</a>
+                    <a class="collapse-item" href="{{url('almacen/inventario/stock')}}">Stock unoa</a>
+                    <a class="collapse-item" href="{{url('almacen/inventario/stockClientes')}}">Stock clientes</a>
                   </div>
                 </div>
               </li>

@@ -1,5 +1,4 @@
-{!! Form::open(array('url'=>'almacen/inventario/proveedor-sede','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
-
+{!! Form::open(array('url'=>'indexBaja','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
 
 <div class="form-group">
 	<div class="row" align="center">	
@@ -10,7 +9,7 @@
 				        <strong>Filtros de búsqueda</strong>
 			        </div>
 				    <div class="card-body card-block" align="center">
-
+						
 						<div class="form-row">
 							<div class="form-group col-sm-4">
 								<div>Categoría:</div>
@@ -24,7 +23,7 @@
 								</select>
 							</div>
 						</div>
-						
+
 						<div class="form-row">
 							<div class="form-group col-sm-4">
 								<div>Nombre:</div>

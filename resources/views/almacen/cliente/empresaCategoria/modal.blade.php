@@ -1,20 +1,20 @@
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-delete-{{$ps->id_stock}}">
+role="dialog" tabindex="-1" id="modal-delete-{{$em->id_empresa_categoria}}">
 	
-	{{Form::Open(array('action'=>array('ProveedorSedeController@destroy',$ps->id_stock), 'method'=>'delete'))}}
+	{{Form::Open(array('action'=>array('EmpresaCategoriaController@destroy',$em->id_empresa_categoria), 'method'=>'delete'))}}
 
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Eliminar producto</h4>
+				
+                <h4 class="modal-title">Eliminar subempresa</h4>
 				<button type="button" class="close" data-dismiss="modal" 
 				aria-label="Close">
                      <span aria-hidden="true">×</span>
                 </button>
-               
 			</div>
 			<div class="modal-body">
-				<p>¿Desea eliminar el producto?</p>
+				<p>¿Desea eliminar la subempresa?</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

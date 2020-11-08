@@ -4,7 +4,7 @@ namespace sisVentas\Http\Requests;
 
 use sisVentas\Http\Requests\Request;
 
-class EmpresaFormRequest extends Request
+class EmpresaCategoriaFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class EmpresaFormRequest extends Request
         return [
             'nombre'=>'required|max:45',
             'descripcion'=>'max:45',
+            'empresa_id_empresa'=>'required|max:45',
             
         ];
     }

@@ -4,7 +4,7 @@ namespace sisVentas\Http\Requests;
 
 use sisVentas\Http\Requests\Request;
 
-class ProveedorSedeFormRequest extends Request
+class StockFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,14 +28,12 @@ class ProveedorSedeFormRequest extends Request
             'sede_id_sede'=>'required|max:45',
             'proveedor_id_proveedor'=>'required|max:45',
             'categoria_id_categoria'=>'required|max:45',
-            'disponibilidad'=>'|max:45',
             'cantidad'=>'required|max:45',
             'producto_dados_baja'=>'|max:45', 
             'fecha_vencimiento'=>'max:45', 
-            'empleado_id_empleado'=>'|max:45', 
-            'sede_id_sede'=>'|max:45',
+            'empleado_id_empleado'=>'|max:45',
             'fecha_registro'=>'|max:45',
-            'cliente_id_cliente'=>'max:45',
+            'tipo_stock_id'=>'|max:45',
         ];
     }
 }
