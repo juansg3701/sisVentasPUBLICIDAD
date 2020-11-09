@@ -129,6 +129,37 @@
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
+										<div>Subempresas:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empresa_categoria_id" class="form-control">
+											@if($usuario->empresa_categoria_id!="")
+												@foreach($subempresas as $em)
+													@if($usuario->empresa_categoria_id==$em->id_empresa_categoria)
+													<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
+													@endif
+												
+												@endforeach
+
+												@foreach($subempresas as $em)
+													@if($usuario->empresa_categoria_id!=$em->id_empresa_categoria)
+													<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
+													@endif
+												
+												@endforeach
+											@else
+												<option value="">Ninguna</option>
+												@foreach($subempresas as $em)
+													<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
+												@endforeach
+											@endif
+											
+										</select>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
 										<div>Dirección:</div>
 									</div>
 									<div class="form-group col-sm-8">

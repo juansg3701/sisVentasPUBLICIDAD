@@ -17,7 +17,7 @@ role="dialog" tabindex="-1" id="modal-infoImagen-{{$ps->id_stock_clientes}}">
 
             <div class="form-row">
 				<div class="form-group col-sm-12">
-                    <img src="{{asset('imagenes/articulos/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="400px" width="400px" class="img-thumbnail">
+                    <img src="{{asset('imagenes/articulosClientes/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="400px" width="400px" class="img-thumbnail">
 				</div>
             </div>
                                     

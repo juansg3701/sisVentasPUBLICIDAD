@@ -114,6 +114,7 @@ class RegistrarController extends Controller
 			 		$cliente->direccion=$request->get('direccion');
 			 		$cliente->telefono=$request->get('telefono');
 			 		$cliente->documento=$request->get('documento');
+			 		$cliente->empresa_categoria_id=$request->get('empresa_categoria_id');
 			 		$cliente->verificacion_nit=$request->get('verificacion_nit');
 			 		$cliente->empresa_id_empresa=$request->get('empresa_id_empresa');
 			 		$cliente->fecha=$request->get('fecha');

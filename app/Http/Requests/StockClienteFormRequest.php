@@ -30,7 +30,7 @@ class StockClienteFormRequest extends Request
             'nombre'=>'required|max:45',
             'sede_id_sede'=>'required|max:45',
             'sede_id_sede_cliente'=>'required|max:45',
-            'empresa_categoria_id'=>'required|max:45',
+            'empresa_categoria_id'=>'max:45',
             'categoria_id_categoria'=>'required|max:45',
             'cantidad'=>'required|max:45',
             'producto_dados_baja'=>'|max:45', 
@@ -41,7 +41,7 @@ class StockClienteFormRequest extends Request
             'plu'=>'|max:45',
             'ean'=>'|max:45',
             'precio'=>'|max:45',
-            'imagen'=>'|max:45',
+            'imagen'=>'|max:2000',
             'categoria_dias_especiales_id'=>'required|max:45',
         ];
     }

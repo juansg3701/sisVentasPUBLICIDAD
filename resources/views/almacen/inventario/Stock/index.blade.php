@@ -58,7 +58,17 @@
 			</div>
 		</div>
 	</div>
-
+<!--Formulario de búsqueda-->
+<div class="form-group">
+	<div class="form-group col-sm-7">
+		<button id="btn_search" class="btn btn-outline-secondary btn-lg btn-block" style="display:hidden">Establecer filtros de búsqueda</button>
+		<button id="btn_search2" class="btn btn-outline-secondary btn-lg btn-block" style="display:none">Ocultar filtros de búsqueda</button>
+	</div>
+	<div id="divBuscar" class="form-group" style="display:none">
+		<!--Incluir la ventana modal de búsqueda-->	
+		@include('almacen.inventario.stock.search')
+	</div>	
+</div>
 </body>
 
 @stop
@@ -73,17 +83,7 @@
 	</div><br>
 </div>
 
-<!--Formulario de búsqueda-->
-<div class="form-group">
-	<div class="form-group col-sm-7">
-		<button id="btn_search" class="btn btn-outline-secondary btn-lg btn-block" style="display:hidden">Establecer filtros de búsqueda</button>
-		<button id="btn_search2" class="btn btn-outline-secondary btn-lg btn-block" style="display:none">Ocultar filtros de búsqueda</button>
-	</div>
-	<div id="divBuscar" class="form-group" style="display:none">
-		<!--Incluir la ventana modal de búsqueda-->	
-		@include('almacen.inventario.stock.search')
-	</div>	
-</div>
+
 
 <!--Tabla de registros realizados-->
 <div class="card shadow mb-10">

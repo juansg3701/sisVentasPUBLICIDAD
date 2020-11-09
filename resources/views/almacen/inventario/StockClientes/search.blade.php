@@ -1,4 +1,4 @@
-{!! Form::open(array('url'=>'almacen/inventario/stock','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+{!! Form::open(array('url'=>'almacen/inventario/stockClientes','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
 
 
 <div class="form-group">
@@ -13,13 +13,55 @@
 
 						<div class="form-row">
 							<div class="form-group col-sm-4">
-								<div>Categoría:</div>
+								<div>Categoría general:</div>
+							</div>
+							<div class="form-group col-sm-8">
+								<select name="searchText1" value="{{$searchText1}}" class="form-control">
+									<option value="">Todas las categorías</option>	
+									@foreach($categoria_especiales as $cat)
+									<option>{{$cat->nombre}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<div>Categoría especial:</div>
+							</div>
+							<div class="form-group col-sm-8">
+								<select name="searchText2" value="{{$searchText2}}" class="form-control">
+									<option value="">Todas las categorías</option>	
+									@foreach($categoria as $cat)
+									<option>{{$cat->nombre}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<div>Empresa:</div>
+							</div>
+							<div class="form-group col-sm-8">
+								<select name="searchText3" value="{{$searchText3}}" class="form-control">
+									<option value="">Todas las categorías</option>	
+									@foreach($empresas as $e)
+									<option>{{$e->nombre}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<div>Subempresa:</div>
 							</div>
 							<div class="form-group col-sm-8">
 								<select name="searchText4" value="{{$searchText4}}" class="form-control">
-									<option>Todas las categorías</option>	
-									@foreach($categoria as $cat)
-									<option>{{$cat->nombre}}</option>
+									<option value="">Todas las categorías</option>	
+									@foreach($subempresas as $e)
+									<option >{{$e->nombre}}</option>
 									@endforeach
 								</select>
 							</div>
@@ -30,7 +72,7 @@
 								<div>Nombre:</div>
 							</div>
 							<div class="form-group col-sm-8">
-								<input id="buscar2" type="text" class="form-control" name="searchText0" placeholder="Buscar..." value="{{$searchText0}}">
+								<input id="buscar2" type="text" class="form-control" name="searchText5" placeholder="Buscar..." value="{{$searchText5}}">
 							</div>
 						</div>
 
@@ -39,27 +81,29 @@
 								<div>PLU:</div>
 							</div>
 							<div class="form-group col-sm-8">
-								<input id="pluP"  type="text" class="form-control" name="searchText1" placeholder="Buscar..." value="{{$searchText1}}">
+								<input id="pluP"  type="text" class="form-control" name="searchText6" placeholder="Buscar..." value="{{$searchText6}}">
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group col-sm-4">
-								<div>Sede:</div>
+								<div>EAN:</div>
 							</div>
 							<div class="form-group col-sm-8">
-								<input id="sed1" type="text" class="form-control" name="searchText2" placeholder="Buscar..." value="{{$searchText2}}">
+								<input id="pluP"  type="text" class="form-control" name="searchText7" placeholder="Buscar..." value="{{$searchText7}}">
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group col-sm-4">
-								<div>Proveedor:</div>
+								<div>Sede cliente:</div>
 							</div>
 							<div class="form-group col-sm-8">
-								<input id="pro3" type="text" class="form-control" name="searchText3" placeholder="Buscar..." value="{{$searchText3}}">
+								<input id="sed1" type="text" class="form-control" name="searchText8" placeholder="Buscar..." value="{{$searchText8}}">
 							</div>
 						</div>
+
+						
 
 						<div class="form-row">
 							<div class="form-group col-sm-12">

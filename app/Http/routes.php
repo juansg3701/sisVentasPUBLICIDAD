@@ -29,11 +29,12 @@ Route::get('almacen/clienteEditar/{id}', 'ClienteController@edit2');
 Route::get('almacen/clienteRegistro', 'ClienteController@create');
 Route::resource('almacen/cliente/empresa', 'EmpresaController');
 Route::resource('almacen/cliente/empresaCategoria', 'EmpresaCategoriaController');
+Route::resource('almacen/nomina/empleado', 'EmpleadoController');
 /*
 Route::resource('almacen/caja', 'CajaController');
 Route::resource('almacen/caja/arqueo', 'CajaController');
 
-Route::resource('almacen/nomina/empleado', 'EmpleadoController');
+
 Route::resource('almacen/nomina/horario', 'HorarioNominaController');
 Route::resource('almacen/nomina/lista_horarios', 'HorarioNominaController2');
 Route::resource('almacen/nomina/modal', 'HorarioNominaController3');
@@ -47,6 +48,7 @@ Route::resource('almacen/pagosFactura', 'pagoFacturasController');
 Route::resource('almacen/inventario/producto-sede/productoCompleto', 'ProductoSedeController');
 Route::resource('almacen/inventario/stock', 'StockController');
 Route::resource('almacen/inventario/stockClientes', 'StockClienteController');
+Route::resource('almacen/inventario/stockClientesEditar', 'StockClienteEditarController');
 Route::resource('almacen/inventario/ean', 'registroProductoProveedor');
 Route::resource('almacen/inventario/eanClientes', 'StockClientesRegistrarController');
 Route::resource('almacen/inventario/producto-sede/categoriaProducto', 'CategoriaProducto');
@@ -138,5 +140,11 @@ Route::resource('almacen/facturacion/TicketFactura', 'facturacionTListaVentas');
 Route::resource('almacen/facturacion/FacturaVenta', 'facturacionFListaVentas');
 Route::resource('almacen/facturacion/descuentos', 'DescuentoProducto');
 */
+Route::resource('layouts/admin', 'admin');
+
+Route::resource('almacen/facturacion/ventasProductos', 'productoVentas');
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
 Route::get('bajar', 'StockController@bajar');
 Route::get('indexBaja', 'StockController@indexBaja');

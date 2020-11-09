@@ -166,6 +166,21 @@
 										</select>
 									</div>
 								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Subempresas:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empresa_categoria_id" class="form-control">
+											<option value="">Ninguna</option>
+											@foreach($subempresas as $em)
+											<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Sede:</div>

@@ -43,8 +43,10 @@
 									<strong></strong>
 								</div>
 								<div class="card-body card-block" align="center">
-									<a href="{{url('almacen/inventario/eanClientes')}}"><button class="btn btn-info">Registrar Productos</button></a>
+									<a href="{{url('almacen/inventario/eanClientes')}}"><button class="btn btn-warning">Registrar Productos</button></a>
 									<a href="{{URL::action('CategoriaStockController@index',0)}}"><button class="btn btn-info">Días Especiales</button></a>
+
+									<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Categoría producto</button></a>
 							
 									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
@@ -56,6 +58,17 @@
 			</div>
 		</div>
 	</div>
+	<!--Formulario de búsqueda-->
+<div class="form-group">
+	<div class="form-group col-sm-7">
+		<button id="btn_search" class="btn btn-outline-secondary btn-lg btn-block" style="display:hidden">Establecer filtros de búsqueda</button>
+		<button id="btn_search2" class="btn btn-outline-secondary btn-lg btn-block" style="display:none">Ocultar filtros de búsqueda</button>
+	</div>
+	<div id="divBuscar" class="form-group" style="display:none">
+		<!--Incluir la ventana modal de búsqueda-->	
+		@include('almacen.inventario.stockclientes.search')
+	</div>	
+</div>
 
 </body>
 
@@ -71,17 +84,7 @@
 	</div><br>
 </div>
 
-<!--Formulario de búsqueda-->
-<div class="form-group">
-	<div class="form-group col-sm-7">
-		<button id="btn_search" class="btn btn-outline-secondary btn-lg btn-block" style="display:hidden">Establecer filtros de búsqueda</button>
-		<button id="btn_search2" class="btn btn-outline-secondary btn-lg btn-block" style="display:none">Ocultar filtros de búsqueda</button>
-	</div>
-	<div id="divBuscar" class="form-group" style="display:none">
-		<!--Incluir la ventana modal de búsqueda-->	
-		@include('almacen.inventario.stockclientes.search')
-	</div>	
-</div>
+
 
 <!--Tabla de registros realizados-->
 <div class="card shadow mb-10">
@@ -113,16 +116,33 @@
 					<td>{{ $ps->nombre}}</td>
 					<td>
 						<label>
-							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_stock}}" data-toggle="modal">
-							<img src="{{asset('imagenes/articulos/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
+							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_stock_clientes}}" data-toggle="modal">
+							<img src="{{asset('imagenes/articulosClientes/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
 						</label>
 					</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->precio}}</td>
 					<td>{{ $ps->sede_cliente}}</td>
-					<td>{{ $ps->nombre_empresa}}</td>
-					<td>{{ $ps->nombre_subempresa}}</td>
+					@if($ps->nombre_empresa!="")
+						@foreach($empresas as $e)
+							@if($e->id_empresa==$ps->nombre_empresa)	
+							<td>{{ $e->nombre}}</td>
+							@endif
+						@endforeach
+					@else
+					<td></td>
+					@endif
+
+					@if($ps->nombre_subempresa!="")
+						@foreach($subempresas as $e)
+							@if($e->id_empresa_categoria==$ps->nombre_subempresa)	
+							<td>{{ $e->nombre}}</td>
+							@endif
+						@endforeach
+					@else
+					<td></td>
+					@endif
 					<td>{{ $ps->categoria_normal}}</td>
 					<td>{{ $ps->categoria_especial}}</td>
 					<td>{{ $ps->cantidad}}</td>
@@ -154,15 +174,32 @@
 					<td>
 						<label>
 							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_stock_clientes}}" data-toggle="modal">
-							<img src="{{asset('imagenes/articulos/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
+							<img src="{{asset('imagenes/articulosClientes/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
 						</label>
 					</td>
 					<td>{{ $ps->plu}}</td>
 					<td>{{ $ps->ean}}</td>
 					<td>{{ $ps->precio}}</td>
 					<td>{{ $ps->sede_cliente}}</td>
-					<td>{{ $ps->nombre_empresa}}</td>
-					<td>{{ $ps->nombre_subempresa}}</td>
+					@if($ps->nombre_empresa!="")
+						@foreach($empresas as $e)
+							@if($e->id_empresa==$ps->nombre_empresa)	
+							<td>{{ $e->nombre}}</td>
+							@endif
+						@endforeach
+					@else
+					<td></td>
+					@endif
+
+					@if($ps->nombre_subempresa!="")
+						@foreach($subempresas as $e)
+							@if($e->id_empresa_categoria==$ps->nombre_subempresa)	
+							<td>{{ $e->nombre}}</td>
+							@endif
+						@endforeach
+					@else
+					<td></td>
+					@endif
 					<td>{{ $ps->categoria_normal}}</td>
 					<td>{{ $ps->categoria_especial}}</td>
 					<td>{{ $ps->cantidad}}</td>
