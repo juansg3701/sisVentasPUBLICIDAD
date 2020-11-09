@@ -213,6 +213,7 @@ class StockClienteController extends Controller
 			    else{
 				   $ps->producto_dados_baja=1;
 			    }
+			 
 
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');

@@ -96,7 +96,7 @@
 										</div>
 									</div>
 
-							{!!Form::model($stock,['method'=>'PATCH','route'=>['almacen.inventario.stockClientes.update',$stock->id_stock_clientes, 'files'=>'true']])!!}
+							{!!Form::model($stock,['method'=>'PATCH','route'=>['almacen.inventario.stockClientes.update',$stock->id_stock_clientes],'files'=>'true'])!!}
 							{{Form::token()}}
 							@if($searchText!="")
 
@@ -420,6 +420,12 @@
 
 									<div class="form-group col-sm-1"></div>
 											
+										<div class="form-group col-sm-5">
+										@if($stock->imagen!="")
+											<img src="{{asset('imagenes/articulosClientes/'.$stock->imagen)}}"  height="200px" width="200px" class="img-thumbnail">
+										@endif
+										</div>
+									
 								</div>
 
 			                	</div>
