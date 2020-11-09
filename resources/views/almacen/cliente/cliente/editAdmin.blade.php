@@ -147,6 +147,7 @@
 													@endif
 												
 												@endforeach
+												<option value="">Ninguna</option>
 											@else
 												<option value="">Ninguna</option>
 												@foreach($subempresas as $em)
@@ -209,7 +210,7 @@
 								<div class="form-row">
 									<div class="form-group col-sm-12">
 										<button class="btn btn-info" type="submit">Guardar</button>
-										<a href="{{url('almacen/cliente/cliente')}}" class="btn btn-danger">Volver</a>
+										<a href="{{url('almacen/usuario/permiso/cuenta')}}" class="btn btn-danger">Volver</a>
 									</div>
 								</div>
 			               </div>

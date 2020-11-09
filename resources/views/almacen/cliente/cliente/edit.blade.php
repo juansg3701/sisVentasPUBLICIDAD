@@ -147,6 +147,7 @@
 													@endif
 												
 												@endforeach
+												<option value="">Ninguna</option>
 											@else
 												<option value="">Ninguna</option>
 												@foreach($subempresas as $em)

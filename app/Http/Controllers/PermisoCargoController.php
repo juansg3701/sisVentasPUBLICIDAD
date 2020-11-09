@@ -92,13 +92,17 @@ class PermisoCargoController extends Controller
 	 		->where('tipo_cargo_id_cargo','=',$id)
 	 		->orderBy('id_empleado', 'desc')->get();
 
+	 		$existeC=DB::table('cliente')
+	 		->where('tipo_cargo_id_cargo','=',$id)
+	 		->orderBy('id_cliente', 'desc')->get();
 
-	 		if(count($existe)==0){
+
+	 		if(count($existe)==0 && count($existeC)==0){
 	 			$cargo=Cargo::findOrFail($id);
 		 		$cargo->delete();
 		 		return back()->with('msj','Cargo eliminado');
 	 		}else{
-	 			return back()->with('errormsj','¡Cargo usado en empleados!');
+	 			return back()->with('errormsj','¡Cargo relacionado!');
 	 		}
 
 

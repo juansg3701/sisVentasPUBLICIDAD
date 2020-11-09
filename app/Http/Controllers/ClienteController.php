@@ -25,7 +25,7 @@ class ClienteController extends Controller
 	 			->join('empresa as e','c.empresa_id_empresa','=','e.id_empresa')
 	 			->join('users as u','c.user_id_user','=','u.id')
 	 			->join('sede as s','c.sede_id_sede','=','s.id_sede')
-	 			->select('c.id_cliente','c.nombre','c.direccion','c.telefono','c.documento','c.verificacion_nit','u.email as correo','tp.nombre as cargo','s.nombre_sede as sede','e.nombre as empresa','s.id_sede as sede_id_sede','u.id as user_id_user')
+	 			->select('c.id_cliente','c.nombre','c.direccion','c.telefono','c.documento','c.verificacion_nit','u.email as correo','tp.nombre as cargo','s.nombre_sede as sede','e.nombre as empresa','s.id_sede as sede_id_sede','u.id as user_id_user','c.empresa_categoria_id')
 	 			->orderBy('c.id_cliente', 'desc')
 	 			->paginate(10);
 
@@ -34,9 +34,11 @@ class ClienteController extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
+	 			$subempresas=DB::table('empresa_categoria')->get();
 
 
-	 			return view('almacen.cliente.cliente.index',["usuarios"=>$usuarios,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos]);
+
+	 			return view('almacen.cliente.cliente.index',["usuarios"=>$usuarios,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos,"subempresas"=>$subempresas]);
 	 		}
 	 	}
 	 	public function create(){

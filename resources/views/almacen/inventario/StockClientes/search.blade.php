@@ -53,19 +53,6 @@
 							</div>
 						</div>
 
-						<div class="form-row">
-							<div class="form-group col-sm-4">
-								<div>Subempresa:</div>
-							</div>
-							<div class="form-group col-sm-8">
-								<select name="searchText4" value="{{$searchText4}}" class="form-control">
-									<option value="">Todas las categorías</option>	
-									@foreach($subempresas as $e)
-									<option >{{$e->nombre}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
 						
 						<div class="form-row">
 							<div class="form-group col-sm-4">

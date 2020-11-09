@@ -73,6 +73,7 @@
 								<th>Cargo</th>
 								<th>Sede</th>
 								<th>Empresa</th>
+								<th>Subempresas</th>
 								<th colspan="2">NIT</th>
 								<th>Dirección</th>
 								<th>Telefono</th>
@@ -88,6 +89,15 @@
 								<td>{{ $usu->cargo}}</td>
 								<td>{{ $usu->sede}}</td>
 								<td>{{ $usu->empresa}}</td>
+								@if($usu->empresa_categoria_id!="")
+								@foreach($subempresas as $s)
+									@if($s->id_empresa_categoria==$usu->empresa_categoria_id)
+									<td>{{ $s->nombre}}</td>
+									@endif
+								@endforeach
+								@else
+								<td></td>
+								@endif
 								<td>{{ $usu->documento}}</td>
 								<td>{{ $usu->verificacion_nit}}</td>
 								<td>{{ $usu->direccion}}</td>
@@ -107,6 +117,15 @@
 								<td>{{ $usu->cargo}}</td>
 								<td>{{ $usu->sede}}</td>
 								<td>{{ $usu->empresa}}</td>
+								@if($usu->empresa_categoria_id!="")
+								@foreach($subempresas as $s)
+									@if($s->id_empresa_categoria==$usu->empresa_categoria_id)
+									<td>{{ $s->nombre}}</td>
+									@endif
+								@endforeach
+								@else
+								<td></td>
+								@endif
 								<td>{{ $usu->documento}}</td>
 								<td>{{ $usu->verificacion_nit}}</td>
 								<td>{{ $usu->direccion}}</td>

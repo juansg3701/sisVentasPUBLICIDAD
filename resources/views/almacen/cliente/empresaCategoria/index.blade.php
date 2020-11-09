@@ -102,7 +102,7 @@
 <div class="container-fluid"><br>
 	<div class="col-sm-12" align="center">
 		<div class="col-sm-6" align="center">
-			<h1 class="h3 mb-2 text-gray-800">EMPRESAS REGISTRADAS</h1>
+			<h1 class="h3 mb-2 text-gray-800">SUBEMPRESAS REGISTRADAS</h1>
 		</div>
 	</div><br>
 </div>
@@ -118,7 +118,7 @@
     	<div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
-					<th>NOMBRE</th>
+					<th>NOMBRE SUBEMPRESA</th>
 					<th>DESCRIPCIÓN</th>
 					<th>EMPRESA</th>
 					<th colspan="2">OPCIONES</th>
