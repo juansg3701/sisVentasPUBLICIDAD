@@ -105,6 +105,9 @@ class ProductoSedeController extends Controller
 					$file->move(public_path().'/imagenes/articulos/', $nombre);
 					$ps->imagen=$nombre;
 				}
+				/*
+				$file->move('/home/control3/public_unoa/imagenes/articulos/', $nombre);
+				*/
 		 		$ps->update();
 
 			 	return back()->with('msj','Producto guardado');
@@ -170,11 +173,9 @@ class ProductoSedeController extends Controller
 					$ps->imagen=$nombre;
 				}
 				
-				/*if(Input::hasFile('imagen')){
-					$file=Input::file('imagen');
-					$file->move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
-					$ps->imagen=$file->getClientOriginalName();
-				}*/
+				/*
+				$file->move('/home/control3/public_unoa/imagenes/articulos/', $nombre);
+				*/
 		 		$ps->update();
 
 		 		return back()->with('msj','Producto actualizado');

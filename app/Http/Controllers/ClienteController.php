@@ -46,7 +46,9 @@ class ClienteController extends Controller
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
-	 			$cargos=DB::table('tipo_cargo')->get();
+	 			$cargos=DB::table('tipo_cargo')
+	 			->where('nombre','LIKE','%'.'Cliente'.'%')
+	 			->orderBy('id_cargo','desc')->get();
 	 			$sedes=DB::table('sede')->get();
 	 			$empresas=DB::table('empresa')->get();
 	 			$subempresas=DB::table('empresa_categoria as ec')

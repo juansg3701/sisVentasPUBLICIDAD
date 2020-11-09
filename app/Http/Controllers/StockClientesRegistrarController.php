@@ -129,15 +129,15 @@ class StockClientesRegistrarController extends Controller
 	 			$categoria_especiales=DB::table('categoria')->get();
 
 	 			if(auth()->user()->tipo_cuenta==1){
-	 				$cuenta=DB::table('cliente')
-	 			->where('user_id_user','=',auth()->user()->id)
-	 			->orderBy('id_cliente', 'desc')->get();
+			 			$cuenta=DB::table('cliente')
+			 			->where('user_id_user','=',auth()->user()->id)
+			 			->orderBy('id_cliente', 'desc')->get();
 
-	 			if($cuenta[0]->empresa_categoria_id!=""){
-	 				$validacion=1;
-	 			}else{
-	 				$validacion=0;
-	 			}
+		 			if($cuenta[0]->empresa_categoria_id!=""){
+		 				$validacion=1;
+		 			}else{
+		 				$validacion=0;
+		 			}
 	 			}else{
 	 				$validacion=0;
 	 				$cuenta=[];
@@ -198,6 +198,9 @@ class StockClientesRegistrarController extends Controller
 					$file->move(public_path().'/imagenes/articulosClientes/', $nombre);
 					$ps->imagen=$nombre;
 				}
+				/*
+				$file->move('/home/control3/public_unoa/imagenes/articulosClientes/', $nombre);
+				*/
 		 		$ps->update();
 
 			 	return back()->with('msj','Producto guardado');

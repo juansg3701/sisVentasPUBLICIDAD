@@ -163,14 +163,14 @@
 											<input type="hidden" name="sede_id_sede" value="{{Auth::user()->sede_id_sede}}">
 											<select name="sede_id_sede" class="form-control" disabled="">
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede && $s->tipo_sede_id_tipo_sede!=1)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
 
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede !=$s->id_sede && $s->tipo_sede_id_tipo_sede!=1)
+												@if( Auth::user()->sede_id_sede !=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												
 												@endif
@@ -187,14 +187,14 @@
 											
 											<select name="sede_id_sede" class="form-control" >
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede && $s->tipo_sede_id_tipo_sede!=1)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
 
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede !=$s->id_sede && $s->tipo_sede_id_tipo_sede!=1)
+												@if( Auth::user()->sede_id_sede !=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												
 												@endif

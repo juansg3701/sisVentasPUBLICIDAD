@@ -161,12 +161,12 @@
 											<input type="hidden" name="sede_id_sede" value="{{$stock->sede_id_sede}}">
 											<select name="sede_id_sede" class="form-control" value="{{$stock->sede_id_sede}}" disabled="">
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede==$s->id_sede)
+												@if($stock->sede_id_sede==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede!=$s->id_sede)
+												@if($stock->sede_id_sede!=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
@@ -174,12 +174,12 @@
 											@else
 											<select name="sede_id_sede" class="form-control" value="{{$stock->sede_id_sede}}">
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede==$s->id_sede)
+												@if($stock->sede_id_sede==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede!=$s->id_sede)
+												@if($stock->sede_id_sede!=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
@@ -196,14 +196,14 @@
 											
 											<select name="sede_id_sede" class="form-control" >
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede && $s->tipo_sede_id_tipo_sede!=1)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
 
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede !=$s->id_sede && $s->tipo_sede_id_tipo_sede!=1)
+												@if( Auth::user()->sede_id_sede !=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												
 												@endif

@@ -106,7 +106,7 @@
 									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<a href="{{URL::action('CategoriaProducto@create',0)}}"><button href="" class="btn btn-info" type="submit">Registrar</button></a>
-											<a href="{{url('almacen/inventario/proveedor-sede')}}" class="btn btn-danger">Regresar</a>
+											<a href="{{url('almacen/inventario/stock')}}" class="btn btn-danger">Regresar</a>
 										</div>
 									</div>
 				               </div>

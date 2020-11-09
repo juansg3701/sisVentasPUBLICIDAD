@@ -83,14 +83,14 @@
 									<div class="form-group col-sm-8">
 										<select name="sede_id_sede" class="form-control">
 											@foreach($sedes as $sed)
-											@if($sed->id_sede==$usuario->sede_id_sede)
+											@if($sed->id_sede==$usuario->sede_id_sede && $sed->tipo_sede_id_tipo_sede==2)
 											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}</option>
 											
 											@endif
 											@endforeach
 
 											@foreach($sedes as $sed)
-											@if($sed->id_sede!=$usuario->sede_id_sede)
+											@if($sed->id_sede!=$usuario->sede_id_sede && $sed->tipo_sede_id_tipo_sede==2)
 											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}</option>
 											
 											@endif
