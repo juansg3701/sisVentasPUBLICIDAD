@@ -62,7 +62,7 @@
 										
 										
 										<button type="submit" href="" class="btn btn-info">Registrar empresa</button>
-										<a href="{{url('almacen/cliente/empresaCategoria')}}" class="btn btn-info">M&oacutedulo subempresa</a>
+										<a href="{{url('almacen/cliente/empresaCategoria')}}" class="btn btn-warning">M&oacutedulo subempresa</a>
 										<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
 									
 									</div>

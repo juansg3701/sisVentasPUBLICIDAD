@@ -76,9 +76,17 @@
 											<div>Categoría:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<select name="categoria_id_categoria" class="form-control" value="{{$productos->categoria_id_categoria}}">
+											<select name="categoria_id_categoria" class="form-control" >
 												@foreach($categorias as $ct)
+												@if($ct->id_categoria==$productos->categoria_id_categoria)
 												<option value="{{$ct->id_categoria}}">{{$ct->nombre}}</option>
+												@endif
+												@endforeach
+
+												@foreach($categorias as $ct)
+												@if($ct->id_categoria!=$productos->categoria_id_categoria)
+												<option value="{{$ct->id_categoria}}">{{$ct->nombre}}</option>
+												@endif
 												@endforeach
 											</select>	
 										</div>

@@ -220,6 +220,9 @@ class StockClienteController extends Controller
 					$file->move(public_path().'/imagenes/articulosClientes/', $nombre);
 					$ps->imagen=$nombre;
 				}
+				/*
+				$file->move('/home/control3/public_unoa//imagenes/articulosClientes/', $nombre);
+				*/
 		 		$ps->update();
 
 			 	return back()->with('msj','Producto actualizado');

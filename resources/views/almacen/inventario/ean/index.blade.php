@@ -102,21 +102,21 @@
 									@if(auth()->user()->superusuario==0)
 									
 										<div class="form-group col-sm-2">
-											<div>Sede:</div>
+											<div>Sede de ingreso:</div>
 										</div>
 
 										<div class="form-group col-sm-3">
 											<input type="hidden" name="sede_id_sede" value="{{Auth::user()->sede_id_sede}}">
 											<select name="sede_id_sede" class="form-control" disabled="">
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												@if( Auth::user()->sede_id_sede==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
 
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede !=$s->id_sede)
+												@if( Auth::user()->sede_id_sede!=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												
 												@endif
@@ -131,13 +131,13 @@
 										<div class="form-group col-sm-3">
 											<select name="sede_id_sede" class="form-control">
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												@if( Auth::user()->sede_id_sede==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
 												
 												@endif
 												@endforeach
 												@foreach($sede as $s)
-												@if( Auth::user()->sede_id_sede !=$s->id_sede)
+												@if( Auth::user()->sede_id_sede!=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 													<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												
 												@endif

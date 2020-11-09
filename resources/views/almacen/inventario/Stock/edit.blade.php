@@ -80,12 +80,13 @@
 											<input type="hidden" name="sede_id_sede" value="{{$stock->sede_id_sede}}">
 											<select name="sede_id_sede" class="form-control" value="{{$stock->sede_id_sede}}" disabled="">
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede==$s->id_sede)
+												@if($stock->sede_id_sede==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
+
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede!=$s->id_sede)
+												@if($stock->sede_id_sede!=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
@@ -93,12 +94,13 @@
 											@else
 											<select name="sede_id_sede" class="form-control" value="{{$stock->sede_id_sede}}">
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede==$s->id_sede)
+												@if($stock->sede_id_sede==$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
+
 												@foreach($sede as $s)
-												@if($stock->sede_id_sede!=$s->id_sede)
+												@if($stock->sede_id_sede!=$s->id_sede && $s->tipo_sede_id_tipo_sede==2)
 												<option value="{{$s->id_sede}}">{{$s->nombre_sede}}</option>
 												@endif
 												@endforeach
@@ -139,15 +141,15 @@
 											<div>Tipo:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<select name="tipos_stock_id" class="form-control" value="{{$stock->tipo_stock_unoa}}">
+											<select name="tipo_stock_id" class="form-control" value="{{$stock->tipo_stock_id}}">
 												@foreach($tipos as $t)
-												@if($stock->tipo_stock_unoa==$t->id_stock_unoa)
+												@if($stock->tipo_stock_id==$t->id_stock_unoa)
 												<option value="{{$t->id_stock_unoa}}">{{$t->nombre}}</option>
 												@endif
 												@endforeach
 
 												@foreach($tipos as $t)
-												@if($stock->tipo_stock_unoa!=$t->id_stock_unoa)
+												@if($stock->tipo_stock_id!=$t->id_stock_unoa)
 												<option value="{{$t->id_stock_unoa}}">{{$t->nombre}}</option>
 												@endif
 												@endforeach
@@ -170,7 +172,9 @@
 												@if($stock->categoria_id_categoria==$ct->id_categoriaStock)
 												<option value="{{$ct->id_categoriaStock}}">{{$ct->nombre}}</option>
 												@endif
+												@endforeach
 
+												@foreach($categoria as $ct)
 												@if($stock->categoria_id_categoria!=$ct->id_categoriaStock)
 												<option value="{{$ct->id_categoriaStock}}">{{$ct->nombre}}</option>
 												@endif
