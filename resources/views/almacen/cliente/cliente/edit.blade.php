@@ -133,7 +133,7 @@
 									</div>
 									<div class="form-group col-sm-8">
 										<select name="empresa_categoria_id" class="form-control">
-											@if($usuario->empresa_categoria_id!="")
+											@if($usuario->empresa_categoria_id!=0)
 												@foreach($subempresas as $em)
 													@if($usuario->empresa_categoria_id==$em->id_empresa_categoria)
 													<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
@@ -147,9 +147,9 @@
 													@endif
 												
 												@endforeach
-												<option value="">Ninguna</option>
+												<option value="0">Ninguna</option>
 											@else
-												<option value="">Ninguna</option>
+												<option value="0">Ninguna</option>
 												@foreach($subempresas as $em)
 													<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
 												@endforeach

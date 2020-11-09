@@ -173,7 +173,7 @@
 									</div>
 									<div class="form-group col-sm-8">
 										<select name="empresa_categoria_id" class="form-control">
-											<option value="">Ninguna</option>
+											<option value="0">Ninguna</option>
 											@foreach($subempresas as $em)
 											<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
 											@endforeach

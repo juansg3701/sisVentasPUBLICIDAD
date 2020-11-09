@@ -89,7 +89,7 @@
 								<td>{{ $usu->cargo}}</td>
 								<td>{{ $usu->sede}}</td>
 								<td>{{ $usu->empresa}}</td>
-								@if($usu->empresa_categoria_id!="")
+								@if($usu->empresa_categoria_id!=0)
 								@foreach($subempresas as $s)
 									@if($s->id_empresa_categoria==$usu->empresa_categoria_id)
 									<td>{{ $s->nombre}}</td>
@@ -117,7 +117,7 @@
 								<td>{{ $usu->cargo}}</td>
 								<td>{{ $usu->sede}}</td>
 								<td>{{ $usu->empresa}}</td>
-								@if($usu->empresa_categoria_id!="")
+								@if($usu->empresa_categoria_id!=0)
 								@foreach($subempresas as $s)
 									@if($s->id_empresa_categoria==$usu->empresa_categoria_id)
 									<td>{{ $s->nombre}}</td>
