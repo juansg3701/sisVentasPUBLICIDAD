@@ -110,7 +110,7 @@
 					<td>
 						<label>
 							<a href="" title="Ver imagen" class="btn btn-light" data-target="#modal-infoImagen-{{$ps->id_stock_clientes}}" data-toggle="modal">
-							<img src="{{asset('imagenes/articulos/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
+							<img src="{{asset('imagenes/articulosClientes/'.$ps->img)}}" alt="{{ $ps->nombre}}" height="100px" width="100px" class="img-thumbnail"></a>
 						</label>
 					</td>
 					<td>{{ $ps->plu}}</td>
