@@ -1,4 +1,6 @@
+<!--Este es el archivo para la búsqueda de registros-->
 {!! Form::open(array('url'=>'almacen/inventario/producto-sede/productoCompleto','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+<!--Formulario para establecer los filtros de búsqueda-->
 <div class="form-group">
 	<div class="row" align="center">	
 		<div class="col-sm-3" align="center"></div>

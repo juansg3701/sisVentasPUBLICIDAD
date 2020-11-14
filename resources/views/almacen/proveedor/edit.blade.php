@@ -7,18 +7,20 @@
 </head>
 
 <body>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<h3>Editar datos del Proveedor: {{$proveedor->nombre_empresa}}</h3>
-			@if (count($errors)>0)
-			<div class="alert alert-danger">
-				<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{$error}}</li>
-				@endforeach
-				</ul>
+	<!--Control de errores en los campos del formulario-->	
+	<div class="container col-sm-12" align="center">
+		<div class="row" align="center">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+				@if (count($errors)>0)
+				<div class="alert alert-danger" align="center">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{$error}}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
 			</div>
-			@endif
 		</div>
 	</div>
 
@@ -45,15 +47,17 @@
 	</script>
 
 	{!!Form::model($proveedor,['method'=>'PATCH','route'=>['almacen.proveedor.update',$proveedor->id_proveedor]])!!}
-    
-	 {{Form::token()}}
+	{{Form::token()}}
 
     <!--Formulario de edición-->	
 	<div class="col-md-12">
-		<div class="card">
-			<div class="card-header" align="center">
+		<div class="card"><br>
+			<div  class="col-sm-12" align="center">
 				<h3 class="pb-2 display-5">EDITAR PROVEEDOR</h3>
-			</div><br>
+			</div>
+			<div class="col-sm-12" align="center">
+				Editar datos de: {{$proveedor->nombre_empresa}}<br><br>
+			</div>
 			<div class="row" align="center">	
 				<div class="col-sm-3" align="center"></div>
 				 	<div class="col-sm-6" align="center">
@@ -83,7 +87,7 @@
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Dirección:</div>
+										<div>Direcci&oacute;n:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<input type="text" class="form-control" name="direccion" value="{{$proveedor->direccion}}">
@@ -99,7 +103,7 @@
 								</div>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Teléfono:</div>
+										<div>Tel&eacute;fono:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<input type="number" class="form-control" name="telefono" value="{{$proveedor->telefono}}">
@@ -159,7 +163,7 @@
 			</div>
 		</div>
 	</div>
-	 
+	
 {!!Form::close()!!}		
 </body>
 @stop

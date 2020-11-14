@@ -13,7 +13,7 @@ role="dialog" tabindex="-1" id="modal-delete-{{$sed->id_sede}}">
                      <span aria-hidden="true">×</span>
                 </button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" align="center">
 				<p>¿Desea eliminar la sede?</p>
 			</div>
 			<div class="modal-footer">

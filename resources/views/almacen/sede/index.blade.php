@@ -8,11 +8,9 @@
 </head>
 
 <body>
-
-	<div class="row" align="center">
-		<div class="col-sm-12" align="center">
-			<!--<h1 class="pb-2 display-4">SEDES</h1>-->
-			<br><h1 class="text-center title-1">MÓDULO DE SEDES</h1><br>
+	<div class="row">
+		<div class="col-sm" align="center">
+			<h2>SEDES</h2>
 		</div>
 	</div>
 
@@ -26,8 +24,7 @@
 				    <div class="card-body card-block" align="center">
 						<div id=formulario>
 							<div class="form-group">
-								<!--Incluir la ventana modal de búsqueda y carga de excel-->	
-								@include('almacen.sede.search')
+								
 								<div align="center">
 									<!--Enlaces y botones para llamar las funciones de registro, descarga de excel y la ventana modal para carga de excel-->
 									<a href="{{URL::action('SedeController@create',0)}}"><button class="btn btn-info">Registrar Sede</button></a>	
@@ -46,12 +43,24 @@
 </body>
 @endsection
 @section('tabla')
-<hr>
+
+<div class="container-fluid"><br>
+	<div class="col-sm-12" align="center">
+		<div class="col-sm-6" align="center">
+			<h1 class="h3 mb-2 text-gray-800">SEDES REGISTRADAS</h1>
+		</div>
+	</div><br>
+</div>
+
+<div class="form-group col-sm">
+	<!--Incluir la ventana modal de búsqueda-->	
+	@include('almacen.sede.search')
+</div>
 
 <!--Tabla de registros realizados en la tabla de proveedor en la base de datos-->	
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
-	    <h6 class="m-0 font-weight-bold">Sedes registradas</h6>
+	    <h6 class="m-0 font-weight-bold">Lista de sedes</h6>
     </div>
     <div class="card-body">
     	<div class="table-responsive">
@@ -76,33 +85,26 @@
 					<td>{{ $sed->direccion}}</td>
 					<td>{{ $sed->telefono}}</td>
 					@foreach($empleados as $e)
-						@if($e->id_empleado==$sed->empleado_id_empleado)
-						
-					<td>{{ $e->nombre}}</td>
-						@endif
+					@if($e->id_empleado==$sed->empleado_id_empleado)
+						<td>{{ $e->nombre}}</td>
+					@endif
 					@endforeach
-
 					<td>{{ $sed->fecha}}</td>
-
 					@foreach($tipos as $t)
-						@if($t->id_tipo_sede==$sed->tipo_sede_id_tipo_sede)
-					<td>{{ $t->nombre}}</td>
-						@endif
+					@if($t->id_tipo_sede==$sed->tipo_sede_id_tipo_sede)
+						<td>{{ $t->nombre}}</td>
+					@endif
 					@endforeach
 					<td>	
 							<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
-							@if(isset($sed->id_sede))
-							@include('almacen.sede.modal')
-							<a href="" data-target="#modal-delete-{{$sed->id_sede}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
-			
-							@endif
-						
+					@if(isset($sed->id_sede))
+						@include('almacen.sede.modal')
+						<a href="" data-target="#modal-delete-{{$sed->id_sede}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+					@endif		
                 	</td>
 				</tr>
-				
-				
 				@endforeach
             </table>
         </div>
