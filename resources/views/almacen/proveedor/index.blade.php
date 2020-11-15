@@ -99,7 +99,7 @@
 					<th>TEL&Eacute;FONO</th>
 					
 					<th colspan="2">NIT</th>
-					<th colspan="2">OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($proveedores as $pro)
 				<tr>
@@ -116,9 +116,13 @@
 					</td>
 					<td>	
 						<a href="" data-target="#modal-delete-{{$pro->id_proveedor}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
-                	</td>
+					</td>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoProveedor-{{$pro->id_proveedor}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
+					</td>
 				</tr>
 				@include('almacen.proveedor.modal')
+				@include('almacen.proveedor.modalInfoProveedor')
 				@endforeach
 			</table>
 		</div>

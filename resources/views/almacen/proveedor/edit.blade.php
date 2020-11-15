@@ -148,6 +148,22 @@
 									</div>
 								</div>
 
+								<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Sede:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="sede_id_sede" class="form-control" disabled="true">
+												@foreach($sedes as $s)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
+												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
+												@endif
+												@endforeach
+											</select><br>
+										</div>
+									</div>
+
 
 								<div class="form-row">
 									<div class="form-group col-sm-12">

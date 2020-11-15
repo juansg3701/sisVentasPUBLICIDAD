@@ -20,10 +20,19 @@ class ProveedorController extends Controller
 	 		if ($request) {
 	 			$query0=trim($request->get('searchText0'));
 	 			$query1=trim($request->get('searchText1'));
-	 			$proveedores=DB::table('proveedor')
+	 			/*$proveedores=DB::table('proveedor')
 	 			->where('nombre_empresa','LIKE', '%'.$query0.'%')
 	 			->where('documento','LIKE', '%'.$query1.'%')
 	 			->orderBy('id_proveedor', 'desc')
+				->paginate(10);*/
+				 
+				$proveedores=DB::table('proveedor as p')
+	 			->join('empleado as u','p.empleado_id_empleado','=','u.id_empleado')
+		 		->join('sede as s','p.sede_id_sede','=','s.id_sede')
+		 		->select('p.id_proveedor','p.nombre_empresa','p.nombre_proveedor','p.direccion', 'p.telefono', 'p.correo', 'p.documento', 'p.verificacion_nit','s.nombre_sede as sede_id_sede', 'u.nombre as empleado_id_empleado', 'p.fecha')
+	 			->where('p.nombre_empresa','LIKE', '%'.$query0.'%')
+	 			->where('p.documento','LIKE', '%'.$query1.'%')
+	 			->orderBy('p.id_proveedor', 'desc')
 	 			->paginate(10);
 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
@@ -99,13 +108,16 @@ class ProveedorController extends Controller
 	 	}
 
 	 	public function edit($id){
-	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+			$sedes=DB::table('sede')->get();
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
-	 			$usuarios=DB::table('empleado')->get();
+				 $usuarios=DB::table('empleado')->get();
+				 
+			
 	 			
-	 		return view("almacen.proveedor.edit",["proveedor"=>Proveedor::findOrFail($id), "modulos"=>$modulos,"usuarios"=>$usuarios]);
+	 		return view("almacen.proveedor.edit",["proveedor"=>Proveedor::findOrFail($id), "modulos"=>$modulos,"usuarios"=>$usuarios,"sedes"=>$sedes]);
 	 	}
 
 	 	public function update(ProveedorFormRequest $request, $id){

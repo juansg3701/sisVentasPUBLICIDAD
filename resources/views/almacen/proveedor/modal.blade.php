@@ -10,8 +10,7 @@ role="dialog" tabindex="-1" id="modal-delete-{{$pro->id_proveedor}}">
 				<button type="button" class="close" data-dismiss="modal" 
 				aria-label="Close">
                      <span aria-hidden="true">×</span>
-                </button>
-                
+                </button> 
 			</div>
 			<div class="modal-body">
 				<p>¿Desea eliminar el cliente?</p>

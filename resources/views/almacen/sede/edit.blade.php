@@ -109,8 +109,16 @@
 									</div>
 								</div>
 
-						
-											<input type="hidden" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Fecha:</div>
+										</div>
+										<input type="hidden" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control">
+										<div class="form-group col-sm-8">
+											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
+										</div>
+									</div>
+								
 										
 									<div class="form-row">
 									<div class="form-group col-sm-4">

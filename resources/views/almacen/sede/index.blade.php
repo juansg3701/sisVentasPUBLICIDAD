@@ -66,16 +66,13 @@
     	<div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
-
 					<th>NOMBRE</th>
 					<th>CIUDAD</th>
 					<th>DESCRIPCIÓN</th>
 					<th>DIRECCIÓN</th>
 					<th>TELÉFONO</th>
-					<th>EMPLEADO</th>
-					<th>FECHA</th>
 					<th>TIPO</th>
-					<th colspan="2">OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($sedes as $sed)
 				<tr>
@@ -84,27 +81,26 @@
 					<td>{{ $sed->descripcion}}</td>
 					<td>{{ $sed->direccion}}</td>
 					<td>{{ $sed->telefono}}</td>
-					@foreach($empleados as $e)
-					@if($e->id_empleado==$sed->empleado_id_empleado)
-						<td>{{ $e->nombre}}</td>
-					@endif
-					@endforeach
-					<td>{{ $sed->fecha}}</td>
+					<td>{{ $sed->tipo_sede_id_tipo_sede}}</td>
 					@foreach($tipos as $t)
 					@if($t->id_tipo_sede==$sed->tipo_sede_id_tipo_sede)
 						<td>{{ $t->nombre}}</td>
 					@endif
 					@endforeach
 					<td>	
-							<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+						<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
 					@if(isset($sed->id_sede))
 						@include('almacen.sede.modal')
 						<a href="" data-target="#modal-delete-{{$sed->id_sede}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 					@endif		
-                	</td>
+					</td>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoSede-{{$sed->id_sede}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
+					</td>
 				</tr>
+				@include('almacen.sede.modalInfoSede')
 				@endforeach
             </table>
         </div>

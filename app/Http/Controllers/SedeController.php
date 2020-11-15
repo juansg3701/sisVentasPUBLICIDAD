@@ -10,17 +10,26 @@ use DB;
 
 class SedeController extends Controller
 {
-	  public function __construct(){
+	    public function __construct(){
 			$this->middleware('auth');	
-
-			 	} 
+		}
+		
+		
 	 	public function index(Request $request){
 	 		if ($request) {
 	 			$query=trim($request->get('searchText'));
-	 			$sedes=DB::table('sede')
+	 			/*$sedes=DB::table('sede')
 	 			->where('nombre_sede','LIKE', '%'.$query.'%')
 	 			->orderBy('id_sede', 'desc')
-	 			->paginate(7);
+				->paginate(7);*/
+				 
+				$sedes=DB::table('sede as s')
+				->join('empleado as u','s.empleado_id_empleado','=','u.id_empleado')
+				->join('tipo_sede as ts','s.tipo_sede_id_tipo_sede','=','ts.id_tipo_sede')
+				->select('s.id_sede','s.nombre_sede','s.ciudad','s.descripcion','s.direccion','s.telefono','u.nombre as empleado_id_empleado','s.fecha', 'ts.nombre as tipo_sede_id_tipo_sede')
+				->where('s.nombre_sede','LIKE', '%'.$query.'%')
+				->orderBy('s.id_sede', 'desc')
+				->paginate(10);
 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
