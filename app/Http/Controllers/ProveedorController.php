@@ -19,7 +19,9 @@ class ProveedorController extends Controller
 	 	public function index(Request $request){
 	 		if ($request) {
 	 			$query0=trim($request->get('searchText0'));
-	 			$query1=trim($request->get('searchText1'));
+				$query1=trim($request->get('searchText1'));
+				$query2=trim($request->get('searchText2'));
+				$query3=trim($request->get('searchText3'));
 	 			/*$proveedores=DB::table('proveedor')
 	 			->where('nombre_empresa','LIKE', '%'.$query0.'%')
 	 			->where('documento','LIKE', '%'.$query1.'%')
@@ -31,7 +33,9 @@ class ProveedorController extends Controller
 		 		->join('sede as s','p.sede_id_sede','=','s.id_sede')
 		 		->select('p.id_proveedor','p.nombre_empresa','p.nombre_proveedor','p.direccion', 'p.telefono', 'p.correo', 'p.documento', 'p.verificacion_nit','s.nombre_sede as sede_id_sede', 'u.nombre as empleado_id_empleado', 'p.fecha')
 	 			->where('p.nombre_empresa','LIKE', '%'.$query0.'%')
-	 			->where('p.documento','LIKE', '%'.$query1.'%')
+				->where('p.documento','LIKE', '%'.$query1.'%')
+				->where('p.verificacion_nit','LIKE', '%'.$query2.'%')
+	 			->where('p.nombre_proveedor','LIKE', '%'.$query3.'%')
 	 			->orderBy('p.id_proveedor', 'desc')
 	 			->paginate(10);
 
@@ -43,9 +47,8 @@ class ProveedorController extends Controller
 	 			$proveedoresP=DB::table('proveedor')
 	 			->orderBy('id_proveedor', 'desc')->get();
 
-	 			
-
-	 			return view('almacen.proveedor.index',["proveedores"=>$proveedores,"searchText0"=>$query0,"searchText1"=>$query1, "modulos"=>$modulos,"proveedoresP"=>$proveedoresP]);
+	 		
+	 			return view('almacen.proveedor.index',["proveedores"=>$proveedores,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2,"searchText3"=>$query3, "modulos"=>$modulos,"proveedoresP"=>$proveedoresP]);
 	 		}
 	 	}
 

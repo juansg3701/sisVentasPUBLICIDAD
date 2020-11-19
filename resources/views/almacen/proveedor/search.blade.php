@@ -14,7 +14,7 @@
 						
 						<div class="form-row">
 							<div class="form-group col-sm-4">
-								<div>Nombre:</div>
+								<div>Empresa:</div>
 							</div>
 							<div class="form-group col-sm-8">
 								<input id="pro1" type="text" class="form-control" name="searchText0" placeholder="Buscar..." value="{{$searchText0}}">
@@ -23,10 +23,22 @@
 
 						<div class="form-row">
 							<div class="form-group col-sm-4">
-								<div>NIT:</div>
+								<div>Contacto:</div>
 							</div>
 							<div class="form-group col-sm-8">
+								<input id="pro1" type="text" class="form-control" name="searchText3" placeholder="Buscar..." value="{{$searchText3}}">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<div>NIT:</div>
+							</div>
+							<div class="form-group col-sm-6">
 								<input id="pro2"  type="text" class="form-control" name="searchText1" placeholder="Buscar..." value="{{$searchText1}}">
+							</div>
+							<div class="form-group col-sm-2">
+								<input id="pro2"  type="text" class="form-control" name="searchText2" placeholder="Buscar..." value="{{$searchText2}}">
 							</div>
 						</div>
 
