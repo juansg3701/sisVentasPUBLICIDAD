@@ -6,29 +6,33 @@
 </head>
 
 <body>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			@if (count($errors)>0)
-			<div class="alert alert-danger">
-				<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{$error}}</li>
-				@endforeach
-				</ul>
+	<!--Control de errores en los campos del formulario-->	
+	<div class="container col-sm-12" align="center">
+		<div class="row" align="center">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+				@if (count($errors)>0)
+				<div class="alert alert-danger" align="center">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{$error}}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
 			</div>
-			@endif
 		</div>
 	</div>
 
 	{!!Form::model($empresa,['method'=>'PATCH','route'=>['almacen.cliente.empresa.update',$empresa->id_empresa]])!!}
     {{Form::token()}}
 
+	<!--Formulario de edición-->
     <div class="row" align="center">
-					<div class="col-sm-12" align="center">
-						<br><h1 class="text-center title-1">Editar empresa</h1><br>
-						Editar datos de: {{$empresa->nombre}}
-					</div>
-				</div><br>
+		<div class="col-sm-12" align="center">
+			<h3 class="pb-2 display-5">EDITAR EMPRESA</h3>
+			Editar datos de: {{$empresa->nombre}}
+		</div>
+	</div><br>
     <div class="row" align="center">	
 		<div class="col-sm-12" align="center">
 			<div class="card" align="center">
@@ -57,6 +61,47 @@
 									</div>
 									<div class="form-group col-sm-8">
 										<input type="text" class="form-control" name="descripcion" value="{{$empresa->descripcion}}">
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Fecha:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<input type="datetime" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Empleado:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empleado_id_empleado" class="form-control" disabled="">
+											@foreach($empleados as $usu)
+											@if(Auth::user()->id==$usu->user_id_user)
+											<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+											<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
+											@endif
+											@endforeach
+										</select>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Sede:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="sede_id_sede" class="form-control" disabled="true">
+											@foreach($sedes as $s)
+											@if( Auth::user()->sede_id_sede ==$s->id_sede)
+											<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
+											<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
+											@endif
+											@endforeach
+										</select><br>
 									</div>
 								</div>
 

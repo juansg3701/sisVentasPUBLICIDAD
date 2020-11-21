@@ -27,7 +27,9 @@ class EmpresaCategoriaFormRequest extends Request
             'nombre'=>'required|max:45',
             'descripcion'=>'max:45',
             'empresa_id_empresa'=>'required|max:45',
-            
+            'fecha_registro'=>'required|max:45',
+            'empleado_id_empleado'=>'required|max:45',
+            'sede_id_sede'=>'required|max:45',
         ];
     }
 }
