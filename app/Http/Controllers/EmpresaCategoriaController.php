@@ -24,16 +24,32 @@ class EmpresaCategoriaController extends Controller
 	 			->orderBy('id_cargo', 'desc')->get();
 
 	 			$empresaCategoria=DB::table('empresa_categoria as ec')
-	 			->join('empresa as e','ec.empresa_id_empresa','=','e.id_empresa')
-	 			->select('ec.id_empresa_categoria','ec.nombre','ec.descripcion','e.nombre as nombreEmpresa','e.descripcion as descripcionEmpresa')
-	 			->orderBy('id_empresa_categoria', 'desc')
-	 			->paginate(10);
+				->join('empresa as e','ec.empresa_id_empresa','=','e.id_empresa')
+				->join('empleado as u','ec.empleado_id_empleado','=','u.id_empleado')
+				->join('sede as s','ec.sede_id_sede','=','s.id_sede')
+	 			->select('ec.id_empresa_categoria','ec.nombre','ec.descripcion','e.nombre as nombreEmpresa','e.descripcion as descripcionEmpresa','ec.fecha_registro', 's.nombre_sede as sede_id_sede', 'u.nombre as empleado_id_empleado')
+				->where('ec.nombre','LIKE', '%'.$query.'%')  
+				->orderBy('id_empresa_categoria', 'desc')
+				->paginate(10);
+				 
+				 /*$empresas=DB::table('empresa as e')
+				 ->join('empleado as u','e.empleado_id_empleado','=','u.id_empleado')
+				 ->join('sede as s','e.sede_id_sede','=','s.id_sede')
+				 ->select('e.id_empresa','e.nombre','e.descripcion','e.fecha_registro', 's.nombre_sede as sede_id_sede', 'u.nombre as empleado_id_empleado')
+				 ->where('e.nombre','LIKE', '%'.$query.'%') 
+				 ->orderBy('id_empresa', 'desc')
+				  ->paginate(10);*/
 
 	 			$empresas=DB::table('empresa')
 	 			->orderBy('id_empresa', 'desc')
 	 			->paginate(10);
 
-	 			return view('almacen.cliente.empresaCategoria.index',["empresas"=>$empresas,"empresaCategoria"=>$empresaCategoria,"searchText"=>$query, "modulos"=>$modulos]);
+				$empleados=DB::table('empleado')
+				 ->orderBy('id_empleado', 'desc')->get();
+				  
+				$sedes=DB::table('sede')->get();
+
+	 			return view('almacen.cliente.empresaCategoria.index',["empresas"=>$empresas,"empresaCategoria"=>$empresaCategoria,"searchText"=>$query, "modulos"=>$modulos,"empleados"=>$empleados,"sedes"=>$sedes]);
 	 		}
 	 	}
 
@@ -45,7 +61,10 @@ class EmpresaCategoriaController extends Controller
 	 		$Empresa = new EmpresaCategoria;
 	 		$Empresa->nombre=$request->get('nombre');
 	 		$Empresa->descripcion=$request->get('descripcion');
-	 		$Empresa->empresa_id_empresa=$request->get('empresa_id_empresa');
+			$Empresa->empresa_id_empresa=$request->get('empresa_id_empresa');
+			$Empresa->fecha_registro=$request->get('fecha_registro');
+			$Empresa->empleado_id_empleado=$request->get('empleado_id_empleado');
+			$Empresa->sede_id_sede=$request->get('sede_id_sede');
 	 		$Empresa->save();
 
 	 		return back()->with('msj','Empresa guardada');
@@ -64,16 +83,24 @@ class EmpresaCategoriaController extends Controller
 
 	 			$empresas=DB::table('empresa')
 	 			->orderBy('id_empresa', 'desc')
-	 			->paginate(10);
-	 			
-	 		return view("almacen.cliente.empresaCategoria.edit",["empresa"=>EmpresaCategoria::findOrFail($id), "modulos"=>$modulos,"empresas"=>$empresas]);
+				 ->paginate(10);
+				 
+			$empleados=DB::table('empleado')
+			->orderBy('id_empleado', 'desc')->get();
+				  
+			$sedes=DB::table('sede')->get();
+
+	 		return view("almacen.cliente.empresaCategoria.edit",["empresa"=>EmpresaCategoria::findOrFail($id), "modulos"=>$modulos,"empresas"=>$empresas,"empleados"=>$empleados,"sedes"=>$sedes]);
 	 	}
 
 	 	public function update(EmpresaCategoriaFormRequest $request, $id){
 	 		$Empresa = EmpresaCategoria::findOrFail($id);
 	 		$Empresa->nombre=$request->get('nombre');
 	 		$Empresa->descripcion=$request->get('descripcion');
-	 		$Empresa->empresa_id_empresa=$request->get('empresa_id_empresa');
+			$Empresa->empresa_id_empresa=$request->get('empresa_id_empresa');
+			$Empresa->fecha_registro=$request->get('fecha_registro');
+			$Empresa->empleado_id_empleado=$request->get('empleado_id_empleado');
+			$Empresa->sede_id_sede=$request->get('sede_id_sede');
 	 		$Empresa->update();
 
 	 		return back()->with('msj','Empresa actualizada');

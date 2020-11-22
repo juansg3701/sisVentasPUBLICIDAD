@@ -64,7 +64,8 @@
 										<div>Fecha:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<input type="datetime" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+										<input type="datetime" name="" value="<?php echo date("Y/m/d H:i:s"); ?>" class="form-control" disabled="true">
+										<input type="hidden" name="fecha_registro" value="<?php echo date("Y/m/d H:i:s"); ?>" class="form-control">
 									</div>
 								</div>
 
@@ -106,7 +107,7 @@
 										
 										<button type="submit" href="" class="btn btn-info">Registrar empresa</button>
 										<a href="{{url('almacen/cliente/empresaCategoria')}}" class="btn btn-warning">M&oacutedulo subempresa</a>
-										<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
+										<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 									
 									</div>
 								</div>

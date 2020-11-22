@@ -10,11 +10,11 @@ use DB;
 
 class EmpresaController extends Controller
 {
-	  public function __construct(){
-			$this->middleware('auth');	
+	public function __construct(){
+		$this->middleware('auth');	
+	} 
 
-			 	} 
-	 	public function index(Request $request){
+		public function index(Request $request){
 	 		if ($request) {
 	 			$query=trim($request->get('searchText'));
 
@@ -48,7 +48,10 @@ class EmpresaController extends Controller
 	 		$Empresa = new Empresa;
 	 		//$Empresa->id_Empresa=$request->get('id_Empresa');
 	 		$Empresa->nombre=$request->get('nombre');
-	 		$Empresa->descripcion=$request->get('descripcion');
+			$Empresa->descripcion=$request->get('descripcion');
+			$Empresa->fecha_registro=$request->get('fecha_registro');
+			$Empresa->empleado_id_empleado=$request->get('empleado_id_empleado');
+			$Empresa->sede_id_sede=$request->get('sede_id_sede');
 	 		$Empresa->save();
 
 	 		return back()->with('msj','Empresa guardada');
@@ -77,7 +80,10 @@ class EmpresaController extends Controller
 	 		$Empresa = Empresa::findOrFail($id);
 	 		//$sede->id_sede=$request->get('id_sede');
 	 		$Empresa->nombre=$request->get('nombre');
-	 		$Empresa->descripcion=$request->get('descripcion');
+			$Empresa->descripcion=$request->get('descripcion');
+			$Empresa->fecha_registro=$request->get('fecha_registro');
+			$Empresa->empleado_id_empleado=$request->get('empleado_id_empleado');
+			$Empresa->sede_id_sede=$request->get('sede_id_sede');
 	 		$Empresa->update();
 
 	 		return back()->with('msj','Empresa actualizada');

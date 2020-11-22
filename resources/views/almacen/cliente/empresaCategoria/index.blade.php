@@ -77,7 +77,8 @@
 											<div>Fecha:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+											<input type="datetime" name="" value="<?php echo date("Y/m/d H:i:s"); ?>" class="form-control" disabled="true">
+											<input type="hidden" name="fecha_registro" value="<?php echo date("Y/m/d H:i:s"); ?>" class="form-control">
 										</div>
 									</div>
 
@@ -93,7 +94,7 @@
 												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
 												@endif
 												@endforeach
-											</select><br>
+											</select>
 										</div>
 									</div>
 
@@ -109,7 +110,7 @@
 												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
 												@endif
 												@endforeach
-											</select><br>
+											</select>
 										</div>
 									</div>
 
@@ -118,7 +119,7 @@
 										
 										
 										<button type="submit" href="" class="btn btn-info">Registrar subempresa</button>
-										<a href="{{url('almacen/cliente/empresa')}}" class="btn btn-danger">Volver</a>
+										<a href="{{url('almacen/cliente/empresa')}}" class="btn btn-danger">Regresar</a>
 									
 									</div>
 								</div>
@@ -157,8 +158,9 @@
 
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
-	    <h6 class="m-0 font-weight-bold">Lista de productos</h6>
-    </div>
+	    <h6 class="m-0 font-weight-bold">Lista de subcategorías</h6>
+	</div><br>
+	@include('almacen.cliente.empresaCategoria.search')
     <div class="card-body">
     	<div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -166,7 +168,7 @@
 					<th>NOMBRE SUBEMPRESA</th>
 					<th>DESCRIPCIÓN</th>
 					<th>EMPRESA</th>
-					<th colspan="2">OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($empresaCategoria as $em)
 				<tr>
@@ -179,9 +181,13 @@
 					</td>
 					<td>
 						<a href="" data-target="#modal-delete-{{$em->id_empresa_categoria}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+					</td>
+					<td>					
+						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoCategoria-{{$em->id_empresa_categoria}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 					</td>	
 				</tr>
 				@include('almacen.cliente.empresaCategoria.modal')
+				@include('almacen.cliente.empresaCategoria.modalInfoCategoria')
 				@endforeach
 			</table>
 		</div>
