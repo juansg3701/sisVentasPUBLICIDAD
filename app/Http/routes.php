@@ -58,6 +58,11 @@ Route::resource('almacen/inventario/movimiento-sede', 'MovimientoSedeController'
 Route::resource('almacen/inventario/corte-sede/cortes', 'CorteSedeController');
 Route::resource('almacen/inventario/corte-sede/productosCorte', 'ProductosCorteController');
 
+
+Route::resource('almacen/facturacion/listaPedidosClientes', 'facturacionListaPedidosClientes');
+Route::resource('almacen/pedidosDevoluciones/productoPedidoCliente', 'productoPedidoCliente');
+
+
 /*
 Route::resource('almacen/reportes/inventario', 'reportesInventario');
 Route::resource('almacen/reportes/inventario2', 'reportesInventario2');

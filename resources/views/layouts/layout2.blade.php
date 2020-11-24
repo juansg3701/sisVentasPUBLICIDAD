@@ -140,6 +140,16 @@
               @endforeach
 
               @foreach($modulos as $m)
+                @if($m->id_modulo==9)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{URL::action('facturacionListaPedidosClientes@index',0)}}">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>Pedidos</span></a>
+                  </li>
+                  @endif
+              @endforeach
+
+              @foreach($modulos as $m)
                 @if($m->id_modulo==6)
               <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
@@ -157,7 +167,7 @@
                   @endif
               @endforeach
 
-              @foreach($modulos as $m)
+              <!--@foreach($modulos as $m)
                 @if($m->id_modulo==7)
                <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
@@ -172,7 +182,7 @@
                 </div>
               </li>
               @endif
-              @endforeach
+              @endforeach-->
 
 
               @foreach($modulos as $m)
