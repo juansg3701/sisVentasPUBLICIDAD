@@ -19,11 +19,11 @@
 			
 			<div align="center">
 			
-			<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}">
-			<button class="btn btn-info">Nuevo pedido</button></a>
-			<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}" class="btn btn-danger">Volver</a>
-			</div>
-			<br>
+				<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}">
+				<button class="btn btn-info">Nuevo pedido</button></a>
+				<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}" class="btn btn-danger">Volver</a>
+				</div>
+				<br>
 			
 		</div>
 	</div>
