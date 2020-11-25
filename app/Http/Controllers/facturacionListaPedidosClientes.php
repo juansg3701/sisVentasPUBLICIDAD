@@ -42,6 +42,9 @@ class facturacionListaPedidosClientes extends Controller
 	 			->orderBy('tc.id_remision', 'desc')
 	 			->paginate(10);
 
+				/*$pedidosCliente=DB::table('t_p_cliente as tc')
+				->orderBy('id_remision', 'desc')
+	 			->paginate(10);*/
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)

@@ -13,19 +13,26 @@
 		</div>
 	</div>
 
-	@include('almacen.facturacion.listaPedidosClientes.search')
-	<div id=formulario>
-		<div class="form-group">
-			
-			<div align="center">
-			
-				<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}">
-				<button class="btn btn-info">Nuevo pedido</button></a>
-				<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}" class="btn btn-danger">Volver</a>
+	<div class="row" align="center">	
+		<div class="col-sm-3" align="center"></div>
+			<div class="col-sm-6" align="center">
+				<div class="card" align="center">
+				   <div class="card-header" align="center">
+				    	<strong></strong>
+				    </div>
+				    <div class="card-body card-block" align="center">
+						<div id=formulario>
+							<div class="form-group">			
+								<div  align="center">
+									<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}"><button class="btn btn-info">Nuevo pedido</button></a>
+									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
+								</div>
+							</div>
+						</div>
+				    </div>
 				</div>
-				<br>
-			
-		</div>
+			</div>
+		<div class="col-sm-3" align="center"></div>
 	</div>
 </body>
 @stop
@@ -42,7 +49,7 @@
 
 <div class="form-group col-sm">
 	<!--Incluir la ventana modal de búsqueda-->	
-	@include('almacen.sede.search')
+	@include('almacen.facturacion.listaPedidosClientes.search')
 </div>
 
 <!--Tabla de registros realizados en la tabla de proveedor en la base de datos-->	
@@ -74,25 +81,11 @@
 					<td>{{$pc->empleado}}</td>
 					<td>{{$pc->tipo_pago}}</td>
 					<td>{{$pc->pago_total}}</td>
-
 					<td>
-								<a href="{{URL::action('AbonoPCController@edit',$pc->id_remision)}}"><button class="btn btn-info">Abonos</button></a>
-								<a href="{{URL::action('facturacionListaPedidosClientes@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
-								<a href="" data-target="#modal-delete-{{$pc->id_remision}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<!--<a href="{{URL::action('AbonoPCController@edit',$pc->id_remision)}}"><button class="btn btn-info">Abonos</button></a>-->
+						<a href="{{URL::action('facturacionListaPedidosClientes@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
+						<a href="" data-target="#modal-delete-{{$pc->id_remision}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
-
-
-					<!--<td>	
-						<a href="{{URL::action('SedeController@edit',$sed->id_sede)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
-					</td>
-					<td>
-
-						<a href="" data-target="#modal-delete-{{$sed->id_sede}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
-		
-					</td>
-					<td>					
-						<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoSede-{{$sed->id_sede}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
-					</td>-->
 				</tr>
 				@include('almacen.facturacion.listaPedidosClientes.modal')
 				@endforeach
@@ -101,5 +94,4 @@
         {{$pedidosCliente->render()}}
     </div>
 </div>
-
 @endsection
