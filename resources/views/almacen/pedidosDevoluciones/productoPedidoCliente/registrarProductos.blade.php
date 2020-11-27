@@ -6,23 +6,192 @@
 
 </head>
 <body>
-	<div class="row">
-		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-			<h3>Productos pedido cliente</h3>
-			@if (count($errors)>0)
-			<div class="alert alert-danger">
-				<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{$error}}</li>
-				@endforeach
-				</ul>
+	<!--Control de errores en los campos del formulario-->	
+	<div class="container col-sm-12" align="center">
+		<div class="row" align="center">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+				@if (count($errors)>0)
+				<div class="alert alert-danger" align="center">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{$error}}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
 			</div>
-			@endif
 		</div>
 	</div>
 
-<div id=formulario align="center">
 	{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+
+	<div class="row" align="center">	
+		<div class="col-sm-12" align="center">
+			<div class="card" align="center">
+
+				<div class="row" align="center">
+					<div class="col-sm-12" align="center">
+						<br><h1 class="h3 mb-2 text-gray-800">REGISTRAR PROVEEDOR</h1><br>
+					</div>
+				</div>
+
+				<div class="row" align="center">	
+					<div class="col-sm-3" align="center"></div>
+					 	<div class="col-sm-6" align="center">
+							<div class="card" align="center">
+				                <div class="card-header" align="center">
+				                     <strong>Formulario de registro</strong>
+				                </div>
+				                <div class="card-body card-block" align="center">
+								{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>EAN:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input id="tags" class="form-control" name="searchText" placeholder="Buscar...">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Nombre:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input id="buscar2" class="form-control" name="searchText1" placeholder="Buscar..." ><br></br><input type="submit" class="btn btn-primary" value="Buscar">
+										</div>
+									</div>
+								{{Form::close()}}
+
+								{!!Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'POST','autocomplete'=>'off'))!!}
+    							{{Form::token()}}
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>No. Remisión:  {{$id}}
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}"><br>
+											<?php
+												$Enable="disabled";
+											?>
+											<?php
+												$Enable="disabled";
+											?>
+											<?php 
+												$contador=0;
+												$contador2=0;
+												$contadorB=0;
+												$contadorB2=0;
+												$sedeP=auth()->user()->sede_id_sede;
+												$conteoProductos1=count($productosEAN);
+												$conteoProductos2=count($productosEAN2);
+												$nombre="";
+											?>
+
+											@if($conteoProductos1!=0)
+												<br>
+												<br>
+												@foreach($productosEAN as $EAN)
+
+												@if($EAN->cantidad<=$EAN->minimo && $contador2=='0')
+												<?php 
+												$contador2=1;
+												?>
+												<script >
+													window.alert("Producto con pocas unidades");
+												</script>
+											@endif
+
+											
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Correo:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="email" class="form-control" name="correo">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Tel&eacute;fono:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="number" class="form-control" name="telefono">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>NIT:</div>
+										</div>
+										<div class="form-group col-sm-6">
+											<input type="number" class="form-control" name="documento" placeholder="- - - - - - -" min="0">
+										</div>
+										<div class="form-group col-sm-2">		
+											<input type="number" class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9">
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Fecha:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Empleado:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="empleado_id_empleado" class="form-control" disabled="">
+												@foreach($empleados as $usu)
+												@if(Auth::user()->id==$usu->user_id_user)
+												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
+												@endif
+												@endforeach
+											</select><br>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Sede:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="sede_id_sede" class="form-control" disabled="true">
+												@foreach($sedes as $s)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
+												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
+												@endif
+												@endforeach
+											</select><br>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-12">
+											<button class="btn btn-info" type="submit">Registrar</button>
+											<a href="{{url('almacen/proveedor')}}" class="btn btn-danger">Regresar</a>
+										</div>
+									</div>
+				               </div>
+				        	</div>
+						</div>
+					<div class="col-sm-3" align="center"></div>
+				</div>
+        	</div>
+		</div>
+	</div>
+
+
+
+<div id=formulario align="center">
+	{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}	
 	
 		<br>EAN:<input id="tags" class="form-control" name="searchText" placeholder="Buscar...">
 		<br>
@@ -47,7 +216,7 @@
 			$Enable="disabled";
 			?>
 			
-   		<?php
+   			<?php
 			$Enable="disabled";
 			?>
 			<?php 
@@ -91,23 +260,7 @@
 			<br>
 			
 			
-			Impuesto:
-			<select name="impuestos_id_impuestos" class="form-control">
 
-			@foreach($impuestos as $i)
-			@if($EAN->impuestos_id_impuestos==$i->id_impuestos)
-			<option value="{{$EAN->impuestos_id_impuestos}}">{{$EAN->nombreI}} ({{$i->valor}})</option>
-			@endif
-			@endforeach
-
-			@foreach($impuestos as $i)
-			@if($EAN->impuestos_id_impuestos!=$i->id_impuestos)
-			<option value="{{$i->id_impuestos}}">{{$i->nombre}} ({{$i->valor}})</option>
-			@endif
-			@endforeach
-
-
-			</select>
 			
 			
 			@if($EAN->nombre!='')
@@ -145,23 +298,7 @@
 			Precio unitario:<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
 			<br>
 			
-			
-			Impuesto:
-			<select name="impuestos_id_impuestos" class="form-control">
 
-			@foreach($impuestos as $i)
-			@if($EAN->impuestos_id_impuestos==$i->id_impuestos)
-			<option value="{{$EAN->impuestos_id_impuestos}}">{{$EAN->nombreI}} ({{$i->valor}})</option>
-			@endif
-			@endforeach
-
-			@foreach($impuestos as $i)
-			@if($EAN->impuestos_id_impuestos!=$i->id_impuestos)
-			<option value="{{$i->id_impuestos}}">{{$i->nombre}} ({{$i->valor}})</option>
-			@endif
-			@endforeach
-
-			</select>
 						
 			@if($EAN->nombre!='')
 			<?php
@@ -186,13 +323,7 @@
 			@endif
 
 			<br>
-			Descuento: 
-			<select name="descuentos_id_descuento" class="form-control">
-			@foreach($descuentos as $des)
-			<option value="{{$des->id_descuento}}">{{$des->nombre}}</option>
-			@endforeach
-			</select>
-			<br>
+
 			Cantidad: <br>
 			<input type="text" class="form-control" name="cantidad" value="1">
 			
@@ -216,48 +347,50 @@
 </body>
 
 @stop
+
 @section('tabla')
-
-<div class="form-group">
-	<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="table-responsive">
-					<table class="table table-striped table-bordered table-condensed table-hover">
-						<thead>
-							<th>Remisión</th>
-							<th>Id</th>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>Precio unitario</th>
-							<th>Impuesto</th>
-							<th>Descuento</th>
-							<th>Total</th>
-							<th>Opciones</th>
-						</thead>
-
-						@foreach($detalleCliente as $pc)
-						<tr>
-							<td>{{$pc->t_p_cliente_id_remision}}</td>
-							<td>{{$pc->id_dpcliente}}</td>
-							<td>{{$pc->producto_id_producto}}</td>
-							<td>{{$pc->cantidad}}</td>
-							<td>{{$pc->precio_venta}}</td>
-							<td>{{$pc->impuestos_id_impuestos}}</td>
-							<td>{{$pc->descuentos_id_descuento}}</td>
-							<td>{{$pc->total}}</td>
-							<td>
-								<a href="" data-target="#modal-delete-{{$pc->id_dpcliente}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
-							</td>
-						</tr>
-						@include('almacen.pedidosDevoluciones.productoPedidoCliente.modal')
-						@endforeach
-					</table>
-				</div>
-				
-			</div>
-			</div><br>
-
+<div class="container-fluid"><br>
+	<div class="col-sm-12" align="center">
+		<div class="col-sm-6" align="center">
+			<h1 class="h3 mb-2 text-gray-800">PRODUCTOS DE PEDIDO REGISTRADOS</h1>
+		</div>
+	</div><br>
 </div>
 
-
-@stop
+<!--Tabla de registros realizados en la tabla de pedidos en la base de datos-->	
+<div class="card shadow mb-10">
+    <div class="card-header py-3" align="center">
+	    <h6 class="m-0 font-weight-bold">Lista de productos</h6>
+    </div>
+    <div class="card-body">
+    	<div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<th>Remisión</th>
+					<th>Id</th>
+					<th>Producto</th>
+					<th>Cantidad</th>
+					<th>Precio unitario</th>
+					<th>Total</th>
+					<th>Opciones</th>
+				</thead>
+				@foreach($detalleCliente as $pc)
+				<tr>
+					<td>{{$pc->t_p_cliente_id_remision}}</td>
+					<td>{{$pc->id_dpcliente}}</td>
+					<td>{{$pc->producto_id_producto}}</td>
+					<td>{{$pc->cantidad}}</td>
+					<td>{{$pc->precio_venta}}</td>
+					<td>{{$pc->total}}</td>
+					<td>
+						<a href="" data-target="#modal-delete-{{$pc->id_dpcliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+					</td>
+				</tr>
+				@include('almacen.pedidosDevoluciones.productoPedidoCliente.modal')
+				@endforeach
+            </table>
+        </div>
+        {{$detalleCliente->render()}}
+    </div>
+</div>
+@endsection

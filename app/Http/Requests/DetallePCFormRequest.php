@@ -29,8 +29,6 @@ class DetallePCFormRequest extends Request
         	't_p_cliente_id_remision'=>'|max:45',
             'total'=>'|max:45', 
         	'producto_id_producto'=>'|max:45', 
-        	'descuentos_id_descuento'=>'|max:45', 
-        	'impuestos_id_impuestos'=>'|max:45',
         ];
     }
 }

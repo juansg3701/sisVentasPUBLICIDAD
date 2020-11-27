@@ -52,7 +52,7 @@
 	@include('almacen.facturacion.listaPedidosClientes.search')
 </div>
 
-<!--Tabla de registros realizados en la tabla de proveedor en la base de datos-->	
+<!--Tabla de registros realizados en la tabla de pedidos en la base de datos-->	
 <div class="card shadow mb-10">
     <div class="card-header py-3" align="center">
 	    <h6 class="m-0 font-weight-bold">Lista de pedidos</h6>
@@ -69,7 +69,7 @@
 					<th>Empleado</th>
 					<th>Método de Pago</th>
 					<th>Total</th>
-					<th>Opciones</th>
+					<th colspan="2">Opciones</th>
 				</thead>
 				@foreach($pedidosCliente as $pc)
 				<tr>
@@ -81,10 +81,11 @@
 					<td>{{$pc->empleado}}</td>
 					<td>{{$pc->tipo_pago}}</td>
 					<td>{{$pc->pago_total}}</td>
-					<td>
-						<!--<a href="{{URL::action('AbonoPCController@edit',$pc->id_remision)}}"><button class="btn btn-info">Abonos</button></a>-->
+					<td>	
 						<a href="{{URL::action('facturacionListaPedidosClientes@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
-						<a href="" data-target="#modal-delete-{{$pc->id_remision}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+					</td>
+					<td>
+						<a href="" data-target="#modal-delete-{{$pc->id_remision}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 					</td>
 				</tr>
 				@include('almacen.facturacion.listaPedidosClientes.modal')
