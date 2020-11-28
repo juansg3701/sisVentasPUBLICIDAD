@@ -54,17 +54,15 @@ class productoPedidoCliente extends Controller
 	 			$query1=trim($request->get('searchText1'));
 	 			$producto=DB::table('producto')->get();
 	 			$tpCliente=DB::table('t_p_cliente')->get();
-	 			$impuestos=DB::table('impuestos')->get();
-	 			$descuentos=DB::table('descuentos')->get();
+	 			
 
 	 			$detalleCliente=DB::table('d_p_cliente as dc')
 	 			->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
 	 			->join('stock as s','dc.producto_id_producto','=','s.id_stock')
 	 			->join('proveedor as ov','s.proveedor_id_proveedor','=','ov.id_proveedor')
 	 			->join('producto as p','s.producto_id_producto','=','p.id_producto')
-	 			->join('impuestos as i','dc.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->join('descuentos as d','dc.descuentos_id_descuento','=','d.id_descuento')
-	 			->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','p.nombre as producto_id_producto', 'd.nombre as descuentos_id_descuento', 'i.nombre as impuestos_id_impuestos','dc.total as total','ov.nombre_proveedor as nproveedor')
+	 			
+	 			->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','p.nombre as producto_id_producto','dc.total as total','ov.nombre_proveedor as nproveedor')
 	 			->where('dc.t_p_cliente_id_remision','=',$id)
 	 			->orderBy('dc.producto_id_producto', 'desc')
 	 			->paginate(10);
@@ -74,17 +72,12 @@ class productoPedidoCliente extends Controller
 	 			->orderBy('nombre', 'desc')
 	 			->paginate(10);
 
-	 			$productosImp=DB::table('producto')
-	 			->where('impuestos_id_impuestos','=',$query)
-	 			->orderBy('impuestos_id_impuestos', 'desc')
-	 			->paginate(10);
-
 
 	 			$productosEAN=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('ean','=',$query)
 	 			->orderBy('ean', 'desc')
 	 			->paginate(10);
@@ -92,8 +85,7 @@ class productoPedidoCliente extends Controller
 	 			$productosEAN2=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
 	 			->orderBy('ean', 'desc')
 	 			->paginate(10);
@@ -102,8 +94,8 @@ class productoPedidoCliente extends Controller
 	 			$productosEAN=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('ean','=',$query)
 	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
 	 			->orderBy('ean', 'desc')
@@ -112,8 +104,8 @@ class productoPedidoCliente extends Controller
 	 		$productosEAN2=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
 	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
 	 			->orderBy('ean', 'desc')
@@ -136,7 +128,7 @@ class productoPedidoCliente extends Controller
 	 				$query="";
 	 			}
 
-	 		return view('almacen.pedidosDevoluciones.productoPedidoCliente.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos, "productosImp"=>$productosImp,"productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente, "impuestos"=>$impuestos, "descuentos"=>$descuentos, "pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP]);
+	 		return view('almacen.pedidosDevoluciones.productoPedidoCliente.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente,"pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP]);
 	 		}
 	 	}
 
@@ -151,7 +143,7 @@ class productoPedidoCliente extends Controller
 	 		->get();
 
 	 		if(count($existeR)!=0){
-	 			$detallepc = new DetallePC;
+	 		$detallepc = new DetallePC;
 	 		$cantidad=$cantidadR;
 	 		$precio=$request->get('precio_venta');
 	 		$id_remision=$request->get('t_p_cliente_id_remision');

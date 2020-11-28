@@ -23,7 +23,7 @@
 		</div>
 	</div>
 
-	{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+	
 
 	<div class="row" align="center">	
 		<div class="col-sm-12" align="center">
@@ -31,7 +31,7 @@
 
 				<div class="row" align="center">
 					<div class="col-sm-12" align="center">
-						<br><h1 class="h3 mb-2 text-gray-800">REGISTRAR PROVEEDOR</h1><br>
+						<br><h1 class="h3 mb-2 text-gray-800">REGISTRAR PRODUCTOS DEL PEDIDO</h1><br>
 					</div>
 				</div>
 
@@ -57,19 +57,30 @@
 											<div>Nombre:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input id="buscar2" class="form-control" name="searchText1" placeholder="Buscar..." ><br></br><input type="submit" class="btn btn-primary" value="Buscar">
+											<input id="buscar2" class="form-control" name="searchText1" placeholder="Buscar..." >
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-12">
+											<div><input type="submit" class="btn btn-primary" value="Buscar"></div>
 										</div>
 									</div>
 								{{Form::close()}}
 
 								{!!Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'POST','autocomplete'=>'off'))!!}
-    							{{Form::token()}}
+								{{Form::token()}}
+								<div>
 									<div class="form-row">
-										<div class="form-group col-sm-4">
+										<div class="form-group col-sm-12">
 											<div>No. Remisión:  {{$id}}
 										</div>
-										<div class="form-group col-sm-8">
+									</div>
+									<div class="form-row">
+										<div class="form-group col-sm-12">
 											<input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}"><br>
+										</div>
+									</div>
 											<?php
 												$Enable="disabled";
 											?>
@@ -101,85 +112,111 @@
 												</script>
 											@endif
 
+											@if($EAN->cantidad>0 && $contador=='0')
+											<?php 
+											$contador=1;
+											?>
+
+											<div class="form-row">
+												<div class="form-group col-sm-4">
+													<div>Nombre Producto:</div>
+												</div>
+												<div class="form-group col-sm-8">
+													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
+												</div>
+											</div>
+
+											<div class="form-row">
+												<div class="form-group col-sm-4">
+													<div>Precio unitario:</div>
+												</div>
+												<div class="form-group col-sm-8">
+												<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
+												</div>
+											</div>
+
+											<br>
 											
+											<br>
+											@if($EAN->nombre!='')
+											<?php
+											$Enable="enable";
+											?>	
+											@endif
+											@endif
+											@endforeach
+											@endif
+
+											@if($searchText1!="")
+
+											@foreach($productosEAN2 as $EAN)
+
+											@if($EAN->cantidad<=$EAN->minimo && $contadorB2=='0')
+											<?php 
+											$contadorB2=1;
+											?>
+											<script >
+												window.alert("Producto con pocas unidades");
+											</script>
+											@endif
+											@if($EAN->cantidad>0 && $contadorB=='0')
+											<?php 
+											$contadorB=1;
+											?>
+											Nombre Producto: <input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+											<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
+											<br>
+											Precio unitario:<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
+											<br>		
+											@if($EAN->nombre!='')
+											<?php
+											$Enable="enable";
+											?>	
+											@endif
+											@endif
+											@endforeach
+											@endif
+											@if($searchText1!="" && $contadorB!='1' && $contador!='1')
+											<script >
+												window.alert("Producto no disponible");
+											</script>
+											@endif
+											@if($searchText!="" && $contadorB!='1' && $contador!='1')
+											<script >
+												window.alert("Producto no disponible");
+											</script>
+											@endif
+											<br>
 										</div>
+	
+									<div class="form-row">
+											<div class="form-group col-sm-4">
+												<div>Cantidad:</div>
+											</div>
+											<div class="form-group col-sm-8">
+												<input type="text" class="form-control" name="cantidad" value="1">
+											</div>
 									</div>
 
 									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Correo:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input type="email" class="form-control" name="correo">
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Tel&eacute;fono:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input type="number" class="form-control" name="telefono">
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>NIT:</div>
-										</div>
-										<div class="form-group col-sm-6">
-											<input type="number" class="form-control" name="documento" placeholder="- - - - - - -" min="0">
-										</div>
-										<div class="form-group col-sm-2">		
-											<input type="number" class="form-control" name="verificacion_nit" placeholder="-" min="0" max="9">
-										</div>
-									</div>
+											<div class="form-group col-sm-4">
+												<div>Fecha:</div>
+											</div>
+											<div class="form-group col-sm-8">
+												<input type="datetime-local" class="form-control" name="fecha" value="<?php echo date("Y/m/d h:i"); ?>">
+											</div>
+									</div>	
 
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Fecha:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input type="datetime" name="fecha" value="<?php echo date("Y/m/d"); ?>" class="form-control" readonly>
-										</div>
-									</div>
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Empleado:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<select name="empleado_id_empleado" class="form-control" disabled="">
-												@foreach($empleados as $usu)
-												@if(Auth::user()->id==$usu->user_id_user)
-												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
-												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
-												@endif
-												@endforeach
-											</select><br>
-										</div>
-									</div>
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Sede:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<select name="sede_id_sede" class="form-control" disabled="true">
-												@foreach($sedes as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede)
-												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
-												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
-												@endif
-												@endforeach
-											</select><br>
-										</div>
-									</div>
 									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<button class="btn btn-info" type="submit">Registrar</button>
-											<a href="{{url('almacen/proveedor')}}" class="btn btn-danger">Regresar</a>
+											<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
 										</div>
 									</div>
-				               </div>
+
+							   
+							   {!!Form::close()!!}
 				        	</div>
 						</div>
 					<div class="col-sm-3" align="center"></div>
@@ -246,7 +283,7 @@
 			@endif
 
 			
-			@if($EAN->cantidad>0 && $contador=='0' && $EAN->disponible=='1')
+			@if($EAN->cantidad>0 && $contador=='0')
 
 
 			<?php 
@@ -286,7 +323,7 @@
 			@endif
 
 
-			@if($EAN->cantidad>0 && $contadorB=='0' && $EAN->disponible=='1')
+			@if($EAN->cantidad>0 && $contadorB=='0')
 
 
 			<?php 
