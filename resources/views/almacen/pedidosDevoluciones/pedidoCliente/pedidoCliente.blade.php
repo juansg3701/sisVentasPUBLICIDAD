@@ -83,17 +83,36 @@
 											</select>
 										</div>
 									</div>
+
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>Empleado:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<select name="empleado_id_empleado" class="form-control">
-												@foreach($usuarios as $usu)
+											<select name="empleado_id_empleado" class="form-control" disabled="">
+												@foreach($empleados as $usu)
+												@if(Auth::user()->id==$usu->user_id_user)
 												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
+												@endif
 												@endforeach
-											</select>
-											<input type="hidden" class="form-control" name="pago_total">
+											</select><br>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Sede:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="sede_id_sede" class="form-control" disabled="true">
+												@foreach($sedes as $s)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
+												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
+												@endif
+												@endforeach
+											</select><br>
 										</div>
 									</div>
 									

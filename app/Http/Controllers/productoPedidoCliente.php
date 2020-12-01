@@ -10,6 +10,8 @@ use sisVentas\PedidoCliente;
 use sisVentas\ProveedorSede;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\DetallePCFormRequest;
+use sisVentas\Http\Requests\PedidoClienteFormRequest;
+
 use sisVentas\Http\Requests\AbonoPCFormRequest;
 use DB;
 
@@ -132,7 +134,7 @@ class productoPedidoCliente extends Controller
 	 		}
 	 	}
 
-	 	public function store(DetallePCFormRequest $request){
+	 	/*public function store(DetallePCFormRequest $request){
 	 		
 	 		$cantidadR=$request->get('cantidad');
 	 		$productoR=$request->get('producto_id_producto');
@@ -203,7 +205,56 @@ class productoPedidoCliente extends Controller
 	 			return back()->with('errormsj','No hay suficiente stock');
 	 		}
 
-	 	}
+		 }*/
+		 
+		public function store(DetallePCFormRequest $request){
+	 		
+			$cantidadR=$request->get('cantidad');
+			$productoR=$request->get('producto_id_producto');
+
+			$existeR=DB::table('stock')
+			->where('cantidad','>=',$cantidadR)
+			->where('id_stock','=',$productoR)
+			->get();
+
+			if(count($existeR)!=0){
+			$detallepc = new DetallePC;
+			$cantidad=$cantidadR;
+			$precio=$request->get('precio_venta');
+			$id_remision=$request->get('t_p_cliente_id_remision');
+			
+			$detallepc->cantidad=$cantidad;
+			$detallepc->t_p_cliente_id_remision=$id_remision;
+			$detallepc->producto_id_producto=$productoR;
+			$detallepc->precio_venta=$precio;
+			
+
+
+			$detallepc->total=$cantidad*($precio);
+			$detallepc->save();
+			$total=$cantidad*($precio);
+
+			$pc = PedidoCliente::findOrFail($id_remision);
+			$precioAnterior=$pc->pago_total;
+			$productos=$pc->noproductos;
+
+			$pc->pago_total=$precioAnterior+$total;
+			$pc->noproductos=$productos+$cantidad;
+			$pc->update(); 
+
+			$stockR = ProveedorSede::findOrFail($productoR);
+			$cantidadA=$stockR->cantidad;
+			$stockR->cantidad=$cantidadA-$cantidadR;
+			$stockR->update();
+
+			return back()->with('msj','Producto guardado y descontado del stock');
+
+			}else{
+
+				return back()->with('errormsj','No hay suficiente stock');
+			}
+
+		}
 
 	 	public function show(Request $request){
 

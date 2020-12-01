@@ -71,14 +71,19 @@ class facturacionListaPedidosClientes extends Controller
 	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago')
 	 			->where('tc.fecha_solicitud','LIKE', '%'.$query.'%')
 	 			->orderBy('tc.id_remision', 'desc')
-	 			->paginate(10);
+				->paginate(10);
+				 
+				$empleados=DB::table('empleado')
+				 ->orderBy('id_empleado', 'desc')->get();
+				 
+				$sedes=DB::table('sede')->get();
 
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
-	 			return view('almacen.pedidosDevoluciones.pedidoCliente.pedidoCliente',["pedidosCliente"=>$pedidosCliente, "tipoPagos"=>$tipoPagos, "clientes"=>$clientes, "usuarios"=>$usuarios, "searchText"=>$query, "modulos"=>$modulos]);
+	 			return view('almacen.pedidosDevoluciones.pedidoCliente.pedidoCliente',["pedidosCliente"=>$pedidosCliente, "tipoPagos"=>$tipoPagos, "clientes"=>$clientes, "usuarios"=>$usuarios, "searchText"=>$query, "modulos"=>$modulos,"empleados"=>$empleados,"sedes"=>$sedes]);
 	 		}		
 	 	}
 
@@ -170,7 +175,8 @@ class facturacionListaPedidosClientes extends Controller
 	 		$pedidoCliente->porcentaje_venta=$request->get('porcentaje_venta');
 	 		$pedidoCliente->cliente_id_cliente=$request->get('cliente_id_cliente');
 	 		$pedidoCliente->empleado_id_empleado=$request->get('empleado_id_empleado');
-	 		$pedidoCliente->tipo_pago_id_tpago=$request->get('tipo_pago_id_tpago');
+			$pedidoCliente->tipo_pago_id_tpago=$request->get('tipo_pago_id_tpago');
+			$pedidoCliente->sede_id_sede=$request->get('sede_id_sede');
 	 		$pedidoCliente->save();
 
 	 		$id=$pedidoCliente->id_remision;
@@ -203,7 +209,7 @@ class facturacionListaPedidosClientes extends Controller
 	 			$productosEAN2=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
 	 			->orderBy('ean', 'desc')
 	 			->paginate(10);
@@ -212,16 +218,16 @@ class facturacionListaPedidosClientes extends Controller
 	 			$productosEAN=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('ean','=',$query)
 	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
 	 			->orderBy('ean', 'desc')
 	 			->paginate(10);
 
-	 		$productosEAN2=DB::table('stock as p')
+	 			$productosEAN2=DB::table('stock as p')
 	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
 	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
+	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
 	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
 	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
 	 			->orderBy('ean', 'desc')
