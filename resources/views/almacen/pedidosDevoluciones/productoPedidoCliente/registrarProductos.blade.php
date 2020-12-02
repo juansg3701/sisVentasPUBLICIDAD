@@ -43,7 +43,7 @@
 				                     <strong>Formulario de registro</strong>
 				                </div>
 				                <div class="card-body card-block" align="center">
-								{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+								{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}	
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>EAN:</div>
@@ -67,13 +67,14 @@
 										</div>
 									</div>
 								{{Form::close()}}
+								</div>
 
 								{!!Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'POST','autocomplete'=>'off'))!!}
 								{{Form::token()}}
-								<div>
+								<div class="card-body card-block" align="center">
 									<div class="form-row">
 										<div class="form-group col-sm-12">
-											<div>No. Remisión:  {{$id}}
+											<div>No. Remisión:  {{$id}}</div>
 										</div>
 									</div>
 									<div class="form-row">
@@ -188,7 +189,7 @@
 											</script>
 											@endif
 											<br>
-										</div>
+									
 	
 									<div class="form-row">
 											<div class="form-group col-sm-4">
@@ -214,7 +215,7 @@
 											<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
 										</div>
 									</div>
-
+								</div>
 							   
 							   {!!Form::close()!!}
 				        	</div>
@@ -227,158 +228,7 @@
 
 
 
-<div id=formulario align="center">
-	{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}	
-	
-		<br>EAN:<input id="tags" class="form-control" name="searchText" placeholder="Buscar...">
-		<br>
-                <input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}">
-		Nombre:
-		<input id="buscar2" class="form-control" name="searchText1" placeholder="Buscar..." ><br></br><input type="submit" class="btn btn-primary" value="Buscar">
-		</br>
-		<br>
 
-	{{Form::close()}}
-
-	{!!Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'POST','autocomplete'=>'off'))!!}
-    {{Form::token()}}
-
-    <div>
-    	
-    		<div align="center">
-    		No. Remisión:  {{$id}}
-			<input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}"><br>
-			</div>
-    		<?php
-			$Enable="disabled";
-			?>
-			
-   			<?php
-			$Enable="disabled";
-			?>
-			<?php 
-			$contador=0;
-			$contador2=0;
-			$contadorB=0;
-			$contadorB2=0;
-			$sedeP=auth()->user()->sede_id_sede;
-			$conteoProductos1=count($productosEAN);
-			$conteoProductos2=count($productosEAN2);
-			$nombre="";
-			?>
-
-
-			@if($conteoProductos1!=0)
-			<br>
-			<br>
-			@foreach($productosEAN as $EAN)
-
-			@if($EAN->cantidad<=$EAN->minimo && $contador2=='0')
-			<?php 
-			$contador2=1;
-			?>
-			 <script >
-			 	window.alert("Producto con pocas unidades");
-			 </script>
-			@endif
-
-			
-			@if($EAN->cantidad>0 && $contador=='0')
-
-
-			<?php 
-			$contador=1;
-			?>
-
-			Nombre Producto: <input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
-			<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-			<br>
-			Precio unitario:<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
-			<br>
-			
-			
-
-			
-			
-			@if($EAN->nombre!='')
-			<?php
-			$Enable="enable";
-			?>	
-			@endif
-			@endif
-			@endforeach
-			@endif
-
-			@if($searchText1!="")
-			
-			@foreach($productosEAN2 as $EAN)
-			
-			@if($EAN->cantidad<=$EAN->minimo && $contadorB2=='0')
-			<?php 
-			$contadorB2=1;
-			?>
-			 <script >
-			 	window.alert("Producto con pocas unidades");
-			 </script>
-			@endif
-
-
-			@if($EAN->cantidad>0 && $contadorB=='0')
-
-
-			<?php 
-			$contadorB=1;
-			?>
-			Nombre Producto: <input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
-			<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-			<br>
-			Precio unitario:<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
-			<br>
-			
-
-						
-			@if($EAN->nombre!='')
-			<?php
-			$Enable="enable";
-			?>	
-			@endif
-			@endif
-			@endforeach
-			@endif
-
-
-			@if($searchText1!="" && $contadorB!='1' && $contador!='1')
-			<script >
-			 	window.alert("Producto no disponible");
-			 </script>
-			@endif
-
-			@if($searchText!="" && $contadorB!='1' && $contador!='1')
-			<script >
-			 	window.alert("Producto no disponible");
-			 </script>
-			@endif
-
-			<br>
-
-			Cantidad: <br>
-			<input type="text" class="form-control" name="cantidad" value="1">
-			
-			<br>
-			Fecha: <input type="datetime-local" class="form-control" name="fecha" value="<?php echo date("Y/m/d h:i"); ?>">
-
-			<br> 
-
-		
-		<div align="center">			
-			<button href="" class="btn btn-info" type="submit" <?php echo $Enable?>>Registrar productos</button>
-			<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Volver</a>
-		</div>
-	</div>
-
-
-{!!Form::close()!!}
-</div>
 
 <br>
 </body>

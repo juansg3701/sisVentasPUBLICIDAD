@@ -7,11 +7,11 @@ use sisVentas\Http\Requests;
 use sisVentas\DetallePC;
 use sisVentas\AbonoPC;
 use sisVentas\PedidoCliente;
-use sisVentas\ProveedorSede;
+use sisVentas\Stock;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\DetallePCFormRequest;
 use sisVentas\Http\Requests\PedidoClienteFormRequest;
-
+use sisVentas\Http\Requests\StockFormRequest;
 use sisVentas\Http\Requests\AbonoPCFormRequest;
 use DB;
 
@@ -242,7 +242,7 @@ class productoPedidoCliente extends Controller
 			$pc->noproductos=$productos+$cantidad;
 			$pc->update(); 
 
-			$stockR = ProveedorSede::findOrFail($productoR);
+			$stockR = Stock::findOrFail($productoR);
 			$cantidadA=$stockR->cantidad;
 			$stockR->cantidad=$cantidadA-$cantidadR;
 			$stockR->update();
@@ -281,7 +281,7 @@ class productoPedidoCliente extends Controller
 	 		$cantidadR=$detallepc->cantidad;
 	 		$productoR=$detallepc->producto_id_producto;
 
-	 		$stockR = ProveedorSede::findOrFail($productoR);
+	 		$stockR = Stock::findOrFail($productoR);
 	 		$cantidadA=$stockR->cantidad;
 	 		$stockR->cantidad=$cantidadA+$cantidadR;
 	 		$stockR->update();
