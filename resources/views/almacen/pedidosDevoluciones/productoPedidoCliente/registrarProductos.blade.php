@@ -23,8 +23,6 @@
 		</div>
 	</div>
 
-	
-
 	<div class="row" align="center">	
 		<div class="col-sm-12" align="center">
 			<div class="card" align="center">
@@ -41,15 +39,17 @@
 							<div class="card" align="center">
 				                <div class="card-header" align="center">
 				                     <strong>Formulario de registro</strong>
-				                </div>
-				                <div class="card-body card-block" align="center">
+								</div>
+
 								{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}	
+								<div class="card-body card-block" align="center">
 									<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>EAN:</div>
 										</div>
 										<div class="form-group col-sm-8">
 											<input id="tags" class="form-control" name="searchText" placeholder="Buscar...">
+											<input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}">
 										</div>
 									</div>
 									<div class="form-row">
@@ -60,14 +60,13 @@
 											<input id="buscar2" class="form-control" name="searchText1" placeholder="Buscar..." >
 										</div>
 									</div>
-
 									<div class="form-row">
 										<div class="form-group col-sm-12">
 											<div><input type="submit" class="btn btn-primary" value="Buscar"></div>
 										</div>
 									</div>
-								{{Form::close()}}
 								</div>
+								{{Form::close()}}
 
 								{!!Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'POST','autocomplete'=>'off'))!!}
 								{{Form::token()}}
@@ -100,8 +99,7 @@
 											?>
 
 											@if($conteoProductos1!=0)
-												<br>
-												<br>
+												
 												@foreach($productosEAN as $EAN)
 
 												@if($EAN->cantidad<=$EAN->minimo && $contador2=='0')
@@ -137,9 +135,6 @@
 												</div>
 											</div>
 
-											<br>
-											
-											<br>
 											@if($EAN->nombre!='')
 											<?php
 											$Enable="enable";
@@ -165,11 +160,26 @@
 											<?php 
 											$contadorB=1;
 											?>
-											Nombre Producto: <input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
-											<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-											<br>
-											Precio unitario:<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
-											<br>		
+
+											<div class="form-row">
+												<div class="form-group col-sm-4">
+													<div>Nombre Producto:</div>
+												</div>
+												<div class="form-group col-sm-8">
+													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
+												</div>
+											</div>
+
+											<div class="form-row">
+												<div class="form-group col-sm-4">
+													<div>Precio unitario:</div>
+												</div>
+												<div class="form-group col-sm-8">
+													<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
+												</div>
+											</div>
+		
 											@if($EAN->nombre!='')
 											<?php
 											$Enable="enable";
@@ -188,8 +198,6 @@
 												window.alert("Producto no disponible");
 											</script>
 											@endif
-											<br>
-									
 	
 									<div class="form-row">
 											<div class="form-group col-sm-4">
@@ -225,14 +233,7 @@
         	</div>
 		</div>
 	</div>
-
-
-
-
-
-<br>
 </body>
-
 @stop
 
 @section('tabla')
@@ -278,6 +279,12 @@
             </table>
         </div>
         {{$detalleCliente->render()}}
-    </div>
+	</div>
+	
+	<div class="form-row">
+		<div class="form-group col-sm-12">
+				<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
+		</div>
+	</div>
 </div>
 @endsection
