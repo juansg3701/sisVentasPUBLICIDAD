@@ -177,6 +177,7 @@ class facturacionListaPedidosClientes extends Controller
 	 		$pedidoCliente->empleado_id_empleado=$request->get('empleado_id_empleado');
 			$pedidoCliente->tipo_pago_id_tpago=$request->get('tipo_pago_id_tpago');
 			$pedidoCliente->sede_id_sede=$request->get('sede_id_sede');
+			$pedidoCliente->finalizado=$request->get('finalizado');
 	 		$pedidoCliente->save();
 
 	 		$id=$pedidoCliente->id_remision;

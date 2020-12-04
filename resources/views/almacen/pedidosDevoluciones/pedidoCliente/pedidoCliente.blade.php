@@ -115,6 +115,15 @@
 											</select><br>
 										</div>
 									</div>
+
+									<div class="form-row">
+											<div class="form-group col-sm-4">
+												<div></div>
+											</div>
+											<div class="form-group col-sm-8">
+												<input type="hidden" class="form-control" name="finalizar" value="1">
+											</div>
+									</div>
 									
 									<div class="form-row">
 										<div class="form-group col-sm-12">

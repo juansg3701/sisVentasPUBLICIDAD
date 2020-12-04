@@ -32,7 +32,8 @@ class PedidoClienteFormRequest extends Request
         	'pago_total'=>'|max:45', 
         	'cliente_id_cliente'=>'required|max:45', 
         	'empleado_id_empleado'=>'required|max:45', 
-        	'tipo_pago_id_tpago'=>'required|max:45',
+            'tipo_pago_id_tpago'=>'required|max:45',
+            'finalizar'=>'required|max:45',
         ];
     }
 }

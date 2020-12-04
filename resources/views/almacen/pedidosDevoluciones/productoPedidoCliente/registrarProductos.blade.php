@@ -215,7 +215,8 @@
 											<div class="form-group col-sm-8">
 												<input type="datetime-local" class="form-control" name="fecha" value="<?php echo date("Y/m/d h:i"); ?>">
 											</div>
-									</div>	
+									</div>
+
 
 									<div class="form-row">
 										<div class="form-group col-sm-12">
