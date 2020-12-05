@@ -282,10 +282,13 @@
         {{$detalleCliente->render()}}
 	</div>
 	
+	{!!Form::model($pedidoCliente,['method'=>'PATCH','route'=>['almacen.pedidosDevoluciones.productoPedidoCliente.update',$id]])!!}
+	{{Form::token()}}
 	<div class="form-row">
 		<div class="form-group col-sm-12">
-				<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
+			<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
 		</div>
 	</div>
+	{!!Form::close()!!}
 </div>
 @endsection

@@ -96,7 +96,7 @@
 												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
 												@endif
 												@endforeach
-											</select><br>
+											</select>
 										</div>
 									</div>
 
@@ -121,7 +121,7 @@
 												<div></div>
 											</div>
 											<div class="form-group col-sm-8">
-												<input type="hidden" class="form-control" name="finalizar" value="1">
+												<input type="hidden" class="form-control" name="finalizar" value="0">
 											</div>
 									</div>
 									
