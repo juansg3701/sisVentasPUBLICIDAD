@@ -202,13 +202,6 @@
                   @endif
               @endforeach
 
-
-            
-                  <li class="nav-item">
-                  <a class="nav-link" href="{{url('/logout')}}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Cerrar sesi&oacuten</span></a>
-                </li>
   
 
 
@@ -234,48 +227,22 @@
             <i class="fa fa-bars"></i>
           </button>
 
-            <div class="input-group" align="right">
+          <div class="input-group" align="right">
               <label>Usuario: {{auth()->user()->name}}</label>
-              <div class="input-group-append">
-                
-              </div>
             </div>
-          <!-- Topbar Search 
-
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>-->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
+            <div class="topbar-divider d-none d-sm-block"></div>
 
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+           
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Cerrar sesi&oacuten
+                </a>
             </li>
-
 
           </ul>
 
@@ -341,15 +308,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">¿Desea salir?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"></span>
           </button>
         </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-body">Seleccione "Salir" si est&aacute seguro de cerrar la sesi&oacuten.</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="{{url('/logout')}}">Salir</a>
         </div>
       </div>
     </div>
