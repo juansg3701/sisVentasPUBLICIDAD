@@ -257,13 +257,10 @@ class productoPedidoCliente extends Controller
 		}
 
 		public function update($id){
-
 			$pedidoCliente = PedidoCliente::findOrFail($id);
 		    $pedidoCliente->finalizar=1;
 			$pedidoCliente->update();
-			
 			return back()->with('msj','Pedido finalizado');
-
 		}
 
 	 	public function show(Request $request){

@@ -109,40 +109,42 @@
 												<script >
 													window.alert("Producto con pocas unidades");
 												</script>
+												@endif
+
+												@if($EAN->cantidad>0 && $contador=='0')
+												<?php 
+												$contador=1;
+												?>
+
+												<div class="form-row">
+													<div class="form-group col-sm-4">
+														<div>Nombre Producto:</div>
+													</div>
+													<div class="form-group col-sm-8">
+														<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
+													</div>
+												</div>
+
+												<div class="form-row">
+													<div class="form-group col-sm-4">
+														<div>Precio unitario:</div>
+													</div>
+													<div class="form-group col-sm-8">
+													<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
+													</div>
+												</div>
+
+													@if($EAN->nombre!='')
+													<?php
+													$Enable="enable";
+													?>	
+													@endif
+												@endif
+												@endforeach
 											@endif
 
-											@if($EAN->cantidad>0 && $contador=='0')
-											<?php 
-											$contador=1;
-											?>
 
-											<div class="form-row">
-												<div class="form-group col-sm-4">
-													<div>Nombre Producto:</div>
-												</div>
-												<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
-													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-												</div>
-											</div>
-
-											<div class="form-row">
-												<div class="form-group col-sm-4">
-													<div>Precio unitario:</div>
-												</div>
-												<div class="form-group col-sm-8">
-												<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
-												</div>
-											</div>
-
-											@if($EAN->nombre!='')
-											<?php
-											$Enable="enable";
-											?>	
-											@endif
-											@endif
-											@endforeach
-											@endif
 
 											@if($searchText1!="")
 
@@ -198,6 +200,16 @@
 												window.alert("Producto no disponible");
 											</script>
 											@endif
+											<!--@if($searchText1!="" && $contadorB!='1' && $contador!='1')
+											<script >
+												window.alert("Producto no disponible");
+											</script>
+											@endif
+											@if($searchText!="" && $contadorB!='1' && $contador!='1')
+											<script >
+												window.alert("Producto no disponible");
+											</script>
+											@endif-->
 	
 									<div class="form-row">
 											<div class="form-group col-sm-4">
@@ -218,12 +230,26 @@
 									</div>
 
 
-									<div class="form-row">
-										<div class="form-group col-sm-12">
-											<button class="btn btn-info" type="submit">Registrar</button>
-											<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
-										</div>
-									</div>
+									@foreach($pedidoCliente as $pc)
+										@if($pc->id_remision==$id)
+											@if($pc->finalizar=='1')
+											<div class="form-row">
+												<div class="form-group col-sm-12">
+													<button class="btn btn-info" type="submit" disabled>Registrar</button>
+													<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
+												</div>
+											</div>
+											@else
+											<div class="form-row">
+												<div class="form-group col-sm-12">
+													<button class="btn btn-info" type="submit">Registrar</button>
+													<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
+												</div>
+											</div>
+											@endif
+										@endif
+									@endforeach
+
 								</div>
 							   
 							   {!!Form::close()!!}
@@ -253,42 +279,86 @@
     </div>
     <div class="card-body">
     	<div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<th>Remisión</th>
-					<th>Id</th>
-					<th>Producto</th>
-					<th>Cantidad</th>
-					<th>Precio unitario</th>
-					<th>Total</th>
-					<th>Opciones</th>
-				</thead>
-				@foreach($detalleCliente as $pc)
-				<tr>
-					<td>{{$pc->t_p_cliente_id_remision}}</td>
-					<td>{{$pc->id_dpcliente}}</td>
-					<td>{{$pc->producto_id_producto}}</td>
-					<td>{{$pc->cantidad}}</td>
-					<td>{{$pc->precio_venta}}</td>
-					<td>{{$pc->total}}</td>
-					<td>
-						<a href="" data-target="#modal-delete-{{$pc->id_dpcliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
-					</td>
-				</tr>
-				@include('almacen.pedidosDevoluciones.productoPedidoCliente.modal')
-				@endforeach
-            </table>
+
+			@foreach($pedidoCliente as $pc)
+			@if($pc->id_remision==$id)
+				@if($pc->finalizar=='1')
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<th>Remisión</th>
+						<th>Id</th>
+						<th>Producto</th>
+						<th>Cantidad</th>
+						<th>Precio unitario</th>
+						<th>Total</th>			
+					</thead>
+					@foreach($detalleCliente as $pc)
+					<tr>
+						<td>{{$pc->t_p_cliente_id_remision}}</td>
+						<td>{{$pc->id_dpcliente}}</td>
+						<td>{{$pc->producto_id_producto}}</td>
+						<td>{{$pc->cantidad}}</td>
+						<td>{{$pc->precio_venta}}</td>
+						<td>{{$pc->total}}</td>
+					</tr>
+					@endforeach
+				</table>
+				@else
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<th>Remisión</th>
+						<th>Id</th>
+						<th>Producto</th>
+						<th>Cantidad</th>
+						<th>Precio unitario</th>
+						<th>Total</th>
+						<th>Opciones</th>
+					</thead>
+					@foreach($detalleCliente as $pc)
+					<tr>
+						<td>{{$pc->t_p_cliente_id_remision}}</td>
+						<td>{{$pc->id_dpcliente}}</td>
+						<td>{{$pc->producto_id_producto}}</td>
+						<td>{{$pc->cantidad}}</td>
+						<td>{{$pc->precio_venta}}</td>
+						<td>{{$pc->total}}</td>
+						<td>			
+							<a href="" data-target="#modal-delete-{{$pc->id_dpcliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+						</td>
+					</tr>
+					@include('almacen.pedidosDevoluciones.productoPedidoCliente.modal')
+					@endforeach
+				</table>
+				@endif
+			@endif
+		@endforeach
+
         </div>
         {{$detalleCliente->render()}}
 	</div>
 	
 	{!!Form::model($pedidoCliente,['method'=>'PATCH','route'=>['almacen.pedidosDevoluciones.productoPedidoCliente.update',$id]])!!}
 	{{Form::token()}}
-	<div class="form-row">
-		<div class="form-group col-sm-12">
-			<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
-		</div>
-	</div>
+
+	@foreach($pedidoCliente as $pc)
+		@if($pc->id_remision==$id)
+			@if($pc->finalizar=='1')
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<button class="btn btn-warning" type="submit" disabled>Pedido Finalizado</button>
+				</div>
+			</div>
+			@else
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
+				</div>
+			</div>
+			@endif
+		@endif
+	@endforeach
+	
+
 	{!!Form::close()!!}
 </div>
 @endsection

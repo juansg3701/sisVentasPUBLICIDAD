@@ -24,7 +24,7 @@
 						<div id=formulario>
 							<div class="form-group">			
 								<div  align="center">
-									<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}"><button class="btn btn-info">Nuevo pedido</button></a>
+									<a href="{{URL::action('facturacionListaPedidosClientes@show',0)}}"><button class="btn btn-info">Nuevo Pedido</button></a>
 									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 								</div>
 							</div>
@@ -61,15 +61,15 @@
     	<div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
-					<th>Remisión</th>
-					<th>No. Productos</th>
-					<th>Fecha de Solicitud</th>
-					<th>Fecha de entrega</th>
-					<th>Cliente</th>
-					<th>Empleado</th>
-					<th>Método de Pago</th>
-					<th>Total</th>
-					<th colspan="2">Opciones</th>
+					<th>NO. REMISI&Oacute;N</th>
+					<th>NO. PRODUCTOS</th>
+					<th>FECHA SOLICITUD</th>
+					<th>FECHA ENTREGA</th>
+					<th>CLIENTE</th>
+					<th>EMPLEADO</th>
+					<th>MÉTODO DE PAGO</th>
+					<th>TOTAL</th>
+					<th colspan="2">OPCIONES</th>
 				</thead>
 				@foreach($pedidosCliente as $pc)
 				<tr>

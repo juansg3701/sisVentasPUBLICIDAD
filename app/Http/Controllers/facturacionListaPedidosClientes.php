@@ -236,7 +236,8 @@ class facturacionListaPedidosClientes extends Controller
 	 		}
 
 
-	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+				$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+				 
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
