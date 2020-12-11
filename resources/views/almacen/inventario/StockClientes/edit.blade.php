@@ -219,7 +219,7 @@
 											<div>Precio:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="number" name="precio" class="form-control" value="{{$stock->precio}}">
+											<input type="number" name="precio" class="form-control" value="{{$stock->precio}}" min="1" pattern="^[0-9]+">
 										</div>
 									
 								</div>
@@ -255,7 +255,7 @@
 											<div>Cantidad:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="text" class="form-control" name="cantidad" value="{{$stock->cantidad}}">
+											<input type="text" class="form-control" name="cantidad" value="{{$stock->cantidad}}" min="1" pattern="^[0-9]+">
 									</div>
 									
 								</div>

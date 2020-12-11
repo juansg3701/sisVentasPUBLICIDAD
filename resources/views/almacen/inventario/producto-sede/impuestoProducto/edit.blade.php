@@ -27,7 +27,7 @@
 
 	<div id=formulario align="center">
 		Nombre:<input type="text" class="form-control" value="{{$impuestos->nombre}}" name="nombre">
-		Valor:<input type="text" class="form-control" value="{{$impuestos->valor}}" name="valor">
+		Valor:<input type="number" class="form-control" value="{{$impuestos->valor}}" name="valor" min="1" pattern="^[0-9]+">
 		<br>
 		<button class="btn btn-info" type="submit">Registrar</button>
 		<a href="{{url('almacen/inventario/producto-sede/impuestoProducto')}}" class="btn btn-danger">Volver</a>

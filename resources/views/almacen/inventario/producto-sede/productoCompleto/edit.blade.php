@@ -97,7 +97,7 @@
 											<div>Precio unitario:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="number" class="form-control" name="precio" value="{{$productos->precio}}">
+											<input type="number" class="form-control" name="precio" value="{{$productos->precio}}" min="1" pattern="^[0-9]+">
 										</div>
 									</div>
 
@@ -106,7 +106,7 @@
 											<div>Stock Mínimo:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="number" class="form-control" name="stock_minimo" value="{{$productos->stock_minimo}}">
+											<input type="number" class="form-control" name="stock_minimo" value="{{$productos->stock_minimo}}" min="1" pattern="^[0-9]+">
 										</div>
 									</div>
 
