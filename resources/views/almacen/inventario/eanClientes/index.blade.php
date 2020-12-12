@@ -142,7 +142,7 @@
 											<div>Precio:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="number" name="precio" class="form-control">
+											<input type="number" name="precio" class="form-control" min="1" pattern="^[0-9]+">
 										</div>
 									
 								</div>
@@ -210,7 +210,7 @@
 											<div>Cantidad:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="number" name="cantidad" class="form-control">
+											<input type="number" name="cantidad" class="form-control" min="1" pattern="^[0-9]+">
 										</div>
 									
 								</div>
