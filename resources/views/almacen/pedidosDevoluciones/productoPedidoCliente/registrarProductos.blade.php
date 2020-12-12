@@ -102,7 +102,7 @@
 												
 												@foreach($productosEAN as $EAN)
 
-												@if($EAN->cantidad<=$EAN->minimo && $contador2=='0')
+												@if($contador2=='0')
 												<?php 
 												$contador2=1;
 												?>
@@ -121,7 +121,7 @@
 														<div>Nombre Producto:</div>
 													</div>
 													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+														<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}">
 														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 													</div>
 												</div>
@@ -150,7 +150,7 @@
 
 											@foreach($productosEAN2 as $EAN)
 
-											@if($EAN->cantidad<=$EAN->minimo && $contadorB2=='0')
+											@if($contadorB2=='0')
 											<?php 
 											$contadorB2=1;
 											?>

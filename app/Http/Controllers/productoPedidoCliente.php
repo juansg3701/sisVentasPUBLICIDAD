@@ -75,43 +75,63 @@ class productoPedidoCliente extends Controller
 	 			->paginate(10);
 
 
-	 			$productosEAN=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
-	 			->where('ean','=',$query)
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
-
-	 			$productosEAN2=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
-	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
+				 $productosEAN=DB::table('stock_clientes as s')
+				 ->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+				 ->join('sede as sed2','s.sede_id_sede_cliente','=','sed2.id_sede')
+				 ->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+				 ->join('categoria_stock_especiales as c','s.categoria_dias_especiales_id','=','c.id_categoriaStock')
+				 ->join('empresa as em','s.empresa_id_empresa','=','em.id_empresa')
+				 ->join('categoria as ct','s.categoria_id_categoria','=','ct.id_categoria')
+				 ->select('s.id_stock_clientes as id_producto','s.nombre','s.plu','s.ean','sed.nombre_sede as sede_empresa','sed2.nombre_sede as sede_cliente','c.nombre as categoria_especial','s.cantidad','sed.id_sede as id_sede_empresa','sed2.id_sede as id_sede_cliente','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro','e.nombre as empleado_id_empleado', 's.imagen as img','s.precio as precioU','ct.nombre as categoria_normal','s.empresa_id_empresa as nombre_empresa','s.empresa_categoria_id as nombre_subempresa')
+				 ->where('ean','=',$query)
+				 ->orderBy('ean', 'desc')
+				 ->paginate(10);
+	 
+	 
+	 
+	 
+	 
+				 
+				 $productosEAN2=DB::table('stock_clientes as s')
+				 ->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+				 ->join('sede as sed2','s.sede_id_sede_cliente','=','sed2.id_sede')
+				 ->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+				 ->join('categoria_stock_especiales as c','s.categoria_dias_especiales_id','=','c.id_categoriaStock')
+				 ->join('empresa as em','s.empresa_id_empresa','=','em.id_empresa')
+				 ->join('categoria as ct','s.categoria_id_categoria','=','ct.id_categoria')
+				 ->select('s.id_stock_clientes as id_producto','s.nombre','s.plu','s.ean','sed.nombre_sede as sede_empresa','sed2.nombre_sede as sede_cliente','c.nombre as categoria_especial','s.cantidad','sed.id_sede as id_sede_empresa','sed2.id_sede as id_sede_cliente','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro','e.nombre as empleado_id_empleado', 's.imagen as img','s.precio as precioU','ct.nombre as categoria_normal','s.empresa_id_empresa as nombre_empresa','s.empresa_categoria_id as nombre_subempresa')
+				 ->where('s.nombre','LIKE', '%'.$query1.'%')
+				 ->orderBy('ean', 'desc')
+				 ->paginate(10);
 
 	 			if(auth()->user()->superusuario==0){
-	 			$productosEAN=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
-	 			->where('ean','=',$query)
-	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
-
-	 		$productosEAN2=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			
-	 			->select('p.id_stock as id_producto','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo')
-	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
-	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
+					$productosEAN=DB::table('stock_clientes as s')
+					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+					->join('sede as sed2','s.sede_id_sede_cliente','=','sed2.id_sede')
+					->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+					->join('categoria_stock_especiales as c','s.categoria_dias_especiales_id','=','c.id_categoriaStock')
+					->join('empresa as em','s.empresa_id_empresa','=','em.id_empresa')
+					->join('categoria as ct','s.categoria_id_categoria','=','ct.id_categoria')
+					->select('s.id_stock_clientes as id_producto','s.nombre','s.plu','s.ean','sed.nombre_sede as sede_empresa','sed2.nombre_sede as sede_cliente','c.nombre as categoria_especial','s.cantidad','sed.id_sede as id_sede_empresa','sed2.id_sede as id_sede_cliente','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro','e.nombre as empleado_id_empleado', 's.imagen as img','s.precio as precioU','ct.nombre as categoria_normal','s.empresa_id_empresa as nombre_empresa','s.empresa_categoria_id as nombre_subempresa')
+					->where('ean','=',$query)
+					->where('s.sede_id_sede','=',auth()->user()->sede_id_sede)
+					->orderBy('ean', 'desc')
+					->paginate(10);
+		
+		
+		
+					$productosEAN2=DB::table('stock_clientes as s')
+					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
+					->join('sede as sed2','s.sede_id_sede_cliente','=','sed2.id_sede')
+					->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
+					->join('categoria_stock_especiales as c','s.categoria_dias_especiales_id','=','c.id_categoriaStock')
+					->join('empresa as em','s.empresa_id_empresa','=','em.id_empresa')
+					->join('categoria as ct','s.categoria_id_categoria','=','ct.id_categoria')
+					->select('s.id_stock_clientes as id_producto','s.nombre','s.plu','s.ean','sed.nombre_sede as sede_empresa','sed2.nombre_sede as sede_cliente','c.nombre as categoria_especial','s.cantidad','sed.id_sede as id_sede_empresa','sed2.id_sede as id_sede_cliente','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro','e.nombre as empleado_id_empleado', 's.imagen as img','s.precio as precioU','ct.nombre as categoria_normal','s.empresa_id_empresa as nombre_empresa','s.empresa_categoria_id as nombre_subempresa')
+					->where('s.nombre','LIKE', '%'.$query1.'%')
+					->where('s.sede_id_sede','=',auth()->user()->sede_id_sede)
+					->orderBy('ean', 'desc')
+					->paginate(10);
 	 		}
 
 
