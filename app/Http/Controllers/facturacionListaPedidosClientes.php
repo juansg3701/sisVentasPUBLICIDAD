@@ -172,6 +172,7 @@ class facturacionListaPedidosClientes extends Controller
 			$producto=DB::table('producto')->get();
 			$tpCliente=DB::table('t_p_cliente')->get();
 		
+			//Es esta variable!!!!
 			$detalleCliente=DB::table('d_p_cliente as dc')
 				->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
 				->join('stock as s','dc.producto_id_producto','=','s.id_stock')
@@ -291,7 +292,8 @@ class facturacionListaPedidosClientes extends Controller
 	 			$query=trim($request->get('searchText'));
 	 			$query1=trim($request->get('searchText1'));
 	 			$producto=DB::table('producto')->get();
-	 			$tpCliente=DB::table('t_p_cliente')->get();
+				$tpCliente=DB::table('t_p_cliente')->get();
+				 
 	 			$detalleCliente=DB::table('d_p_cliente as dc')
 	 			->join('producto as p','dc.producto_id_producto','=','p.id_producto')
 	 			->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
@@ -305,7 +307,7 @@ class facturacionListaPedidosClientes extends Controller
 	 			->orderBy('nombre', 'desc')
 	 			->paginate(10);
 
-				 $productosEAN=DB::table('stock_clientes as s')
+				$productosEAN=DB::table('stock_clientes as s')
 				 ->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
 				 ->join('sede as sed2','s.sede_id_sede_cliente','=','sed2.id_sede')
 				 ->join('empleado as e','s.empleado_id_empleado','=','e.id_empleado')
@@ -316,12 +318,7 @@ class facturacionListaPedidosClientes extends Controller
 				 ->where('ean','=',$query)
 				 ->orderBy('ean', 'desc')
 				 ->paginate(10);
-	 
-	 
-	 
-	 
-	 
-				 
+	  
 				 $productosEAN2=DB::table('stock_clientes as s')
 				 ->join('sede as sed','s.sede_id_sede','=','sed.id_sede')
 				 ->join('sede as sed2','s.sede_id_sede_cliente','=','sed2.id_sede')
@@ -348,11 +345,6 @@ class facturacionListaPedidosClientes extends Controller
 					->where('s.sede_id_sede','=',auth()->user()->sede_id_sede)
 					->orderBy('ean', 'desc')
 					->paginate(10);
-		
-		
-		
-		
-		
 					
 					$productosEAN2=DB::table('stock_clientes as s')
 					->join('sede as sed','s.sede_id_sede','=','sed.id_sede')

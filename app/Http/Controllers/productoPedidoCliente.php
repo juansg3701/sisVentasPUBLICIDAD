@@ -8,12 +8,14 @@ use sisVentas\DetallePC;
 use sisVentas\AbonoPC;
 use sisVentas\PedidoCliente;
 use sisVentas\Stock;
+use sisVentas\StockClientes;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\DetallePCFormRequest;
 use sisVentas\Http\Requests\PedidoClienteFormRequest;
 use sisVentas\Http\Requests\StockFormRequest;
 use sisVentas\Http\Requests\AbonoPCFormRequest;
 use DB;
+
 
 class productoPedidoCliente extends Controller
 {
@@ -232,9 +234,9 @@ class productoPedidoCliente extends Controller
 			$cantidadR=$request->get('cantidad');
 			$productoR=$request->get('producto_id_producto');
 
-			$existeR=DB::table('stock')
+			$existeR=DB::table('stock_clientes')
 			->where('cantidad','>=',$cantidadR)
-			->where('id_stock','=',$productoR)
+			->where('id_stock_clientes','=',$productoR)
 			->get();
 
 			if(count($existeR)!=0){
@@ -247,9 +249,7 @@ class productoPedidoCliente extends Controller
 			$detallepc->t_p_cliente_id_remision=$id_remision;
 			$detallepc->producto_id_producto=$productoR;
 			$detallepc->precio_venta=$precio;
-			
-
-
+		
 			$detallepc->total=$cantidad*($precio);
 			$detallepc->save();
 			$total=$cantidad*($precio);
@@ -262,7 +262,7 @@ class productoPedidoCliente extends Controller
 			$pc->noproductos=$productos+$cantidad;
 			$pc->update(); 
 
-			$stockR = Stock::findOrFail($productoR);
+			$stockR = StockClientes::findOrFail($productoR);
 			$cantidadA=$stockR->cantidad;
 			$stockR->cantidad=$cantidadA-$cantidadR;
 			$stockR->update();

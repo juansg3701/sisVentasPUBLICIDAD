@@ -168,7 +168,7 @@
 													<div>Nombre Producto:</div>
 												</div>
 												<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}">
 													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 												</div>
 											</div>
