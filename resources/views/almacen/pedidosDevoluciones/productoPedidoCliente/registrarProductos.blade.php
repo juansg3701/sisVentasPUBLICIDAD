@@ -121,7 +121,7 @@
 														<div>Nombre Producto:</div>
 													</div>
 													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}">
+														<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}">
 														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 													</div>
 												</div>
@@ -143,8 +143,6 @@
 												@endif
 												@endforeach
 											@endif
-
-
 
 											@if($searchText1!="")
 
@@ -168,7 +166,7 @@
 													<div>Nombre Producto:</div>
 												</div>
 												<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}">
+													<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}">
 													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 												</div>
 											</div>
@@ -225,10 +223,11 @@
 												<div>Fecha:</div>
 											</div>
 											<div class="form-group col-sm-8">
-												<input type="datetime-local" class="form-control" name="fecha" value="<?php echo date("Y/m/d h:i"); ?>">
+												
+												<input type="datetime" name="" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control" disabled="true">
+												<input type="hidden" name="fecha" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control">
 											</div>
 									</div>
-
 
 									@foreach($pedidoCliente as $pc)
 										@if($pc->id_remision==$id)

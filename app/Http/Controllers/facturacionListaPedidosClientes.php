@@ -175,10 +175,8 @@ class facturacionListaPedidosClientes extends Controller
 			//Es esta variable!!!!
 			$detalleCliente=DB::table('d_p_cliente as dc')
 				->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
-				->join('stock as s','dc.producto_id_producto','=','s.id_stock')
-				->join('proveedor as ov','s.proveedor_id_proveedor','=','ov.id_proveedor')
-				->join('producto as p','s.producto_id_producto','=','p.id_producto')
-				->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','p.nombre as producto_id_producto','dc.total as total','ov.nombre_proveedor as nproveedor')
+				->join('stock_clientes as s','dc.producto_id_producto','=','s.id_stock_clientes')
+				->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','s.nombre as producto_id_producto','dc.total as total')
 				->where('dc.t_p_cliente_id_remision','=',$id)
 				->orderBy('dc.producto_id_producto', 'desc')
 				->paginate(10);
@@ -294,13 +292,13 @@ class facturacionListaPedidosClientes extends Controller
 	 			$producto=DB::table('producto')->get();
 				$tpCliente=DB::table('t_p_cliente')->get();
 				 
-	 			$detalleCliente=DB::table('d_p_cliente as dc')
-	 			->join('producto as p','dc.producto_id_producto','=','p.id_producto')
-	 			->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
-	 			->select('dc.id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','p.nombre as producto_id_producto','dc.total as total')
-	 			->where('dc.t_p_cliente_id_remision','=',$id)
-	 			->orderBy('dc.producto_id_producto', 'desc')
-	 			->paginate(10);
+				$detalleCliente=DB::table('d_p_cliente as dc')
+				->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
+				->join('stock_clientes as s','dc.producto_id_producto','=','s.id_stock_clientes')
+				->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','s.nombre as producto_id_producto','dc.total as total')
+				->where('dc.t_p_cliente_id_remision','=',$id)
+				->orderBy('dc.producto_id_producto', 'desc')
+				->paginate(10);
 
 	 			$productosNom=DB::table('producto')
 	 			->where('nombre','=',$query)
