@@ -174,12 +174,14 @@ class facturacionListaPedidosClientes extends Controller
 		
 			//Es esta variable!!!!
 			$detalleCliente=DB::table('d_p_cliente as dc')
-				->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
-				->join('stock_clientes as s','dc.producto_id_producto','=','s.id_stock_clientes')
-				->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','s.nombre as producto_id_producto','dc.total as total')
-				->where('dc.t_p_cliente_id_remision','=',$id)
-				->orderBy('dc.producto_id_producto', 'desc')
-				->paginate(10);
+			->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
+			->join('stock_clientes as s','dc.producto_id_producto','=','s.id_stock_clientes')
+			->join('empleado as e','dc.empleado_id_empleado','=','e.id_empleado')
+			->join('sede as sed','dc.sede_id_sede','=','sed.id_sede')
+			->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','s.nombre as producto_id_producto','dc.total as total', 'e.nombre as empleado_id_empleado', 'sed.nombre_sede as sede_id_sede', 'dc.fecha')
+			->where('dc.t_p_cliente_id_remision','=',$id)
+			->orderBy('dc.producto_id_producto', 'desc')
+			->paginate(10);
 
 			$productosNom=DB::table('producto')
 			->where('nombre','=',$query)
@@ -263,7 +265,12 @@ class facturacionListaPedidosClientes extends Controller
 					$query="";
 		   }
 			
-			return view('almacen.pedidosDevoluciones.productoPedidoCliente.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente, "pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP]);
+		    $empleados=DB::table('empleado')
+				 ->orderBy('id_empleado', 'desc')->get();
+
+			$sedes=DB::table('sede')->get();
+
+			return view('almacen.pedidosDevoluciones.productoPedidoCliente.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente, "pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP, "empleados"=>$empleados,"sedes"=>$sedes]);
 		}
 		
 
@@ -295,7 +302,9 @@ class facturacionListaPedidosClientes extends Controller
 				$detalleCliente=DB::table('d_p_cliente as dc')
 				->join('t_p_cliente as tpc','dc.t_p_cliente_id_remision','=','tpc.id_remision')
 				->join('stock_clientes as s','dc.producto_id_producto','=','s.id_stock_clientes')
-				->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','s.nombre as producto_id_producto','dc.total as total')
+				->join('empleado as e','dc.empleado_id_empleado','=','e.id_empleado')
+				->join('sede as sed','dc.sede_id_sede','=','sed.id_sede')
+				->select('dc.id_dpcliente as id_dpcliente','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_remision as t_p_cliente_id_remision','s.nombre as producto_id_producto','dc.total as total', 'e.nombre as empleado_id_empleado', 'sed.nombre_sede as sede_id_sede', 'dc.fecha')
 				->where('dc.t_p_cliente_id_remision','=',$id)
 				->orderBy('dc.producto_id_producto', 'desc')
 				->paginate(10);
@@ -375,8 +384,14 @@ class facturacionListaPedidosClientes extends Controller
 	 			if($query!="" && $query1!=""){
 	 				$query1="";
 	 				$query="";
-	 			}
-	 		return view('almacen.pedidosDevoluciones.productoPedidoCliente.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN,"detalleCliente"=>$detalleCliente,"pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP]);
+				}
+				 
+				$empleados=DB::table('empleado')
+				->orderBy('id_empleado', 'desc')->get();
+
+		   		$sedes=DB::table('sede')->get();
+				
+	 		return view('almacen.pedidosDevoluciones.productoPedidoCliente.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN,"detalleCliente"=>$detalleCliente,"pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP, "empleados"=>$empleados,"sedes"=>$sedes]);
 	 	}
 
 	 	public function update(PedidoClienteFormRequest $request, $id){

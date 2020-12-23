@@ -67,7 +67,6 @@
 					<th>FECHA ENTREGA</th>
 					<th>CLIENTE</th>
 					<th>EMPLEADO</th>
-					<th>MÉTODO DE PAGO</th>
 					<th>TOTAL</th>
 					<th colspan="2">OPCIONES</th>
 				</thead>
@@ -79,7 +78,6 @@
 					<td>{{$pc->fecha_entrega}}</td>
 					<td>{{$pc->cliente}}</td>
 					<td>{{$pc->empleado}}</td>
-					<td>{{$pc->tipo_pago}}</td>
 					<td>{{$pc->pago_total}}</td>
 					<td>	
 						<a href="{{URL::action('facturacionListaPedidosClientes@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
