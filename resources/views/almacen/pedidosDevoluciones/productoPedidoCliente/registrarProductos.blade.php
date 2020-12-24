@@ -106,10 +106,15 @@
 												<?php 
 												$contador2=1;
 												?>
-												<script >
-													window.alert("Producto con pocas unidades");
-												</script>
 												@endif
+
+												@if($EAN->producto_dados_baja==1)
+												<script >
+													window.alert("El producto fue dado de baja");
+												</script>
+												@else
+												
+
 
 												@if($EAN->cantidad>0 && $contador=='0')
 												<?php 
@@ -121,7 +126,7 @@
 														<div>Nombre Producto:</div>
 													</div>
 													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}">
+														<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}" disabled>
 														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 													</div>
 												</div>
@@ -131,7 +136,8 @@
 														<div>Precio unitario:</div>
 													</div>
 													<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
+														<input type="text" class="form-control" name="" value="{{$EAN->precioU}}" disabled>
+														<input type="hidden" class="form-control" name="precio_venta" value="{{$EAN->precioU}}" enable>
 													</div>
 												</div>
 
@@ -140,6 +146,7 @@
 													$Enable="enable";
 													?>	
 													@endif
+												@endif
 												@endif
 												@endforeach
 											@endif
@@ -152,10 +159,14 @@
 											<?php 
 											$contadorB2=1;
 											?>
-											<script >
-												window.alert("Producto con pocas unidades");
-											</script>
 											@endif
+
+											@if($EAN->producto_dados_baja==1)
+												<script >
+													window.alert("El producto fue dado de baja");
+												</script>
+											@else
+											
 											@if($EAN->cantidad>0 && $contadorB=='0')
 											<?php 
 											$contadorB=1;
@@ -181,13 +192,15 @@
 											</div>
 		
 											@if($EAN->nombre!='')
-											<?php
-											$Enable="enable";
-											?>	
+												<?php
+												$Enable="enable";
+												?>	
+											@endif
 											@endif
 											@endif
 											@endforeach
 											@endif
+
 											@if($searchText1!="" && $contadorB!='1' && $contador!='1')
 											<script >
 												window.alert("Producto no disponible");
@@ -242,7 +255,7 @@
 												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
 												@endif
 												@endforeach
-											</select><br>
+											</select>
 										</div>
 									</div>
 
