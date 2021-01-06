@@ -102,14 +102,19 @@
 												
 												@foreach($productosEAN as $EAN)
 
-												@if($EAN->cantidad<=$EAN->minimo && $contador2=='0')
+												@if($contador2=='0')
 												<?php 
 												$contador2=1;
 												?>
-												<script >
-													window.alert("Producto con pocas unidades");
-												</script>
 												@endif
+
+												@if($EAN->producto_dados_baja==1)
+												<script >
+													window.alert("El producto fue dado de baja");
+												</script>
+												@else
+												
+
 
 												@if($EAN->cantidad>0 && $contador=='0')
 												<?php 
@@ -121,7 +126,7 @@
 														<div>Nombre Producto:</div>
 													</div>
 													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+														<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}" disabled>
 														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 													</div>
 												</div>
@@ -131,7 +136,8 @@
 														<div>Precio unitario:</div>
 													</div>
 													<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
+														<input type="text" class="form-control" name="" value="{{$EAN->precioU}}" disabled>
+														<input type="hidden" class="form-control" name="precio_venta" value="{{$EAN->precioU}}" enable>
 													</div>
 												</div>
 
@@ -141,23 +147,26 @@
 													?>	
 													@endif
 												@endif
+												@endif
 												@endforeach
 											@endif
-
-
 
 											@if($searchText1!="")
 
 											@foreach($productosEAN2 as $EAN)
 
-											@if($EAN->cantidad<=$EAN->minimo && $contadorB2=='0')
+											@if($contadorB2=='0')
 											<?php 
 											$contadorB2=1;
 											?>
-											<script >
-												window.alert("Producto con pocas unidades");
-											</script>
 											@endif
+
+											@if($EAN->producto_dados_baja==1)
+												<script >
+													window.alert("El producto fue dado de baja");
+												</script>
+											@else
+											
 											@if($EAN->cantidad>0 && $contadorB=='0')
 											<?php 
 											$contadorB=1;
@@ -168,7 +177,7 @@
 													<div>Nombre Producto:</div>
 												</div>
 												<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="nombre" value="({{$EAN->nombre}}, {{$EAN->nproveedor}})">
+													<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}">
 													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
 												</div>
 											</div>
@@ -183,13 +192,15 @@
 											</div>
 		
 											@if($EAN->nombre!='')
-											<?php
-											$Enable="enable";
-											?>	
+												<?php
+												$Enable="enable";
+												?>	
+											@endif
 											@endif
 											@endif
 											@endforeach
 											@endif
+
 											@if($searchText1!="" && $contadorB!='1' && $contador!='1')
 											<script >
 												window.alert("Producto no disponible");
@@ -225,10 +236,44 @@
 												<div>Fecha:</div>
 											</div>
 											<div class="form-group col-sm-8">
-												<input type="datetime-local" class="form-control" name="fecha" value="<?php echo date("Y/m/d h:i"); ?>">
+												
+												<input type="datetime" name="" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control" disabled="true">
+												<input type="hidden" name="fecha" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control">
 											</div>
 									</div>
 
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Empleado:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="empleado_id_empleado" class="form-control" disabled="">
+												@foreach($empleados as $usu)
+												@if(Auth::user()->id==$usu->user_id_user)
+												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
+												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
+												@endif
+												@endforeach
+											</select>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-sm-4">
+											<div>Sede:</div>
+										</div>
+										<div class="form-group col-sm-8">
+											<select name="sede_id_sede" class="form-control" disabled="true">
+												@foreach($sedes as $s)
+												@if( Auth::user()->sede_id_sede ==$s->id_sede)
+												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
+												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
+												@endif
+												@endforeach
+											</select><br>
+										</div>
+									</div>
 
 									@foreach($pedidoCliente as $pc)
 										@if($pc->id_remision==$id)
@@ -264,6 +309,7 @@
 @stop
 
 @section('tabla')
+
 <div class="container-fluid"><br>
 	<div class="col-sm-12" align="center">
 		<div class="col-sm-6" align="center">
@@ -285,12 +331,12 @@
 				@if($pc->finalizar=='1')
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
-						<th>Remisión</th>
-						<th>Id</th>
-						<th>Producto</th>
-						<th>Cantidad</th>
-						<th>Precio unitario</th>
-						<th>Total</th>			
+						<th>NO. REMISI&Oacute;N</th>
+						<th>ID</th>
+						<th>PRODUCTO</th>
+						<th>CANTIDAD</th>
+						<th>PRECIO UNITARIO</th>
+						<th>TOTAL</th>			
 					</thead>
 					@foreach($detalleCliente as $pc)
 					<tr>
@@ -306,13 +352,13 @@
 				@else
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
-						<th>Remisión</th>
-						<th>Id</th>
-						<th>Producto</th>
-						<th>Cantidad</th>
-						<th>Precio unitario</th>
-						<th>Total</th>
-						<th>Opciones</th>
+						<th>NO. REMISI&Oacute;N</th>
+						<th>ID</th>
+						<th>PRODUCTO</th>
+						<th>CANTIDAD</th>
+						<th>PRECIO UNITARIO</th>
+						<th>TOTAL</th>
+						<th colspan="2">OPCIONES</th>
 					</thead>
 					@foreach($detalleCliente as $pc)
 					<tr>
@@ -322,11 +368,15 @@
 						<td>{{$pc->cantidad}}</td>
 						<td>{{$pc->precio_venta}}</td>
 						<td>{{$pc->total}}</td>
-						<td>			
+						<td>
 							<a href="" data-target="#modal-delete-{{$pc->id_dpcliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+						</td>
+						<td>	
+							<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoPedidoCliente-{{$pc->id_dpcliente}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
 						</td>
 					</tr>
 					@include('almacen.pedidosDevoluciones.productoPedidoCliente.modal')
+					@include('almacen.pedidosDevoluciones.productoPedidoCliente.modalInfoPedidoCliente')
 					@endforeach
 				</table>
 				@endif

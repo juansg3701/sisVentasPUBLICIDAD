@@ -57,7 +57,9 @@
 											<div>Fecha de solicitud:</div>
 										</div>
 										<div class="form-group col-sm-8">
-											<input type="datetime-local" class="form-control" name="fecha_solicitud"  value="<?php echo date("Y/m/d H:i"); ?>" >
+											
+											<input type="datetime" name="" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control" disabled="true">
+											<input type="hidden" name="fecha_solicitud" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control">
 										</div>
 									</div>
 									<div class="form-row">

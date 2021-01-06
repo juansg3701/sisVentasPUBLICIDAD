@@ -58,20 +58,20 @@
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         	<div class="form-row">
+
 									<div class="form-group col-sm-4">
 										<div>Correo:</div>
 									</div>
+									
 									<div class="form-group col-sm-8">
 										<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
 		                                @if ($errors->has('email'))
 		                                    <span class="help-block">
 		                                        <strong>{{ $errors->first('email') }}</strong>
 		                                    </span>
 		                                @endif
 									</div>
-								</div>
-                                
+							</div>
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
