@@ -153,3 +153,5 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 Route::get('bajar', 'StockController@bajar');
 Route::get('indexBaja', 'StockController@indexBaja');
+
+Route::get('sendMail', 'productoPedidoCliente@sendMail');

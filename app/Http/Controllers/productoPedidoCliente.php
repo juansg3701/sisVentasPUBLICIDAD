@@ -14,6 +14,7 @@ use sisVentas\Http\Requests\DetallePCFormRequest;
 use sisVentas\Http\Requests\PedidoClienteFormRequest;
 use sisVentas\Http\Requests\StockFormRequest;
 use sisVentas\Http\Requests\AbonoPCFormRequest;
+use Mail;
 use DB;
 
 
@@ -274,10 +275,26 @@ class productoPedidoCliente extends Controller
 
 		}
 
-		public function update($id){
+		public function update(Request $request, $id){
 			$pedidoCliente = PedidoCliente::findOrFail($id);
 		    $pedidoCliente->finalizar=1;
 			$pedidoCliente->update();
+
+			$cliente=DB::table('t_p_cliente as pc')
+			->join('cliente as cli','pc.cliente_id_cliente','=','cli.id_cliente')
+			->select('cli.nombre as correo')
+			->where('pc.id_remision','=',$id)
+			->get();
+
+			$subject = "PEDIDO UNO A";
+			$for = "holmanrincon7@gmail.com";
+			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for){
+				$msj->from("holman.test17@gmail.com","Su pedido ha sido enviado, pronto se le avisará cuando sea despachado.");
+				$msj->subject($subject);
+				$msj->to($for);
+				//$msj->attach(public_path('/').'/prueba.pdf'); 
+			});
+			
 			return back()->with('msj','Pedido finalizado');
 		}
 
@@ -314,6 +331,21 @@ class productoPedidoCliente extends Controller
 	 		return back()->with('msj','Producto eliminado y sumado al stock');
 
 
+		}
+
+
+		public function sendMail(Request $request){
+			$subject = "Asunto del correo";
+			$for = "holmanrincon7@gmail.com";
+			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for){
+				$msj->from("holman.test17@gmail.com","Prueba-Ticket");
+				$msj->subject($subject);
+				$msj->to($for);
+				//$msj->attach(public_path('/').'/prueba.pdf');
+			   
+			});
+	
+			return back()->with('msj','Correo enviado');
 		}
 
 }
