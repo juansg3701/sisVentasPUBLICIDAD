@@ -401,6 +401,7 @@
 			@else
 			<div class="form-row">
 				<div class="form-group col-sm-12">
+				
 					<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
 				</div>
 			</div>
@@ -410,5 +411,8 @@
 	
 
 	{!!Form::close()!!}
+
+	<a href="{{URL::action('productoPedidoCliente@sendMail',0)}}">
+					<button href="" class="btn btn-info">Ticket</button></a>
 </div>
 @endsection
