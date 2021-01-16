@@ -282,12 +282,14 @@ class productoPedidoCliente extends Controller
 
 			$cliente=DB::table('t_p_cliente as pc')
 			->join('cliente as cli','pc.cliente_id_cliente','=','cli.id_cliente')
-			->select('cli.nombre as correo')
-			->where('pc.id_remision','=',$id)
-			->get();
+			->join('users as us','cli.user_id_user','=','us.id')
+			->select('us.email')
+			->where('pc.id_remision','=',$id)	
+			->orderBy('pc.id_remision', 'desc')->get();
+
 
 			$subject = "PEDIDO UNO A";
-			$for = "holmanrincon7@gmail.com";
+			$for = $cliente;
 			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for){
 				$msj->from("holman.test17@gmail.com","Su pedido ha sido enviado, pronto se le avisará cuando sea despachado.");
 				$msj->subject($subject);
