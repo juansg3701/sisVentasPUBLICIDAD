@@ -43,7 +43,7 @@
 					 	<div class="col-sm-12" align="center">
 							<div class="card" align="center">
 				                <div class="card-header" align="center">
-				                     <strong>Formulario de edición</strong>
+				                     <strong>Formulario de edici&oacute;n</strong>
 				                </div>
 				                <div class="card-body card-block" align="center">
 				                	<div class="form-row">
@@ -289,11 +289,11 @@
 								
 									<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
-											<div>Imagen:</div>
+											<div>Descripci&oacute;n:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="file" name="imagen" class="form-control" placeholder="">
-										</div>
+											<input type="text" class="form-control" name="descripcion" value="{{$stock->descripcion}}">
+									</div>
 									
 								</div>
 
@@ -333,11 +333,11 @@
 								
 									<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
-											<div>Fecha vencimiento:</div>
+											<div>Imagen:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="date" class="form-control" name="fecha_vencimiento" value="{{$stock->fecha_vencimiento}}">
-										</div>
+											<input type="file" name="imagen" class="form-control" placeholder="">
+									</div>
 									
 								</div>
 
@@ -366,11 +366,11 @@
 								
 									<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
-											<div>PLU:</div>
+											<div>Fecha vencimiento:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="text" name="plu" class="form-control" value="{{$stock->plu}}">
-										</div>
+											<input type="date" class="form-control" name="fecha_vencimiento" value="{{$stock->fecha_vencimiento}}">
+									</div>
 								</div>
 
 			                	</div>
@@ -386,15 +386,15 @@
 									<div class="form-group col-sm-3">
 											<input type="datetime" name="" value="<?php echo date("Y/m/d"); ?>" class="form-control" disabled="true">
 											<input type="hidden" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control">
-										</div>
+									</div>
 								
 									<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
-											<div>EAN:</div>
+											<div>PLU:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="text" name="ean" class="form-control" value="{{$stock->ean}}">
-										</div>
+											<input type="text" name="plu" class="form-control" value="{{$stock->plu}}">
+									</div>
 								</div>
 
 			                	</div>
@@ -419,17 +419,31 @@
 										</div>
 
 									<div class="form-group col-sm-1"></div>
-											
-										<div class="form-group col-sm-5">
-										@if($stock->imagen!="")
-											<img src="{{asset('imagenes/articulosClientes/'.$stock->imagen)}}"  height="200px" width="200px" class="img-thumbnail">
-										@endif
+									<div class="form-group col-sm-2">
+											<div>EAN:</div>
 										</div>
+									<div class="form-group col-sm-3">
+											<input type="text" name="ean" class="form-control" value="{{$stock->ean}}">
+									</div>
 									
 								</div>
 
 			                	</div>
 			                </div>
+
+							<div class="form-row">
+			                	<div class="form group col-sm-12" align="center">
+			                		<div class="form-row">							
+										<div class="form-group col-sm-12">
+											@if($stock->imagen!="")
+											<img src="{{asset('imagenes/articulosClientes/'.$stock->imagen)}}"  height="200px" width="200px" class="img-thumbnail">
+											@endif
+										</div>	
+									</div>
+			                	</div>
+			                </div>
+
+
 				 	
 
 									<div class="form-row">

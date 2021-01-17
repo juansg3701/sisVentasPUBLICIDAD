@@ -106,6 +106,7 @@
 					<th>CATEGORÍA</th>
 					<th>DÍA ESPECIAL</th>
 					<th>CANTIDAD</th>
+					<th>DESCRIPCI&Oacute;N</th>
 					<th>VENCE</th>
 					<th>ESTADO</th>
 					<th colspan="3">OPCIONES</th>
@@ -146,6 +147,7 @@
 					<td>{{ $ps->categoria_normal}}</td>
 					<td>{{ $ps->categoria_especial}}</td>
 					<td>{{ $ps->cantidad}}</td>
+					<td>{{ $ps->descripcion}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
 
 					@if($ps->producto_dados_baja=='1')
@@ -203,6 +205,7 @@
 					<td>{{ $ps->categoria_normal}}</td>
 					<td>{{ $ps->categoria_especial}}</td>
 					<td>{{ $ps->cantidad}}</td>
+					<td>{{ $ps->descripcion}}</td>
 					<td>{{ $ps->fecha_vencimiento}}</td>
 
 					@if($ps->producto_dados_baja=='1')

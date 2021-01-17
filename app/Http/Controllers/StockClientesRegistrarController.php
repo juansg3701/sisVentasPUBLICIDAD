@@ -106,7 +106,7 @@ class StockClientesRegistrarController extends Controller
 					->join('categoria_stock_especiales as c','s.categoria_dias_especiales_id','=','c.id_categoriaStock')
 					->join('empresa as em','s.empresa_id_empresa','=','em.id_empresa')
 					->join('categoria as ct','s.categoria_id_categoria','=','ct.id_categoria')
-					->select('s.id_stock_clientes','s.nombre','s.plu','s.ean','sed.nombre_sede as sede_empresa','sed2.nombre_sede as sede_cliente','c.nombre as categoria_especial','s.cantidad','sed.id_sede as id_sede_empresa','sed2.id_sede as id_sede_cliente','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro','e.nombre as empleado_id_empleado', 's.imagen as img','s.precio','ct.nombre as categoria_normal','s.empresa_id_empresa as nombre_empresa','s.empresa_categoria_id as nombre_subempresa')
+					->select('s.id_stock_clientes','s.nombre','s.plu','s.ean','sed.nombre_sede as sede_empresa','sed2.nombre_sede as sede_cliente','c.nombre as categoria_especial','s.cantidad','sed.id_sede as id_sede_empresa','sed2.id_sede as id_sede_cliente','s.producto_dados_baja','s.fecha_vencimiento', 's.fecha_registro','e.nombre as empleado_id_empleado', 's.imagen as img','s.precio','ct.nombre as categoria_normal','s.empresa_id_empresa as nombre_empresa','s.empresa_categoria_id as nombre_subempresa', 's.descripcion')
 					->orderBy('s.id_stock_clientes', 'desc')
 					->paginate(10);
 
@@ -173,7 +173,8 @@ class StockClientesRegistrarController extends Controller
 		 		$ps->plu=$pluR;
 		 		$ps->ean=$eanR;
 		 		$ps->nombre=$nombreR;
-		 		$ps->precio=$request->get('precio');
+				$ps->precio=$request->get('precio');
+				$ps->descripcion=$request->get('descripcion');
 				$ps->categoria_id_categoria=$request->get('categoria_id_categoria');
 				$ps->fecha_registro=$request->get('fecha_registro');
 				$ps->empresa_id_empresa=$request->get('empresa_id_empresa');

@@ -43,6 +43,7 @@ class StockClienteFormRequest extends Request
             'precio'=>'|max:45',
             'imagen'=>'|max:2000',
             'categoria_dias_especiales_id'=>'required|max:45',
+            'descripcion'=>'|max:500',
         ];
     }
 }

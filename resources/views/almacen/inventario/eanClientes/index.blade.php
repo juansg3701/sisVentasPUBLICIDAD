@@ -102,14 +102,14 @@
 													<option value="{{$e->id_empresa_categoria}}">{{$e->nombre}}</option>
 												@endforeach
 											</select>
-										</div>
+									</div>
 
 									
 								
 									<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
 											<div>Nombre:</div>
-										</div>
+									</div>
 									<div class="form-group col-sm-3">
 											<input type="text" name="nombre" class="form-control">
 										</div>
@@ -124,7 +124,7 @@
 			                	<div class="form-row">
 			                		<div class="form-group col-sm-2">
 											<div>Sede cliente:</div>
-							</div>
+								</div>
 							<div class="form-group col-sm-3">
 								<select name="sede_id_sede_cliente" class="form-control">
 									@foreach($sede as $s)
@@ -137,7 +137,7 @@
 								</select>	
 							</div>
 
-									<div class="form-group col-sm-1"></div>
+								<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
 											<div>Precio:</div>
 										</div>
@@ -211,7 +211,7 @@
 										</div>
 									<div class="form-group col-sm-3">
 											<input type="number" name="cantidad" class="form-control" min="1" pattern="^[0-9]+">
-										</div>
+									</div>
 									
 								</div>
 
@@ -228,13 +228,13 @@
 											<input type="date" class="form-control" name="fecha_vencimiento">
 										</div>
 								
-									<div class="form-group col-sm-1"></div>
+										<div class="form-group col-sm-1"></div>
 									<div class="form-group col-sm-2">
-											<div>Imagen:</div>
+											<div>Descripci&oacute;n:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="file" name="imagen" class="form-control" placeholder="">
-										</div>
+											<input type="text" name="descripcion" class="form-control">
+									</div>
 									
 								</div>
 
@@ -256,16 +256,12 @@
 											</select>	
 										</div>
 								
-									<div class="form-group col-sm-1"></div>
-									<div class="form-group col-sm-2">
-											<div>Categor&iacutea especiales:</div>
-										</div>
-									<div class="form-group col-sm-3">
-											<select name="categoria_dias_especiales_id" class="form-control">
-												@foreach($categoria_especiales as $ct)
-												<option value="{{$ct->id_categoriaStock}}">{{$ct->nombre}}</option>
-												@endforeach
-											</select>	
+										<div class="form-group col-sm-1"></div>
+										<div class="form-group col-sm-2">
+												<div>Imagen:</div>
+											</div>
+										<div class="form-group col-sm-3">
+												<input type="file" name="imagen" class="form-control" placeholder="">
 										</div>
 									
 								</div>
@@ -287,12 +283,16 @@
 											</select>
 										</div>
 								
-									<div class="form-group col-sm-1"></div>
-									<div class="form-group col-sm-2">
-											<div>PLU:</div>
-										</div>
-									<div class="form-group col-sm-3">
-											<input type="text" name="plu" class="form-control">
+										<div class="form-group col-sm-1"></div>
+										<div class="form-group col-sm-2">
+												<div>Categor&iacutea especiales:</div>
+											</div>
+										<div class="form-group col-sm-3">
+												<select name="categoria_dias_especiales_id" class="form-control">
+													@foreach($categoria_especiales as $ct)
+													<option value="{{$ct->id_categoriaStock}}">{{$ct->nombre}}</option>
+													@endforeach
+												</select>	
 										</div>
 									
 								</div>
@@ -312,12 +312,12 @@
 											<input type="hidden" name="fecha_registro" value="<?php echo date("Y/m/d"); ?>" class="form-control">
 										</div>
 								
-									<div class="form-group col-sm-1"></div>
-									<div class="form-group col-sm-2">
-											<div>EAN:</div>
+										<div class="form-group col-sm-1"></div>
+										<div class="form-group col-sm-2">
+											<div>PLU:</div>
 										</div>
-									<div class="form-group col-sm-3">
-											<input type="text" name="ean" class="form-control">
+										<div class="form-group col-sm-3">
+											<input type="text" name="plu" class="form-control">
 										</div>
 								</div>
 
@@ -329,8 +329,8 @@
 			                	<div class="form-row">
 								
 									<div class="form-group col-sm-2">
-											<div>Empleado:</div>
-										</div>
+										<div>Empleado:</div>
+									</div>
 									<div class="form-group col-sm-3">
 											<select name="" class="form-control" disabled="true">
 												@foreach($usuarios as $usu)
@@ -340,11 +340,15 @@
 												@endif
 												@endforeach
 											</select>
-										</div>
+									</div>
 
 											<div class="form-group col-sm-1"></div>
-											<div class="form-group col-sm-2"></div>
-											<div class="form-group col-sm-3"></div>
+											<div class="form-group col-sm-2">
+												<div>EAN:</div>
+											</div>
+											<div class="form-group col-sm-3">
+													<input type="text" name="ean" class="form-control">
+											</div>
 											
 								</div>
 
