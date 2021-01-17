@@ -30,7 +30,7 @@ class ProductoSedeFormRequest extends Request
             'precio'=>'required|max:45',
             'stock_minimo'=>'required|max:45',
             'categoria_id_categoria'=>'required|max:45',
-            'imagen'=>'|max:2000',
+            'imagen'=>'|max:15000',
             'fecha_registro'=>'required|max:45',
             'empleado_id_empleado'=>'required|max:45',
             'sede_id_sede'=>'required|max:45',
