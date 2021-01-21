@@ -41,7 +41,7 @@ class StockClienteFormRequest extends Request
             'plu'=>'|max:45',
             'ean'=>'|max:45',
             'precio'=>'|max:45',
-            'imagen'=>'|max:2000',
+            'imagen'=>'|max:15000',
             'categoria_dias_especiales_id'=>'required|max:45',
             'descripcion'=>'|max:500',
         ];
