@@ -4,8 +4,6 @@
 <head>
 	<title>Inventario</title>
     <!--<link rel="stylesheet" href="{{ asset('css/Almacen/usuario/styles-iniciar.css') }}" />-->
-
-
 </head>
 <body>
 

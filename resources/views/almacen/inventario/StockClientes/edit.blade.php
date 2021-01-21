@@ -4,9 +4,8 @@
 <head>
 	<title>Editar producto stock</title>
     <!--<link rel="stylesheet" href="{{ asset('css/Almacen/usuario/styles-iniciar.css') }}" />-->
-
-
 </head>
+
 <body>
 	<!--Control de errores en los campos del formulario-->	
 	<div class="container col-sm-12" align="center">
@@ -24,8 +23,6 @@
 			</div>
 		</div>
 	</div>
-
-	
 	
 	<div class="row" align="center">	
 		<div class="col-sm-12" align="center">
