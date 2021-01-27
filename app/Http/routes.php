@@ -155,3 +155,5 @@ Route::get('bajar', 'StockController@bajar');
 Route::get('indexBaja', 'StockController@indexBaja');
 
 Route::get('sendMail', 'productoPedidoCliente@sendMail');
+
+Route::get('downloadExcel', 'ProductoSedeController@downloadExcel');

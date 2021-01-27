@@ -277,7 +277,7 @@ class productoPedidoCliente extends Controller
 
 		public function update(Request $request, $id){
 			$pedidoCliente = PedidoCliente::findOrFail($id);
-		    $pedidoCliente->finalizar=1;
+		    $pedidoCliente->finalizar=0;
 			$pedidoCliente->update();
 
 			$cliente=DB::table('t_p_cliente as pc')
@@ -285,11 +285,15 @@ class productoPedidoCliente extends Controller
 			->join('users as us','cli.user_id_user','=','us.id')
 			->select('us.email')
 			->where('pc.id_remision','=',$id)	
-			->orderBy('pc.id_remision', 'desc')->get();
+			->get();
 
+			$enviar=$cliente[0]->email;
 
+			//dd($cliente);
+
+		
 			$subject = "PEDIDO UNO A";
-			$for = $cliente;
+			$for = $enviar;
 			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for){
 				$msj->from("holman.test17@gmail.com","Su pedido ha sido enviado, pronto se le avisará cuando sea despachado.");
 				$msj->subject($subject);

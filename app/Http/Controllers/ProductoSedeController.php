@@ -195,7 +195,6 @@ class ProductoSedeController extends Controller
 	 		->where('producto_id_producto','=',$id)
 	 		->orderBy('id_stock', 'desc')->get();
 
-
 	 		$existeDC=DB::table('d_corte')
 	 		->where('producto_id_producto','=',$id)
 	 		->orderBy('id_dcorte', 'desc')->get();
@@ -209,6 +208,11 @@ class ProductoSedeController extends Controller
 	 			return back()->with('errormsj','¡Producto relacionado!');
 	 		}
 
-	 	}
+		 }
+		 
+		public function downloadExcel(Request $request){
+			//Proveedor
+			return view('almacen.descargarExcel.descargarProductos');
+		}
 
 }
