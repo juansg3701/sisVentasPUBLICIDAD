@@ -97,7 +97,11 @@ class CategoriaStockController extends Controller
 	 		->where('categoria_id_categoria','=',$id)
 	 		->orderBy('id_producto', 'desc')->get();
 
-	 		if(count($existe)==0){
+	 			$existeC=DB::table('stock_clientes')
+	 		->where('empresa_categoria_id','=',$id)
+	 		->orderBy('id_stock_clientes', 'desc')->get();
+
+	 		if(count($existe)==0 && count($existeC)==0){
 	 		$categoria=CategoriaStock::findOrFail($id);
 	 		$categoria->delete();
 
