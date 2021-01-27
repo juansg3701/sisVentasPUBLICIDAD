@@ -3,9 +3,10 @@
 	
 <head>
 	<title>Inventario</title>
-    <!--<link rel="stylesheet" href="{{ asset('css/Almacen/usuario/styles-iniciar.css') }}" />-->
-</head>
+
 <body>
+<form>
+    
 
 	<!--Control de errores en los campos del formulario-->	
 	<div class="container col-sm-12" align="center">
@@ -47,7 +48,9 @@
 											<div>Empresa:</div>
 										</div>
 										<div class="form-group col-sm-6">
+
 											{!! Form::open(array('url'=>'almacen/inventario/eanClientes','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+
 												<div class="input-group">
 
 											<select name="searchText" class="form-control">
@@ -82,9 +85,10 @@
 										<div class="form-group col-sm-3">
 										</div>
 									</div>
-
+                           
 									{!!Form::open(array('url'=>'almacen/inventario/eanClientes','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
 									{{Form::token()}}
+                                    
 									<input type="hidden" name="empresa_id_empresa" value="{{$searchText}}">
 
 									
@@ -223,7 +227,8 @@
 											<div>Fecha vencimiento:</div>
 										</div>
 									<div class="form-group col-sm-3">
-											<input type="date" class="form-control" name="fecha_vencimiento">
+										    <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control"  name="fecha_vencimiento">
+                                            
 										</div>
 								
 										<div class="form-group col-sm-1"></div>
@@ -371,6 +376,7 @@
 	</div>
 
 {!!Form::close()!!}	
+
 </body>
 
 @stop
