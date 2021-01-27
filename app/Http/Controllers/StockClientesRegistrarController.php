@@ -72,7 +72,7 @@ class StockClientesRegistrarController extends Controller
 				if(date("y",$b)==date("y")){
 					if(date("m",$b)==date("m")){
 						if(date("d",$b)==date("d")){
-							$stock->producto_dados_baja=1;
+							$stock->producto_dados_baja=0;
 						}
 						if(date("d",$b)<date("d")){
 							$stock->producto_dados_baja=1;
@@ -94,6 +94,8 @@ class StockClientesRegistrarController extends Controller
 				if(date("y",$b)>date("y")){
 					$stock->producto_dados_baja=0;
 				}
+			}else{
+			    $stock->producto_dados_baja=0;
 			}
 						$stock->update();	
 	 			}
