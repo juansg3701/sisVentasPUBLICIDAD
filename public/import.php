@@ -58,7 +58,6 @@ if(isset($_FILES["name"])){
                 if(($excedente<=$x_precio_1) && ($excedente<=$x_precio_2 || $x_precio_2==0) && ($excedente<=$x_precio_3 || $x_precio_3==0) && ($excedente<=$x_precio_4 || $x_precio_4==0)){
                     //echo "sirve".$excedente;
 
-
                     $query="SELECT * FROM producto WHERE id_producto = \"$x_id_producto\"";
                     $result=mysqli_query($link, $query);
                     
@@ -71,13 +70,11 @@ if(isset($_FILES["name"])){
                     $empleado = "SELECT * FROM empleado WHERE user_id_user=\"$empleado\"";
                     $result2=mysqli_query($link2, $empleado);
 
-                    
                     if($result2){
                         while($rows=mysqli_fetch_assoc($result2)){
                              $id=$rows['id_empleado'];
                         }
                     }
-
 
                     $consulta_imp = "SELECT id_impuestos FROM impuestos WHERE valor_impuesto=\"$x_impuestos_id_impuestos\"";
                     $consulta_cat = "SELECT id_categoria FROM categoria_productos WHERE nombre=\"$x_categoria_id_categoria\"";
