@@ -139,11 +139,19 @@ class SedeController extends Controller
 	 		->where('sede_id_sede','=',$id)
 	 		->orderBy('id_stock', 'desc')->get();
 
+	 		$existeSC=DB::table('stock_clientes')
+	 		->where('sede_id_sede_cliente','=',$id)
+	 		->orderBy('id_stock_clientes', 'desc')->get();
+	 		
+	 		$existeSC2=DB::table('stock_clientes')
+	 		->where('sede_id_sede','=',$id)
+	 		->orderBy('id_stock_clientes', 'desc')->get();
+
 	 		$existeU=DB::table('users')
 	 		->where('sede_id_sede','=',$id)
 	 		->orderBy('id', 'desc')->get();
 
-	 		if(count($existeCI)==0 && count($existeE)==0 && count($existeM)==0 && count($existeS)==0 && count($existeU)==0){
+	 		if(count($existeCI)==0 && count($existeE)==0 && count($existeM)==0 && count($existeS)==0 && count($existeU)==0 && count($existeSC)==0 && count($existeSC2)==0){
 	 		$sede=Sede::findOrFail($id);
 	 		$sede->delete();
 
