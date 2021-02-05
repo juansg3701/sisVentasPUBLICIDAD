@@ -113,7 +113,11 @@ class EmpresaCategoriaController extends Controller
 	 		->where('empresa_categoria_id','=',$id)
 	 		->orderBy('id_cliente', 'desc')->get();
 
-	 		if(count($existeC)==0){
+	 		$existeSC=DB::table('stock_clientes')
+	 		->where('empresa_categoria_id','=',$id)
+	 		->orderBy('id_stock_clientes', 'desc')->get();
+
+	 		if(count($existeC)==0 && count($existeSC)==0){
 	 		$Empresa=EmpresaCategoria::findOrFail($id);
 	 		$Empresa->delete();
 
