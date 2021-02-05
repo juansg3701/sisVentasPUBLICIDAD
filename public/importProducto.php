@@ -65,7 +65,6 @@ if(isset($_FILES["name"])){
                     $categoria_i=$rows['id_categoria'];
                 }
 
-
                 $consulta_ean = "SELECT * FROM producto WHERE ean = \"$x_ean\"";
                 $result_ean=mysqli_query($link, $consulta_ean);
                 $count_ean=0; 
@@ -82,36 +81,51 @@ if(isset($_FILES["name"])){
                     $plu=$rows['ean'];
                 }
 
+
+                $x_id_producto = $sheet->getCell("A".$row)->getValue();
+                $x_plu = $sheet->getCell("B".$row)->getValue();
+                $x_ean = $sheet->getCell("C".$row)->getValue();
+                $x_nombre = $sheet->getCell("D".$row)->getValue();
+                $x_categoria_id_categoria = $sheet->getCell("E".$row)->getValue();
+                $x_precio = $sheet->getCell("F".$row)->getValue();
+                $x_stock_minimo = $sheet->getCell("G".$row)->getValue();   
+                $x_imagen = "";
+
+                if($x_id_producto!="" && $x_plu!="" && $x_ean!="" && $x_nombre!="" && $x_categoria_id_categoria!="" && $x_precio!="" && $x_stock_minimo!=""){
                 
-                if ($count_producto==0) {
+                    if ($count_producto==0) {
 
-                    if($count_cat!=0){
+                        if($count_cat!=0){
 
-                        if ($count_ean==0 && $count_plu==0){
-                            $sql = "insert into producto (id_producto, plu, ean, nombre, precio, stock_minimo, fecha_registro, imagen, categoria_id_categoria, empleado_id_empleado, sede_id_sede) value";
-                            $sql .= "(\"$x_id_producto\", \"$x_plu\", \"$x_ean\", \"$x_nombre\", \"$x_precio\", \"$x_stock_minimo\", \"$fecha_actual\", \"$x_imagen\", \"$categoria_i\", \"$id_empleado\", \"$id_sede\")";
+                            if ($count_ean==0 && $count_plu==0){
+                                $sql = "insert into producto (id_producto, plu, ean, nombre, precio, stock_minimo, fecha_registro, imagen, categoria_id_categoria, empleado_id_empleado, sede_id_sede) value";
+                                $sql .= "(\"$x_id_producto\", \"$x_plu\", \"$x_ean\", \"$x_nombre\", \"$x_precio\", \"$x_stock_minimo\", \"$fecha_actual\", \"$x_imagen\", \"$categoria_i\", \"$id_empleado\", \"$id_sede\")";
+                            }else{
+                                echo '<script language="javascript">alert("EAN y PLU deben ser valores únicos, no se guardará el registro con el ID: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
+                            }
+        
                         }else{
-                            echo '<script language="javascript">alert("EAN y PLU deben ser valores únicos, no se guardará el registro con el ID: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
+                            echo '<script language="javascript">alert("Los datos ingresados en categoría son incorrectos. Error en el registro con el id: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
                         }
-       
+
                     }else{
-                        echo '<script language="javascript">alert("Los datos ingresados en categoría son incorrectos. Error en el registro con el id: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
+
+                        if($count_cat!=0){
+
+                            if ($count_ean!=0 && $count_plu!=0){
+                                $sql = "UPDATE producto SET nombre=\"$x_nombre\", precio=\"$x_precio\", stock_minimo=\"$x_stock_minimo\", fecha_registro=\"$fecha_actual\", categoria_id_categoria=\"$categoria_i\", empleado_id_empleado=\"$id_empleado\", sede_id_sede=\"$id_sede\" WHERE id_producto = \"$x_id_producto\"";    
+                            }else{
+                                echo '<script language="javascript">alert("Hay registros con el ID repetido, no se guardarán cambios en el registro con el ID: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
+                            }
+
+                        }else{
+                            echo '<script language="javascript">alert("Los datos ingresados en categoría son incorrectos.  Error en el registro con el ID: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
+                        }
+
                     }
 
                 }else{
-
-                    if($count_cat!=0){
-
-                        if ($count_ean!=0 && $count_plu!=0){
-                            $sql = "UPDATE producto SET nombre=\"$x_nombre\", precio=\"$x_precio\", stock_minimo=\"$x_stock_minimo\", fecha_registro=\"$fecha_actual\", categoria_id_categoria=\"$categoria_i\", empleado_id_empleado=\"$id_empleado\", sede_id_sede=\"$id_sede\" WHERE id_producto = \"$x_id_producto\"";    
-                        }else{
-                            echo '<script language="javascript">alert("Hay registros con el ID repetido, no se guardarán cambios en el registro con el ID: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
-                        }
-
-                    }else{
-                        echo '<script language="javascript">alert("Los datos ingresados en categoría son incorrectos.  Error en el registro con el ID: '.$x_id_producto.' y nombre: '.$x_nombre.'");</script>';
-                    }
-
+                   
                 }
                 $con->query($sql);
             }
