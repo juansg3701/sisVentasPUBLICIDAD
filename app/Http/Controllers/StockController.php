@@ -352,4 +352,9 @@ class StockController extends Controller
 			}
 
 
+			public function downloadExcel(Request $request){
+				return view('almacen.descargarExcel.descargarStockUnoA');
+			}
+
+
 }
