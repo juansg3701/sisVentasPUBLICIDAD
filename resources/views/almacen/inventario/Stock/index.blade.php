@@ -43,6 +43,7 @@
 									<strong></strong>
 								</div>
 								<div class="card-body card-block" align="center">
+									@include('almacen.inventario.Stock.cargar')
 									<a href="{{url('almacen/inventario/ean')}}"><button class="btn btn-info">Registrar Productos</button></a>
 									<a href="{{URL::action('CategoriaStockController@index',0)}}"><button class="btn btn-info">Días Especiales</button></a>
 									<a href="{{URL::action('StockController@indexBaja',0)}}"><button class="btn btn-info">Dados de baja</button></a>

@@ -91,7 +91,7 @@ if(isset($_FILES["name"])){
                 $x_stock_minimo = $sheet->getCell("G".$row)->getValue();   
                 $x_imagen = "";
 
-                if($x_id_producto!="" && $x_plu!="" && $x_ean!="" && $x_nombre!="" && $x_categoria_id_categoria!="" && $x_precio!="" && $x_stock_minimo!=""){
+                if(($x_id_producto!="" || $x_plu!="" || $x_ean!="" || $x_nombre!="" || $x_categoria_id_categoria!="" || $x_precio!="" || $x_stock_minimo!="") && ($x_id_producto==0 || $x_plu==0 || $x_ean==0 || $x_nombre==0 || $x_categoria_id_categoria==0 || $x_precio==0 || $x_stock_minimo==0)){
                 
                     if ($count_producto==0) {
 
@@ -124,9 +124,7 @@ if(isset($_FILES["name"])){
 
                     }
 
-                }else{
-                   
-                }
+                }else{}
                 $con->query($sql);
             }
         unlink($archivo);

@@ -43,13 +43,12 @@
 									<strong></strong>
 								</div>
 								<div class="card-body card-block" align="center">
+									@include('almacen.inventario.StockClientes.cargar')
 									<a href="{{url('almacen/inventario/eanClientes')}}"><button class="btn btn-warning">Registrar Productos</button></a>
 									<a href="{{URL::action('CategoriaStockController@index',0)}}"><button class="btn btn-info">Días Especiales</button></a>
-
 									<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Categoría producto</button></a>
 									<a href="" data-target="#modal-cargar" data-toggle="modal"><button class="btn btn-warning">Cargar xlsx/xls</button></a>
 									<a href="{{URL::action('StockClienteController@downloadExcel',0)}}"><button class="btn btn-success">Descargar xls</button></a>
-							
 									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
 								</div>
