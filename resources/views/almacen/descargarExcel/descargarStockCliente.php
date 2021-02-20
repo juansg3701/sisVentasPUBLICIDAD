@@ -59,16 +59,14 @@
 			<th>NOMBRE</th>
 			<th>DESCRIPCION</th>
 			<th>CATEGORIA</th>
-			<th>CANTIDAD</th>
-            
             <th>EMPRESA</th>
             <th>SUBEMPRESA</th>
-            <th>PRECIO</th>
             <th>DIA ESPECIAL</th>
             <th>SEDE CLIENTE</th>
             <th>BAJA</th>
             <th colspan="3">FECHA_VENCIMIENTO</th>
-
+            <th>CANTIDAD</th>
+            <th>PRECIO</th>
 		</thead>
 	</tr>
 	<?php
@@ -80,12 +78,9 @@
                 <td><?php echo $row['ean']; ?></td>
                 <td><?php echo $row['nombre']; ?></td>
                 <td><?php echo $row['descripcion']; ?></td>
-                <td><?php echo $row['categoria_id_categoria']; ?></td>
-				<td><?php echo $row['cantidad']; ?></td>
-                
+                <td><?php echo $row['categoria_id_categoria']; ?></td>		
                 <td><?php echo $row['empresa_id_empresa']; ?></td>
-                <td><?php echo $row['empresa_categoria_id']; ?></td>             
-                <td><?php echo $row['precio']; ?></td>
+                <td><?php echo $row['empresa_categoria_id']; ?></td>
                 <td><?php echo $row['categoria_dias_especiales_id']; ?></td>
                 <td><?php echo $row['sede_id_sede_cliente']; ?></td>
                 <td><?php echo $row['producto_dados_baja']; ?></td>
@@ -107,9 +102,8 @@
                     $dia=date("d",$b); 
                     echo $dia;
                 ?></td>
-
-                
-
+                <td><?php echo $row['cantidad']; ?></td>
+                <td><?php echo $row['precio']; ?></td>
 
 			</tr>	
 			<?php

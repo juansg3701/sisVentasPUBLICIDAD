@@ -43,9 +43,13 @@
 								</div>
 								<div class="card-body card-block" align="center">
 									@include('almacen.inventario.producto-sede.productoCompleto.cargar')
-									<a href="{{URL::action('ProductoSedeController@create',0)}}"><button class="btn btn-info">Registrar producto</button></a>
-									<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Categor&iacute;as</button></a>
-									<a href="" data-target="#modal-cargar" data-toggle="modal"><button class="btn btn-warning">Cargar xlsx/xls</button></a>
+									<div class="col-sm-12">
+										<a href="{{URL::action('ProductoSedeController@create',0)}}"><button class="btn btn-info">Registrar producto</button></a>
+										<a href="{{URL::action('CategoriaProducto@index',0)}}"><button class="btn btn-info">Categor&iacute;as</button></a>
+										<a href="" data-target="#modal-cargar" data-toggle="modal"><button class="btn btn-warning">Cargar xlsx/xls</button></a>
+									
+									</div>
+									
 									<a href="{{URL::action('ProductoSedeController@downloadExcel',0)}}"><button class="btn btn-success">Descargar xls</button></a>
 									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 									<br><br>			
