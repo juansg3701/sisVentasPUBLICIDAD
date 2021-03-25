@@ -60,7 +60,9 @@ Route::resource('almacen/inventario/corte-sede/productosCorte', 'ProductosCorteC
 
 
 Route::resource('almacen/facturacion/listaPedidosClientes', 'facturacionListaPedidosClientes');
+Route::resource('almacen/facturacion/listaPedidosUnoa', 'facturacionListaPedidosUnoa');
 Route::resource('almacen/pedidosDevoluciones/productoPedidoCliente', 'productoPedidoCliente');
+Route::resource('almacen/pedidosDevoluciones/productoPedidoUnoa', 'productoPedidoUnoa');
 
 
 /*

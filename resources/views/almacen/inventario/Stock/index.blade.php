@@ -44,12 +44,20 @@
 								</div>
 								<div class="card-body card-block" align="center">
 									@include('almacen.inventario.Stock.cargar')
-									<a href="{{url('almacen/inventario/ean')}}"><button class="btn btn-info">Registrar Productos</button></a>
-									<a href="{{URL::action('CategoriaStockController@index',0)}}"><button class="btn btn-info">Días Especiales</button></a>
-									<a href="{{URL::action('StockController@indexBaja',0)}}"><button class="btn btn-info">Dados de baja</button></a>
-									<a href="" data-target="#modal-cargar" data-toggle="modal"><button class="btn btn-warning">Cargar xlsx/xls</button></a>
-									<a href="{{URL::action('StockController@downloadExcel',0)}}"><button class="btn btn-success">Descargar xls</button></a>
-									<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
+
+									<div class="col-sm-12">
+										<a href="{{url('almacen/inventario/ean')}}"><button class="btn btn-info">Registrar Productos</button></a>
+										<a href="{{URL::action('CategoriaStockController@index',0)}}"><button class="btn btn-info">Días Especiales</button></a>
+										<a href="{{URL::action('StockController@indexBaja',0)}}"><button class="btn btn-info">Dados de baja</button></a>
+									</div><br>
+									<div class="col-sm-12">
+										<a href="" data-target="#modal-cargar" data-toggle="modal"><button class="btn btn-warning">Cargar xlsx/xls</button></a>
+										<a href="{{URL::action('StockController@downloadExcel',0)}}"><button class="btn btn-success">Descargar xls</button></a>
+									</div><br>
+									<div class="col-sm-12">
+										<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
+									</div>
+									
 									<br><br>			
 								</div>
 							</div>

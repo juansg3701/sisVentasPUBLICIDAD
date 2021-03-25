@@ -44,6 +44,17 @@ if(isset($_FILES["name"])){
                 $x_precio = $sheet->getCell("P".$row)->getValue();
                 $x_imagen = "";
 
+
+
+                $query="SELECT * FROM stock_clientes WHERE id_stock_clientes = \"$x_id_stock_clientes\"";
+                $result=mysqli_query($link, $query);
+                    
+                $count_stock=0; 
+                while($rows=mysqli_fetch_assoc($result)){
+                    $count_stock++;
+                    echo "nombre: ".$rows['nombre'];
+                }
+
                 $empleado = "SELECT * FROM empleado WHERE user_id_user=\"$empleado\"";
                 $result_empleado=mysqli_query($link, $empleado);
                 if($result_empleado){
@@ -101,8 +112,43 @@ if(isset($_FILES["name"])){
                     $plu=$rows['ean'];
                 }
 
-                $sql = "insert into stock_clientes (id_stock_clientes, nombre, descripcion, categoria_id_categoria, cantidad, fecha_registro, fecha_vencimiento, empleado_id_empleado,  producto_dados_baja, empresa_id_empresa, empresa_categoria_id, sede_id_sede, plu, ean, precio, imagen, categoria_dias_especiales_id, sede_id_sede_cliente) value";
-                $sql .= "(\"$x_id_stock_clientes\",  \"$x_nombre\", \"$x_descripcion\", \"$categoria_i\", \"$x_cantidad\", \"$fecha_actual\", \"$x_fecha_vencimiento\", \"$id_empleado\", \"$x_producto_dados_baja\", \"$empresa_i\", \"$subempresa_i\", \"$id_sede\", \"$x_plu\", \"$x_ean\", \"$x_precio\", \"$x_imagen\", \"$diaEspecial_i\", \"$x_sede_id_sede_cliente\")";    
+                $consulta_clientesede = "SELECT id_sede FROM sede WHERE nombre_sede=\"$x_sede_id_sede_cliente\"";
+                $result_clientesede=mysqli_query($link, $consulta_clientesede);
+                $count_clientesede=0; 
+                while($rows=mysqli_fetch_assoc($result_clientesede)){
+                    $count_clientesede++;  
+                    $clientesede_i=$rows['id_sede'];
+                }
+
+
+                if(($x_id_stock_clientes!="" || $x_nombre!="" || $x_descripcion!="" || $x_categoria_id_categoria!="" || $x_cantidad!="" || $x_fecha_registro!="" || $x_fecha_vencimiento!="" ||  $x_producto_dados_baja!="" || $x_empresa_id_empresa!="" || $x_empresa_categoria_id!="" || $x_plu!="" || $x_ean!="" || $x_precio!="" || $x_categoria_dias_especiales_id!="" || $x_sede_id_sede_cliente!="") && ($x_id_stock_clientes==0 || $x_nombre==0 || $x_descripcion!==0 || $x_categoria_id_categoria==0 || $x_cantidad==0 || $x_fecha_registro==0 || $x_fecha_vencimiento==0 ||  $x_producto_dados_baja==0 || $x_empresa_id_empresa==0 || $x_empresa_categoria_id==0 || $x_plu==0 || $x_ean==0 || $x_precio==0 || $x_categoria_dias_especiales_id==0 || $x_sede_id_sede_cliente==0)){
+                    if ($count_stock==0) {
+                        if($count_ean==0 && $count_plu==0){
+                            if($count_cat!=0 && $count_empresa!=0 && $count_subempresa!=0 && $count_dia!=0 && $count_clientesede!=0){
+                                $sql = "insert into stock_clientes (id_stock_clientes, nombre, descripcion, categoria_id_categoria, cantidad, fecha_registro, fecha_vencimiento, empleado_id_empleado,  producto_dados_baja, empresa_id_empresa, empresa_categoria_id, sede_id_sede, plu, ean, precio, imagen, categoria_dias_especiales_id, sede_id_sede_cliente) value";
+                                $sql .= "(\"$x_id_stock_clientes\",  \"$x_nombre\", \"$x_descripcion\", \"$categoria_i\", \"$x_cantidad\", \"$fecha_actual\", \"$x_fecha_vencimiento\", \"$id_empleado\", \"$x_producto_dados_baja\", \"$empresa_i\", \"$subempresa_i\", \"$id_sede\", \"$x_plu\", \"$x_ean\", \"$x_precio\", \"$x_imagen\", \"$diaEspecial_i\", \"$clientesede_i\")";
+                            }else{
+                                echo '<script language="javascript">alert("El registro con el ID: '.$x_id_stock_clientes.' presenta inconsistencias en alguno de los siguientes campos: CATEGORÍA, EMPRESA, SUBEMPRESA, DIA ESPECIAL, SEDE CLIENTE, por favor verifique que existan en el software. No se guardará este registro");</script>';
+                            }
+                            
+                        }else{
+                            echo '<script language="javascript">alert("¡Error en el registro con ID: '.$x_id_stock_clientes.'! EAN y PLU deben ser valores únicos, no se guardará este registro.");</script>';
+                        }        
+                    }else{
+
+                        if($count_ean!=0 && $count_plu!=0){
+                            if($count_cat!=0 && $count_empresa!=0 && $count_subempresa!=0 && $count_dia!=0 && $count_clientesede!=0){
+                                $sql = "UPDATE stock_clientes SET nombre=\"$x_nombre\", descripcion=\"$x_descripcion\", categoria_id_categoria=\"$categoria_i\", cantidad=\"$x_cantidad\", fecha_registro=\"$fecha_actual\", fecha_vencimiento=\"$x_fecha_vencimiento\", empleado_id_empleado=\"$id_empleado\", producto_dados_baja=\"$x_producto_dados_baja\", empresa_id_empresa=\"$empresa_i\", empresa_categoria_id=\"$subempresa_i\", sede_id_sede=\"$id_sede\", precio=\"$x_precio\", categoria_dias_especiales_id=\"$diaEspecial_i\", sede_id_sede_cliente=\"$clientesede_i\" WHERE id_stock_clientes = \"$x_id_stock_clientes\"";  
+                            }else{
+                                echo '<script language="javascript">alert("El registro con el ID: '.$x_id_stock_clientes.' presenta inconsistencias en alguno de los siguientes campos: CATEGORÍA, EMPRESA, SUBEMPRESA, DIA ESPECIAL, SEDE CLIENTE, por favor verifique que existan en el software. No se actualizará este registro");</script>';
+                            }
+                        }else{
+                            echo '<script language="javascript">alert("Hay registros con el ID repetido, no se guardarán cambios en el registro con el ID: '.$x_id_stock_clientes.' y nombre: '.$x_nombre.'");</script>';
+                        }  
+                    }
+                }else{}
+
+                
 
                 $con->query($sql);
             }

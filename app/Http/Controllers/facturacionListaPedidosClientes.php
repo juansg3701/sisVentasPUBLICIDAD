@@ -39,6 +39,7 @@ class facturacionListaPedidosClientes extends Controller
 	 			->where('tc.fecha_entrega','LIKE', '%'.$query2.'%')
 	 			->where('tc.id_remision','LIKE', '%'.$query3.'%')
 	 			->where('c.nombre','LIKE', '%'.$query4.'%')
+				->where('tc.estado','=',2)
 	 			->orderBy('tc.id_remision', 'desc')
 	 			->paginate(10);
 
