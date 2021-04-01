@@ -389,7 +389,7 @@
         {{$detalleCliente->render()}}
 	</div>
 	
-	{!!Form::model($pedidoCliente,['method'=>'PATCH','route'=>['almacen.pedidosDevoluciones.productoPedidoCliente.update',$id]])!!}
+	{!!Form::model($pedidoCliente,['method'=>'PATCH','route'=>['almacen.pedidosDevoluciones.productoPedidoUnoa.update',$id]])!!}
 	{{Form::token()}}
 
 	@foreach($pedidoCliente as $pc)
@@ -403,7 +403,6 @@
 			@else
 			<div class="form-row">
 				<div class="form-group col-sm-12">
-				
 					<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
 				</div>
 			</div>

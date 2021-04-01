@@ -57,6 +57,9 @@
     <div class="card-header py-3" align="center">
 	    <h6 class="m-0 font-weight-bold">Lista de pedidos</h6>
     </div>
+
+
+
     <div class="card-body">
     	<div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -68,8 +71,10 @@
 					<th>CLIENTE</th>
 					<th>EMPLEADO</th>
 					<th>TOTAL</th>
+					<th>ESTADO</th>
 					<!--<th colspan="2">OPCIONES</th>-->
 				</thead>
+				
 				@foreach($pedidosCliente as $pc)
 				<tr>
 					<td>{{$pc->id_remision}}</td>
@@ -79,6 +84,17 @@
 					<td>{{$pc->cliente}}</td>
 					<td>{{$pc->empleado}}</td>
 					<td>{{$pc->pago_total}}</td>
+					@if($pc->estado==2)
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosClientes@changeState',$pc->id_remision)}}"><button class="btn btn-danger">Despachar</button></a>
+					</td>
+					@else
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosClientes@changeState',$pc->id_remision)}}"><button class="btn btn-info" disabled>Despachado</button></a>
+					</td>
+					@endif
+					
+	
 					<!--<td>	
 						<a href="{{URL::action('facturacionListaPedidosClientes@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
 					</td>
@@ -92,5 +108,6 @@
         </div>
         {{$pedidosCliente->render()}}
     </div>
+	
 </div>
 @endsection

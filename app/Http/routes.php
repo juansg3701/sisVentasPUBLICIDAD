@@ -161,3 +161,5 @@ Route::get('sendMail', 'productoPedidoCliente@sendMail');
 Route::get('downloadExcelProducto', 'ProductoSedeController@downloadExcel');
 Route::get('downloadExcelStockCliente', 'StockClienteController@downloadExcel');
 Route::get('downloadExcelStockUnoA', 'StockController@downloadExcel');
+
+Route::get('changeState/{id}', 'facturacionListaPedidosClientes@changeState');
