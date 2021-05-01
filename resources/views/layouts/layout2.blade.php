@@ -141,6 +141,21 @@
 
               @foreach($modulos as $m)
                 @if($m->id_modulo==9)
+
+                <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Pedidos</span>
+                </a>
+                <div id="collapse11" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{URL::action('facturacionListaPedidosClientes@index',0)}}">Pedidos cliente</a>
+                    <a class="collapse-item" href="{{URL::action('facturacionListaPedidosUnoa@index',0)}}">Pedidos unoa</a>
+                  </div>
+                </div>
+              </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{URL::action('facturacionListaPedidosClientes@index',0)}}">
                       <i class="fas fa-fw fa-chart-area"></i>

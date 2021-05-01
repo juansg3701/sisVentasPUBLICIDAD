@@ -30,28 +30,35 @@ class facturacionListaPedidosClientes extends Controller
 	 			$usuarios=DB::table('empleado')->get();
 	 			$clientes=DB::table('cliente')->get();
 	 			$tipoPagos=DB::table('tipo_pago')->get();
+
 	 			$pedidosCliente=DB::table('t_p_cliente as tc')
 	 			->join('empleado as e','tc.empleado_id_empleado','=','e.id_empleado')
 	 			->join('cliente as c','tc.cliente_id_cliente','=','c.id_cliente')
 	 			->join('tipo_pago as p','tc.tipo_pago_id_tpago','=','p.id_tpago')
-	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago')
+	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago', 'tc.estado')
 	 			->where('tc.fecha_solicitud','LIKE', '%'.$query.'%')
 	 			->where('tc.fecha_entrega','LIKE', '%'.$query2.'%')
 	 			->where('tc.id_remision','LIKE', '%'.$query3.'%')
 	 			->where('c.nombre','LIKE', '%'.$query4.'%')
+				->where('tc.estado','>=',2)
 	 			->orderBy('tc.id_remision', 'desc')
 	 			->paginate(10);
 
 				/*$pedidosCliente=DB::table('t_p_cliente as tc')
 				->orderBy('id_remision', 'desc')
 	 			->paginate(10);*/
+
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 
 	 			$clientesP=DB::table('cliente')->get();
 	 			$pedidoP=DB::table('t_p_cliente')->get();
+
+				//, "pedidoCliente"=>PedidoCliente::findOrFail($id)
+
 
 	 			return view('almacen.facturacion.listaPedidosClientes.listaPedidos',["pedidosCliente"=>$pedidosCliente, "tipoPagos"=>$tipoPagos, "clientes"=>$clientes, "usuarios"=>$usuarios, "searchText"=>$query, "searchText2"=>$query2, "searchText3"=>$query3, "searchText4"=>$query4, "modulos"=>$modulos,"clientesP"=>$clientesP,"pedidoP"=>$pedidoP]);
 	 		}
@@ -60,6 +67,7 @@ class facturacionListaPedidosClientes extends Controller
 
 	 	public function show(Request $request){
 	 		if ($request) {
+
 	 			$query=trim($request->get('searchText'));
 	 			$usuarios=DB::table('empleado')->get();
 	 			$clientes=DB::table('cliente')->get();
@@ -74,7 +82,7 @@ class facturacionListaPedidosClientes extends Controller
 				->paginate(10);
 				 
 				$empleados=DB::table('empleado')
-				 ->orderBy('id_empleado', 'desc')->get();
+				->orderBy('id_empleado', 'desc')->get();
 				 
 				$sedes=DB::table('sede')->get();
 
@@ -365,9 +373,7 @@ class facturacionListaPedidosClientes extends Controller
 					->where('s.sede_id_sede','=',auth()->user()->sede_id_sede)
 					->orderBy('ean', 'desc')
 					->paginate(10);
-
-
-	 		}
+	 			}
 
 
 				$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
@@ -427,18 +433,33 @@ class facturacionListaPedidosClientes extends Controller
 	 			->orderBy('id_abono', 'desc')->get();
 
 	 			if(count($modulos)==0 && count($abonos)==0){
+					 
 	 				$pedidoCliente = PedidoCliente::findOrFail($id);
 	 				$pedidoCliente->delete();
 	 				
 	 				return back()->with('msj','Pedido eliminado');
 	 			}
 	 			else{
-	 		
-	 			return back()->with('errormsj','¡Pedido con productos o abonos!');
-
+	 				return back()->with('errormsj','¡Pedido con productos o abonos!');
 	 			}
 	 	
 	 	}
+
+
+		public function changeState($id){
+
+			$pedidoCliente = PedidoCliente::findOrFail($id);
+
+		   	$pedidoCliente->estado=3;
+			$pedidoCliente->save();
+
+			//return Redirect::to('almacen/facturacion/listaPedidosClientes');
+
+			return back()->with('msj','Pedido despachado');
+
+		}
+
+		
 
 
 }

@@ -241,7 +241,6 @@ class StockClienteController extends Controller
 	 	public function destroy($id){
 	 		$id=$id;
 
-
 	 		$existe=DB::table('m_stock')
 	 		->where('stock_id_stock','=',$id)
 	 		->orderBy('id_mstock', 'desc')->get();
@@ -254,30 +253,22 @@ class StockClienteController extends Controller
 	 		if(count($existe)==0 && count($existeDPC)==0){
 	 			$ps=StockClientes::findOrFail($id);
 	 			$ps->delete();
-
-	 		return back()->with('msj','Producto eliminado');
+	 			return back()->with('msj','Producto eliminado');
 
 	 		}else{
-
-	 		return back()->with('errormsj','¡Producto relacionado!');
-
+				return back()->with('errormsj','¡Producto relacionado!');
 	 		}
-
-		 }
+		}
 		 
-
-
 	 	public function bajar(StockFormRequest $request, $id){
-
 			$ps = Stock::findOrFail($id);
 			$ps->producto_dados_baja=1;
 			$ps->update();
-
 			return back()->with('msj','Estado actualizado');
-			
 		}
 
-
-	
+		public function downloadExcel(Request $request){
+			return view('almacen.descargarExcel.descargarStockCliente');
+		}
 
 }

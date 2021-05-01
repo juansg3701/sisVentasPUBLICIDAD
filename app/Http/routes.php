@@ -60,7 +60,9 @@ Route::resource('almacen/inventario/corte-sede/productosCorte', 'ProductosCorteC
 
 
 Route::resource('almacen/facturacion/listaPedidosClientes', 'facturacionListaPedidosClientes');
+Route::resource('almacen/facturacion/listaPedidosUnoa', 'facturacionListaPedidosUnoa');
 Route::resource('almacen/pedidosDevoluciones/productoPedidoCliente', 'productoPedidoCliente');
+Route::resource('almacen/pedidosDevoluciones/productoPedidoUnoa', 'productoPedidoUnoa');
 
 
 /*
@@ -156,4 +158,8 @@ Route::get('indexBaja', 'StockController@indexBaja');
 
 Route::get('sendMail', 'productoPedidoCliente@sendMail');
 
-Route::get('downloadExcel', 'ProductoSedeController@downloadExcel');
+Route::get('downloadExcelProducto', 'ProductoSedeController@downloadExcel');
+Route::get('downloadExcelStockCliente', 'StockClienteController@downloadExcel');
+Route::get('downloadExcelStockUnoA', 'StockController@downloadExcel');
+
+Route::get('changeState/{id}', 'facturacionListaPedidosClientes@changeState');

@@ -186,6 +186,37 @@ class productoPedidoProveedor extends Controller
 
 	 	}
 
+
+		public function update(Request $request, $id){
+			$pedidoCliente = PedidoProveedor::findOrFail($id);
+		    $pedidoCliente->finalizar=0;
+			$pedidoCliente->update();
+
+			/*$cliente=DB::table('t_p_cliente as pc')
+			->join('cliente as cli','pc.cliente_id_cliente','=','cli.id_cliente')
+			->join('users as us','cli.user_id_user','=','us.id')
+			->select('us.email')
+			->where('pc.id_remision','=',$id)	
+			->get();
+
+			$enviar=$cliente[0]->email;
+
+			//dd($cliente);*/
+
+			$enviar="holmanrincon7@gmail.com";
+		
+			$subject = "PEDIDO UNO A";
+			$for = $enviar;
+			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for){
+				$msj->from("holman.test17@gmail.com","Su pedido ha sido enviado, pronto se le avisará cuando sea despachado.");
+				$msj->subject($subject);
+				$msj->to($for);
+				//$msj->attach(public_path('/').'/prueba.pdf'); 
+			});
+			
+			return back()->with('msj','Pedido finalizado');
+		}
+
 	 	public function destroy($idf){
 	 		
 	 		$detallepc=DetallePP::findOrFail($idf);
