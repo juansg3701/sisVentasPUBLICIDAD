@@ -64,6 +64,8 @@ Route::resource('almacen/facturacion/listaPedidosUnoa', 'facturacionListaPedidos
 Route::resource('almacen/pedidosDevoluciones/productoPedidoCliente', 'productoPedidoCliente');
 Route::resource('almacen/pedidosDevoluciones/productoPedidoUnoa', 'productoPedidoUnoa');
 
+Route::resource('almacen/reportes/pedido', 'reportesPedidos');
+
 
 /*
 Route::resource('almacen/reportes/inventario', 'reportesInventario');
@@ -99,7 +101,7 @@ Route::resource('almacen/reportes/bancos/bancos/download', 'reportesBancosDescar
 Route::resource('almacen/reportes/compararG', 'reporteVentasComparar');
 Route::resource('almacen/reportes/compararGI1', 'reporteInventarioC1');
 Route::resource('almacen/reportes/compararGI2', 'reporteInventarioC2');
-Route::resource('almacen/reportes/compararGP1', 'reportePedidosC1');
+
 Route::resource('almacen/reportes/compararGP2', 'reportePedidosC2');
 Route::resource('almacen/reportes/nomina', 'reportesNomina');
 
