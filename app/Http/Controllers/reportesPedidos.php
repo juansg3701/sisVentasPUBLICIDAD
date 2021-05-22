@@ -39,8 +39,7 @@ class reportesPedidos extends Controller
 		 			->orderBy('id_empresa_categoria', 'desc')
 		 			->get();	
 	 			}
-	 			
-	 		
+	 				 		
 
 	 			return view('almacen.reportes.pedidos.pedidos',["sedes"=>$sedes,"searchText"=>$query, "modulos"=>$modulos, "empresas"=>$empresas, "subempresas"=>$subempresas]);
 	 		}
@@ -79,22 +78,38 @@ class reportesPedidos extends Controller
 	 	}
 
 	 	public function update(Request $request, $id){
+
+	 		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+	 			$modulos=DB::table('cargo_modulo')
+	 			->where('id_cargo','=',$cargoUsuario)
+	 			->orderBy('id_cargo', 'desc')->get();
+
 	 		$empresa_r=$request->get('empresa');
-	 		$subempresa_r=$request->get('suebempresa');
+	 		$subempresa_r=$request->get('subempresa');
 	 		$mes_r=$request->get('mes');
 	 		$mes_final=$request->get('mes_final');
 	 		$year_r=$request->get('year');
 
-	 			if($empresa_r!="" || $mes_r!="" || $year_r!=""){
-	 				return back()->with('errormsj','¡¡Los datos deben estar comlpletos!!');
+	 		$nombre_empresa="";
+	 		$nombre_subempresa="";
+
+	 		$n_empresa=DB::table('empresa')
+	 		->where('id_empresa','=',$empresa_r)
+	 		->orderBy('id_empresa', 'desc')->get();	
+
+	 		 $nombre_empresa=$n_empresa[0]->nombre;	
+
+	 			if($empresa_r=="" || $mes_r=="" || $mes_final=="" || $year_r==""){
+	 				return back()->with('errormsj','¡¡Los datos deben estar completos!!');
 	 			}else{
 
 	 				if($subempresa_r==""){
+
+
 	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
-			 			->join('sede as sed','e.sede_id_sede','=','sed.id_sede')
-			 			->select('tpc.id_factura',
+			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+			 			->select('tpc.id_remision',
 						 DB::raw('sum(tpc.noproductos) as noproductos'), 
-						 'tp.nombre as tipo_pago_id_tpago', 
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
 						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
@@ -107,11 +122,19 @@ class reportesPedidos extends Controller
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
 			 			->paginate(100);
 	 				}else{
+
+	 					//dd($empresa_r.' '.$subempresa_r);
+	 					$n_subempresa=DB::table('empresa_categoria')
+				 		->where('id_empresa_categoria','=',$subempresa_r)
+				 		->where('empresa_id_empresa','=',$empresa_r)
+				 		->orderBy('id_empresa_categoria', 'desc')->get();
+
+				 		$nombre_subempresa=$n_subempresa[0]->nombre;
+
 	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
-			 			->join('sede as sed','e.sede_id_sede','=','sed.id_sede')
-			 			->select('tpc.id_factura',
+			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+			 			->select('tpc.id_remision',
 						 DB::raw('sum(tpc.noproductos) as noproductos'), 
-						 'tp.nombre as tipo_pago_id_tpago', 
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
 						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
@@ -134,8 +157,8 @@ class reportesPedidos extends Controller
 	 			->join('empleado as e','f.empleado_id_empleado','=','e.id_empleado')
 	 			->join('cliente as c','f.cliente_id_cliente','=','c.id_cliente')
 	 			->join('tipo_pago as tp','f.tipo_pago_id_tpago','=','tp.id_tpago')
-	 			->join('sede as sed','e.sede_id_sede','=','sed.id_sede')
-	 			->select('f.id_factura',DB::raw('sum(f.pago_total) as pago_total'),DB::raw('sum(f.noproductos) as noproductos'), 'tp.nombre as tipo_pago_id_tpago', DB::raw('MONTH(f.fecha) as fecha'), DB::raw('YEAR(f.fecha) as fecha_year'), DB::raw('MONTH(f.fecha) as fecha_mes'))
+	 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+	 			->select('f.id_factura',DB::raw('sum(f.pago_total) as pago_total'),DB::raw('sum(f.noproductos) as noproductos'), 'tpc.nombre as tipo_pago_id_tpago', DB::raw('MONTH(f.fecha) as fecha'), DB::raw('YEAR(f.fecha) as fecha_year'), DB::raw('MONTH(f.fecha) as fecha_mes'))
 	 			->where(DB::raw('MONTH(f.fecha)'),'>=',$fecha_mes_inicial)
 	 			->where(DB::raw('MONTH(f.fecha)'),'<=',$fecha_mes_final)
 	 			->where(DB::raw('YEAR(f.fecha)'),'=',$fecha_year)
@@ -150,172 +173,72 @@ class reportesPedidos extends Controller
 
 
 	 			foreach ($pedidos_mensuales as $key => $value) {	
-
-		 				switch ($pedidos_mensuales[$key]->fecha) {
-		 					case '1':
-		 						$pedidos_mensuales[$key]->fecha="Enero";
-		 					break;
-
-		 					case '2':
-		 						$pedidos_mensuales[$key]->fecha="Febrero";
-		 					break;
-
-		 					case '3':
-		 						$pedidos_mensuales[$key]->fecha="Marzo";
-		 					break;
-
-		 					case '4':
-		 						$pedidos_mensuales[$key]->fecha="Abril";
-		 					break;
-
-		 					case '5':
-		 						$pedidos_mensuales[$key]->fecha="Mayo";
-		 					break;
-
-		 					case '6':
-		 						$pedidos_mensuales[$key]->fecha="Junio";
-		 					break;
-
-		 					case '7':
-		 						$pedidos_mensuales[$key]->fecha="Julio";
-		 					break;
-
-		 					case '8':
-		 						$pedidos_mensuales[$key]->fecha="Agosto";
-		 					break;
-
-		 					case '9':
-		 						$pedidos_mensuales[$key]->fecha="Septiembre";
-		 					break;
-
-		 					case '10':
-		 						$pedidos_mensuales[$key]->fecha="Octubre";
-		 					break;
-
-		 					case '11':
-		 						$pedidos_mensuales[$key]->fecha="Noviembre";
-		 					break;
-
-		 					case '12':
-		 						$pedidos_mensuales[$key]->fecha="Diciembre";
-		 					break;
-		 					
-		 					default:
-		 						$pedidos_mensuales[$key]->fecha="Ninguno";
-		 					break;
-		 				}
+	 				$pedidos_mensuales[$key]->fecha=self::metodoMeses($pedidos_mensuales[$key]->fecha);
 		 			}
-		 			$mes_letra=$mes_r;
-		 			switch ($mes_letra) {
-		 					case '1':
-		 						$mes_letra="Enero";
-		 					break;
-
-		 					case '2':
-		 						$mes_letra="Febrero";
-		 					break;
-
-		 					case '3':
-		 						$mes_letra="Marzo";
-		 					break;
-
-		 					case '4':
-		 						$mes_letra="Abril";
-		 					break;
-
-		 					case '5':
-		 						$mes_letra="Mayo";
-		 					break;
-
-		 					case '6':
-		 						$mes_letra="Junio";
-		 					break;
-
-		 					case '7':
-		 						$mes_letra="Julio";
-		 					break;
-
-		 					case '8':
-		 						$mes_letra="Agosto";
-		 					break;
-
-		 					case '9':
-		 						$mes_letra="Septiembre";
-		 					break;
-
-		 					case '10':
-		 						$mes_letra="Octubre";
-		 					break;
-
-		 					case '11':
-		 						$mes_letra="Noviembre";
-		 					break;
-
-		 					case '12':
-		 						$mes_letra="Diciembre";
-		 					break;
-		 					
-		 					default:
-		 						$mes_letra="Ninguno";
-		 					break;
-		 				}
-		 				$mes_final_letra=$mes_final;
-		 			switch ($mes_final_letra) {
-		 					case '1':
-		 						$mes_final_letra="Enero";
-		 					break;
-
-		 					case '2':
-		 						$mes_final_letra="Febrero";
-		 					break;
-
-		 					case '3':
-		 						$mes_final_letra="Marzo";
-		 					break;
-
-		 					case '4':
-		 						$mes_final_letra="Abril";
-		 					break;
-
-		 					case '5':
-		 						$mes_final_letra="Mayo";
-		 					break;
-
-		 					case '6':
-		 						$mes_final_letra="Junio";
-		 					break;
-
-		 					case '7':
-		 						$mes_final_letra="Julio";
-		 					break;
-
-		 					case '8':
-		 						$mes_final_letra="Agosto";
-		 					break;
-
-		 					case '9':
-		 						$mes_final_letra="Septiembre";
-		 					break;
-
-		 					case '10':
-		 						$mes_final_letra="Octubre";
-		 					break;
-
-		 					case '11':
-		 						$mes_final_letra="Noviembre";
-		 					break;
-
-		 					case '12':
-		 						$mes_final_letra="Diciembre";
-		 					break;
-		 					
-		 					default:
-		 						$mes_final_letra="Ninguno";
-		 					break;
-		 				}
+		 			$mes_letra=self::metodoMeses($mes_r);
+		 			$mes_final_letra= self::metodoMeses($mes_final);
+		 				
 		 			
-	 			return view("almacen.reportes.ventas.graficam",["modulos"=>$modulos,"ventas"=>$pedidos_mensuales,"mes_inicial"=>$mes_r,"mes_final"=>$mes_final,"fecha_final"=>$fecha_mes_final, "year"=>$year_r,"mes_letra_"=>$mes_letra,"mes_final"=>$mes_final_letra]);
+	 			return view("almacen.reportes.pedidos.graficam",["modulos"=>$modulos,"pedidos"=>$pedidos_mensuales,"mes_inicial"=>$mes_r,"mes_final"=>$mes_final, "year"=>$year_r,"mes_inicial_letra"=>$mes_letra,"mes_final_letra"=>$mes_final_letra,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa]);
 	 	}
+	 }
+
+	 public function metodoMeses($valor_mes){
+	 	switch ($valor_mes) {
+ 					case '1':
+ 						$valor_mes="Enero";
+ 					break;
+
+ 					case '2':
+ 						$valor_mes="Febrero";
+ 					break;
+
+ 					case '3':
+ 						$valor_mes="Marzo";
+ 					break;
+
+ 					case '4':
+ 						$valor_mes="Abril";
+ 					break;
+
+ 					case '5':
+ 						$valor_mes="Mayo";
+ 					break;
+
+ 					case '6':
+ 						$valor_mes="Junio";
+ 					break;
+
+ 					case '7':
+ 						$valor_mes="Julio";
+ 					break;
+
+ 					case '8':
+ 						$valor_mes="Agosto";
+ 					break;
+
+ 					case '9':
+ 						$valor_mes="Septiembre";
+ 					break;
+
+ 					case '10':
+ 						$valor_mes="Octubre";
+ 					break;
+
+ 					case '11':
+ 						$valor_mes="Noviembre";
+ 					break;
+
+ 					case '12':
+ 						$valor_mes="Diciembre";
+ 					break;
+ 					
+ 					default:
+ 						$valor_mes="Ninguno";
+ 					break;
+		 				}
+		 return $valor_mes;
+	 }
 
 	 
 }

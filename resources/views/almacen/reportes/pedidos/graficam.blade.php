@@ -11,17 +11,14 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" align="center">
-              <h2 class="pb-2 display-5">REPORTE DE VENTAS MENSUAL</h2>
+              <h2 class="pb-2 display-5">REPORTE DE PEDIDOS MENSUAL POR SUBEMPRESA</h2>
             </div><br>
             <div class="row" align="center">  
                 <div class="col-sm-12" align="center">
                  
                     <div class="row" align="center">
-
-
                             <div  class="col-sm-12" align="center">
                                <canvas id="buyers"style="width:400px; height:200px; overflow-x: auto; overflow-y: auto;  white-space: nowrap;"></canvas>
-
                             </div>
                           </div>
                            <div class="row" align="center">
@@ -29,18 +26,19 @@
                               <div align="center">
                
                              <br>
-                            <b> Ventas entre:</b><br>
-                            <b>Inicio:</b> {{$fecha_letra_inicial}} <br>
-                            <b>Fin:</b> {{$fecha_letra_final}}<br>
-                            
-                            <b>Total ventas: </b>
-                            $<?php echo number_format($total_ventas, 2 , "," , ".") . "\n";?>
+                            <b> Pedidos entre:</b><br>
+                            <b>Inicio:</b> {{$mes_inicial_letra}} <br>
+                            <b>Fin:</b> {{$mes_final_letra}}<br>
+                            <br>
+                            <b>Empresa:</b> {{$nombre_empresa}}<br>
+                            <br>
+                            <b>Subempresa:</b> {{$nombre_subempresa}}<br>
                             <br>
 
                               </div>
                              <br>
                             <div align="center">
-                              <a href="{{url('almacen/reportes/ventas')}}" class="btn btn-danger">Volver</a>
+                              <a href="{{url('almacen/reportes/pedido')}}" class="btn btn-danger">Volver</a>
                             </div>
                                
                             </div>
@@ -74,27 +72,17 @@
           </div>
 
           <div class="card-body">
-
-            <?php
-                $valores=$fecha_inicial.'.'.$fecha_final.'.'.$fecha_year.'.'.'3';
-            ?>
-
-            <div align="center">
-              <a href="{{URL::action('reportesVentas@downloadExcelReport',$valores)}}"><button class="btn btn-outline-success btn-sm">Descargar Excel</button></a>
-              <a href="{{URL::action('reportesVentas@downloadPDFReport',$valores)}}"><button class="btn btn-outline-danger btn-sm">Descargar PDF</button></a>
-            </div>
-      
+    
             <table id="bootstrap-data-table" class="table table-striped table-bordered">
               <thead>
               <th>FECHA</th>
               <th>No. PRODUCTOS</th>
-              <th>PAGO TOTAL</th>
               </thead>
-            @foreach($ventas as $ps)
+            @foreach($pedidos as $ps)
             <tr>
               <td>{{ $ps->fecha}} - {{$ps->fecha_year}}</td>
               <td>{{ $ps->noproductos}}</td>
-              <td>$<?php echo number_format($ps->pago_total, 2 , "," , ".") . "\n";?></td>
+              <!--  
               <td> 
                 <?php
                 $valores2=$ps->fecha_mes.'.'.$ps->fecha_year.'.'.$ps->fecha.'.'.'m';
@@ -104,11 +92,12 @@
                 <button class="btn btn-outline-primary btn-sm">Detalle</button>
                 </a>
                 </td>
+                -->
             </tr>   
             @endforeach
           </table>
         </div>
-        {{$ventas->render()}}
+        {{$pedidos->render()}}
         </div>
       </div>
     </div>
@@ -116,19 +105,18 @@
 </div>
 
  <script>
-  //ARREGLAR PARA SUMAR POR DIAS LAS VENTAS Y DEJAR EL TOTAL
   var buyerData = {
-    labels : [@foreach($ventas as $ps)
+    labels : [@foreach($pedidos as $ps)
               "{{$ps->fecha}} - {{$ps->fecha_year}}",
               @endforeach],
     datasets : [
       {
-        fillColor : "#FFB7B2",
-        strokeColor : "#D291BC",
-        pointColor : "#D291BC",
-        pointStrokeColor : "#D291BC",
-        data : [@foreach($ventas as $ps)
-              "{{$ps->pago_total}}",
+        fillColor : "#AFCBFF",
+        strokeColor : "#85E3FF",
+        pointColor : "#6EB5FF",
+        pointStrokeColor : "#6EB5FF",
+        data : [@foreach($pedidos as $ps)
+              "{{$ps->noproductos}}",
               @endforeach]
         
       }

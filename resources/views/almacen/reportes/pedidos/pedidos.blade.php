@@ -91,10 +91,15 @@
 										<div>Seleccione la subempresa:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<select class="form-control" name="suempresa">
-											@foreach($subempresas as $s)
-											<option value="{{$s->id_empresa_categoria}}"> {{$s->nombre}}</option>
-											@endforeach
+										<select class="form-control" name="subempresa">
+											@if(count($subempresas)>0)
+												@foreach($subempresas as $s)
+												<option value="{{$s->id_empresa_categoria}}"> {{$s->nombre}}</option>
+												@endforeach
+											@else
+												<option value="">No tiene subempresas</option>
+											@endif
+										
 										
 										</select>
 									</div>
@@ -187,7 +192,18 @@
 		</div>
 	</div>	
 
-	
+	<div>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		
+		
+	</div>
 
 </body>
 @stop
