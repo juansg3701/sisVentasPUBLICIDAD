@@ -20,6 +20,7 @@ class ClienteController extends Controller
 	 			$query0=trim($request->get('searchText0'));
 	 			$query1=trim($request->get('searchText1'));
 	 			$query2=trim($request->get('searchText2'));
+
 	 			$usuarios=DB::table('cliente as c')
 	 			->join('tipo_cargo as tp','c.tipo_cargo_id_cargo','=','tp.id_cargo')
 	 			->join('empresa as e','c.empresa_id_empresa','=','e.id_empresa')
@@ -37,7 +38,6 @@ class ClienteController extends Controller
 	 			$subempresas=DB::table('empresa_categoria')->get();
 
 
-
 	 			return view('almacen.cliente.cliente.index',["usuarios"=>$usuarios,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos,"subempresas"=>$subempresas]);
 	 		}
 	 	}
@@ -47,7 +47,6 @@ class ClienteController extends Controller
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
 	 			$cargos=DB::table('tipo_cargo')
-	 			->where('nombre','LIKE','%'.'Cliente'.'%')
 	 			->orderBy('id_cargo','desc')->get();
 	 			$sedes=DB::table('sede')->get();
 	 			$empresas=DB::table('empresa')->get();
@@ -56,7 +55,8 @@ class ClienteController extends Controller
 	 			->select('ec.id_empresa_categoria','ec.nombre as nombreSubempresa','e.nombre as nombreEmpresa')
 	 			->orderBy('ec.id_empresa_categoria','desc')->get();
 	 			
-	 			return view("almacen.cliente.cliente.registrar",["modulos"=>$modulos,"cargos"=>$cargos,"sedes"=>$sedes,"empresas"=>$empresas,"subempresas"=>$subempresas]);
+	 			$query0="";
+	 			return view("almacen.cliente.cliente.registrar",["modulos"=>$modulos,"cargos"=>$cargos,"sedes"=>$sedes,"empresas"=>$empresas,"subempresas"=>$subempresas,"empresa_id_empresa"=>$query0]);
 	 		
 	 	}
 
@@ -115,11 +115,15 @@ class ClienteController extends Controller
 	 			->where('user_id_user','=',$id)
 	 			->orderBy('id_cliente', 'desc')->get();
 	 			
+	 		$usuario=Cliente::findOrFail($idCliente[0]->id);
 	 		$subempresas=DB::table('empresa_categoria as ec')
 	 			->join('empresa as e','ec.empresa_id_empresa','=','e.id_empresa')
 	 			->select('ec.id_empresa_categoria','ec.nombre as nombreSubempresa','e.nombre as nombreEmpresa')
+	 			//->where('ec.empresa_id_empresa','=',$usuario->empresa_id_empresa)
 	 			->orderBy('ec.id_empresa_categoria','desc')->get();
-	 		return view("almacen/cliente/cliente.edit",["users"=>$users,"cargos"=>$cargos,"sedes"=>$sedes,"usuario"=>Cliente::findOrFail($idCliente[0]->id), "modulos"=>$modulos,"empresas"=>$empresas,"subempresas"=>$subempresas]);
+	 		
+
+	 		return view("almacen/cliente/cliente.edit",["users"=>$users,"cargos"=>$cargos,"sedes"=>$sedes,"usuario"=>$usuario, "modulos"=>$modulos,"empresas"=>$empresas,"subempresas"=>$subempresas]);
 	 	}
 	 		public function show($id){
 	 		return view("almacen.cliente.show",["cliente"=>Cliente::findOrFail($id)]);

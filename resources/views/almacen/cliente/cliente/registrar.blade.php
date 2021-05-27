@@ -22,8 +22,7 @@
 	</div>
 
 
-	{!!Form::open(array('url'=>'almacen/usuario/registrar','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
-    {{Form::token()}}
+	
       <!--Formulario de registro-->	
 	<div class="col-md-12">
 		<div class="card">
@@ -38,6 +37,62 @@
 			                     <strong>Formulario de registro</strong>
 			                </div><br>
 			                <div class="card-body card-block" align="center">
+								{!! Form::open(array('url'=>'almacen/cliente/cliente2','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+			                	<div class="form-row">
+									<div class="form-group col-sm-3">
+										<div>Empresa:</div>
+									</div>
+									<div class="form-group col-sm-6">
+										<select name="empresa_id_empresa" class="form-control">
+											
+											@if($empresa_id_empresa=="")
+												@foreach($empresas as $em)
+												<option value="{{$em->id_empresa}}">{{$em->nombre}}</option>
+												@endforeach
+											@else
+												@foreach($empresas as $em)
+												@if($em->id_empresa==$empresa_id_empresa)
+												<option value="{{$em->id_empresa}}">{{$em->nombre}}</option>
+												@endif
+												@endforeach
+
+												@foreach($empresas as $em)
+												@if($em->id_empresa!=$empresa_id_empresa)
+												<option value="{{$em->id_empresa}}">{{$em->nombre}}</option>
+												@endif
+												@endforeach
+											@endif
+											
+										</select>
+									</div>
+									<div class="form-group col-sm-3">
+										<a href="usuario/iniciar/sesionIniciada"><button class="btn btn-info" type="submit">Buscar</button></a>
+									</div>
+								</div>
+								{!!Form::close()!!}	
+
+								@if($empresa_id_empresa!="")
+
+								{!!Form::open(array('url'=>'almacen/usuario/registrar','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
+    							{{Form::token()}}
+
+    							<input type="hidden" name="empresa_id_empresa" value="{{$empresa_id_empresa}}">
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Subempresas:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select name="empresa_categoria_id" class="form-control">
+											@if(count($subempresas)==0)
+											<option value="0">Ninguna</option>
+											@endif
+											
+											@foreach($subempresas as $em)
+											<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
 
 			                	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 			                		<div class="form-row">
@@ -92,23 +147,6 @@
 								</div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-
-                        	<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Confirmar contraseña:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-		                                @if ($errors->has('password_confirmation'))
-		                                    <span class="help-block">
-		                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-		                                    </span>
-		                                @endif
-									</div>
-								</div>
-                        </div>
 								<div class="form-row">
 										<div class="form-group col-sm-4">
 											<div>NIT:</div>
@@ -154,32 +192,6 @@
 									</div>
 								</div>
 
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Empresa:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<select name="empresa_id_empresa" class="form-control">
-											@foreach($empresas as $em)
-											<option value="{{$em->id_empresa}}">{{$em->nombre}}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Subempresas:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<select name="empresa_categoria_id" class="form-control">
-											<option value="0">Ninguna</option>
-											@foreach($subempresas as $em)
-											<option value="{{$em->id_empresa_categoria}}">{{$em->nombreSubempresa}} ({{$em->nombreEmpresa}})</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
@@ -196,6 +208,7 @@
 										</select>
 									</div>
 								</div>
+
 								<input id="codigo" type="hidden" class="form-control" name="tipo_cuenta" value="1">
 							
 								<input id="codigo" type="hidden" class="form-control" name="superusuario" value="0">
@@ -215,6 +228,10 @@
 										<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
 									</div>
 								</div>
+								{!!Form::close()!!}
+								@endif
+								
+									
 			               </div>
 			        	</div>
 					</div>
@@ -224,7 +241,6 @@
 		</div>
 	</div>		                     
 
-	{!!Form::close()!!}	
 </body>
 
 @stop

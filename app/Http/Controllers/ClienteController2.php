@@ -17,23 +17,22 @@ class ClienteController2 extends Controller
 			 	} 
 	 	public function index(Request $request){
 	 		if ($request) {
-	 			$query0=trim($request->get('searchText0'));
-	 			$query1=trim($request->get('searchText1'));
-	 			$query2=trim($request->get('searchText2'));
-	 			$clientes=DB::table('cliente')
-	 			->where('nombre','LIKE', '%'.$query0.'%')
-	 			->where('documento','LIKE', '%'.$query1.'%')
-	 			->where('telefono','LIKE', '%'.$query2.'%')
-	 			->orderBy('nombre', 'desc')
-	 			->paginate(10);
-
+	 			$query0=trim($request->get('empresa_id_empresa'));
 	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 	 			$modulos=DB::table('cargo_modulo')
 	 			->where('id_cargo','=',$cargoUsuario)
 	 			->orderBy('id_cargo', 'desc')->get();
+	 			$cargos=DB::table('tipo_cargo')
+	 			->orderBy('id_cargo','desc')->get();
+	 			$sedes=DB::table('sede')->get();
+	 			$empresas=DB::table('empresa')->get();
+	 			$subempresas=DB::table('empresa_categoria as ec')
+	 			->join('empresa as e','ec.empresa_id_empresa','=','e.id_empresa')
+	 			->select('ec.id_empresa_categoria','ec.nombre as nombreSubempresa','e.nombre as nombreEmpresa')
+	 			->where('empresa_id_empresa','=',$query0)
+	 			->orderBy('ec.id_empresa_categoria','desc')->get();
 	 			
-
-	 			return view('almacen.cliente.index',["clientes"=>$clientes,"searchText0"=>$query0,"searchText1"=>$query1,"searchText2"=>$query2, "modulos"=>$modulos]);
+	 			return view("almacen.cliente.cliente.registrar",["modulos"=>$modulos,"cargos"=>$cargos,"sedes"=>$sedes,"empresas"=>$empresas,"subempresas"=>$subempresas,"empresa_id_empresa"=>$query0]);
 	 		}
 	 	}
 	 	public function create(){

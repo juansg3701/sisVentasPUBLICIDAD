@@ -25,6 +25,7 @@ Route::resource('almacen/usuario/permiso/cuenta', 'UsersController');
 Route::resource('almacen/proveedor', 'ProveedorController');
 
 Route::resource('almacen/cliente/cliente', 'ClienteController');
+Route::resource('almacen/cliente/cliente2', 'ClienteController2');
 Route::get('almacen/clienteEditar/{id}', 'ClienteController@edit2');
 Route::get('almacen/clienteRegistro', 'ClienteController@create');
 Route::resource('almacen/cliente/empresa', 'EmpresaController');
