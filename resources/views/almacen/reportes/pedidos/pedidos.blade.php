@@ -2,104 +2,208 @@
 @section ('contenido')
 	<head>
 	<title>Reportes</title>
-    <!--<link rel="stylesheet" href="{{ asset('css/Almacen/usuario/styles-iniciar.css') }}" />-->
-</head>
+   </head>
 
 <body>
-	<div class="row" align="center">
-			<div align="center"><h3>REPORTES PEDIDOS-CLIENTE</h3></div><br>
-			@if (count($errors)>0)
-			<div class="alert alert-danger">
-				<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{$error}}</li>
-				@endforeach
-				</ul>
+	<!--Control de errores en los campos del formulario-->	
+	<div class="container col-sm-12" align="center">
+		<div class="row" align="center">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+				@if (count($errors)>0)
+				<div class="alert alert-danger" align="center">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{$error}}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
 			</div>
-			@endif
+		</div>
 	</div>
 
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header" align="center">
+				<h3 class="pb-2 display-5"> Reporte de pedidos mensual</h3>
+			</div><br>
+			<div class="row" align="center">	
+				<div class="col-sm-3" align="center"></div>
+				 	<div class="col-sm-6" align="center">
+						<div class="card" align="center">
+			                <div class="card-header" align="center">
+			                     <strong>Formulario de consulta</strong>
+			                </div><br>
+			                <div class="card-body card-block" align="center">
 
-	<div id=formulario>
-	{!!Form::open(array('url'=>'almacen/reportes/pedidos','method'=>'POST','autocomplete'=>'off'))!!}
-    {{Form::token()}}
-			<div id=formulario>
-			<div class="form-group">
-			Fecha inicio: <input type="date" class="form-control" name="fechaInicial">
-			Fecha final: <input type="date" class="form-control" name="fechaFinal">
-			<input type="hidden" class="form-control" name="fechaActual" value="<?php echo date("Y/m/d"); ?>">
-			<input type="hidden" class="form-control" name="noProductos" value="0">
-			<input type="hidden" class="form-control" name="total" value="0">
-			<br>
-			<div align="center">
-			<button type="submit" class="btn btn-info">Generar Reporte</button>
-			<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
+			                @if($searchText=="")
+			                {!! Form::open(array('url'=>'almacen/reportes/pedido','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+
+			                	<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Seleccione el empresa:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select class="form-control" name="searchText">
+											@foreach($empresas as $e)
+											<option value="{{$e->id_empresa}}"> {{$e->nombre}}</option>
+											@endforeach
+										
+										</select>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-12">
+										
+										<div align="center">
+											<button type="submit" class="btn btn-info">Consultar empresa</button>
+											<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
+										</div>
+									
+									</div>
+								</div>
+
+								{!!Form::close()!!}	
+			                @else
+			                {!!Form::model(0,['method'=>'PATCH','route'=>['almacen.reportes.pedido.update',0]])!!}
+    							{{Form::token()}}
+
+    							<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Seleccione el empresa:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select class="form-control" name="searchText" disabled="true">
+											@foreach($empresas as $e)
+											@if($searchText==$e->id_empresa)
+											<option value="{{$e->id_empresa}}"> {{$e->nombre}}</option>
+											@endif
+											@endforeach
+										
+										</select>
+									</div>
+								</div>
+								<input type="hidden" name="empresa" value="{{$searchText}}">
+
+    							<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Seleccione la subempresa:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select class="form-control" name="subempresa">
+											@if(count($subempresas)>0)
+												@foreach($subempresas as $s)
+												<option value="{{$s->id_empresa_categoria}}"> {{$s->nombre}}</option>
+												@endforeach
+											@else
+												<option value="">No tiene subempresas</option>
+											@endif
+										
+										
+										</select>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Seleccione el mes inicial:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select class="form-control" name="mes">
+											
+										<option value="1">Enero</option>
+										<option value="2">Febrero</option>
+										<option value="3">Marzo</option>
+										<option value="4">Abril</option>
+										<option value="5">Mayo</option>
+										<option value="6">Junio</option>
+										<option value="7">Julio</option>
+										<option value="8">Agosto</option>
+										<option value="9">Septiembre</option>
+										<option value="10">Octubre</option>
+										<option value="11">Noviembre</option>
+										<option value="12">Diciembre</option>
+											
+										</select>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Seleccione el mes final:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select class="form-control" name="mes_final">
+											
+										<option value="1">Enero</option>
+										<option value="2">Febrero</option>
+										<option value="3">Marzo</option>
+										<option value="4">Abril</option>
+										<option value="5">Mayo</option>
+										<option value="6">Junio</option>
+										<option value="7">Julio</option>
+										<option value="8">Agosto</option>
+										<option value="9">Septiembre</option>
+										<option value="10">Octubre</option>
+										<option value="11">Noviembre</option>
+										<option value="12">Diciembre</option>
+											
+										</select>
+									</div>
+								</div>
+				
+
+								<div class="form-row">
+									<div class="form-group col-sm-4">
+										<div>Seleccione el a&ntilde;o:</div>
+									</div>
+									<div class="form-group col-sm-8">
+										<select class="form-control" name="year">
+											 @for($cont=2019; $cont<2051; $cont++)
+											 <option value="{{$cont}}">{{$cont}}</option>
+											 @endfor
+										</select>
+									</div>
+								</div>
+
+								
+								<div class="form-row">
+									<div class="form-group col-sm-12">
+										
+										<div align="center">
+											<button type="submit" class="btn btn-info">Generar Reporte</button>
+											<a href="{{url('/')}}" class="btn btn-danger">Volver</a>
+										</div>
+									
+									</div>
+								</div>
+								{!!Form::close()!!}	
+
+			                @endif
+			                	 
+								
+			               </div>
+			        	</div>
+					</div>
+				<div class="col-sm-3" align="center"></div>
 			</div>
-			</div>
-			</div>
-	{!!Form::close()!!}	
+
+		</div>
+	</div>	
+
+	<div>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		
+		
 	</div>
+
 </body>
 @stop
-@section('tabla')
-<div align="center"><h3>REPORTES GENERADOS</h3></div><br>
-<div align="center">
-<div align="center"><h4>Comparar Gráficas</h4></div>
-
-{!! Form::open(array('url'=>'almacen/reportes/compararGP1','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
-
-  	<select name="id1" class="" >
-        @foreach($reportes as $r)
-        <option value="{{$r->id_rPedidos}}">No: {{$r->id_rPedidos}}, Fecha: {{$r->fechaActual}}</option>
-        @endforeach
-    </select>&nbsp&nbsp&nbsp&nbsp&nbsp
-    <select name="id2" class="">
-        @foreach($reportes as $r)
-        <option value="{{$r->id_rPedidos}}">No: {{$r->id_rPedidos}}, Fecha: {{$r->fechaActual}}</option>
-        @endforeach
-    </select><br><br>
-	<span class=""><button type="submit" class="">Comparar</button></span><br><br>
-      
-{!!Form::close()!!} 
-
-</div>
-<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="table-responsive">
-					<table class="table table-striped table-bordered table-condensed table-hover">
-						<thead>
-							<th>ID</th>
-							<th>FECHA DE CONSULTA</th>
-							<th>FECHA INICIAL</th>
-							<th>FECHA FINAL</th>
-							
-							<th>OPCIONES</th>
-						</thead>
-						@foreach($reportes as $rep)
-						<tr>
-							<td>{{ $rep->id_rPedidos}}</td>
-							<td>{{ $rep->fechaActual}}</td>
-							<td>{{ $rep->fechaInicial}}</td>
-							<td>{{ $rep->fechaFinal}}</td>
-							
-							<td>
-								<a href="{{URL::action('reportesPedidosEX@edit',$rep->id_rPedidos)}}"><button class="btn btn-info">Gráfica</button></a>
-								<a href="{{URL::action('reportesPedidosPDF@edit',$rep->id_rPedidos)}}"><button class="btn btn-warning"><i>pdf</i></button></a>
-								<a href="{{URL::action('reportesPedidosEX@show',$rep->id_rPedidos)}}"><button class="btn btn-success"><i>xls</i></button></a>
-								<a href="" data-target="#modal-delete-{{$rep->id_rPedidos}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
-							</td>
-						</tr>
-						@include('almacen.reportes.pedidos.modal')	
-						@endforeach
-					</table>
-				</div>
-				
-			</div>
-</div><br>
-
-
-
-</div>	
-			
-@stop
-			

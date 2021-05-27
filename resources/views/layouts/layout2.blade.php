@@ -119,15 +119,6 @@
                   @endif
               @endforeach
 
-              @foreach($modulos as $m)
-                @if($m->id_modulo==4)
-                 <li class="nav-item">
-                    <a class="nav-link" href="">
-                      <i class="fas fa-fw fa-chart-area"></i>
-                      <span>Devoluciones</span></a>
-                  </li>
-                  @endif
-              @endforeach
 
               @foreach($modulos as $m)
                 @if($m->id_modulo==5)
@@ -140,7 +131,7 @@
               @endforeach
 
               @foreach($modulos as $m)
-                @if($m->id_modulo==9)
+                @if($m->id_modulo==7)
 
                 <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
@@ -176,22 +167,6 @@
                   @endif
               @endforeach
 
-              <!--@foreach($modulos as $m)
-                @if($m->id_modulo==7)
-               <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-                  <i class="fas fa-fw fa-cog"></i>
-                  <span>Pedidos</span>
-                </a>
-                <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="">Pedido cliente</a>
-                    <a class="collapse-item" href="">Pedido proveedor</a>
-                  </div>
-                </div>
-              </li>
-              @endif
-              @endforeach-->
 
 
               @foreach($modulos as $m)
@@ -203,7 +178,7 @@
                 </a>
                 <div id="collapse6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="">Pedidos</a>
+                    <a href="{{url('almacen/reportes/pedido')}}" class="collapse-item" href="">Pedidos</a>
                     <a class="collapse-item" href="">Productos</a>
                   </div>
                 </div>
