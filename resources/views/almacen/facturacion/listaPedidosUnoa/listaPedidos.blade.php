@@ -73,7 +73,7 @@
 					
 					<th>EMPLEADO</th>
 					<th>TOTAL</th>
-					<th colspan="2">OPCIONES</th>
+					<th colspan="3">OPCIONES</th>
 				</thead>
 				@foreach($pedidosCliente as $pc)
 				<tr>
@@ -84,12 +84,40 @@
 					
 					<td>{{$pc->empleado}}</td>
 					<td>{{$pc->pago_total}}</td>
+
+					@if($pc->estado==2)
 					<td>	
 						<a href="{{URL::action('facturacionListaPedidosUnoa@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
+					</td>
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosUnoa@changeState',$pc->id_remision)}}"><button class="btn btn-info" disabled>Despachado</button></a>
 					</td>
 					<td>
 						<a href="" data-target="#modal-delete-{{$pc->id_remision}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 					</td>
+					@endif
+					@if($pc->estado==1)
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosUnoa@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
+					</td>
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosUnoa@changeState',$pc->id_remision)}}"><button class="btn btn-danger">Despachar</button></a>
+					</td>
+					<td>
+						<a href="" data-target="#modal-delete-{{$pc->id_remision}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+					</td>
+					@endif
+					@if($pc->estado==0)
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosUnoa@edit',$pc->id_remision)}}"><button class="btn btn-info">Productos</button></a>
+					</td>
+					<td>	
+						<a href="{{URL::action('facturacionListaPedidosUnoa@changeState',$pc->id_remision)}}"><button class="btn btn-warning" disabled>Despachar</button></a>
+					</td>
+					<td>
+						<a href="" data-target="#modal-delete-{{$pc->id_remision}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+					</td>
+					@endif
 				</tr>
 				@include('almacen.facturacion.listaPedidosUnoA.modal')
 				@endforeach

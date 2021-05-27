@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use sisVentas\Http\Requests;
 use sisVentas\PedidoProveedor;
 use sisVentas\AbonoPC;
-use sisVentas\DetallePC;
+use sisVentas\DetallePP;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\PedidoProveedorFormRequest;
 use sisVentas\Http\Requests\AbonoPCFormRequest;
@@ -36,7 +36,7 @@ class facturacionListaPedidosUnoa extends Controller
 	 			->join('empleado as e','tc.empleado_id_empleado','=','e.id_empleado')
 	 			
 	 			->join('tipo_pago as p','tc.tipo_pago_id_tpago','=','p.id_tpago')
-	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'p.nombre as tipo_pago')
+	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'p.nombre as tipo_pago', 'tc.estado')
 	 			->where('tc.fecha_solicitud','LIKE', '%'.$query.'%')
 	 			->where('tc.fecha_entrega','LIKE', '%'.$query2.'%')
 	 			->where('tc.id_remision','LIKE', '%'.$query3.'%')
@@ -346,95 +346,74 @@ class facturacionListaPedidosUnoa extends Controller
 	 		$pedidoCliente->tipo_pago_id_tpago=$request->get('tipo_pago_id_tpago');
 	 		$pedidoCliente->save();
 
+			$id=$pedidoCliente->id_remision;
+			$query="";
+			$query1="";
+			$producto=DB::table('producto')->get();
+			$tpCliente=DB::table('t_p_proveedor')->get();
+		
+			//Es esta variable!!!!
+			$detalleCliente=DB::table('d_p_proveedor as dpp')
+			->join('t_p_proveedor as tpc','dpp.t_p_proveedor_id_remision','=','tpc.id_remision')
+			->join('proveedor as prov','dpp.proveedor_id_proveedor','=','prov.id_proveedor')
+			->join('producto as pro','dpp.producto_id_producto','=','pro.id_producto')
+			->join('empleado as e','dpp.empleado_id_empleado','=','e.id_empleado')
+			->join('sede as sed','dpp.sede_id_sede','=','sed.id_sede')
+			->select('dpp.id_dpproveedor as id_dpproveedor','dpp.cantidad as cantidad', 'dpp.precio_venta as precio_venta', 'tpc.id_remision as t_p_proveedor_id_remision','pro.nombre as producto_id_producto','dpp.total as total', 'e.nombre as empleado_id_empleado', 'sed.nombre_sede as sede_id_sede', 'dpp.fecha', 'prov.nombre_empresa as proveedor_id_proveedor')
+			->where('dpp.t_p_proveedor_id_remision','=',$id)
+			->orderBy('dpp.producto_id_producto', 'desc')
+			->paginate(10);
 
-	 		/*$id=$pedidoCliente->id_remision;
+			$productosNom=DB::table('producto')
+			->where('nombre','=',$query)
+			->orderBy('nombre', 'desc')
+			->paginate(10);
 
-	 		$idp=trim($request->get('producto_id_producto'));
-	 			
-	 			$query=trim($request->get('searchText'));
-	 			$query1=trim($request->get('searchText1'));
-	 			$producto=DB::table('producto')->get();
-	 			$tpCliente=DB::table('t_p_cliente')->get();
-	 			$detalleCliente=DB::table('d_p_proveedor as dc')
-	 			->join('producto as p','dc.producto_id_producto','=','p.id_producto')
-	 			->join('t_p_proveedor as tpc','dc.t_p_proveedor_id_remision','=','tpc.id_remision')
-	 			->select('dc.id_rproveedor','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_rproveedor as tp_aproveedor_id_rproveedor','p.nombre as producto_id_producto','dc.total as total')
-	 			->where('dc.tp_aproveedor_id_rproveedor','=',$id)
-	 			->orderBy('dc.producto_id_producto', 'desc')
-	 			->paginate(10);*/
+			$productosEAN=DB::table('producto as pro')
+			->join('sede as sed','pro.sede_id_sede','=','sed.id_sede')
+			->join('empleado as e','pro.empleado_id_empleado','=','e.id_empleado')
+			->join('categoria as ct','pro.categoria_id_categoria','=','ct.id_categoria')
+			->select('pro.id_producto','pro.plu','pro.ean','pro.nombre','pro.precio','pro.stock_minimo','pro.fecha_registro','sed.nombre_sede as sede_id_sede','ct.nombre as categoria_id_categoria','e.nombre as empleado_id_empleado')
+			->where('ean','=',$query)
+			->orderBy('ean', 'desc')
+			->paginate(10);
 
-				/*$detalleProveedor=DB::table('d_p_proveedor as dc')
-	 			->join('producto as p','dc.producto_id_producto','=','p.id_producto')
-	 			->join('t_p_proveedor as tpc','dc.t_p_proveedor_id_remision','=','tpc.id_remision')
-	 			->select('dc.id_rproveedor','dc.cantidad as cantidad', 'dc.precio_venta as precio_venta', 'tpc.id_rproveedor as tp_aproveedor_id_rproveedor','p.nombre as producto_id_producto','dc.total as total')
-	 			->where('dc.tp_aproveedor_id_rproveedor','=',$id)
-	 			->orderBy('dc.producto_id_producto', 'desc')
-	 			->paginate(10);*/
+			$productosEAN2=DB::table('producto as pro')
+			->join('sede as sed','pro.sede_id_sede','=','sed.id_sede')
+			->join('empleado as e','pro.empleado_id_empleado','=','e.id_empleado')
+			->join('categoria as ct','pro.categoria_id_categoria','=','ct.id_categoria')
+			->select('pro.id_producto','pro.plu','pro.ean','pro.nombre','pro.precio','pro.stock_minimo','pro.fecha_registro','sed.nombre_sede as sede_id_sede','ct.nombre as categoria_id_categoria','e.nombre as empleado_id_empleado')
+			->where('pro.nombre','LIKE', '%'.$query1.'%')
+			->orderBy('ean', 'desc')
+			->paginate(10);
 
-	 			/*$productosNom=DB::table('producto')
-	 			->where('nombre','=',$query)
-	 			->orderBy('nombre', 'desc')
-	 			->paginate(10);
+			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+			$modulos=DB::table('cargo_modulo')
+			->where('id_cargo','=',$cargoUsuario)
+			->orderBy('id_cargo', 'desc')->get();
 
+			$pedidoCliente=DB::table('t_p_proveedor')->get();
 
+			$eanP=DB::table('producto')
+			->orderBy('id_producto', 'desc')->get();
 
-	 			$productosEAN=DB::table('producto as p')
-	 			->join('impuestos as i','p.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_producto as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','p.precio as precioU','p.nombre as nombre')
-	 			->where('ean','=',$query)
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
+			if($query!="" && $query1!=""){
+					$query1="";
+					$query="";
+		    }
+			
 
+		    $proveedor=DB::table('proveedor')->get();
 
-	 			$productosEAN2=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
-	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
+		    $empleados=DB::table('empleado')
+				 ->orderBy('id_empleado', 'desc')->get();
 
-	 		if(auth()->user()->superusuario==0){
-	 			$productosEAN=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
-	 			->where('ean','=',$query)
-	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
+			$sedes=DB::table('sede')->get();
 
-	 		$productosEAN2=DB::table('stock as p')
-	 			->join('producto as pr','p.producto_id_producto','=','pr.id_producto')
-	 			->join('proveedor as ov','p.proveedor_id_proveedor','=','ov.id_proveedor')
-	 			->join('impuestos as i','pr.impuestos_id_impuestos','=','i.id_impuestos')
-	 			->select('p.id_stock as id_producto','i.id_impuestos as impuestos_id_impuestos','i.nombre as nombreI','pr.precio as precioU','pr.nombre as nombre','ov.nombre_proveedor as nproveedor','p.cantidad as cantidad','p.sede_id_sede as sede','pr.stock_minimo as minimo','p.disponibilidad as disponible' )
-	 			->where('pr.nombre','LIKE', '%'.$query1.'%')
-	 			->where('p.sede_id_sede','=',auth()->user()->sede_id_sede)
-	 			->orderBy('ean', 'desc')
-	 			->paginate(10);
-	 		}
+			return view('almacen.pedidosDevoluciones.productoPedidoUnoa.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente, "pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP, "empleados"=>$empleados,"sedes"=>$sedes, "proveedor"=>$proveedor]);
 
 
-	 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
-	 			$modulos=DB::table('cargo_modulo')
-	 			->where('id_cargo','=',$cargoUsuario)
-	 			->orderBy('id_cargo', 'desc')->get();
 
-	 			$pedidoCliente=DB::table('t_p_cliente')->get();
-
-	 			$eanP=DB::table('producto')
-	 			->orderBy('id_producto', 'desc')->get();
-
-	 			if($query!="" && $query1!=""){
-	 				$query1="";
-	 				$query="";
-	 			}
-
-	 		return view('almacen.pedidosDevoluciones.productoPedidoUnoa.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos, "productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente, "pedidoCliente"=>$pedidoCliente, "eanP"=>$eanP]);*/
-			 return back()->with('msj','Pedido de UnoA Guardado');
 	 	}
 
 	 	public function update(PedidoProveedorFormRequest $request, $id){
@@ -458,24 +437,48 @@ class facturacionListaPedidosUnoa extends Controller
 
 	 	public function destroy($id){
 	 		$id=$id;
-
 	 		$modulos=DB::table('d_p_proveedor')
 	 		->select('id_dpproveedor')
 	 		->where('t_p_proveedor_id_remision','=',$id)
 	 		->orderBy('id_dpproveedor', 'desc')->get();
 
+			$existe=DB::table('d_p_proveedor')
+			->select('id_dpproveedor as id')
+			->where('t_p_proveedor_id_remision','=',$id)
+			->orderBy('id_dpproveedor', 'desc')->get();
+
+
+
+
 	 			if(count($modulos)==0){
 	 				$pedidoCliente = PedidoProveedor::findOrFail($id);
 	 				$pedidoCliente->delete();
-	 				
 	 				return back()->with('msj','Pedido eliminado');
 	 			}
 	 			else{
-	 		
-	 			return back()->with('errormsj','¡Pedido con productos!');
 
+					for ($i=0; $i <count($modulos) ; $i++) { 
+						$proCorte=DetallePP::findOrFail($modulos[$i]->id_dpproveedor);
+						$proCorte->delete();
+					}
+
+					$t_p_proveedor=PedidoProveedor::findOrFail($id);
+					$t_p_proveedor->delete();
+	
+					return back()->with('msj','Pedido eliminado');
+
+
+				
+	 				//return back()->with('errormsj','¡Pedido con productos!');
 	 			}
 	 	}
 
 
+		public function changeState($id){
+			$pedidoProveedor = PedidoProveedor::findOrFail($id);
+		   	$pedidoProveedor->estado=2;
+			$pedidoProveedor->save();
+			return back()->with('msj','Pedido despachado');
+		}
+		
 }

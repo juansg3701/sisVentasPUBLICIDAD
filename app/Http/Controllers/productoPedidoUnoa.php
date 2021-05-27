@@ -175,8 +175,6 @@ class productoPedidoUnoa extends Controller
 			->orderBy('ean', 'desc')
 			->paginate(10);
 
-
-
 			$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
 			$modulos=DB::table('cargo_modulo')
 			->where('id_cargo','=',$cargoUsuario)
@@ -190,11 +188,10 @@ class productoPedidoUnoa extends Controller
 			if($query!="" && $query1!=""){
 					$query1="";
 					$query="";
-		   }
+		    }
 			
 
-		   $proveedor=DB::table('proveedor')->get();
-
+		    $proveedor=DB::table('proveedor')->get();
 
 		    $empleados=DB::table('empleado')
 				 ->orderBy('id_empleado', 'desc')->get();
@@ -203,11 +200,6 @@ class productoPedidoUnoa extends Controller
 
 			return view('almacen.pedidosDevoluciones.productoPedidoUnoa.registrarProductos',["id"=>$id,"producto"=>$producto,"productosNom"=>$productosNom,"searchText"=>$query,"searchText1"=>$query1,"productosEAN2"=>$productosEAN2,"modulos"=>$modulos,"productosEAN"=>$productosEAN, "detalleCliente"=>$detalleCliente, "pedidoCliente"=>$pedidoCliente,"eanP"=>$eanP, "empleados"=>$empleados,"sedes"=>$sedes, "proveedor"=>$proveedor]);
 		}
-
-
-
-
-
 
 	 	public function store(DetallePPFormRequest $request){
 	 		
@@ -218,7 +210,6 @@ class productoPedidoUnoa extends Controller
 	 		->where('cantidad','>=',$cantidadR)
 	 		->where('id_stock','=',$productoR)
 	 		->get();
-
 	 		
 	 		$detallepc = new DetallePP;
 	 		$cantidad=$cantidadR;
@@ -232,12 +223,10 @@ class productoPedidoUnoa extends Controller
 	 		$detallepc->t_p_proveedor_id_remision=$id_remision;
 	 		$detallepc->producto_id_producto=$productoR;
 	 		$detallepc->precio_venta=$precio;
-
 		
 	 		$detallepc->total=$cantidad*($precio);
 	 		$detallepc->save();
 	 		$total=$cantidad*($precio);
-
 
 	 		$pc = PedidoProveedor::findOrFail($id_remision);
 	 		$precioAnterior=$pc->pago_total;
@@ -247,8 +236,6 @@ class productoPedidoUnoa extends Controller
 	 		$pc->noproductos=$productos+$cantidad;
 	 		$pc->update(); 
 
-
-
 	 		return back()->with('msj','Producto guardado');
 
 	 	}
@@ -257,29 +244,77 @@ class productoPedidoUnoa extends Controller
 
 		 public function update(Request $request, $id){
 			$pedidoCliente = PedidoProveedor::findOrFail($id);
-		    $pedidoCliente->finalizar=0;
+		    $pedidoCliente->finalizar=1;
+			$pedidoCliente->estado=1;
 			$pedidoCliente->update();
-
-			/*$cliente=DB::table('t_p_cliente as pc')
-			->join('cliente as cli','pc.cliente_id_cliente','=','cli.id_cliente')
-			->join('users as us','cli.user_id_user','=','us.id')
-			->select('us.email')
-			->where('pc.id_remision','=',$id)	
-			->get();
-			$enviar=$cliente[0]->email;
-			//dd($cliente);*/
 
 			$id=$id;
 
+			$facturaInfo="SELECT tpp.id_remision, tpp.noproductos, tpp.fecha_solicitud, tpp.fecha_entrega, tpp.pago_total FROM t_p_proveedor as tpp WHERE tpp.id_remision='$id'";
+
+			$fecha="SELECT CURDATE() as fechas";
+
+			$productosInfo="SELECT dpp.id_dpproveedor, dpp.cantidad, dpp.fecha, dpp.precio_venta, dpp.total, prod.nombre as producto_id_producto, prov.nombre_empresa as proveedor_id_proveedor FROM d_p_proveedor as dpp, producto as prod, proveedor as prov WHERE dpp.t_p_proveedor_id_remision='$id' and dpp.producto_id_producto=prod.id_producto and dpp.proveedor_id_proveedor=prov.id_proveedor";
+		
 			require('fpdf/fpdf.php');
 			require 'cn.php';
 
 			$pdf = new FPDF($orientation='P',$unit='mm');
 			$pdf->AddPage();
-			$pdf->SetFont('Arial','I',8);
+			$pdf->SetFont('Arial','I',6);
 
-			//$pdf->Output(public_path('/pdfPedidos/'),'s.pdf','F','UTF-8');
-			//$pdf->Output('D','RP_Ventas.pdf','UTF-8');
+
+			$pdf->Image('images/LogoPDF.png',10,3,40);
+			$pdf->Ln(10); 
+
+			$pdf->Cell(40,10,'PEDIDOS DE UNOA',0,1);
+			$pdf->Cell(40,10,'',0,1);
+
+			$pdf->Cell(40,5,'Datos Generales:',0,1);
+			$pdf->Cell(40,5,'',0,1);
+
+			$consulta = $facturaInfo;
+			$consulta2 = $productosInfo;
+
+			$facturas = $mysqli->query($consulta);
+			$productos = $mysqli->query($consulta2);
+
+			$pdf->SetFillColor(13,16,64);
+
+			while($row = $facturas->fetch_assoc()){
+				$pdf->SetTextColor(255,255,255);
+				$pdf->Cell(190,5,'DATOS DEL PEDIDO',1,1,"C",true);
+				$pdf->SetTextColor(0,0,1);
+				$pdf->Cell(60,5,'No. remision:',1,0);
+				$pdf->Cell(130,5,$row['id_remision'],1,1,'C',0);
+				$pdf->Cell(60,5,'Fecha de solicitud:',1,0);
+				$pdf->Cell(130,5,$row['fecha_solicitud'],1,1,'C',0);
+				$pdf->Cell(60,5,'Fecha de envio:',1,0);
+				$pdf->Cell(130,5,$row['fecha_entrega'],1,1,'C',0);
+				$pdf->Cell(60,5,'No. productos:',1,0);
+				$pdf->Cell(130,5,$row['noproductos'],1,1,'C',0);
+				$pdf->Cell(60,5,'Total:',1,0);
+				$pdf->Cell(130,5,$row['pago_total'],1,1,'C',0);
+			}
+
+			$pdf->Cell(15, 15, 'Productos:', 0,1);
+		    $pdf->SetTextColor(255,255,255);
+		    $pdf->Cell(50,5,'Nombre',1,0,"C",true);	
+		    $pdf->Cell(30,5,'Fecha',1,0,"C",true);
+			$pdf->Cell(30,5,'Proveedor',1,0,"C",true);
+			$pdf->Cell(20,5,'Cantidad',1,0,"C",true);
+			$pdf->Cell(30,5,'Precio Unitario',1,0,"C",true);
+			$pdf->Cell(30,5,'Total',1,1,"C",true);
+		    $pdf->SetTextColor(0,0,1);
+
+			while($row = $productos->fetch_assoc()){
+				$pdf->Cell(50,5,$row['producto_id_producto'],1,0,'C',0);
+				$pdf->Cell(30,5,$row['fecha'],1,0,'C',0);
+				$pdf->Cell(30,5,$row['proveedor_id_proveedor'],1,0,'C',0);
+				$pdf->Cell(20,5,$row['cantidad'],1,0,'C',0);
+				$pdf->Cell(30,5,$row['precio_venta'],1,0,'C',0);
+				$pdf->Cell(30,5,$row['total'],1,1,'C',0);
+			}
 
 			$pdf->Output(public_path('/pdfPedidos/').$id.'.pdf','F','UTF-8');
 
@@ -287,13 +322,16 @@ class productoPedidoUnoa extends Controller
 		
 			$subject = "PEDIDO UNO A";
 			$for = $enviar;
-			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for){
-				$msj->from("holman.test17@gmail.com","Lista de pedidos.");
+			$file=$id;
+
+			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for,$file){
+				$msj->from("holman.test17@gmail.com","Lista de pedidos UnoA.");
 				$msj->subject($subject);
 				$msj->to($for);
 				//$msj->attach(public_path('/').'/prueba.pdf'); 
+				$msj->attach(public_path('/pdfPedidos').'/'.$file.'.pdf'); 
 			});
-			
+
 			return back()->with('msj','Pedido finalizado');
 		}
 
@@ -442,9 +480,6 @@ class productoPedidoUnoa extends Controller
 			
 	 	}*/
 
-
-
-
 	 	public function destroy($idf){
 	 	
 	 		$detallepc=DetallePP::findOrFail($idf);
@@ -462,10 +497,7 @@ class productoPedidoUnoa extends Controller
 
 	 		$pc->update();
 
-
-
 	 		return back()->with('msj','Producto eliminado');
-
 
 		}
 
