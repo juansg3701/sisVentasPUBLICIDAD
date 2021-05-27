@@ -35,7 +35,7 @@ class facturacionListaPedidosClientes extends Controller
 	 			->join('empleado as e','tc.empleado_id_empleado','=','e.id_empleado')
 	 			->join('cliente as c','tc.cliente_id_cliente','=','c.id_cliente')
 	 			->join('tipo_pago as p','tc.tipo_pago_id_tpago','=','p.id_tpago')
-	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago', 'tc.estado')
+	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago', 'tc.estado', 'tc.fecha_aprobacion')
 	 			->where('tc.fecha_solicitud','LIKE', '%'.$query.'%')
 	 			->where('tc.fecha_entrega','LIKE', '%'.$query2.'%')
 	 			->where('tc.id_remision','LIKE', '%'.$query3.'%')
@@ -76,7 +76,7 @@ class facturacionListaPedidosClientes extends Controller
 	 			->join('empleado as e','tc.empleado_id_empleado','=','e.id_empleado')
 	 			->join('cliente as c','tc.cliente_id_cliente','=','c.id_cliente')
 	 			->join('tipo_pago as p','tc.tipo_pago_id_tpago','=','p.id_tpago')
-	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago')
+	 			->select('tc.id_remision','tc.noproductos','tc.fecha_solicitud','tc.fecha_entrega','tc.pago_inicial','tc.porcentaje_venta','tc.pago_total', 'e.nombre as empleado', 'c.nombre as cliente', 'p.nombre as tipo_pago', 'tc.estado', 'tc.fecha_aprobacion')
 	 			->where('tc.fecha_solicitud','LIKE', '%'.$query.'%')
 	 			->orderBy('tc.id_remision', 'desc')
 				->paginate(10);

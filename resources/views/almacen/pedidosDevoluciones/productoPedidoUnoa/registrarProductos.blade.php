@@ -334,7 +334,8 @@
 						<th>PROVEEDOR</th>
 						<th>CANTIDAD</th>
 						<th>PRECIO UNITARIO</th>
-						<th>TOTAL</th>			
+						<th>TOTAL</th>
+						<th>OPCIONES</th>		
 					</thead>
 					@foreach($detalleCliente as $pc)
 					<tr>
@@ -345,7 +346,11 @@
 						<td>{{$pc->cantidad}}</td>
 						<td>{{$pc->precio_venta}}</td>
 						<td>{{$pc->total}}</td>
+						<td>	
+							<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoPedidoCliente-{{$pc->id_dpproveedor}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
+						</td>
 					</tr>
+					@include('almacen.pedidosDevoluciones.productoPedidoUnoa.modalInfoPedidoCliente')
 					@endforeach
 				</table>
 				@else
@@ -413,7 +418,5 @@
 
 	{!!Form::close()!!}
 
-	<a href="{{URL::action('productoPedidoCliente@sendMail',0)}}">
-					<button href="" class="btn btn-info">Ticket</button></a>
 </div>
 @endsection

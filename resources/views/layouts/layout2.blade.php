@@ -144,16 +144,9 @@
                     <a class="collapse-item" href="{{URL::action('facturacionListaPedidosUnoa@index',0)}}">Pedidos unoa</a>
                   </div>
                 </div>
-              </li>
-              <!--
-                <li class="nav-item">
-                    <a class="nav-link" href="{{URL::action('facturacionListaPedidosClientes@index',0)}}">
-                      <i class="fas fa-fw fa-chart-area"></i>
-                      <span>Pedidos</span></a>
-                  </li>
-              -->
-                
-                  @endif
+                </li>
+
+                @endif
               @endforeach
 
               @foreach($modulos as $m)

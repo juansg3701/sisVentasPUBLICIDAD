@@ -71,6 +71,7 @@
 					<th>CLIENTE</th>
 					<th>EMPLEADO</th>
 					<th>TOTAL</th>
+					<th>FECHA APROBACION</th>
 					<th>ESTADO</th>
 					<!--<th colspan="2">OPCIONES</th>-->
 				</thead>
@@ -84,6 +85,7 @@
 					<td>{{$pc->cliente}}</td>
 					<td>{{$pc->empleado}}</td>
 					<td>{{$pc->pago_total}}</td>
+					<td>{{$pc->fecha_aprobacion}}</td>
 					@if($pc->estado==2)
 					<td>	
 						<a href="{{URL::action('facturacionListaPedidosClientes@changeState',$pc->id_remision)}}"><button class="btn btn-danger">Despachar</button></a>
