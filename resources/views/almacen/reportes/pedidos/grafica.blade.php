@@ -83,7 +83,6 @@
 
 					</table>
 				</div>
-				{{$pedidosCliente->render()}}
 			</div>
 </div><br>
 @stop

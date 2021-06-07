@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" align="center">
-              <h2 class="pb-2 display-5">REPORTE DE PEDIDOS MENSUAL POR SUBEMPRESA</h2>
+              <h2 class="pb-2 display-5">REPORTE DE PEDIDOS POR EMPRESA</h2>
             </div><br>
             <div class="row" align="center">  
                 <div class="col-sm-12" align="center">
@@ -27,13 +27,11 @@
                
                              <br>
                             <b> Pedidos entre:</b><br>
-                            <b>Inicio:</b> {{$mes_inicial_letra}} <br>
-                            <b>Fin:</b> {{$mes_final_letra}}<br>
+                            <b>Inicio:</b> {{$inicio}} <br>
+                            <b>Fin:</b> {{$fin}}<br>
+                            <b>Tipo:</b> {{$nombre_tipo_reporte}}<br>
                             <br>
-                            <b>Empresa:</b> {{$nombre_empresa}}<br>
-                            <br>
-                            <b>Subempresa:</b> {{$nombre_subempresa}}<br>
-                            <br>
+                  
 
                               </div>
                              <br>
@@ -75,24 +73,15 @@
     
             <table id="bootstrap-data-table" class="table table-striped table-bordered">
               <thead>
-              <th>FECHA</th>
+              <th>EMPRESA</th>
+              <th>No. de pedidos</th>
               <th>No. PRODUCTOS</th>
               </thead>
             @foreach($pedidos as $ps)
             <tr>
-              <td>{{ $ps->fecha}} - {{$ps->fecha_year}}</td>
+              <td>{{ $ps->empresa}} - {{ $ps->subempresa}}</td>
+              <td>{{ $ps->numero_pedidos}}</td>
               <td>{{ $ps->noproductos}}</td>
-              <!--  
-              <td> 
-                <?php
-                $valores2=$ps->fecha_mes.'.'.$ps->fecha_year.'.'.$ps->fecha.'.'.'m';
-                ?>
-                
-                <a href="{{url('almacen/editproductos/'.$valores2)}}">
-                <button class="btn btn-outline-primary btn-sm">Detalle</button>
-                </a>
-                </td>
-                -->
             </tr>   
             @endforeach
           </table>
@@ -106,7 +95,7 @@
  <script>
   var buyerData = {
     labels : [@foreach($pedidos as $ps)
-              "{{$ps->fecha}} - {{$ps->fecha_year}}",
+              "{{$ps->empresa}} - {{ $ps->subempresa}}",
               @endforeach],
     datasets : [
       {

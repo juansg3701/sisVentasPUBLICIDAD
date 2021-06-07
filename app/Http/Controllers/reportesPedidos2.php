@@ -4,6 +4,7 @@ namespace sisVentas\Http\Controllers;
 use Illuminate\Http\Request;
 use sisVentas\Http\Requests;
 use sisVentas\RPedidos2;
+use sisVentas\EmpresaCategoria;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\RPedidos2FormRequest;
 use DB;
@@ -56,7 +57,70 @@ class reportesPedidos2 extends Controller
 	 			return back()->with('errormsj','¡Las fechas no son correctas!');
 	 		}
 	}
+	public function update(Request $request,$id){
+		$cargoUsuario=auth()->user()->tipo_cargo_id_cargo;
+	 	$modulos=DB::table('cargo_modulo')
+	 	->where('id_cargo','=',$cargoUsuario)
+	 	->orderBy('id_cargo', 'desc')->get();
 
+	 	$inicio=$request->get('inicio');
+	 	$fin=$request->get('fin');
+	 	$tipo_reporte=$request->get('tipo_reporte');
+
+	 	//dd($inicio.' '.$fin.' '.$tipo_reporte);
+
+	 	if($inicio=="" || $fin=="" || $tipo_reporte==""){
+	 		return back()->with('errormsj','¡¡Los datos deben estar completos!!');
+	 	}else{
+	 		if($inicio<=$fin){
+	 			//codigo de reporte
+	 			$pedidos=DB::table('t_p_cliente as tpc')
+	 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+	 			->join('empresa as em','tpc.empresa_pedido','=','em.id_empresa')
+	 			->select('tpc.id_remision',
+				 DB::raw('sum(tpc.noproductos) as noproductos'),DB::raw('count(tpc.id_remision) as numero_pedidos'), 'tpc.fecha_entrega as fecha','em.nombre as empresa','tpc.subempresa_pedido as subempresa')
+	 			->where('tpc.fecha_solicitud','>=',$inicio)
+	 			->where('tpc.fecha_solicitud','<=',$fin)
+	 			->where('tpc.estado','=',$tipo_reporte)
+	 			->orderBy('tpc.id_remision', 'asc')
+	 			->groupBy('tpc.empresa_pedido')
+	 			->get();
+
+	 			$nombre_tipo_reporte="";
+	 			foreach ($pedidos as $key => $value) {
+	 				$pedidos[$key]->subempresa=self::nombre_subempresa($pedidos[$key]->subempresa);
+	 				
+	 			}
+	 			switch ($tipo_reporte) {
+	 					case '3':
+	 						$nombre_tipo_reporte="Despachados";
+	 						break;
+	 					case '2':
+	 						$nombre_tipo_reporte="Pendientes";
+	 						break;	
+	 				}
+
+	 			return view("almacen.reportes.pedidos2.graficad2",["modulos"=>$modulos,"pedidos"=>$pedidos,"inicio"=>$inicio,"fin"=>$fin,"nombre_tipo_reporte"=>$nombre_tipo_reporte,"tipo_reporte"=>$tipo_reporte]);
+
+	 		}else{
+	 			return back()->with('errormsj','¡¡La fecha final debe ser mayor a la inicial!!');
+	 		}
+	 	}
+
+	} 
+	public function nombre_subempresa($id){
+		$nombre="";
+
+		if($id!=""){
+			$subempresa= EmpresaCategoria::findOrFail($id);
+			$nombre=$subempresa->nombre;
+		}else{
+			$nombre="No tiene";
+		}
+		
+
+		return $nombre;
+	}
 
 	public function destroy($id){
 	 	$reporte = RPedidos2::findOrFail($id);
