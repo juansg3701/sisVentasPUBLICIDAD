@@ -180,7 +180,7 @@
                   <div class="bg-white py-2 collapse-inner rounded">
                     <a href="{{url('almacen/reportes/pedido')}}" class="collapse-item" href="">Pedidos por meses</a>
                     <a href="{{url('almacen/reportes/pedidos2')}}" class="collapse-item" href="">Pedidos filtrados</a>
-                    <a href="{{url('almacen/reportes/inventarioclientes')}}"class="collapse-item">Iventario clientes</a>
+                    <a href="{{url('almacen/reportes/inventarioclientes')}}"class="collapse-item">Inventario clientes</a>
                     <a href="{{url('almacen/reportes/pedido')}}" class="collapse-item" href="">Archivos excel</a>
                   </div>
                 </div>
