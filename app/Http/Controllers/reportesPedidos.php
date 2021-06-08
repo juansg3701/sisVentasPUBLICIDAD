@@ -118,7 +118,7 @@ class reportesPedidos extends Controller
 			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
 			 			->get();
 	 				}else{
@@ -144,7 +144,7 @@ class reportesPedidos extends Controller
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
 			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
 			 			->get();
 	 				}
@@ -166,7 +166,7 @@ class reportesPedidos extends Controller
 			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy('dpc.producto_id_producto')
 			 			->get();
 	 				}else{
@@ -193,7 +193,7 @@ class reportesPedidos extends Controller
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
 			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy('dpc.producto_id_producto')
 			 			->get();
 /*

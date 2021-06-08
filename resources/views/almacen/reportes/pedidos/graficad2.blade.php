@@ -47,10 +47,8 @@
                 <div class="col-sm-12" align="center">
                  
                     <div class="row" align="center">
-                            <div  class="col-sm-5" align="center">
-                                 
-                            </div>
-                            <div  class="col-sm-6" align="center">
+                           
+                            <div  class="col-sm-12" align="center">
                             <div id="piechart2" style="width: 600px; height: 300px;"></div>
                             </div>
                     </div>
