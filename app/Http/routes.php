@@ -165,5 +165,5 @@ Route::get('downloadExcelProducto', 'ProductoSedeController@downloadExcel');
 Route::get('downloadExcelStockCliente', 'StockClienteController@downloadExcel');
 Route::get('downloadExcelStockUnoA', 'StockController@downloadExcel');
 
-Route::get('changeState/{id}', 'facturacionListaPedidosClientes@changeState');
-Route::get('changeState/{id}', 'facturacionListaPedidosUnoa@changeState');
+Route::get('changeStateCliente/{id}', 'facturacionListaPedidosClientes@changeState');
+Route::get('changeStateUnoa/{id}', 'facturacionListaPedidosUnoa@changeState');
