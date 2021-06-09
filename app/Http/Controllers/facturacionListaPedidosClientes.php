@@ -41,7 +41,7 @@ class facturacionListaPedidosClientes extends Controller
 	 			->where('tc.id_remision','LIKE', '%'.$query3.'%')
 	 			->where('c.nombre','LIKE', '%'.$query4.'%')
 				->where('tc.estado','>=',2)
-	 			->orderBy('tc.id_remision', 'desc')
+	 			->orderBy('tc.fecha_solicitud', 'desc')
 	 			->paginate(10);
 
 				/*$pedidosCliente=DB::table('t_p_cliente as tc')

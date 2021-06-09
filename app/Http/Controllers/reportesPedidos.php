@@ -89,6 +89,7 @@ class reportesPedidos extends Controller
 	 		$mes_r=$request->get('mes');
 	 		$mes_final=$request->get('mes_final');
 	 		$year_r=$request->get('year');
+	 		$tipo_reporte=$request->get('tipo_reporte');
 
 	 		$nombre_empresa="";
 	 		$nombre_subempresa="";
@@ -102,9 +103,8 @@ class reportesPedidos extends Controller
 	 			if($empresa_r=="" || $mes_r=="" || $mes_final=="" || $year_r==""){
 	 				return back()->with('errormsj','¡¡Los datos deben estar completos!!');
 	 			}else{
-
-	 				if($subempresa_r==""){
-
+	 				if($tipo_reporte==1){
+	 					if($subempresa_r==""){
 
 	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
 			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
@@ -118,9 +118,9 @@ class reportesPedidos extends Controller
 			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
-			 			->paginate(100);
+			 			->get();
 	 				}else{
 
 	 					//dd($empresa_r.' '.$subempresa_r);
@@ -144,32 +144,85 @@ class reportesPedidos extends Controller
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
 			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
-			 			->paginate(100);
+			 			->get();
 	 				}
 	 			
+	 				}else{
+	 					if($subempresa_r==""){
+
+	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+			 			->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
+			 			->join('stock_clientes as sc','dpc.producto_id_producto','=','sc.id_stock_clientes')
+			 			->select('tpc.id_remision',
+						 DB::raw('sum(dpc.cantidad) as noproductos'),
+						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
+						 'sc.nombre as producto')
+			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
+			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
+			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.estado','=',3)
+			 			->where('tpc.empresa_pedido','=',$empresa_r)
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+			 			->groupBy('dpc.producto_id_producto')
+			 			->get();
+	 				}else{
+
+	 					//dd($empresa_r.' '.$subempresa_r);
+	 					$n_subempresa=DB::table('empresa_categoria')
+				 		->where('id_empresa_categoria','=',$subempresa_r)
+				 		->where('empresa_id_empresa','=',$empresa_r)
+				 		->orderBy('id_empresa_categoria', 'desc')->get();
+
+				 		$nombre_subempresa=$n_subempresa[0]->nombre;
+				 		$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+			 			->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
+			 			->join('stock_clientes as sc','dpc.producto_id_producto','=','sc.id_stock_clientes')
+			 			->select('tpc.id_remision',
+						 DB::raw('sum(dpc.cantidad) as noproductos'),
+						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
+						 'sc.nombre as producto')
+			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
+			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
+			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.estado','=',3)
+			 			->where('tpc.empresa_pedido','=',$empresa_r)
+			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
+			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+			 			->groupBy('dpc.producto_id_producto')
+			 			->get();
+/*
+	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+			 			->select('tpc.id_remision',
+						 DB::raw('sum(tpc.noproductos) as noproductos'), 
+						 DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
+						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
+			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
+			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
+			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.estado','=',3)
+			 			->where('tpc.empresa_pedido','=',$empresa_r)
+			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
+			 			->orderBy('tpc.id_remision', 'asc')
+			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
+			 			->get();
+			 			*/
+	 				}
+	 			
+	 				$tipo_reporte_detallado="d";
+		 		
+		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"mes_r"=>$mes_r,"tipo_reporte_detallado"=>$tipo_reporte_detallado]);
 
 
-	 			if(auth()->user()->superusuario==0){
-	 				/*
-	 			$pedidos_mensuales=DB::table('factura as f')
-	 			->join('empleado as e','f.empleado_id_empleado','=','e.id_empleado')
-	 			->join('cliente as c','f.cliente_id_cliente','=','c.id_cliente')
-	 			->join('tipo_pago as tp','f.tipo_pago_id_tpago','=','tp.id_tpago')
-	 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
-	 			->select('f.id_factura',DB::raw('sum(f.pago_total) as pago_total'),DB::raw('sum(f.noproductos) as noproductos'), 'tpc.nombre as tipo_pago_id_tpago', DB::raw('MONTH(f.fecha) as fecha'), DB::raw('YEAR(f.fecha) as fecha_year'), DB::raw('MONTH(f.fecha) as fecha_mes'))
-	 			->where(DB::raw('MONTH(f.fecha)'),'>=',$fecha_mes_inicial)
-	 			->where(DB::raw('MONTH(f.fecha)'),'<=',$fecha_mes_final)
-	 			->where(DB::raw('YEAR(f.fecha)'),'=',$fecha_year)
-	 			->where('sed.id_sede','=',auth()->user()->sede_id_sede)
-	 			->where('f.facturapaga','=',1)
-		 		->where('f.anulacion','=',0)
-	 			->orderBy('f.id_factura', 'asc')
-	 			->groupBy(DB::raw('MONTH(f.fecha)'))
-	 			->paginate(100);	
-	 			*/
-	 			}
+	 				}
+	 				
 
 
 	 			foreach ($pedidos_mensuales as $key => $value) {	
