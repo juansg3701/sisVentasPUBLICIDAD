@@ -109,7 +109,7 @@
 												@endif
 
 
-										
+						
 											
 												<?php 
 												$contador=1;
@@ -137,11 +137,11 @@
 
 												
 
-													@if($EAN->nombre!='')
+												@if($EAN->nombre!='')
 													<?php
 													$Enable="enable";
 													?>	
-													@endif
+												@endif
 												
 												
 												@endforeach
@@ -149,54 +149,46 @@
 
 											@if($searchText1!="")
 
-											@foreach($productosEAN2 as $EAN)
+												@foreach($productosEAN2 as $EAN)
 
-												@if($contadorB2=='0')
-												<?php 
-												$contadorB2=1;
-												?>
-												@endif
+													@if($contadorB2=='0')
+													<?php 
+													$contadorB2=1;
+													?>
+													@endif
+
+													<div class="form-row">
+														<div class="form-group col-sm-4">
+															<div>Nombre Producto2:</div>
+														</div>
+														<div class="form-group col-sm-8">
+															<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}" disabled>
+															<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
+														</div>
+													</div>
+
+													<div class="form-row">
+														<div class="form-group col-sm-4">
+															<div>Precio unitario2:</div>
+														</div>
+														<div class="form-group col-sm-8">
+															<input type="text" class="form-control" name="" value="{{$EAN->precio}}" disabled>
+															<input type="hidden" class="form-control" name="precio_venta" value="{{$EAN->precio}}" enable>
+														</div>
+													</div>
 
 												
-											
+													@if($EAN->nombre!='')
+														<?php
+														$Enable="enable";
+														?>	
+													@endif
 												
-
-												<div class="form-row">
-													<div class="form-group col-sm-4">
-														<div>Nombre Producto:</div>
-													</div>
-													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}">
-														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-													</div>
-												</div>
-
-												<div class="form-row">
-													<div class="form-group col-sm-4">
-														<div>Precio unitario:</div>
-													</div>
-													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="" value="{{$EAN->precio}}" disabled>
-														<input type="hidden" class="form-control" name="precio_venta" value="{{$EAN->precio}}" enable>
-													</div>
-												</div>
-
-											
-												@if($EAN->nombre!='')
-													<?php
-													$Enable="enable";
-													?>	
-												@endif
-											
-											
-											@endforeach
+												
+												@endforeach
 											@endif
 
-											@if($searchText1!="" && $contadorB!='1' && $contador!='1')
-											<script >
-												window.alert("Producto no disponibleeeeeeee");
-											</script>
-											@endif
+											
 											@if($searchText!="" && $contadorB!='1' && $contador!='1')
 											<script >
 												window.alert("Producto no disponible");

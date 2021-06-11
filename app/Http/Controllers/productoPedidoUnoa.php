@@ -325,7 +325,7 @@ class productoPedidoUnoa extends Controller
 			$file=$id;
 
 			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for,$file){
-				$msj->from("holman.test17@gmail.com","Lista de pedidos UnoA.");
+				$msj->from("holman.test99@gmail.com","Lista de pedidos UnoA.");
 				$msj->subject($subject);
 				$msj->to($for);
 				//$msj->attach(public_path('/').'/prueba.pdf'); 
@@ -466,7 +466,7 @@ class productoPedidoUnoa extends Controller
 			$file=$id;
 			
 			Mail::send('almacen.emails.tickets',$request->all(), function($msj) use($subject,$for,$file){
-				$msj->from("holman.test17@gmail.com","Pedido aprobado");
+				$msj->from("holman.test99@gmail.com","Pedido aprobado");
 				$msj->subject($subject);
 				$msj->to($for);
 				$msj->attach(public_path('/pdfPedidos').'/'.$file.'.pdf'); 

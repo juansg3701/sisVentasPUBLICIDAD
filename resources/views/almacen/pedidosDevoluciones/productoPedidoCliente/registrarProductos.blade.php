@@ -29,278 +29,14 @@
 
 				<div class="row" align="center">
 					<div class="col-sm-12" align="center">
-						<br><h1 class="h3 mb-2 text-gray-800">REGISTRAR PRODUCTOS DEL PEDIDO</h1><br>
+						<br><h1 class="h3 mb-2 text-gray-800">PRODUCTOS DE PEDIDO-CLIENTE</h1><br>
 					</div>
 				</div>
 
-				<div class="row" align="center">	
-					<div class="col-sm-3" align="center"></div>
-					 	<div class="col-sm-6" align="center">
-							<div class="card" align="center">
-				                <div class="card-header" align="center">
-				                     <strong>Formulario de registro</strong>
-								</div>
-
-								{!! Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}	
-								<div class="card-body card-block" align="center">
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>EAN:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input id="tags" class="form-control" name="searchText" placeholder="Buscar...">
-											<input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}">
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Nombre:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<input id="buscar2" class="form-control" name="searchText1" placeholder="Buscar..." >
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-sm-12">
-											<div><input type="submit" class="btn btn-primary" value="Buscar"></div>
-										</div>
-									</div>
-								</div>
-								{{Form::close()}}
-
-								{!!Form::open(array('url'=>'almacen/pedidosDevoluciones/productoPedidoCliente','method'=>'POST','autocomplete'=>'off'))!!}
-								{{Form::token()}}
-								<div class="card-body card-block" align="center">
-									<div class="form-row">
-										<div class="form-group col-sm-12">
-											<div>No. Remisión:  {{$id}}</div>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-sm-12">
-											<input type="hidden" class="form-control" name="t_p_cliente_id_remision" value="{{$id}}"><br>
-										</div>
-									</div>
-											<?php
-												$Enable="disabled";
-											?>
-											<?php
-												$Enable="disabled";
-											?>
-											<?php 
-												$contador=0;
-												$contador2=0;
-												$contadorB=0;
-												$contadorB2=0;
-												$sedeP=auth()->user()->sede_id_sede;
-												$conteoProductos1=count($productosEAN);
-												$conteoProductos2=count($productosEAN2);
-												$nombre="";
-											?>
-
-											@if($conteoProductos1!=0)
-												
-												@foreach($productosEAN as $EAN)
-
-												@if($contador2=='0')
-												<?php 
-												$contador2=1;
-												?>
-												@endif
-
-												@if($EAN->producto_dados_baja==1)
-												<script >
-													window.alert("El producto fue dado de baja");
-												</script>
-												@else
-												
-
-
-												@if($EAN->cantidad>0 && $contador=='0')
-												<?php 
-												$contador=1;
-												?>
-
-												<div class="form-row">
-													<div class="form-group col-sm-4">
-														<div>Nombre Producto:</div>
-													</div>
-													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}" disabled>
-														<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-													</div>
-												</div>
-
-												<div class="form-row">
-													<div class="form-group col-sm-4">
-														<div>Precio unitario:</div>
-													</div>
-													<div class="form-group col-sm-8">
-														<input type="text" class="form-control" name="" value="{{$EAN->precioU}}" disabled>
-														<input type="hidden" class="form-control" name="precio_venta" value="{{$EAN->precioU}}" enable>
-													</div>
-												</div>
-
-													@if($EAN->nombre!='')
-													<?php
-													$Enable="enable";
-													?>	
-													@endif
-												@endif
-												@endif
-												@endforeach
-											@endif
-
-											@if($searchText1!="")
-
-											@foreach($productosEAN2 as $EAN)
-
-											@if($contadorB2=='0')
-											<?php 
-											$contadorB2=1;
-											?>
-											@endif
-
-											@if($EAN->producto_dados_baja==1)
-												<script >
-													window.alert("El producto fue dado de baja");
-												</script>
-											@else
-											
-											@if($EAN->cantidad>0 && $contadorB=='0')
-											<?php 
-											$contadorB=1;
-											?>
-
-											<div class="form-row">
-												<div class="form-group col-sm-4">
-													<div>Nombre Producto:</div>
-												</div>
-												<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="nombre" value="{{$EAN->nombre}}">
-													<input type="hidden" class="form-control" name="producto_id_producto" value="{{$EAN->id_producto}}" enable>
-												</div>
-											</div>
-
-											<div class="form-row">
-												<div class="form-group col-sm-4">
-													<div>Precio unitario:</div>
-												</div>
-												<div class="form-group col-sm-8">
-													<input type="text" class="form-control" name="precio_venta" value="{{$EAN->precioU}}">
-												</div>
-											</div>
-		
-											@if($EAN->nombre!='')
-												<?php
-												$Enable="enable";
-												?>	
-											@endif
-											@endif
-											@endif
-											@endforeach
-											@endif
-
-											@if($searchText1!="" && $contadorB!='1' && $contador!='1')
-											<script >
-												window.alert("Producto no disponible");
-											</script>
-											@endif
-											@if($searchText!="" && $contadorB!='1' && $contador!='1')
-											<script >
-												window.alert("Producto no disponible");
-											</script>
-											@endif
-											<!--@if($searchText1!="" && $contadorB!='1' && $contador!='1')
-											<script >
-												window.alert("Producto no disponible");
-											</script>
-											@endif
-											@if($searchText!="" && $contadorB!='1' && $contador!='1')
-											<script >
-												window.alert("Producto no disponible");
-											</script>
-											@endif-->
-	
-									<div class="form-row">
-											<div class="form-group col-sm-4">
-												<div>Cantidad:</div>
-											</div>
-											<div class="form-group col-sm-8">
-												<input type="text" class="form-control" name="cantidad" value="1">
-											</div>
-									</div>
-
-									<div class="form-row">
-											<div class="form-group col-sm-4">
-												<div>Fecha:</div>
-											</div>
-											<div class="form-group col-sm-8">
-												
-												<input type="datetime" name="" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control" disabled="true">
-												<input type="hidden" name="fecha" value="<?php echo date("Y/m/d H:i"); ?>" class="form-control">
-											</div>
-									</div>
-
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Empleado:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<select name="empleado_id_empleado" class="form-control" disabled="">
-												@foreach($empleados as $usu)
-												@if(Auth::user()->id==$usu->user_id_user)
-												<option value="{{$usu->id_empleado}}">{{$usu->nombre}}</option>
-												<input type="hidden" name="empleado_id_empleado" value="{{$usu->id_empleado}}">
-												@endif
-												@endforeach
-											</select>
-										</div>
-									</div>
-
-									<div class="form-row">
-										<div class="form-group col-sm-4">
-											<div>Sede:</div>
-										</div>
-										<div class="form-group col-sm-8">
-											<select name="sede_id_sede" class="form-control" disabled="true">
-												@foreach($sedes as $s)
-												@if( Auth::user()->sede_id_sede ==$s->id_sede)
-												<option value="{{$s->id_sede}}" >{{$s->nombre_sede}}</option>
-												<input type="hidden" name="sede_id_sede" value="{{$s->id_sede}}">
-												@endif
-												@endforeach
-											</select><br>
-										</div>
-									</div>
-
-									@foreach($pedidoCliente as $pc)
-										@if($pc->id_remision==$id)
-											@if($pc->finalizar=='1')
-											<div class="form-row">
-												<div class="form-group col-sm-12">
-													<button class="btn btn-info" type="submit" disabled>Registrar</button>
-													<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
-												</div>
-											</div>
-											@else
-											<div class="form-row">
-												<div class="form-group col-sm-12">
-													<button class="btn btn-info" type="submit">Registrar</button>
-													<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a>
-												</div>
-											</div>
-											@endif
-										@endif
-									@endforeach
-
-								</div>
-							   
-							   {!!Form::close()!!}
-				        	</div>
-						</div>
-					<div class="col-sm-3" align="center"></div>
+				<div class="row" align="center">
+					<div class="col-sm-12" align="center">
+						<a href="{{url('almacen/facturacion/listaPedidosClientes')}}" class="btn btn-danger">Regresar</a><br><br>
+					</div>
 				</div>
         	</div>
 		</div>
@@ -313,7 +49,7 @@
 <div class="container-fluid"><br>
 	<div class="col-sm-12" align="center">
 		<div class="col-sm-6" align="center">
-			<h1 class="h3 mb-2 text-gray-800">PRODUCTOS DE PEDIDO REGISTRADOS</h1>
+			
 		</div>
 	</div><br>
 </div>
@@ -332,51 +68,30 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<th>NO. REMISI&Oacute;N</th>
-						<th>ID</th>
 						<th>PRODUCTO</th>
 						<th>CANTIDAD</th>
-						<th>PRECIO UNITARIO</th>
-						<th>TOTAL</th>			
 					</thead>
 					@foreach($detalleCliente as $pc)
 					<tr>
 						<td>{{$pc->t_p_cliente_id_remision}}</td>
-						<td>{{$pc->id_dpcliente}}</td>
 						<td>{{$pc->producto_id_producto}}</td>
 						<td>{{$pc->cantidad}}</td>
-						<td>{{$pc->precio_venta}}</td>
-						<td>{{$pc->total}}</td>
 					</tr>
 					@endforeach
 				</table>
 				@else
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
-						<th>NO. REMISI&Oacute;N</th>
-						<th>ID</th>
+						<th>NO. REMISI&Oacute;N</th>	
 						<th>PRODUCTO</th>
 						<th>CANTIDAD</th>
-						<th>PRECIO UNITARIO</th>
-						<th>TOTAL</th>
-						<th colspan="2">OPCIONES</th>
 					</thead>
 					@foreach($detalleCliente as $pc)
 					<tr>
-						<td>{{$pc->t_p_cliente_id_remision}}</td>
-						<td>{{$pc->id_dpcliente}}</td>
+						<td>{{$pc->t_p_cliente_id_remision}}</td>			
 						<td>{{$pc->producto_id_producto}}</td>
 						<td>{{$pc->cantidad}}</td>
-						<td>{{$pc->precio_venta}}</td>
-						<td>{{$pc->total}}</td>
-						<td>
-							<a href="" data-target="#modal-delete-{{$pc->id_dpcliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
-						</td>
-						<td>	
-							<a href="" title="Registro de cambios" class="btn btn-info btn-circle" data-target="#modal-infoPedidoCliente-{{$pc->id_dpcliente}}" data-toggle="modal"><i class="fas fa-info-circle"></i></a>
-						</td>
 					</tr>
-					@include('almacen.pedidosDevoluciones.productoPedidoCliente.modal')
-					@include('almacen.pedidosDevoluciones.productoPedidoCliente.modalInfoPedidoCliente')
 					@endforeach
 				</table>
 				@endif
@@ -386,33 +101,16 @@
         </div>
         {{$detalleCliente->render()}}
 	</div>
-	
-	{!!Form::model($pedidoCliente,['method'=>'PATCH','route'=>['almacen.pedidosDevoluciones.productoPedidoCliente.update',$id]])!!}
-	{{Form::token()}}
+</div>
 
-	@foreach($pedidoCliente as $pc)
-		@if($pc->id_remision==$id)
-			@if($pc->finalizar=='1')
-			<div class="form-row">
-				<div class="form-group col-sm-12">
-					<button class="btn btn-warning" type="submit" disabled>Pedido Finalizado</button>
-				</div>
-			</div>
-			@else
-			<div class="form-row">
-				<div class="form-group col-sm-12">
-				
-					<button class="btn btn-warning" type="submit">Finalizar Pedido</button>
-				</div>
-			</div>
-			@endif
-		@endif
-	@endforeach
-	
-
-	{!!Form::close()!!}
-
-	<a href="{{URL::action('productoPedidoCliente@sendMail',0)}}">
-					<button href="" class="btn btn-info">Ticket</button></a>
+<div>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>	
 </div>
 @endsection
