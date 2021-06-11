@@ -88,7 +88,6 @@ class reportesPedidos extends Controller
 	 		$subempresa_r=$request->get('subempresa');
 	 		$mes_r=$request->get('mes');
 	 		$mes_final=$request->get('mes_final');
-	 		$year_r=$request->get('year');
 	 		$tipo_reporte=$request->get('tipo_reporte');
 
 	 		$nombre_empresa="";
@@ -100,7 +99,7 @@ class reportesPedidos extends Controller
 
 	 		 $nombre_empresa=$n_empresa[0]->nombre;	
 
-	 			if($empresa_r=="" || $mes_r=="" || $mes_final=="" || $year_r==""){
+	 			if($empresa_r=="" || $mes_r=="" || $mes_final==""){
 	 				return back()->with('errormsj','¡¡Los datos deben estar completos!!');
 	 			}else{
 	 				if($tipo_reporte==1){
@@ -113,12 +112,11 @@ class reportesPedidos extends Controller
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
 						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
-			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.fecha_entrega','>=',$mes_r)
+			 			->where('tpc.fecha_entrega','<=',$mes_final)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
-			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+			 			->orderBy('tpc.fecha_entrega', 'asc')
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
 			 			->get();
 	 				}else{
@@ -138,17 +136,23 @@ class reportesPedidos extends Controller
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
 						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
-			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.fecha_entrega','>=',$mes_r)
+			 			->where('tpc.fecha_entrega','<=',$mes_final)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
 			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
-			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+			 			->orderBy('tpc.fecha_entrega', 'asc')
 			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
 			 			->get();
 	 				}
-	 			
+	 				foreach ($pedidos_mensuales as $key => $value) {	
+	 				$pedidos_mensuales[$key]->fecha=self::metodoMeses($pedidos_mensuales[$key]->fecha);
+		 			}
+		 			$mes_letra=self::metodoMeses($mes_r);
+		 			$mes_final_letra= self::metodoMeses($mes_final);
+		 				
+		 			
+	 			return view("almacen.reportes.pedidos.graficam",["modulos"=>$modulos,"pedidos"=>$pedidos_mensuales,"mes_inicial"=>$mes_r,"mes_final"=>$mes_final,"mes_inicial_letra"=>$mes_letra,"mes_final_letra"=>$mes_final_letra,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa]);
 	 				}else{
 	 					if($subempresa_r==""){
 
@@ -161,9 +165,8 @@ class reportesPedidos extends Controller
 						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
 						 'sc.nombre as producto')
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
-			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.fecha_entrega','>=',$mes_r)
+			 			->where('tpc.fecha_entrega','<=',$mes_final)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
 			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
@@ -187,52 +190,24 @@ class reportesPedidos extends Controller
 						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
 						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
 						 'sc.nombre as producto')
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
-			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
+			 			->where('tpc.fecha_entrega','>=',$mes_r)
+			 			->where('tpc.fecha_entrega','<=',$mes_final)
 			 			->where('tpc.estado','=',3)
 			 			->where('tpc.empresa_pedido','=',$empresa_r)
 			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
 			 			->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
 			 			->groupBy('dpc.producto_id_producto')
 			 			->get();
-/*
-	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
-			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
-			 			->select('tpc.id_remision',
-						 DB::raw('sum(tpc.noproductos) as noproductos'), 
-						 DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
-						 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
-						 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'>=',$mes_r)
-			 			->where(DB::raw('MONTH(tpc.fecha_entrega)'),'<=',$mes_final)
-			 			->where(DB::raw('YEAR(tpc.fecha_entrega)'),'=',$year_r)
-			 			->where('tpc.estado','=',3)
-			 			->where('tpc.empresa_pedido','=',$empresa_r)
-			 			->where('tpc.subempresa_pedido','=',$subempresa_r)
-			 			->orderBy('tpc.id_remision', 'asc')
-			 			->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
-			 			->get();
-			 			*/
+	
 	 				}
 	 			
 	 				$tipo_reporte_detallado="d";
 		 		
-		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"mes_r"=>$mes_r,"tipo_reporte_detallado"=>$tipo_reporte_detallado]);
+		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"fecha_inicial"=>$mes_r,"fecha_final"=>$mes_final,"tipo_reporte_detallado"=>$tipo_reporte_detallado]);
 
 
 	 				}
 	 				
-
-
-	 			foreach ($pedidos_mensuales as $key => $value) {	
-	 				$pedidos_mensuales[$key]->fecha=self::metodoMeses($pedidos_mensuales[$key]->fecha);
-		 			}
-		 			$mes_letra=self::metodoMeses($mes_r);
-		 			$mes_final_letra= self::metodoMeses($mes_final);
-		 				
-		 			
-	 			return view("almacen.reportes.pedidos.graficam",["modulos"=>$modulos,"pedidos"=>$pedidos_mensuales,"mes_inicial"=>$mes_r,"mes_final"=>$mes_final, "year"=>$year_r,"mes_inicial_letra"=>$mes_letra,"mes_final_letra"=>$mes_final_letra,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa]);
 	 	}
 	 }
 

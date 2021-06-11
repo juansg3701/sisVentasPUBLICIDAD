@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" align="center">
-              <h2 class="pb-2 display-5">REPORTE DE PEDIDOS MENSUALES</h2>
+              <h2 class="pb-2 display-5">REPORTE DE INVENTARIO POR MESES</h2>
             </div><br>
             <div class="row" align="center">  
                 <div class="col-sm-12" align="center">

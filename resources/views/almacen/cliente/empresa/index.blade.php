@@ -106,7 +106,7 @@
 									<div class="form-group col-sm-12">
 										
 										<button type="submit" href="" class="btn btn-info">Registrar empresa</button>
-										<a href="{{url('almacen/cliente/empresaCategoria')}}" class="btn btn-warning">M&oacutedulo subempresa</a>
+										<a href="{{url('almacen/cliente/empresaCategoria')}}" class="btn btn-warning">M&oacute;dulo aliados</a>
 										<a href="{{url('/')}}" class="btn btn-danger">Regresar</a>
 									
 									</div>

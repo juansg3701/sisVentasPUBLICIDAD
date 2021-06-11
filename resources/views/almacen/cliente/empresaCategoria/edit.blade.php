@@ -25,7 +25,7 @@
 
     <div class="row" align="center">
 		<div class="col-sm-12" align="center">
-			<h3 class="pb-2 display-5">EDITAR SUBEMPRESA</h3>
+			<h3 class="pb-2 display-5">EDITAR ALIADO</h3>
 			Editar datos de: {{$empresa->nombre}}
 		</div>
 	</div><br>

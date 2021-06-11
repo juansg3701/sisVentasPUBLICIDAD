@@ -31,7 +31,7 @@
     <div class="col-md-12">
 		<div class="card">
 			<div class="card-header" align="center">
-				<h3 class="pb-2 display-5">REGISTRAR SUBEMPRESA</h3>
+				<h3 class="pb-2 display-5">REGISTRAR ALIADO</h3>
 			</div><br>
 			<div class="row" align="center">	
 				<div class="col-sm-3" align="center"></div>
@@ -118,7 +118,7 @@
 									<div class="form-group col-sm-12">
 										
 										
-										<button type="submit" href="" class="btn btn-info">Registrar subempresa</button>
+										<button type="submit" href="" class="btn btn-info">Registrar aliado</button>
 										<a href="{{url('almacen/cliente/empresa')}}" class="btn btn-danger">Regresar</a>
 									
 									</div>
@@ -148,7 +148,7 @@
 <div class="container-fluid"><br>
 	<div class="col-sm-12" align="center">
 		<div class="col-sm-6" align="center">
-			<h1 class="h3 mb-2 text-gray-800">SUBEMPRESAS REGISTRADAS</h1>
+			<h1 class="h3 mb-2 text-gray-800">ALIADOS REGISTRADOS</h1>
 		</div>
 	</div><br>
 </div>
@@ -165,7 +165,7 @@
     	<div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
-					<th>NOMBRE SUBEMPRESA</th>
+					<th>NOMBRE ALIADO</th>
 					<th>DESCRIPCIÓN</th>
 					<th>EMPRESA</th>
 					<th colspan="3">OPCIONES</th>

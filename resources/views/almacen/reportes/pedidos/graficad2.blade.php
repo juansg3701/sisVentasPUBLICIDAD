@@ -22,7 +22,7 @@
 
         
         var options2 = {  
-          title: 'Gráfica detallado de inventario por cantidad'
+          title: 'Gráfica detallado de pedidos por cantidad'
         };
 
 
@@ -41,7 +41,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" align="center">
-              <h2 class="pb-2 display-5">REPORTE DE INVENTARIO</h2>
+              <h2 class="pb-2 display-5">REPORTE DETALLADO DE PEDIDOS</h2>
             </div><br>
             <div class="row" align="center">  
                 <div class="col-sm-12" align="center">
@@ -56,23 +56,10 @@
                             <div class="col-sm-12">
 
                               <div align="center">
-                                @if($tipo_reporte_detallado=="d")
                                  <br>
-                                 <b> Inventario el d&iacute;a:</b><br>
-                                  {{$mes_r}}<br>
-                                @endif
-
-                                @if($tipo_reporte_detallado=="s")
-                                <br>
-                                 <b> Inventario de la semana No:</b><br>
-                                  {{$mes_r}}<br>
-                                @endif
-
-                                @if($tipo_reporte_detallado=="m")
-                                <br>
-                                 <b> Inventario del mes:</b><br>
-                                  {{$mes_r}}<br>
-                                @endif
+                                 <b> Pedidos entre el:</b><br>
+                                  {{$fecha_inicial}} y<br>
+                                  {{$fecha_final}}
                               </div>
 
                              <br>

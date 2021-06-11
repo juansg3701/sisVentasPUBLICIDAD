@@ -25,7 +25,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header" align="center">
-				<h3 class="pb-2 display-5"> Reporte de pedidos mensual</h3>
+				<h3 class="pb-2 display-5"> Reporte de pedidos</h3>
 			</div><br>
 			<div class="row" align="center">	
 				<div class="col-sm-3" align="center"></div>
@@ -107,72 +107,29 @@
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Seleccione el mes inicial:</div>
+										<div>Seleccione la fecha inicial:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<select class="form-control" name="mes">
-											
-										<option value="1">Enero</option>
-										<option value="2">Febrero</option>
-										<option value="3">Marzo</option>
-										<option value="4">Abril</option>
-										<option value="5">Mayo</option>
-										<option value="6">Junio</option>
-										<option value="7">Julio</option>
-										<option value="8">Agosto</option>
-										<option value="9">Septiembre</option>
-										<option value="10">Octubre</option>
-										<option value="11">Noviembre</option>
-										<option value="12">Diciembre</option>
-											
-										</select>
+										<input type="date" name="mes" class="form-control">
 									</div>
 								</div>
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Seleccione el mes final:</div>
+										<div>Seleccione la fecha final:</div>
 									</div>
 									<div class="form-group col-sm-8">
-										<select class="form-control" name="mes_final">
-											
-										<option value="1">Enero</option>
-										<option value="2">Febrero</option>
-										<option value="3">Marzo</option>
-										<option value="4">Abril</option>
-										<option value="5">Mayo</option>
-										<option value="6">Junio</option>
-										<option value="7">Julio</option>
-										<option value="8">Agosto</option>
-										<option value="9">Septiembre</option>
-										<option value="10">Octubre</option>
-										<option value="11">Noviembre</option>
-										<option value="12">Diciembre</option>
-											
-										</select>
+										<input type="date" name="mes_final" class="form-control">
 									</div>
 								</div>
 				
-
-								<div class="form-row">
-									<div class="form-group col-sm-4">
-										<div>Seleccione el a&ntilde;o:</div>
-									</div>
-									<div class="form-group col-sm-8">
-										<select class="form-control" name="year">
-											 @for($cont=2019; $cont<2051; $cont++)
-											 <option value="{{$cont}}">{{$cont}}</option>
-											 @endfor
-										</select>
-									</div>
-								</div>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<div>Tipo de reporte:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<select class="form-control" name="tipo_reporte">
-											 <option value="1">General</option>
+											 <option value="1">General por meses</option>
 											 <option value="2">Detallado</option>
 											
 										</select>

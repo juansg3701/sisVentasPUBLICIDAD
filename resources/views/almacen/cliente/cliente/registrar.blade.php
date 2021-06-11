@@ -69,6 +69,7 @@
 										<a href="usuario/iniciar/sesionIniciada"><button class="btn btn-info" type="submit">Buscar</button></a>
 									</div>
 								</div>
+
 								{!!Form::close()!!}	
 
 								@if($empresa_id_empresa!="")
@@ -239,8 +240,17 @@
 			</div>
 
 		</div>
-	</div>		                     
-
+	</div>
+	@if($empresa_id_empresa=="")		                     
+<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		@endif
 </body>
 
 @stop
