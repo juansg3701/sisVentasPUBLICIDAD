@@ -3,9 +3,11 @@
 <head>
 	<title>Pedidos</title>
     <!--<link rel="stylesheet" href="{{ asset('css/Almacen/usuario/styles-iniciar.css') }}" />-->
-
 </head>
+
+
 <body>
+
 	<!--Control de errores en los campos del formulario-->	
 	<div class="container col-sm-12" align="center">
 		<div class="row" align="center">
@@ -41,6 +43,7 @@
         	</div>
 		</div>
 	</div>
+
 </body>
 @stop
 

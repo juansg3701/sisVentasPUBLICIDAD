@@ -110,15 +110,12 @@ class reportesPedidos2 extends Controller
 	} 
 	public function nombre_subempresa($id){
 		$nombre="";
-
 		if($id!=""){
 			$subempresa= EmpresaCategoria::findOrFail($id);
 			$nombre=$subempresa->nombre;
 		}else{
 			$nombre="No tiene";
 		}
-		
-
 		return $nombre;
 	}
 
@@ -126,7 +123,106 @@ class reportesPedidos2 extends Controller
 	 	$reporte = RPedidos2::findOrFail($id);
 	 	$reporte->delete();
 	 	return back()->with('msj','Reporte eliminado');
-	 }
+	}
+
+
+	public function downloadPDFReport($id){
+		$cadena=$id;
+		$separador = ".";
+		$separada = explode($separador, $cadena);
+
+		$inicio=0;
+		$fin=0;
+		$tipo_reporte=0;
+		$valor=0;
+
+
+		if(count($separada)==4){
+
+			$inicio=$separada[0];
+			$fin=$separada[1];
+			$tipo_reporte=$separada[2];
+			$valor=$separada[3];
+		}
+		
+		//dd($inicio.' '.$fin.' '.$tipo_reporte);
+
+		$pedidos=DB::table('t_p_cliente as tpc')
+	 	->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+	 	->join('empresa as em','tpc.empresa_pedido','=','em.id_empresa')
+	 	->select('tpc.id_remision',DB::raw('sum(tpc.noproductos) as noproductos'),DB::raw('count(tpc.id_remision) as numero_pedidos'), 'tpc.fecha_entrega as fecha','em.nombre as empresa','tpc.subempresa_pedido as subempresa')
+	 	->where('tpc.fecha_solicitud','>=',$inicio)
+	 	->where('tpc.fecha_solicitud','<=',$fin)
+	 	->where('tpc.estado','=',$tipo_reporte)
+		->orderBy('tpc.id_remision', 'asc')
+		->groupBy('tpc.empresa_pedido')
+	 	->get();
+
+		$nombre_tipo_reporte="";
+		foreach ($pedidos as $key => $value) {
+			 $pedidos[$key]->subempresa=self::nombre_subempresa($pedidos[$key]->subempresa);	 
+		}
+		switch ($tipo_reporte) {
+			case '3':
+				$nombre_tipo_reporte="Despachados";
+			break;
+			case '2':
+				$nombre_tipo_reporte="Pendientes";
+			break;	
+		}
+
+		return view('almacen.reportes.pedidos2.reportePDF.pdf',["inicio"=>$inicio, "fin"=>$fin, "tipo_reporte"=>$tipo_reporte, "pedidos"=>$pedidos,"nombre_tipo_reporte"=>$nombre_tipo_reporte]);
+
+	}
+
+
+	public function downloadExcelReport($id){
+		$cadena=$id;
+		$separador = ".";
+		$separada = explode($separador, $cadena);
+
+		$inicio=0;
+		$fin=0;
+		$tipo_reporte=0;
+		$valor=0;
+
+
+		if(count($separada)==4){
+
+			$inicio=$separada[0];
+			$fin=$separada[1];
+			$tipo_reporte=$separada[2];
+			$valor=$separada[3];
+		}
+		
+		//dd($inicio.' '.$fin.' '.$tipo_reporte);
+
+		$pedidos=DB::table('t_p_cliente as tpc')
+	 	->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+	 	->join('empresa as em','tpc.empresa_pedido','=','em.id_empresa')
+	 	->select('tpc.id_remision',DB::raw('sum(tpc.noproductos) as noproductos'),DB::raw('count(tpc.id_remision) as numero_pedidos'), 'tpc.fecha_entrega as fecha','em.nombre as empresa','tpc.subempresa_pedido as subempresa')
+	 	->where('tpc.fecha_solicitud','>=',$inicio)
+	 	->where('tpc.fecha_solicitud','<=',$fin)
+	 	->where('tpc.estado','=',$tipo_reporte)
+		->orderBy('tpc.id_remision', 'asc')
+		->groupBy('tpc.empresa_pedido')
+	 	->get();
+
+		$nombre_tipo_reporte="";
+		foreach ($pedidos as $key => $value) {
+			 $pedidos[$key]->subempresa=self::nombre_subempresa($pedidos[$key]->subempresa);	 
+		}
+		switch ($tipo_reporte) {
+			case '3':
+				$nombre_tipo_reporte="Despachados";
+			break;
+			case '2':
+				$nombre_tipo_reporte="Pendientes";
+			break;	
+		}
+
+		return view('almacen.reportes.pedidos2.reporteExcel.excel',["inicio"=>$inicio, "fin"=>$fin, "tipo_reporte"=>$tipo_reporte, "pedidos"=>$pedidos,"nombre_tipo_reporte"=>$nombre_tipo_reporte]);
+	}
 
 	 
 }
