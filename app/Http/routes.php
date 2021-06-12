@@ -172,3 +172,6 @@ Route::get('changeStateUnoa/{id}', 'facturacionListaPedidosUnoa@changeState');
 
 Route::get('downloadExcelReport2/{id}', 'reportesPedidos2@downloadExcelReport');
 Route::get('downloadPDFReport2/{id}', 'reportesPedidos2@downloadPDFReport');
+
+Route::get('downloadExcelReport1/{id}', 'reportesPedidos@downloadExcelReport');
+Route::get('downloadPDFReport1/{id}', 'reportesPedidos@downloadPDFReport');

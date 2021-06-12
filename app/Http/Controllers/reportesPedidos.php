@@ -10,10 +10,9 @@ use DB;
 
 class reportesPedidos extends Controller
 {
-	  public function __construct(){
+	    public function __construct(){
 			$this->middleware('auth');	
-
-			 	} 
+		} 
 	 	public function index(Request $request){
 	 		if ($request) {
 	 			$query=trim($request->get('searchText'));
@@ -104,7 +103,7 @@ class reportesPedidos extends Controller
 	 			}else{
 	 				if($tipo_reporte==1){
 	 					if($subempresa_r==""){
-
+						//GENERAL MESES
 	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
 			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
 			 			->select('tpc.id_remision',
@@ -128,7 +127,7 @@ class reportesPedidos extends Controller
 				 		->orderBy('id_empresa_categoria', 'desc')->get();
 
 				 		$nombre_subempresa=$n_subempresa[0]->nombre;
-
+						//GENERAL MESES2
 	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
 			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
 			 			->select('tpc.id_remision',
@@ -152,10 +151,10 @@ class reportesPedidos extends Controller
 		 			$mes_final_letra= self::metodoMeses($mes_final);
 		 				
 		 			
-	 			return view("almacen.reportes.pedidos.graficam",["modulos"=>$modulos,"pedidos"=>$pedidos_mensuales,"mes_inicial"=>$mes_r,"mes_final"=>$mes_final,"mes_inicial_letra"=>$mes_letra,"mes_final_letra"=>$mes_final_letra,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa]);
+	 			return view("almacen.reportes.pedidos.graficam",["modulos"=>$modulos,"pedidos"=>$pedidos_mensuales,"mes_inicial"=>$mes_r,"mes_final"=>$mes_final,"mes_inicial_letra"=>$mes_letra,"mes_final_letra"=>$mes_final_letra,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r]);
 	 				}else{
 	 					if($subempresa_r==""){
-
+						//DETALLADO MESES 1
 	 					$pedidos_mensuales=DB::table('t_p_cliente as tpc')
 			 			->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
 			 			->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
@@ -173,7 +172,7 @@ class reportesPedidos extends Controller
 			 			->groupBy('dpc.producto_id_producto')
 			 			->get();
 	 				}else{
-
+						//DETALLADO MESES 2
 	 					//dd($empresa_r.' '.$subempresa_r);
 	 					$n_subempresa=DB::table('empresa_categoria')
 				 		->where('id_empresa_categoria','=',$subempresa_r)
@@ -203,7 +202,7 @@ class reportesPedidos extends Controller
 	 			
 	 				$tipo_reporte_detallado="d";
 		 		
-		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"fecha_inicial"=>$mes_r,"fecha_final"=>$mes_final,"tipo_reporte_detallado"=>$tipo_reporte_detallado]);
+		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"fecha_inicial"=>$mes_r,"fecha_final"=>$mes_final,"tipo_reporte_detallado"=>$tipo_reporte_detallado, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r]);
 
 
 	 				}
@@ -268,9 +267,307 @@ class reportesPedidos extends Controller
 		 return $valor_mes;
 	 }
 
+
+
+	 public function downloadPDFReport($id){
+		$cadena=$id;
+		$separador = ".";
+		$separada = explode($separador, $cadena);
+
+		$mes_r=0;
+		$mes_final=0;
+		$empresa_r=0;
+		$subempresa_r=0;
+		$valor=0;
+
+		if(count($separada)==5){
+			$mes_r=$separada[0];
+			$mes_final=$separada[1];
+			$empresa_r=$separada[2];
+			$subempresa_r=$separada[3];
+			$valor=$separada[4];
+		}
+		
+		//dd($inicio.' '.$fin.' '.$tipo_reporte);
+
+
+		$nombre_empresa="";
+		$nombre_subempresa="";
+
+		$n_empresa=DB::table('empresa')
+		->where('id_empresa','=',$empresa_r)
+		->orderBy('id_empresa', 'desc')->get();	
+
+		$nombre_empresa=$n_empresa[0]->nombre;
+
+		if($valor==1){
+
+			//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+			if($subempresa_r==""){
+				//GENERAL MESES
+				$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				->select('tpc.id_remision',
+				DB::raw('sum(tpc.noproductos) as noproductos'), 
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
+				DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
+				->where('tpc.fecha_entrega','>=',$mes_r)
+				->where('tpc.fecha_entrega','<=',$mes_final)
+				->where('tpc.estado','=',3)
+				->where('tpc.empresa_pedido','=',$empresa_r)
+				->orderBy('tpc.fecha_entrega', 'asc')
+				->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
+				->get();
+			}else{
+
+				//GENERAL MESES2
+				$n_subempresa=DB::table('empresa_categoria')
+				->where('id_empresa_categoria','=',$subempresa_r)
+				->where('empresa_id_empresa','=',$empresa_r)
+				->orderBy('id_empresa_categoria', 'desc')->get();
+				$nombre_subempresa=$n_subempresa[0]->nombre;
+
+				$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				->select('tpc.id_remision',
+				DB::raw('sum(tpc.noproductos) as noproductos'), 
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
+				DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
+				->where('tpc.fecha_entrega','>=',$mes_r)
+				->where('tpc.fecha_entrega','<=',$mes_final)
+				->where('tpc.estado','=',3)
+				->where('tpc.empresa_pedido','=',$empresa_r)
+				->where('tpc.subempresa_pedido','=',$subempresa_r)
+				->orderBy('tpc.fecha_entrega', 'asc')
+				->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
+				->get();
+			}
+			foreach ($pedidos_mensuales as $key => $value) {	
+				$pedidos_mensuales[$key]->fecha=self::metodoMeses($pedidos_mensuales[$key]->fecha);
+			}
+			$mes_letra=self::metodoMeses($mes_r);
+			$mes_final_letra= self::metodoMeses($mes_final);
+
+			$tipo="GENERAL";
+
+			return view('almacen.reportes.pedidos.reportePDF.pdf',["tipo"=>$tipo, "mes_r"=>$mes_r, "mes_final"=>$mes_final, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r, "pedidos_mensuales"=>$pedidos_mensuales,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa,"valor"=>$valor]);
+		}
+
+		if($valor=='m'){
+			if($subempresa_r==""){
+				//DETALLADO MESES 1
+				 $pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				 ->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				 ->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
+				 ->join('stock_clientes as sc','dpc.producto_id_producto','=','sc.id_stock_clientes')
+				 ->select('tpc.id_remision',
+				 DB::raw('sum(dpc.cantidad) as noproductos'),
+				 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
+				 'sc.nombre as producto')
+				 ->where('tpc.fecha_entrega','>=',$mes_r)
+				 ->where('tpc.fecha_entrega','<=',$mes_final)
+				 ->where('tpc.estado','=',3)
+				 ->where('tpc.empresa_pedido','=',$empresa_r)
+				 ->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+				 ->groupBy('dpc.producto_id_producto')
+				 ->get();
+			 }else{
+				//DETALLADO MESES 2
+				 $n_subempresa=DB::table('empresa_categoria')
+				 ->where('id_empresa_categoria','=',$subempresa_r)
+				 ->where('empresa_id_empresa','=',$empresa_r)
+				 ->orderBy('id_empresa_categoria', 'desc')->get();
+				 $nombre_subempresa=$n_subempresa[0]->nombre;
+
+				 $pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				 ->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				 ->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
+				 ->join('stock_clientes as sc','dpc.producto_id_producto','=','sc.id_stock_clientes')
+				 ->select('tpc.id_remision',
+				 DB::raw('sum(dpc.cantidad) as noproductos'),
+				 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
+				 'sc.nombre as producto')
+				 ->where('tpc.fecha_entrega','>=',$mes_r)
+				 ->where('tpc.fecha_entrega','<=',$mes_final)
+				 ->where('tpc.estado','=',3)
+				 ->where('tpc.empresa_pedido','=',$empresa_r)
+				 ->where('tpc.subempresa_pedido','=',$subempresa_r)
+				 ->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+				 ->groupBy('dpc.producto_id_producto')
+				 ->get();
+
+			 }
+
+			 $tipo="DETALLADO";
+
+			 return view('almacen.reportes.pedidos.reportePDF.pdf',["tipo"=>$tipo,"mes_r"=>$mes_r, "mes_final"=>$mes_final, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r, "pedidos_mensuales"=>$pedidos_mensuales,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa,"valor"=>$valor]);
+
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function downloadExcelReport($id){
+		$cadena=$id;
+		$separador = ".";
+		$separada = explode($separador, $cadena);
+
+		$mes_r=0;
+		$mes_final=0;
+		$empresa_r=0;
+		$subempresa_r=0;
+		$valor=0;
+
+		if(count($separada)==5){
+			$mes_r=$separada[0];
+			$mes_final=$separada[1];
+			$empresa_r=$separada[2];
+			$subempresa_r=$separada[3];
+			$valor=$separada[4];
+		}
+		
+		//dd($inicio.' '.$fin.' '.$tipo_reporte);
+
+
+		$nombre_empresa="";
+		$nombre_subempresa="";
+
+		$n_empresa=DB::table('empresa')
+		->where('id_empresa','=',$empresa_r)
+		->orderBy('id_empresa', 'desc')->get();	
+
+		$nombre_empresa=$n_empresa[0]->nombre;
+
+		if($valor==1){
+
+			//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+			if($subempresa_r==""){
+				//GENERAL MESES
+				$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				->select('tpc.id_remision',
+				DB::raw('sum(tpc.noproductos) as noproductos'), 
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
+				DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
+				->where('tpc.fecha_entrega','>=',$mes_r)
+				->where('tpc.fecha_entrega','<=',$mes_final)
+				->where('tpc.estado','=',3)
+				->where('tpc.empresa_pedido','=',$empresa_r)
+				->orderBy('tpc.fecha_entrega', 'asc')
+				->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
+				->get();
+			}else{
+
+				//GENERAL MESES2
+				$n_subempresa=DB::table('empresa_categoria')
+				->where('id_empresa_categoria','=',$subempresa_r)
+				->where('empresa_id_empresa','=',$empresa_r)
+				->orderBy('id_empresa_categoria', 'desc')->get();
+				$nombre_subempresa=$n_subempresa[0]->nombre;
+
+				$pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				->select('tpc.id_remision',
+				DB::raw('sum(tpc.noproductos) as noproductos'), 
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha'), 
+				DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'))
+				->where('tpc.fecha_entrega','>=',$mes_r)
+				->where('tpc.fecha_entrega','<=',$mes_final)
+				->where('tpc.estado','=',3)
+				->where('tpc.empresa_pedido','=',$empresa_r)
+				->where('tpc.subempresa_pedido','=',$subempresa_r)
+				->orderBy('tpc.fecha_entrega', 'asc')
+				->groupBy(DB::raw('MONTH(tpc.fecha_entrega)'))
+				->get();
+			}
+			foreach ($pedidos_mensuales as $key => $value) {	
+				$pedidos_mensuales[$key]->fecha=self::metodoMeses($pedidos_mensuales[$key]->fecha);
+			}
+			$mes_letra=self::metodoMeses($mes_r);
+			$mes_final_letra= self::metodoMeses($mes_final);
+
+			$tipo="GENERAL";
+
+			return view('almacen.reportes.pedidos.reporteExcel.excel',["tipo"=>$tipo, "mes_r"=>$mes_r, "mes_final"=>$mes_final, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r, "pedidos_mensuales"=>$pedidos_mensuales,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa,"valor"=>$valor]);
+		}
+
+		if($valor=='m'){
+			if($subempresa_r==""){
+				//DETALLADO MESES 1
+				 $pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				 ->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				 ->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
+				 ->join('stock_clientes as sc','dpc.producto_id_producto','=','sc.id_stock_clientes')
+				 ->select('tpc.id_remision',
+				 DB::raw('sum(dpc.cantidad) as noproductos'),
+				 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
+				 'sc.nombre as producto')
+				 ->where('tpc.fecha_entrega','>=',$mes_r)
+				 ->where('tpc.fecha_entrega','<=',$mes_final)
+				 ->where('tpc.estado','=',3)
+				 ->where('tpc.empresa_pedido','=',$empresa_r)
+				 ->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+				 ->groupBy('dpc.producto_id_producto')
+				 ->get();
+			 }else{
+				//DETALLADO MESES 2
+				 $n_subempresa=DB::table('empresa_categoria')
+				 ->where('id_empresa_categoria','=',$subempresa_r)
+				 ->where('empresa_id_empresa','=',$empresa_r)
+				 ->orderBy('id_empresa_categoria', 'desc')->get();
+				 $nombre_subempresa=$n_subempresa[0]->nombre;
+
+				 $pedidos_mensuales=DB::table('t_p_cliente as tpc')
+				 ->join('sede as sed','tpc.sede_id_sede','=','sed.id_sede')
+				 ->join('d_p_cliente as dpc','tpc.id_remision','=','dpc.t_p_cliente_id_remision')
+				 ->join('stock_clientes as sc','dpc.producto_id_producto','=','sc.id_stock_clientes')
+				 ->select('tpc.id_remision',
+				 DB::raw('sum(dpc.cantidad) as noproductos'),
+				 DB::raw('YEAR(tpc.fecha_entrega) as fecha_year'),
+				 DB::raw('MONTH(tpc.fecha_entrega) as fecha_mes'),
+				 'sc.nombre as producto')
+				 ->where('tpc.fecha_entrega','>=',$mes_r)
+				 ->where('tpc.fecha_entrega','<=',$mes_final)
+				 ->where('tpc.estado','=',3)
+				 ->where('tpc.empresa_pedido','=',$empresa_r)
+				 ->where('tpc.subempresa_pedido','=',$subempresa_r)
+				 ->orderBy(DB::raw('MONTH(tpc.fecha_entrega)'), 'asc')
+				 ->groupBy('dpc.producto_id_producto')
+				 ->get();
+
+			 }
+
+			 $tipo="DETALLADO";
+
+			 return view('almacen.reportes.pedidos.reporteExcel.excel',["tipo"=>$tipo,"mes_r"=>$mes_r, "mes_final"=>$mes_final, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r, "pedidos_mensuales"=>$pedidos_mensuales,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa,"valor"=>$valor]);
+
+		}
+
+	}
 	 
 }
-
-
-	 
-

@@ -69,6 +69,15 @@
             <h3 class="pb-2 display-5">DETALLE DE REPORTE</h3>
           </div>
 
+          <?php
+                $valores=$mes_inicial.'.'.$mes_final.'.'.$empresa_r.'.'.$subempresa_r.'.'.'1';
+          ?>
+         
+          <div align="center">
+              <a href="{{URL::action('reportesPedidos@downloadExcelReport',$valores)}}"><button class="btn btn-outline-success btn-sm">Descargar Excel</button></a>
+              <a href="{{URL::action('reportesPedidos@downloadPDFReport',$valores)}}"><button class="btn btn-outline-danger btn-sm">Descargar PDF</button></a>
+          </div>
+
           <div class="card-body">
     
             <table id="bootstrap-data-table" class="table table-striped table-bordered">

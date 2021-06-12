@@ -76,7 +76,7 @@
           <div align="center">
               <a href="{{URL::action('reportesPedidos2@downloadExcelReport',$valores)}}"><button class="btn btn-outline-success btn-sm">Descargar Excel</button></a>
               <a href="{{URL::action('reportesPedidos2@downloadPDFReport',$valores)}}"><button class="btn btn-outline-danger btn-sm">Descargar PDF</button></a>
-            </div>
+          </div>
 
           <div class="card-body">
     
