@@ -56,6 +56,11 @@
                             <div class="col-sm-12">
 
                               <div align="center">
+                                     <br>
+                            <b> Pedidos de:</b>
+                            <br>
+                            <b>Empresa:</b> {{$nombre_empresa}}<br>
+                            <b>Aliado:</b> {{$nombre_subempresa}}     <br>
                                  <br>
                                  <b> Pedidos entre el:</b><br>
                                   {{$fecha_inicial}} y<br>

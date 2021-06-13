@@ -57,6 +57,12 @@
 
                               <div align="center">
                                  <br>
+                            <b> Pedidos de:</b>
+                            <br>
+                            <b>Empresa:</b> {{$nombre_empresa}}<br>
+                       
+                            <b>Aliado:</b> {{$nombre_subempresa}}     <br>
+                                 <br>
                                  <b> Inventario entre el:</b><br>
                                   {{$fecha_inicial}} y<br>
                                   {{$fecha_final}}
@@ -97,9 +103,9 @@
             <h3 class="pb-2 display-5">DETALLE DE REPORTE</h3>
           </div>
 
+          @include('almacen.reportes.inventarioclientes.search')
+
           <div class="card-body">
-
-
 
 
             <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -108,11 +114,10 @@
               <th>CANTIDAD</th>
             
             </thead>
-            @foreach($pedidos_mensuales as $ps)
+            @foreach($pedidos_mensuales_tabla as $ps)
             <tr>
               <td>{{ $ps->producto}}</td>
               <td>{{ $ps->noproductos}}</td>
-
             </tr>   
             @endforeach
           </table>

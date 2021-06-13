@@ -202,7 +202,7 @@ class reportesPedidos extends Controller
 	 			
 	 				$tipo_reporte_detallado="d";
 		 		
-		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"fecha_inicial"=>$mes_r,"fecha_final"=>$mes_final,"tipo_reporte_detallado"=>$tipo_reporte_detallado, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r]);
+		 			return view("almacen.reportes.pedidos.graficad2",["modulos"=>$modulos,"pedidos_mensuales"=>$pedidos_mensuales,"fecha_inicial"=>$mes_r,"fecha_final"=>$mes_final,"tipo_reporte_detallado"=>$tipo_reporte_detallado, "empresa_r"=>$empresa_r, "subempresa_r"=>$subempresa_r,"nombre_empresa"=>$nombre_empresa,"nombre_subempresa"=>$nombre_subempresa]);
 
 
 	 				}
