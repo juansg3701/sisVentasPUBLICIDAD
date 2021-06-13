@@ -57,14 +57,14 @@
 
                               <div align="center">
                                  <br>
-                                 <b> Pedidos entre el:</b><br>
+                                 <b> Inventario entre el:</b><br>
                                   {{$fecha_inicial}} y<br>
                                   {{$fecha_final}}
                               </div>
 
                              <br>
                             <div align="center">
-                              <a href="{{url('almacen/reportes/inventario')}}" class="btn btn-danger">Volver</a>
+                              <a href="{{url('almacen/reportes/inventarioclientes')}}" class="btn btn-danger">Volver</a>
                             </div>
                                
                             </div>

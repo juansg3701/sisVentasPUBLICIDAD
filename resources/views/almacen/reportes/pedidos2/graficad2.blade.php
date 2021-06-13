@@ -36,7 +36,7 @@
                               </div>
                              <br>
                             <div align="center">
-                              <a href="{{url('almacen/reportes/pedido')}}" class="btn btn-danger">Volver</a>
+                              <a href="{{url('almacen/reportes/pedidos2')}}" class="btn btn-danger">Volver</a>
                             </div>
                                
                             </div>

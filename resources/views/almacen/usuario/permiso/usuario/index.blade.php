@@ -92,8 +92,7 @@
 																$chek6="";
 																$chek7="";
 																$chek8="";
-																$chek9="";
-																$chek10="";?>
+																$chek9="";?>
 
 														@foreach($ModulosGenerales as $mg)
 														
@@ -131,9 +130,6 @@
 														<?php $chek9="checked";	?>
 														@endif
 
-														@if($mg->id_modulo==10)
-														<?php $chek10="checked";	?>
-														@endif
 														@endforeach
 
 											    		<div class="checkbox" >
@@ -142,7 +138,6 @@
 
 														<label><input type="checkbox" id="cbox9" value="first_checkbox" disabled="true" <?php echo $chek9?>> Clientes</label><br>
 
-														<label><input type="checkbox" id="cbox10" value="first_checkbox" disabled="true" <?php echo $chek10?>> Inventario clientes</label><br>
 
 														<label><input type="checkbox" id="cbox2" value="first_checkbox" disabled="true" <?php echo $chek3?>> Proveedores</label><br>
 													

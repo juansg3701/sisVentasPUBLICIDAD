@@ -100,16 +100,6 @@
               @endforeach
 
               @foreach($modulos as $m)
-                @if($m->id_modulo==10)
-                    <li class="nav-item">
-                    <a class="nav-link" href="{{URL::action('StockClientesRegistrarController@create',0)}}">
-                      <i class="fas fa-fw fa-chart-area"></i>
-                      <span>Inventario clientes</span></a>
-                  </li>
-                 @endif
-              @endforeach
-
-              @foreach($modulos as $m)
                 @if($m->id_modulo==3)
                   <li class="nav-item">
                     <a class="nav-link" href="{{url('almacen/proveedor')}}">

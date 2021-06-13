@@ -30,13 +30,19 @@
                             <br>
                             <b>Empresa:</b> {{$nombre_empresa}}<br>
                             <br>
-                            <b>Subempresa:</b> {{$nombre_subempresa}}<br>
+                            <b>Aliado:</b> {{$nombre_subempresa}}<br>
+                            
                             <br>
+                            <b>Entre el:</b>
+                            <br>
+                            {{$mes_inicial}}<br>
+        
+                            {{$mes_final}}<br>
 
                               </div>
                              <br>
                             <div align="center">
-                              <a href="{{url('almacen/reportes/pedido')}}" class="btn btn-danger">Volver</a>
+                              <a href="{{url('almacen/reportes/inventarioclientes')}}" class="btn btn-danger">Volver</a>
                             </div>
                                
                             </div>
@@ -81,7 +87,7 @@
               <td>{{ $ps->fecha}} - {{$ps->fecha_year}}</td>
               <td>{{ $ps->noproductos}}</td>
               <!--  
-              <td> 
+                <td> 
                 <?php
                 $valores2=$ps->fecha_mes.'.'.$ps->fecha_year.'.'.$ps->fecha.'.'.'m';
                 ?>

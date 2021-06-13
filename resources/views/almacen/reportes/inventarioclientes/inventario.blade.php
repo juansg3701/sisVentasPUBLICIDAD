@@ -88,7 +88,7 @@
 
     							<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Seleccione la subempresa:</div>
+										<div>Seleccione el aliado:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<select class="form-control" name="subempresa">
@@ -97,7 +97,7 @@
 												<option value="{{$s->id_empresa_categoria}}"> {{$s->nombre}}</option>
 												@endforeach
 											@else
-												<option value="">No tiene subempresas</option>
+												<option value="">No tiene aliados</option>
 											@endif
 										
 										

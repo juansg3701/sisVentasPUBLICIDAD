@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" align="center">
-              <h2 class="pb-2 display-5">REPORTE DE PEDIDOS MENSUALES</h2>
+              <h2 class="pb-2 display-5">REPORTE DE PRODUCTOS EN LOS PEDIDOS MENSUALMENTE</h2>
             </div><br>
             <div class="row" align="center">  
                 <div class="col-sm-12" align="center">
@@ -30,8 +30,13 @@
                             <br>
                             <b>Empresa:</b> {{$nombre_empresa}}<br>
                             <br>
-                            <b>Subempresa:</b> {{$nombre_subempresa}}<br>
+                            <b>Aliado:</b> {{$nombre_subempresa}}<br>
                             <br>
+                            <b>Entre el:</b>
+                            <br>
+                            {{$mes_inicial}}<br>
+              
+                            {{$mes_final}}<br>
 
                               </div>
                              <br>

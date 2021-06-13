@@ -64,7 +64,7 @@
 
                              <br>
                             <div align="center">
-                              <a href="{{url('almacen/reportes/inventario')}}" class="btn btn-danger">Volver</a>
+                              <a href="{{url('almacen/reportes/pedido')}}" class="btn btn-danger">Volver</a>
                             </div>
                                
                             </div>
