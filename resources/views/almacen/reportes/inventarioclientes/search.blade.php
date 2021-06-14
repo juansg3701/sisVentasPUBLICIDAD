@@ -1,5 +1,5 @@
 
-{!! Form::open(array('url'=>'almacen/reportes/inventarioclientes/2','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+{!! Form::open(array('url'=>'almacen/reportes/inventarioclientes2','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
 
 <div class="form-group">
 	<div class="row" align="center">	

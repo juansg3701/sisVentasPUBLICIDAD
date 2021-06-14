@@ -69,7 +69,7 @@ Route::resource('almacen/reportes/pedido', 'reportesPedidos');
 Route::resource('almacen/reportes/pedidos2', 'reportesPedidos2');
 Route::resource('almacen/reportes/inventarioclientes', 'reportesInventarioClientes');
 
-Route::resource('almacen/reportes/inventarioclientes/2', 'reportesInventarioClientes2');
+Route::resource('almacen/reportes/inventarioclientes2', 'reportesInventarioClientes2');
 
 /*
 Route::resource('almacen/reportes/inventario', 'reportesInventario');

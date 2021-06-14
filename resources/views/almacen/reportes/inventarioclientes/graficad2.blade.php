@@ -60,7 +60,6 @@
                             <b> Pedidos de:</b>
                             <br>
                             <b>Empresa:</b> {{$nombre_empresa}}<br>
-                       
                             <b>Aliado:</b> {{$nombre_subempresa}}     <br>
                                  <br>
                                  <b> Inventario entre el:</b><br>
