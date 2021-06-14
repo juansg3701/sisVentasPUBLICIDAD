@@ -164,12 +164,16 @@ class StockClientesRegistrarController extends Controller
 	 		->where('plu','=',$pluR)
 	 		->orderBy('id_stock_clientes', 'desc')->get();
 
+	 		$eanE=DB::table('stock_clientes')
+	 		->where('ean','=',$eanR)
+	 		->orderBy('id_stock_clientes', 'desc')->get();
+
 	 		$nombreE=DB::table('stock_clientes')
 	 		->where('nombre','=',$nombreR)
 	 		->orderBy('id_stock_clientes', 'desc')->get();
 
 			
-	 		if(count($pluE)==0){
+	 		if($pluR!="" && $eanR!="" $pluR!=" " && $eanR!=" " && count($pluE)==0 && count($eanE)==0){
 	 			if(count($nombreE)==0){
 	 			$ps = new StockClientes;
 		 		$ps->plu=$pluR;
@@ -211,7 +215,7 @@ class StockClientesRegistrarController extends Controller
 	 				return back()->with('errormsj','¡Nombre ya registrado!');
 	 			}
 	 		}else{
-	 				return back()->with('errormsj','¡PLU ya registrado!');
+	 				return back()->with('errormsj','¡Revise PLU o EAN!');
 	 		}
 
 			

@@ -80,11 +80,15 @@ class ProductoSedeController extends Controller
 	 		->where('plu','=',$pluR)
 	 		->orderBy('id_producto', 'desc')->get();
 
+	 		$eanE=DB::table('producto')
+	 		->where('ean','=',$eanR)
+	 		->orderBy('id_producto', 'desc')->get();
+
 	 		$nombreE=DB::table('producto')
 	 		->where('nombre','=',$nombreR)
 	 		->orderBy('id_producto', 'desc')->get();
 
-	 		if(count($pluE)==0){
+	 		if(count($pluE)==0 && count($eanE)==0 && $pluR!="" && $eanR!="" && $pluR!=" " && $eanR!=" "){
 	 			if(count($nombreE)==0){
 	 			$ps = new ProductoSede;
 		 		$ps->plu=$pluR;
@@ -115,7 +119,7 @@ class ProductoSedeController extends Controller
 	 				return back()->with('errormsj','¡Nombre ya registrado!');
 	 			}
 	 		}else{
-	 				return back()->with('errormsj','¡PLU ya registrado!');
+	 				return back()->with('errormsj','¡Revise el PLU o EAN!');
 	 		}
 	 	}
 
