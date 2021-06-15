@@ -204,15 +204,12 @@ class StockController extends Controller
 	 		->where('stock_id_stock','=',$id)
 	 		->orderBy('id_mstock', 'desc')->get();
 
-	 		$existeDPC=DB::table('d_p_cliente')
-	 		->where('producto_id_producto','=',$id)
-	 		->orderBy('id_dpcliente', 'desc')->get();
 
 	 		$existeDPP=DB::table('d_p_proveedor')
 	 		->where('producto_id_producto','=',$id)
 	 		->orderBy('id_dpproveedor', 'desc')->get();
 
-	 		if(count($existe)==0 && count($existeDPC)==0 && count($existeDPP)==0){
+	 		if(count($existe)==0 && count($existeDPP)==0){
 	 			$ps=Stock::findOrFail($id);
 	 			$ps->delete();
 

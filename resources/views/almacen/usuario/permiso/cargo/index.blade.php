@@ -146,8 +146,12 @@
 					<td>{{ $car->fecha}}</td>
 					<td>{{ $car->empleado}}</td>
 					<td>
-						
+						@if($car->id_cargo==1 || $car->id_cargo==3 || $car->id_cargo==4)
+						<a title="Editar" class="btn btn-success btn-circle disabled"><i class="fas fa-check"></i></a>
+						@else
 						<a href="{{URL::action('PermisoCargoController@edit',$car->id_cargo)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
+						@endif
+						
 					</td>
 					<td>
 						@if($car->id_cargo==1 || $car->id_cargo==3 || $car->id_cargo==4)
