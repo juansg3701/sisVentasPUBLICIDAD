@@ -103,9 +103,12 @@ class ProductoSedeController extends Controller
 				$ps->sede_id_sede=$request->get('sede_id_sede');
 				$ps->save();
 
+				$year_now=date('Y');
+				$month_now=date('m');
+				$day_now=date('d');
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
-					$nombre=$ps->id_producto."_".$ps->nombre."_".$file->getClientOriginalName();
+					$nombre=$ps->id_producto.$year_now.$month_now.$day_now;
 					$file->move(public_path().'/imagenes/articulos/', $nombre);
 					$ps->imagen=$nombre;
 				}
@@ -170,9 +173,12 @@ class ProductoSedeController extends Controller
 				$ps->fecha_registro=$request->get('fecha_registro');	
 				$ps->empleado_id_empleado=$request->get('empleado_id_empleado');
 				$ps->sede_id_sede=$request->get('sede_id_sede');
+				$year_now=date('Y');
+				$month_now=date('m');
+				$day_now=date('d');
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
-					$nombre=$ps->id_producto."_".$ps->nombre."_".$file->getClientOriginalName();
+					$nombre=$ps->id_producto.$year_now.$month_now.$day_now;
 					$file->move(public_path().'/imagenes/articulos/', $nombre);
 					$ps->imagen=$nombre;
 				}

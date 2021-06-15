@@ -150,7 +150,12 @@
 						<a href="{{URL::action('PermisoCargoController@edit',$car->id_cargo)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 					</td>
 					<td>
-						<a href="" data-target="#modal-delete-{{$car->id_cargo}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+						@if($car->id_cargo==1 || $car->id_cargo==3 || $car->id_cargo==4)
+						<a href=""title="Eliminar" class="btn btn-danger btn-circle disabled" data-toggle="modal"><i class="fas fa-trash"></i>
+						@else
+							<a href="" data-target="#modal-delete-{{$car->id_cargo}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+						@endif
+					
 					</td>	
 				</tr>
 				@include('almacen.usuario.permiso.cargo.modal')

@@ -216,11 +216,13 @@ class StockClienteController extends Controller
 			    else{
 				   $ps->producto_dados_baja=1;
 			    }
-			 
+			 	$year_now=date('Y');
+				$month_now=date('m');
+				$day_now=date('d');
 
 				if($request->hasFile('imagen')){
 					$file=$request->file('imagen');
-					$nombre=$ps->id_stock_clientes."_".$ps->nombre."_".$file->getClientOriginalName();
+					$nombre=$ps->id_stock_clientes.$year_now.$month_now.$day_now;
 					$file->move(public_path().'/imagenes/articulosClientes/', $nombre);
 					$ps->imagen=$nombre;
 				}

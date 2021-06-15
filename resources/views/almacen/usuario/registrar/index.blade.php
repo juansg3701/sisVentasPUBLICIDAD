@@ -152,7 +152,9 @@
 									<div class="form-group col-sm-8">
 										<select name="tipo_cargo_id_cargo" class="form-control">
 											@foreach($cargos as $car)
+											@if($car->id_cargo!=4 && $car->id_cargo!=3)
 											<option value="{{$car->id_cargo}}">{{$car->nombre}}</option>
+											@endif
 											@endforeach
 										</select>
 									</div>
