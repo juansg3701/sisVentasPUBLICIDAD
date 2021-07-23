@@ -71,7 +71,8 @@
 					<th>CLIENTE</th>
 					<th>EMPLEADO</th>
 					<!--<th>TOTAL</th>-->
-					<th>FECHA APROBACION</th>
+					<th>FECHA APROBACI&Oacute;N</th>
+					<th>OBSERVACI&Oacute;N</th>
 					<th>PRODUCTOS</th>
 					<th>ESTADO</th>
 					<!--<th colspan="2">OPCIONES</th>-->
@@ -87,7 +88,9 @@
 					<td>{{$pc->empleado}}</td>
 					<!--<td>{{$pc->pago_total}}</td>-->
 					<td>{{$pc->fecha_aprobacion}}</td>
+					<td>{{$pc->observacion}}</td>
 					<td align="center"><a href="{{URL::action('facturacionListaPedidosClientes@edit',$pc->id_remision)}}"><button class="btn btn-info">Ver</button></a></td>
+
 					@if($pc->estado==2)
 					<td>	
 						<a href="{{URL::action('facturacionListaPedidosClientes@changeState',$pc->id_remision)}}"><button class="btn btn-danger">Despachar</button></a>

@@ -80,7 +80,7 @@
     							<input type="hidden" name="empresa_id_empresa" value="{{$empresa_id_empresa}}">
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Subempresas:</div>
+										<div>Aliados:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<select name="empresa_categoria_id" class="form-control">
@@ -207,7 +207,7 @@
 											@if($sed->tipo_sede_id_tipo_sede==1)
 											<option value="{{$sed->id_sede}}">
 											@endif
-											{{$sed->nombre_sede}}</option>
+											{{$sed->nombre_sede}}-{{$sed->ciudad}}</option>
 											@endforeach
 										</select>
 									</div>

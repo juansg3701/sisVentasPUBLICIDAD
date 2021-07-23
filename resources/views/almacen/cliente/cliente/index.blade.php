@@ -30,7 +30,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header" align="center">
-							<h2 class="pb-2 display-5">MÓDULO DE CUENTAS</h2>
+							<h2 class="pb-2 display-5">M&Oacute;DULO DE CUENTAS</h2>
 						</div><br>
 						<div class="row" align="center">	
 							<div class="col-sm-3" align="center"></div>
@@ -77,7 +77,7 @@
 								<th colspan="2">NIT</th>
 								<th>Dirección</th>
 								<th>Telefono</th>
-								<th>OPCIONES</th>
+								<th colspan="2">OPCIONES</th>
 							</thead>
 
 							@foreach($usuarios as $usu)
@@ -107,6 +107,9 @@
 									<a href="{{URL::action('ClienteController@edit',$usu->user_id_user)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
 									
 								</td>	
+								<td>
+									<a href="" data-target="#modal-delete-{{$usu->id_cliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
+								</td>
 							</tr>
 							@endif
 
@@ -132,10 +135,14 @@
 								<td>{{ $usu->telefono}}</td>
 								<td>
 									<a href="{{URL::action('ClienteController@edit',$usu->user_id_user)}}" title="Editar" class="btn btn-success btn-circle"><i class="fas fa-check"></i></a>
-									
+								</td>
+								<td>
+									<a href="" data-target="#modal-delete-{{$usu->id_cliente}}" title="Eliminar" class="btn btn-danger btn-circle" data-toggle="modal"><i class="fas fa-trash"></i></a>
 								</td>	
 							</tr>
 							@endif
+							
+						@include('almacen.cliente.cliente.modal')
 							@endforeach
 						</table>
 						</div>

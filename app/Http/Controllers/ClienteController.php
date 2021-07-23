@@ -5,6 +5,7 @@ namespace sisVentas\Http\Controllers;
 use Illuminate\Http\Request;
 use sisVentas\Http\Requests;
 use sisVentas\Cliente;
+use sisVentas\User;
 use Illuminate\Support\Facades\Redirect;
 use sisVentas\Http\Requests\ClienteFormRequest;
 use DB;
@@ -198,16 +199,17 @@ class ClienteController extends Controller
 	 	public function destroy($id){
 	 	$id=$id;
 
-	 		$existe=DB::table('factura')
+	 		$existe=DB::table('t_p_cliente')
 	 		->where('cliente_id_cliente','=',$id)
-	 		->orderBy('id_factura', 'desc')->get();
+	 		->orderBy('id_remision', 'desc')->get();
 
-	 		$existeC=DB::table('cartera')
-	 		->where('cliente_id_cliente','=',$id)
-	 		->orderBy('id_cartera', 'desc')->get();
 
-	 		if(count($existe)==0 && count($existeC)==0){
+	 		if(count($existe)==0 ){
 	 			$cliente=Cliente::findOrFail($id);
+
+	 			$user=User::findOrFail($cliente->user_id_user);
+	 			$user->delete();
+
 		 		$cliente->delete();
 		 		return back()->with('msj','Cliente eliminado');
 	 		}else{

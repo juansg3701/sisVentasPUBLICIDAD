@@ -24,7 +24,7 @@
 	{!!Form::model($usuario,['method'=>'PATCH','route'=>['almacen.nomina.empleado.update',$usuario->id_cliente]])!!}
     {{Form::token()}}
 
-     <!--Formulario de edición-->	
+     <!--Formulario de edici贸n-->	
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header" align="center">
@@ -40,7 +40,7 @@
 				 	<div class="col-sm-6" align="center">
 						<div class="card" align="center">
 			                <div class="card-header" align="center">
-			                     <strong>Formulario de edición</strong>
+			                     <strong>Formulario de edici贸n</strong>
 			                </div>
 			                <div class="card-body card-block" align="center">
 			                
@@ -62,16 +62,20 @@
 										<select name="tipo_cargo_id_cargo" class="form-control">
 
 											@foreach($cargos as $car)
-												@if($car->id_cargo==$usuario->tipo_cargo_id_cargo)
-												<option value="{{$car->id_cargo}}">{{$car->nombre}}</option>
-												
+											    @if($car->id_cargo==1 || $car->id_cargo==3 || $car->id_cargo==4)
+    												@if($car->id_cargo==$usuario->tipo_cargo_id_cargo)
+    												<option value="{{$car->id_cargo}}">{{$car->nombre}}</option>
+    												
+    												@endif
 												@endif
 											@endforeach
 
 											@foreach($cargos as $car)
-												@if($car->id_cargo!=$usuario->tipo_cargo_id_cargo)
-												<option value="{{$car->id_cargo}}" >{{$car->nombre}}</option>
-												
+											    @if($car->id_cargo==1 || $car->id_cargo==3 || $car->id_cargo==4)
+    												@if($car->id_cargo!=$usuario->tipo_cargo_id_cargo)
+    												<option value="{{$car->id_cargo}}" >{{$car->nombre}}</option>
+    												
+    												@endif
 												@endif
 											@endforeach
 										</select>
@@ -86,7 +90,7 @@
 											@foreach($sedes as $sed)
 											@if($sed->tipo_sede_id_tipo_sede==1)
 											@if($sed->id_sede==$usuario->sede_id_sede)
-											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}</option>
+											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}-{{$sed->ciudad}}</option>
 											
 											@endif
 											@endif
@@ -97,7 +101,7 @@
 											@foreach($sedes as $sed)
 											@if($sed->tipo_sede_id_tipo_sede==1)
 											@if($sed->id_sede!=$usuario->sede_id_sede)
-											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}</option>
+											<option value="{{$sed->id_sede}}">{{$sed->nombre_sede}}-{{$sed->ciudad}}</option>
 											@endif
 											@endif
 											@endforeach
@@ -129,7 +133,7 @@
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Subempresas:</div>
+										<div>Aliado:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<select name="empresa_categoria_id" class="form-control">
@@ -161,7 +165,7 @@
 
 								<div class="form-row">
 									<div class="form-group col-sm-4">
-										<div>Dirección:</div>
+										<div>Direcci贸n:</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<input type="text" class="form-control" name="direccion" value="{{$usuario->direccion}}">
